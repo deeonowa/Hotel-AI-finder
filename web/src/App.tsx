@@ -180,7 +180,12 @@ export default function App() {
     <div className="app atlas-app">
       <header className="masthead">
         <a className="wordmark" href="#top" aria-label="Путёво, в начало">
-          <span>пут<span className="wordmark-yo">е</span>во</span>
+          <svg viewBox="0 0 28 28" aria-hidden="true">
+            <path d="M3 21C5 8 15 5 20 12c4 6-3 12-8 8-5-4 1-9 8-5 4 2 6 0 8-7" />
+            <circle cx="3" cy="21" r="2.2" />
+            <circle cx="28" cy="8" r="2.2" />
+          </svg>
+          <span>путёво</span>
         </a>
         <p>Поездка, собранная по ходу разговора</p>
         <button className="reset-link" onClick={() => void startNewTrip()} disabled={busy}>
