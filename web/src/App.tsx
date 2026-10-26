@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { ApiError, api } from "./api/client";
-import type { QuickReply, TurnRequest, TurnResponse } from "./api/types";
+import type { CartBlock, OrderBlock, QuickReply, TripState, TurnRequest, TurnResponse } from "./api/types";
 import { BlockView } from "./components/BlockView";
 import { TracePanel } from "./components/TracePanel";
 import { TripBoard } from "./components/TripBoard";
 
 type Msg = { role: "user"; text: string } | { role: "agent"; resp: TurnResponse };
 type SavedConversation = { sessionId: string; version: number; msgs: Msg[] };
+type ErrorNotice = { title: string; message: string; retry?: () => void };
 
 const STORAGE_KEY = "odin-zapros-conversation";
 
@@ -29,17 +30,41 @@ function loadSavedConversation(): SavedConversation | null {
   return null;
 }
 
+function errorNotice(error: unknown, fallback: string, retry?: () => void): ErrorNotice {
+  if (error instanceof ApiError) {
+    if (error.status === 404) return { title: "Поездка больше недоступна", message: "Сессия на сервере не найдена. Начните новую поездку.", retry };
+    if (error.status >= 500) return { title: "Сервис временно недоступен", message: "Сервер ответил с ошибкой. Попробуйте ещё раз через несколько секунд.", retry };
+    return { title: "Запрос не прошёл", message: error.message || fallback, retry };
+  }
+  if (error instanceof TypeError) return { title: "Не удаётся связаться с сервером", message: "Проверьте, что backend запущен, и повторите действие.", retry };
+  return { title: "Не удалось выполнить действие", message: error instanceof Error ? error.message : fallback, retry };
+}
+
 export default function App() {
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [version, setVersion] = useState(0);
   const [msgs, setMsgs] = useState<Msg[]>([]);
+  const [tripState, setTripState] = useState<TripState | null>(null);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<ErrorNotice | null>(null);
   const bottom = useRef<HTMLDivElement>(null);
   const initialized = useRef(false);
 
-  const last = [...msgs].reverse().find((m): m is Extract<Msg, { role: "agent" }> => m.role === "agent")?.resp;
+  const responses = msgs.filter((m): m is Extract<Msg, { role: "agent" }> => m.role === "agent").map((m) => m.resp);
+  const last: TurnResponse | undefined = responses.length ? responses[responses.length - 1] : undefined;
+  const blocks = responses.flatMap((response) => response.blocks);
+  const cart = [...blocks].reverse().find((block): block is CartBlock => block.type === "cart")?.cart;
+  const order = [...blocks].reverse().find((block): block is OrderBlock => block.type === "order")?.order;
+  const isContinuation = msgs.some((message) => message.role === "user");
+  const composerLabel = isContinuation ? "Продолжить маршрут" : "Куда хочется?";
+  const composerPlaceholder = isContinuation
+    ? "Измените условия поездки"
+    : "Опишите поездку";
+
+  function refreshTripState(id: string) {
+    void api.getSession(id).then(setTripState, () => undefined);
+  }
 
   useEffect(() => {
     if (initialized.current) return;
@@ -51,6 +76,7 @@ export default function App() {
         (state) => {
           setSessionId(saved.sessionId);
           setVersion(state.version);
+          setTripState(state);
           setMsgs(saved.msgs);
         },
         () => {
@@ -69,8 +95,9 @@ export default function App() {
       setSessionId(r.session_id);
       setVersion(r.version);
       setMsgs([{ role: "agent", resp: r }]);
+      refreshTripState(r.session_id);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Не удалось начать новую сессию");
+      setError(errorNotice(e, "Не удалось начать новую сессию", () => void createFreshSession()));
     }
   }
 
@@ -82,14 +109,16 @@ export default function App() {
     setSessionId(null);
     setVersion(0);
     setMsgs([]);
+    setTripState(null);
     setInput("");
     try {
       const r = await api.createSession();
       setSessionId(r.session_id);
       setVersion(r.version);
       setMsgs([{ role: "agent", resp: r }]);
+      refreshTripState(r.session_id);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Не удалось начать новую поездку");
+      setError(errorNotice(e, "Не удалось начать новую поездку", () => void startNewTrip()));
     } finally {
       setBusy(false);
     }
@@ -113,6 +142,7 @@ export default function App() {
       const r = await api.turn(sessionId, { ...req, expected_version: version });
       setVersion(r.version);
       setMsgs((m) => [...m, { role: "agent", resp: r }]);
+      refreshTripState(sessionId);
     } catch (e) {
       if (e instanceof ApiError && e.status === 409) {
         try {
@@ -121,16 +151,14 @@ export default function App() {
           const retried = await api.turn(sessionId, { ...req, expected_version: fresh.version });
           setVersion(retried.version);
           setMsgs((m) => [...m, { role: "agent", resp: retried }]);
+          refreshTripState(sessionId);
           setError(null);
         } catch (retryError) {
-          setError(
-            retryError instanceof Error
-              ? `План обновился, но действие не повторилось: ${retryError.message}`
-              : "План обновился, но действие не повторилось. Обновите страницу.",
-          );
+          const notice = errorNotice(retryError, "План обновился, но действие не повторилось.", () => void send(req));
+          setError({ ...notice, title: "План обновился, но действие не повторилось" });
         }
       } else {
-        setError(e instanceof Error ? e.message : "Не удалось выполнить действие");
+        setError(errorNotice(e, "Не удалось выполнить действие", () => void send(req)));
       }
     } finally {
       setBusy(false);
@@ -151,19 +179,24 @@ export default function App() {
   return (
     <div className="app atlas-app">
       <header className="masthead">
-        <a className="wordmark" href="#top" aria-label="О!дин запрос, в начало">О<span>!</span>дин запрос</a>
-        <p>Путешествие от мысли до ключа от номера</p>
+        <a className="wordmark" href="#top" aria-label="Путёво, в начало">
+          <svg viewBox="0 0 28 28" aria-hidden="true">
+            <path d="M3 21C5 8 15 5 20 12c4 6-3 12-8 8-5-4 1-9 8-5 4 2 6 0 8-7" />
+            <circle cx="3" cy="21" r="2.2" />
+            <circle cx="28" cy="8" r="2.2" />
+          </svg>
+          <span>путёво</span>
+        </a>
         <button className="reset-link" onClick={() => void startNewTrip()} disabled={busy}>
           Новая поездка
         </button>
       </header>
 
       <main className="atlas-workspace" id="top">
-        <TripBoard response={last} />
+        <TripBoard response={last} state={tripState} cart={cart} order={order} />
         <section className="conversation" aria-label="Диалог с агентом">
           <div className="conversation-head">
-            <p>ПЛАНИРОВАНИЕ</p>
-            <h1>Одна мысль —<br />и поездка складывается.</h1>
+            <h1>Одна мысль — и поездка складывается.</h1>
           </div>
           <div className="chat">
           {msgs.map((m, i) =>
@@ -178,7 +211,12 @@ export default function App() {
             ),
           )}
           {busy && <div className="agent-working"><i /> Ищу, сравниваю, проверяю маршрут</div>}
-          {error && <div className="error">{error}</div>}
+          {error && (
+            <div className="error" role="alert">
+              <div><strong>{error.title}</strong><p>{error.message}</p></div>
+              {error.retry && <button className="error-retry" onClick={error.retry} disabled={busy}>Повторить</button>}
+            </div>
+          )}
           <div ref={bottom} />
           </div>
 
@@ -196,9 +234,9 @@ export default function App() {
               </div>
             )}
             <form onSubmit={submit}>
-              <label htmlFor="trip-request">Куда хочется?</label>
+              <label htmlFor="trip-request">{composerLabel}</label>
               <input id="trip-request" value={input} onChange={(e) => setInput(e.target.value)}
-                placeholder="Например: к морю с ребёнком в ноябре, до 120 000 ₽" disabled={!sessionId} />
+                placeholder={composerPlaceholder} disabled={!sessionId} />
               <button type="submit" disabled={busy || !input.trim()}>Отправить</button>
             </form>
           </footer>

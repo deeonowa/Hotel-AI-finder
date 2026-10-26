@@ -67,9 +67,10 @@ function VariantCard({ v, recommended, onReply, disabled }: { v: Variant; recomm
           {risks.map((r, i) => (
             <li key={i} className={`sev-${r.severity}`}>
               {r.message}
-              {r.fix && (
+              {r.fix?.action?.type !== "add_extra" && r.fix && (
                 <button className="mini" onClick={() => onReply(r.fix!)} disabled={disabled}>{r.fix.label}</button>
               )}
+              {r.fix?.action?.type === "add_extra" && <span className="risk-note"> Доступно после добавления отеля в корзину.</span>}
             </li>
           ))}
         </ul>

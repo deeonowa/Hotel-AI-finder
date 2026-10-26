@@ -24,6 +24,13 @@ var/
 web/node_modules/
 web/dist/
 web/*.tsbuildinfo
+web/test-results/
+
+# локальные артефакты интерфейсных проверок и личные заметки
+.impeccable/
+.playwright-mcp/
+PRODUCT.md
+TODO.md
 
 # ide / os
 .idea/

@@ -19,7 +19,7 @@ def test_full_journey(app):
     c = _client(app)
     r = c.post("/api/v1/sessions").json()
     sid = r["session_id"]
-    assert r["suggestions"], "приветствие с примерами"
+    assert not r["suggestions"], "старт не должен навязывать готовые примеры запросов"
 
     # 1. размытый запрос без дат → ровно один вопрос
     r = c.post(f"/api/v1/sessions/{sid}/turns", json={"text": "Хотим с женой и сыном 6 лет к морю, до 120 тысяч"}).json()
