@@ -179,9 +179,13 @@ export default function App() {
   return (
     <div className="app atlas-app">
       <header className="masthead">
-        <a className="wordmark" href="#top" aria-label="Маяк, в начало">
-          <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M5 21c4-9 9-13 18-14M8 22c4-2 8-2 14 0M18 5v6M15 8h6" /></svg>
-          <span>маяк</span>
+        <a className="wordmark" href="#top" aria-label="Путёво, в начало">
+          <svg viewBox="0 0 28 28" aria-hidden="true">
+            <circle cx="9" cy="6" r="2" />
+            <circle cx="19" cy="6" r="2" />
+            <path d="M5 21c3-7 7-9 10-5 2 3 4 2 8-4" />
+          </svg>
+          <span>путёво</span>
         </a>
         <p>Поездка, собранная по ходу разговора</p>
         <button className="reset-link" onClick={() => void startNewTrip()} disabled={busy}>
