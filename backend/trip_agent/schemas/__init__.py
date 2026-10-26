@@ -7,6 +7,8 @@ from .actions import (
     ApplyPatchAction,
     CheckoutAction,
     CompareAction,
+    ConfirmAssumptionsAction,
+    DismissFixAction,
     PayAction,
     PostPurchaseAction,
     QuickReply,
@@ -45,11 +47,13 @@ from .requirements import (
 from .trip import (
     HotelCard,
     Issue,
+    PinnedOutcome,
     RankingResult,
     Relaxation,
     ScoreComponent,
     SearchStats,
     TransferQuote,
+    TransportOffer,
     TripState,
     Variant,
 )

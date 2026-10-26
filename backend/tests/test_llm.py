@@ -35,15 +35,17 @@ def _state() -> TripState:
 
 
 def test_llm_nlu_uses_model_and_sanitizes():
-    fake = FakeLLM(json_result={
-        "intent": "plan_trip",
-        "patch": [
-            {"op": "set", "path": "budget.amount", "value": 1},            # абсурд → выкинуть
-            {"op": "set", "path": "district_ids", "value": ["mars", "adler"]},  # чужой район → отфильтровать
-            {"op": "set", "path": "guests.adults", "value": 2},
-        ],
-        "parser": "llm",
-    })
+    fake = FakeLLM(
+        json_result={
+            "intent": "plan_trip",
+            "patch": [
+                {"op": "set", "path": "budget.amount", "value": 1},  # абсурд → выкинуть
+                {"op": "set", "path": "district_ids", "value": ["mars", "adler"]},  # чужой район → отфильтровать
+                {"op": "set", "path": "guests.adults", "value": 2},
+            ],
+            "parser": "llm",
+        }
+    )
     nlu = LlmNlu(fake, "Большой Сочи", {"adler": "Адлер"})
     res = nlu.parse("вдвоём в Адлер", _state(), TODAY)
     assert res.parser == "llm" and res.intent == Intent.plan_trip

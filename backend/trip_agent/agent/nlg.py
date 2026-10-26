@@ -32,9 +32,9 @@ class TemplateNlg:
                 f"Рекомендую **{v.hotel.name}** ({v.hotel.district_name}) — {fmt_rub(v.total_price)} за всё.",
             ]
             if v.why:
-                parts.append("Почему: " + "; ".join(v.why[:2]).lower() + ".")
+                parts.append("Почему: " + "; ".join(_lc(x) for x in v.why[:2]) + ".")
             if v.tradeoffs:
-                parts.append("Чем жертвуем: " + v.tradeoffs[0].lower() + ".")
+                parts.append("Чем жертвуем: " + _lc(v.tradeoffs[0]) + ".")
             return " ".join(parts) + "\n\n" + DEMO_NOTE
         if kind == "no_results":
             reasons = ", ".join(f"{label} — {n}" for label, n in facts["top_rejections"])
@@ -93,9 +93,7 @@ class LlmNlg(TemplateNlg):
         if facts.get("kind") not in ("proposals", "replanned"):
             return draft
         try:
-            out = self.llm.complete_text(
-                self.SYSTEM, f"Черновик:\n{draft}\n\nФакты:\n{json.dumps(facts, ensure_ascii=False, default=str)}"
-            )
+            out = self.llm.complete_text(self.SYSTEM, f"Черновик:\n{draft}\n\nФакты:\n{json.dumps(facts, ensure_ascii=False, default=str)}")
         except Exception as e:
             log.warning("LLM NLG failed: %s", e)
             return draft
@@ -117,6 +115,11 @@ class LlmNlg(TemplateNlg):
         except Exception:
             return base
         return out if _grounded(out, json.dumps(context, ensure_ascii=False, default=str) + question) else base
+
+
+def _lc(s: str) -> str:
+    """Первая буква строчная — имена собственные внутри не трогаем."""
+    return s[:1].lower() + s[1:] if s else s
 
 
 def _q(name: str) -> str:

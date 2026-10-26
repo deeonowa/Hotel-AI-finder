@@ -29,13 +29,16 @@ from ..schemas import (
     ApplyPatchAction,
     AssumptionsBlock,
     CartBlock,
+    CartItemKind,
     CheckoutAction,
     CompareAction,
     ComparisonBlock,
     ComparisonRow,
+    ConfirmAssumptionsAction,
     DestinationsBlock,
     DiffBlock,
     DiffItem,
+    DismissFixAction,
     Intent,
     NluResult,
     NoResultsBlock,
@@ -62,10 +65,13 @@ from ..schemas import (
     Variant,
     VariantsBlock,
 )
-from ..validation.rules import arrival_quick_replies
+from ..transfer.schedule import wants_tickets
+from ..validation.rules import arrival_quick_replies, pending_confirmations
+from .autofix import Fix, find_fix
 from .inspiration import suggest_districts
 from .policy import (
     MAX_QUESTIONS,
+    assume_rooms,
     assumption_chips,
     critical_question,
     dates_label,
@@ -186,9 +192,7 @@ class Agent:
             return self._reset(st)
         if i in (Intent.plan_trip, Intent.modify, Intent.inspire):
             if st.order_ids and i == Intent.modify and nlu.patch:
-                return self._post_purchase(
-                    st, PostPurchaseKind.change_dates, {"patch": [o.model_dump(mode="json") for o in nlu.patch]}
-                )
+                return self._post_purchase(st, PostPurchaseKind.change_dates, {"patch": [o.model_dump(mode="json") for o in nlu.patch]})
             if not nlu.patch and i != Intent.inspire:
                 return self._ask_for_details()
             changes = self._apply(st, nlu.patch, nlu.assumed_paths, tr)
@@ -199,16 +203,14 @@ class Agent:
             return self._plan(st, tr, changes, inspire=(i == Intent.inspire))
         if i == Intent.select_variant:
             v = self._resolve_variant(st, nlu.target_variant_ids, nlu.variant_ordinal)
-            return (
-                self._select(st, v) if v else ([TextBlock(markdown="Какой вариант выбрать? Нажмите «Выбрать» на карточке.")], [])
-            )
+            return self._select(st, v, tr) if v else ([TextBlock(markdown="Какой вариант выбрать? Нажмите «Выбрать» на карточке.")], [])
         if i == Intent.compare:
             return self._compare(st, nlu.target_variant_ids)
         if i == Intent.book:
             if st.cart_id and st.stage == TripStage.in_cart:
                 return self._checkout(st, None)
             v = self._resolve_variant(st, nlu.target_variant_ids, nlu.variant_ordinal) or self._current_variant(st)
-            return self._add_to_cart(st, v, True) if v else self._ask_for_details()
+            return self._add_to_cart(st, v, True, tr) if v else self._ask_for_details()
         if i == Intent.post_purchase:
             return self._post_purchase(st, nlu.post_purchase_kind or PostPurchaseKind.reminder, {})
         if i == Intent.ask_info:
@@ -231,12 +233,12 @@ class Agent:
             return self._plan(st, tr, changes, inspire=False)
         if isinstance(a, SelectVariantAction):
             v = st.variant(a.variant_id)
-            return self._select(st, v) if v else ([TextBlock(markdown="Вариант устарел — обновил выдачу.")], [])
+            return self._select(st, v, tr) if v else ([TextBlock(markdown="Вариант устарел — обновил выдачу.")], [])
         if isinstance(a, CompareAction):
             return self._compare(st, a.variant_ids)
         if isinstance(a, AddToCartAction):
             v = st.variant(a.variant_id)
-            return self._add_to_cart(st, v, a.with_transfer) if v else ([TextBlock(markdown="Вариант устарел.")], [])
+            return self._add_to_cart(st, v, a.with_transfer, tr) if v else ([TextBlock(markdown="Вариант устарел.")], [])
         if isinstance(a, AddExtraAction | RemoveCartItemAction):
             return self._cart_edit(st, a)
         if isinstance(a, CheckoutAction):
@@ -245,6 +247,17 @@ class Agent:
             return self._pay(st, a.order_id)
         if isinstance(a, PostPurchaseAction):
             return self._post_purchase(st, a.kind, a.details)
+        if isinstance(a, ConfirmAssumptionsAction):
+            return self._confirm(st, a, tr)
+        if isinstance(a, DismissFixAction):
+            st.dismissed_fixes.append(f"{a.hotel_id}:{a.code}")
+            tr.note("autofix", "пользователь оставил свой вариант")
+            if st.stage == TripStage.in_cart and (cart := self.booking.repo.get_cart(st.cart_id or "")):
+                return [TextBlock(markdown="Хорошо, оставляю ваш выбор."), CartBlock(cart=cart)], [
+                    QuickReply(label="Оформить", action=CheckoutAction())
+                ]
+            v = self._current_variant(st)
+            return self._select(st, v, tr) if v else self._ask_for_details()
         if isinstance(a, ResetAction):
             return self._reset(st)
         return [TextBlock(markdown="Неизвестное действие.")], []
@@ -273,19 +286,24 @@ class Agent:
             req.preferences += imp
             tr.note("implicit_prefs", ", ".join(p.key.value for p in imp))
 
-        q = critical_question(req, st.asked_paths, st.clarifications_asked)
-        if q is not None and not st.variants:
+        question = critical_question(req, st.asked_paths, st.clarifications_asked)
+        if question is not None and not st.variants:
             st.clarifications_asked += 1
-            st.asked_paths += q.paths
+            st.asked_paths += question.paths
             st.stage = TripStage.collecting
-            tr.note("clarify", q.text)
+            tr.note("clarify", question.text)
             understood = self._understood_text(req)
-            return [TextBlock(markdown=understood), q], []
+            return [TextBlock(markdown=understood), question], []
         if not req.dates.check_in and not req.dates.month:  # лимит вопросов исчерпан — предполагаем
             st.requirements, _ = apply_patch(
                 req, [PatchOp(op="set", path="dates.month", value=today.month % 12 + 1)], source=Source.assumed
             )
             req = st.requirements
+
+        if rops := assume_rooms(req):
+            st.requirements, _ = apply_patch(req, rops, source=Source.assumed)
+            req = st.requirements
+            tr.note("assume_rooms", f"{req.guests.rooms} номера по двое")
 
         ops, assumed_paths = resolve_dates(req, today)
         if ops:
@@ -310,10 +328,14 @@ class Agent:
             ]
 
         previous = list(st.variants)
-        prev_rec = st.variant(st.recommended_variant_id) if st.recommended_variant_id else None
+        chosen = st.variant(st.selected_variant_id) if st.selected_variant_id else None
+        if chosen is not None and st.stage not in (TripStage.selected, TripStage.in_cart):
+            chosen = None
+        prev_rec = chosen or (st.variant(st.recommended_variant_id) if st.recommended_variant_id else None)
+        prev_stage = st.stage
         hotels = self.catalog.list_hotels(self.location_id)
         with tr.step("search_rank") as s:
-            rr = self.ranker.rank(req, hotels, ci, co, previous=previous)
+            rr = self.ranker.rank(req, hotels, ci, co, previous=previous, pinned_hotel_id=chosen.hotel.id if chosen else None)
             st_ = rr.stats
             s["detail"] = (
                 f"{st_.hotels_total} отелей → после фильтров {st_.after_hard_filters} → "
@@ -325,6 +347,18 @@ class Agent:
             s["detail"] = f"замечаний: {sum(len(v.issues) for v in rr.variants)}"
         st.last_stats = rr.stats
 
+        keep_choice = st.stage in (TripStage.selected, TripStage.in_cart)  # выбор пользователя не теряем
+        if not rr.variants and rr.ticket_issue:
+            if not keep_choice:
+                st.stage = TripStage.collecting
+            text = (
+                f"С билетами не получилось: {rr.ticket_issue}. Отели есть — можно ослабить условие по билетам или подобрать только отель."
+            )
+            return [
+                TextBlock(markdown=text),
+                NoResultsBlock(reason=f"Билеты: {rr.ticket_issue}", rejected={"нет подходящих билетов": 1}, relaxations=rr.relaxations),
+                chips,
+            ], [QuickReply(label=r.label, action=ApplyPatchAction(ops=r.ops, label=r.label)) for r in rr.relaxations]
         if not rr.variants:
             top = Counter(rr.stats.rejected).most_common(3)
             facts = {
@@ -332,7 +366,8 @@ class Agent:
                 "top_rejections": [(reject_label(k), n) for k, n in top],
                 "relaxations": [r.label for r in rr.relaxations],
             }
-            st.stage = TripStage.collecting
+            if not keep_choice:
+                st.stage = TripStage.collecting
             return [
                 TextBlock(markdown=self.nlg.summarize_turn(st, facts)),
                 NoResultsBlock(
@@ -346,14 +381,26 @@ class Agent:
         st.previous_variants = previous
         st.variants = rr.variants
         st.recommended_variant_id = rr.recommended_id
-        if st.selected_variant_id and not st.variant(st.selected_variant_id):
-            st.selected_variant_id = None
+        st.selected_variant_id = None
         st.stage = TripStage.proposing
         new_rec = rr.variants[0]
 
         blocks: list[UIBlock] = []
+        if rr.pinned is not None:
+            if rr.pinned.kept:
+                tr.note("replan", f"выбранный отель {q(rr.pinned.hotel_name)} сохранён")
+                # выбор пользователя сохраняем: тот же этап, та же корзина (с новой ценой/датами)
+                st.selected_variant_id = new_rec.id
+                st.stage = TripStage.selected
+                if prev_stage == TripStage.in_cart:
+                    return self._refresh_cart(st, prev_rec, new_rec, changes, tr)  # type: ignore[arg-type]
+            else:
+                tr.note("replan", f"{q(rr.pinned.hotel_name)} больше не подходит: {rr.pinned.reason}")
+                if st.cart_id:
+                    st.cart_id = None  # корзина собрана под старый отель — не оформляем её по ошибке
+                    changes = [*changes, "корзину с прежним отелем очистил"]
         if prev_rec is not None and changes:
-            diff = self._diff(prev_rec, new_rec, changes)
+            diff = self._diff(prev_rec, new_rec, changes, pinned=rr.pinned)
             blocks.append(TextBlock(markdown=self.nlg.summarize_turn(st, {"kind": "replanned", "summary": diff.summary})))
             blocks.append(diff)
         else:
@@ -371,10 +418,12 @@ class Agent:
     @staticmethod
     def _logistics_only(st: TripState, ops: list[PatchOp]) -> bool:
         """Изменилось только время/способ прибытия, а вариант уже выбран → не ищем заново, а перепроверяем."""
+        logistics = {"transport.arrival_time", "transport.departure_time", "transport.arrival_mode", "transport.arrival_hub_id"}
         return (
             bool(ops)
             and st.stage in (TripStage.selected, TripStage.in_cart)
-            and all(o.path.startswith("transport.") for o in ops)
+            and all(o.path in logistics for o in ops)
+            and not wants_tickets(st.requirements)  # билеты подбираем заново, а не только перепроверяем
         )
 
     def _recheck(self, st: TripState, tr: Tracer) -> Out:
@@ -387,15 +436,15 @@ class Agent:
         if st.stage == TripStage.in_cart and (cart := self.booking.repo.get_cart(st.cart_id or "")):
             cart.issues = self.validator.validate_cart(cart, v, st.requirements)
             self.booking.repo.save_cart(cart)
+            fix = self._autofix(st, v, tr)
+            if fix is not None:
+                fb, fs = self._fix_blocks(st, v, fix)
+                return [CartBlock(cart=cart), *fb], fs
             sugg = [i.fix for i in cart.issues if i.fix] + [QuickReply(label="Оформить", action=CheckoutAction())]
             problems = [i for i in cart.issues if i.severity.value != "info"]
-            text = (
-                ("Проверил состыковки: " + " ".join(i.message for i in problems))
-                if problems
-                else "Проверил состыковки — всё сходится."
-            )
+            text = ("Проверил состыковки: " + " ".join(i.message for i in problems)) if problems else "Проверил состыковки — всё сходится."
             return [TextBlock(markdown=text), CartBlock(cart=cart)], sugg
-        return self._select(st, v)
+        return self._select(st, v, tr)
 
     # ============================================================ выбор/сравнение
     def _resolve_variant(self, st: TripState, ids: list[str], ordinal: int | None) -> Variant | None:
@@ -409,7 +458,7 @@ class Agent:
     def _current_variant(self, st: TripState) -> Variant | None:
         return st.variant(st.selected_variant_id or "") or st.variant(st.recommended_variant_id or "")
 
-    def _select(self, st: TripState, v: Variant) -> Out:
+    def _select(self, st: TripState, v: Variant, tr: Tracer | None = None) -> Out:
         st.selected_variant_id = v.id
         st.stage = TripStage.selected
         v.issues = self.validator.validate_variant(v, st.requirements, self.location)
@@ -417,6 +466,10 @@ class Agent:
             TextBlock(markdown=self.nlg.summarize_turn(st, {"kind": "selected", "hotel": v.hotel.name})),
             VariantsBlock(items=[v], recommended_id=v.id),
         ]
+        fix = self._autofix(st, v, tr or Tracer())
+        if fix is not None:
+            fb, fs = self._fix_blocks(st, v, fix)
+            return blocks + fb, fs
         if any(i.code == "arrival_unknown" for i in v.issues):
             blocks.append(
                 QuestionBlock(
@@ -450,9 +503,7 @@ class Agent:
             row(
                 "Отмена",
                 [
-                    "бесплатно до " + f"{v.offer.cancellation.free_until:%d.%m}"
-                    if v.offer.cancellation.refundable
-                    else "невозвратный"
+                    "бесплатно до " + f"{v.offer.cancellation.free_until:%d.%m}" if v.offer.cancellation.refundable else "невозвратный"
                     for v in vs
                 ],
             ),
@@ -479,21 +530,24 @@ class Agent:
         ]
 
     # ============================================================ корзина/заказ
-    def _add_to_cart(self, st: TripState, v: Variant, with_transfer: bool) -> Out:
+    def _add_to_cart(self, st: TripState, v: Variant, with_transfer: bool, tr: Tracer | None = None) -> Out:
         st.selected_variant_id = v.id
+        v.issues = self.validator.validate_variant(v, st.requirements, self.location)
         cart = self.booking.put_variant(st.session_id, st.cart_id, v, st.requirements, with_transfer)
         st.cart_id = cart.id
         st.stage = TripStage.in_cart
+        fix = self._autofix(st, v, tr or Tracer())
+        if fix is not None:
+            fb, fs = self._fix_blocks(st, v, fix)
+            return [TextBlock(markdown="Собрал поездку в корзину и проверил состыковки."), CartBlock(cart=cart), *fb], fs
         sugg = [QuickReply(label="Оформить", action=CheckoutAction())]
         for i in cart.issues:
-            if i.fix:
+            if i.fix and i.code != "unconfirmed_assumptions":  # подтверждение спросим при оформлении
                 sugg.insert(0, i.fix)
         blocks: list[UIBlock] = [TextBlock(markdown="Собрал поездку в корзину и проверил состыковки."), CartBlock(cart=cart)]
         if any(i.code == "arrival_unknown" for i in cart.issues):
             blocks.append(
-                QuestionBlock(
-                    text="Во сколько вы будете в Сочи?", paths=["transport.arrival_time"], quick_replies=arrival_quick_replies()
-                )
+                QuestionBlock(text="Во сколько вы будете в Сочи?", paths=["transport.arrival_time"], quick_replies=arrival_quick_replies())
             )
         return blocks, sugg
 
@@ -515,8 +569,29 @@ class Agent:
         cart = self.booking.repo.get_cart(st.cart_id or "")
         if cart is None:
             return [TextBlock(markdown="Сначала добавьте вариант в корзину.")], []
+        pending = pending_confirmations(st.requirements)
+        if pending:
+            # Предположения допустимы для подбора, но не для покупки: подтверждаем явно.
+            lines = "\n".join(f"• {v}" for _, v in pending)
+            return [
+                QuestionBlock(
+                    text=f"Перед оформлением проверьте, что я понял верно — это я предположил сам:\n{lines}",
+                    paths=[g for g, _ in pending],
+                    quick_replies=[
+                        QuickReply(
+                            label="Всё верно — оформить",
+                            action=ConfirmAssumptionsAction(paths=[g for g, _ in pending], then_checkout=True),
+                        ),
+                        QuickReply(
+                            label="Сдвинуть на неделю",
+                            action=ApplyPatchAction(ops=[PatchOp(op="shift_days", path="dates", value=7)], label="Сдвинуть на неделю"),
+                        ),
+                    ],
+                ),
+                CartBlock(cart=cart),
+            ], []
         try:
-            order = self.booking.checkout(cart, guest_name)
+            order = self.booking.checkout(cart, guest_name, variant=self._current_variant(st), req=st.requirements)
         except BookingError as e:
             return [TextBlock(markdown=str(e)), CartBlock(cart=cart)], []
         st.order_ids.append(order.id)
@@ -543,6 +618,82 @@ class Agent:
         order, msg = self.booking.post_purchase(order, kind, details)
         return [TextBlock(markdown=msg), OrderBlock(order=order)], self._post_purchase_suggestions(order.id)
 
+    def _confirm(self, st: TripState, a: ConfirmAssumptionsAction, tr: Tracer) -> Out:
+        req = st.requirements
+        if "dates" in a.paths:
+            for p in ("dates.check_in", "dates.check_out", "dates.nights"):
+                req.provenance[p] = Source.user
+        if "guests" in a.paths:
+            if req.guests.adults is None:
+                req.guests.adults = 2
+            req.provenance["guests.adults"] = Source.user
+            if req.guests.rooms:
+                req.provenance["guests.rooms"] = Source.user
+            if req.guests.children_ages:
+                req.provenance["guests.children_ages"] = Source.user
+        tr.note("confirm", "пользователь подтвердил: " + ", ".join(a.paths))
+        if a.then_checkout and st.cart_id:
+            return self._checkout(st, None)
+        return [TextBlock(markdown="Спасибо, зафиксировал.")], []
+
+    def _autofix(self, st: TripState, v: Variant, tr: Tracer) -> Fix | None:
+        with tr.step("autofix") as s:
+            fix = find_fix(
+                v,
+                st.requirements,
+                ranker=self.ranker,
+                validator=self.validator,
+                location=self.location,
+                hotels=list(self.catalog.list_hotels(self.location_id)),
+                dismissed=set(st.dismissed_fixes),
+            )
+            s["detail"] = (
+                f"проблема: {fix.problem.code} → искал {fix.problem.strategy} {fix.searched} → {q(fix.variant.hotel.name)}"
+                if fix
+                else "проблем, которые стоит чинить, нет"
+            )
+        return fix
+
+    def _fix_blocks(self, st: TripState, v: Variant, fix: Fix) -> Out:
+        alt = fix.variant
+        if st.variant(alt.id) is None:
+            st.variants.append(alt)
+        diff = self._diff(v, alt, [fix.problem.strategy])
+        text = (
+            f"Заметил проблему: {fix.problem.message[0].lower() + fix.problem.message[1:]}\n\n"
+            f"Я сам поискал {fix.problem.strategy} {fix.searched} — и нашёл {q(alt.hotel.name)}. "
+            "Проверил его теми же правилами: проблема уходит. Заменить?"
+        )
+        replace = AddToCartAction(variant_id=alt.id) if st.stage == TripStage.in_cart else SelectVariantAction(variant_id=alt.id)
+        return [TextBlock(markdown=text), VariantsBlock(items=[alt], recommended_id=alt.id), diff], [
+            QuickReply(label=f"Заменить на {q(alt.hotel.name)}", action=replace),
+            QuickReply(label=f"Оставить {q(v.hotel.name)}", action=DismissFixAction(code=fix.problem.code, hotel_id=v.hotel.id)),
+        ]
+
+    def _refresh_cart(self, st: TripState, before: Variant, after: Variant, changes: list[str], tr: Tracer) -> Out:
+        """Пересборка при собранной корзине и сохранённом отеле: обновляем корзину, а не сбрасываем её."""
+        old_cart = self.booking.repo.get_cart(st.cart_id or "")
+        with_transfer = bool(old_cart and any(i.kind == CartItemKind.transfer for i in old_cart.items))
+        extras = [
+            i.kind for i in (old_cart.items if old_cart else []) if i.kind in (CartItemKind.early_check_in, CartItemKind.late_check_out)
+        ]
+        st.selected_variant_id = after.id
+        cart = self.booking.put_variant(st.session_id, st.cart_id, after, st.requirements, with_transfer)
+        for k in extras:
+            try:
+                cart = self.booking.add_extra(cart, after, st.requirements, k)
+            except BookingError:
+                pass
+        st.cart_id = cart.id
+        st.stage = TripStage.in_cart
+        tr.note("cart", "корзина пересчитана под новые условия")
+        diff = self._diff(before, after, changes)
+        return [
+            TextBlock(markdown=f"{diff.summary} Корзину обновил — оформлять заново ничего не нужно."),
+            diff,
+            CartBlock(cart=cart),
+        ], [QuickReply(label="Оформить", action=CheckoutAction())]
+
     # ============================================================ вопросы
     def _answer(self, st: TripState, question: str) -> Out:
         v = self._current_variant(st)
@@ -562,13 +713,16 @@ class Agent:
         return [TextBlock(markdown=self.nlg.answer_question(question, st, ctx))], self._proposal_suggestions(st)
 
     # ============================================================ вспомогательное
-    def _diff(self, before: Variant, after: Variant, changes: list[str]) -> DiffBlock:
+    def _diff(self, before: Variant, after: Variant, changes: list[str], pinned=None) -> DiffBlock:  # noqa: ANN001
         items: list[DiffItem] = []
         kept: list[str] = []
+        why_replaced = ""
         if before.hotel.id == after.hotel.id:
-            kept.append(f"Отель {q(after.hotel.name)} сохранён")
+            kept.append(f"Отель {q(after.hotel.name)} сохранён" + (" — вы его выбрали" if pinned and pinned.kept else ""))
         else:
-            items.append(DiffItem(label="Отель", before=before.hotel.name, after=after.hotel.name))
+            items.append(DiffItem(label="Отель", before=before.hotel.name, after=after.hotel.name, impact="neutral"))
+            if pinned is not None and not pinned.kept and pinned.reason:
+                why_replaced = f" {q(before.hotel.name)} пришлось заменить: {pinned.reason}."
         delta = after.total_price - before.total_price
         items.append(
             DiffItem(
@@ -580,9 +734,7 @@ class Agent:
         )
         if before.offer.meal_plan != after.offer.meal_plan:
             items.append(
-                DiffItem(
-                    label="Питание", before=MEALS_RU[before.offer.meal_plan.value], after=MEALS_RU[after.offer.meal_plan.value]
-                )
+                DiffItem(label="Питание", before=MEALS_RU[before.offer.meal_plan.value], after=MEALS_RU[after.offer.meal_plan.value])
             )
         else:
             kept.append("Питание то же")
@@ -603,12 +755,26 @@ class Agent:
                     after=f"{after.offer.check_in:%d.%m}–{after.offer.check_out:%d.%m}",
                 )
             )
+        if before.outbound or after.outbound:
+
+            def leg(v: Variant) -> str:
+                o = v.outbound
+                if o is None:
+                    return "без билетов"
+                return f"{'прямой' if o.stops == 0 else 'с пересадкой'}, {o.depart_at:%H:%M}–{o.arrive_at:%H:%M}"
+
+            b_leg, a_leg = leg(before), leg(after)
+            if b_leg != a_leg:
+                better = after.outbound is not None and (before.outbound is None or after.outbound.stops < before.outbound.stops)
+                items.append(DiffItem(label="Перелёт/поезд туда", before=b_leg, after=a_leg, impact="better" if better else "neutral"))
+            else:
+                kept.append("Билеты те же")
         if before.transfer_in and after.transfer_in and before.transfer_in.minutes != after.transfer_in.minutes:
             m1, m2 = before.transfer_in.minutes, after.transfer_in.minutes
             items.append(DiffItem(label="Дорога", before=f"{m1} мин", after=f"{m2} мин", impact="better" if m2 < m1 else "worse"))
         sign = "дешевле" if delta < 0 else "дороже" if delta > 0 else "та же цена"
         money = f"на {fmt_rub(abs(delta))} {sign}" if delta else sign
-        summary = f"Пересобрал план ({'; '.join(changes)}). Рекомендация: {q(after.hotel.name)}, {money}."
+        summary = f"Пересобрал план ({'; '.join(changes)}).{why_replaced} Рекомендация: {q(after.hotel.name)}, {money}."
         return DiffBlock(summary=summary, requirement_changes=changes, items=items, kept=kept)
 
     def _understood_text(self, req: Requirements) -> str:
@@ -641,9 +807,7 @@ class Agent:
         )
         if req.dates.is_exact:
             out.append(
-                QuickReply(
-                    label="+2 дня", action=ApplyPatchAction(ops=[PatchOp(op="shift_days", path="dates", value=2)], label="+2 дня")
-                )
+                QuickReply(label="+2 дня", action=ApplyPatchAction(ops=[PatchOp(op="shift_days", path="dates", value=2)], label="+2 дня"))
             )
         if len(st.variants) >= 2:
             out.append(QuickReply(label="Сравнить", action=CompareAction()))
@@ -654,9 +818,7 @@ class Agent:
         return [
             QuickReply(label="Ранний заезд", action=PostPurchaseAction(order_id=order_id, kind=PostPurchaseKind.early_check_in)),
             QuickReply(label="Напомнить о поездке", action=PostPurchaseAction(order_id=order_id, kind=PostPurchaseKind.reminder)),
-            QuickReply(
-                label="Добавить трансфер", action=PostPurchaseAction(order_id=order_id, kind=PostPurchaseKind.add_transfer)
-            ),
+            QuickReply(label="Добавить трансфер", action=PostPurchaseAction(order_id=order_id, kind=PostPurchaseKind.add_transfer)),
         ]
 
     def _greeting(self) -> Out:
@@ -679,9 +841,7 @@ class Agent:
         ]
 
     def _ask_for_details(self) -> Out:
-        return [
-            TextBlock(markdown="Расскажите, когда хотите поехать, кто едет и что важно — подберу варианты.")
-        ], self._examples()
+        return [TextBlock(markdown="Расскажите, когда хотите поехать, кто едет и что важно — подберу варианты.")], self._examples()
 
     def _reset(self, st: TripState) -> Out:
         st.requirements = Requirements(location_id=self.location_id)
@@ -691,9 +851,7 @@ class Agent:
         st.clarifications_asked, st.asked_paths = 0, []
         return self._greeting()
 
-    def _response(
-        self, st: TripState, blocks: list[UIBlock], sugg: list[QuickReply], trace: list[TraceStep], mode: str
-    ) -> TurnResponse:
+    def _response(self, st: TripState, blocks: list[UIBlock], sugg: list[QuickReply], trace: list[TraceStep], mode: str) -> TurnResponse:
         return TurnResponse(
             session_id=st.session_id,
             version=st.version,

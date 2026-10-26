@@ -13,7 +13,7 @@ CatalogProvider/PricingProvider поверх партнёрского API — а
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from datetime import date
 from typing import Protocol, TypeVar, runtime_checkable
 
@@ -103,10 +103,15 @@ class Ranker(Protocol):
         check_out: date,
         *,
         previous: Sequence[Variant] = (),
+        pinned_hotel_id: str | None = None,
+        hotel_filter: Callable[[Hotel], str | None] | None = None,
     ) -> RankingResult:
         """Жёсткие фильтры → скоринг → 3 варианта-компромисса (+ ослабления, если пусто).
 
         previous — прошлые варианты: при равенстве предпочитаем их (стабильность пересборки).
+        pinned_hotel_id — отель, выбранный пользователем: сохраняется, пока проходит жёсткие условия
+        (иначе RankingResult.pinned.reason объясняет замену).
+        hotel_filter — внутреннее ограничение агента (автоисправление), в требования не пишется.
         """
         ...
 

@@ -32,9 +32,7 @@ def test_patch_shift_scale_prefs():
         ],
     )
     assert r.dates.check_out == date(2026, 11, 14) and r.dates.nights == 7
-    r, ch = apply_patch(
-        r, [PatchOp(op="shift_days", path="dates", value=2), PatchOp(op="scale", path="budget.amount", value=0.85)]
-    )
+    r, ch = apply_patch(r, [PatchOp(op="shift_days", path="dates", value=2), PatchOp(op="scale", path="budget.amount", value=0.85)])
     assert r.dates.check_in == date(2026, 11, 9) and r.dates.check_out == date(2026, 11, 16)
     assert r.budget.amount == 85_000 and len(ch) == 2
     r, _ = apply_patch(r, [PatchOp(op="remove", path="preferences", value="pool")])
