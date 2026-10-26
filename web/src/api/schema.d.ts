@@ -342,7 +342,7 @@ export interface components {
          * CartItemKind
          * @enum {string}
          */
-        CartItemKind: "hotel_stay" | "transfer" | "early_check_in" | "late_check_out";
+        CartItemKind: "hotel_stay" | "ticket" | "transfer" | "early_check_in" | "late_check_out";
         /** CheckoutAction */
         CheckoutAction: {
             /**
@@ -409,6 +409,24 @@ export interface components {
              * @description какие колонки лучшие по строке
              */
             best_index?: number[];
+        };
+        /**
+         * ConfirmAssumptionsAction
+         * @description Пользователь подтвердил то, что агент предположил (даты, состав). Без этого заказ не оформляется.
+         */
+        ConfirmAssumptionsAction: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "confirm_assumptions";
+            /** Paths */
+            paths?: ("dates" | "guests")[];
+            /**
+             * Then Checkout
+             * @default true
+             */
+            then_checkout: boolean;
         };
         /** CreateSessionRequest */
         CreateSessionRequest: {
@@ -525,6 +543,21 @@ export interface components {
              * @enum {string}
              */
             impact: "better" | "worse" | "neutral";
+        };
+        /**
+         * DismissFixAction
+         * @description Пользователь отказался от предложенного агентом исправления — больше не предлагать.
+         */
+        DismissFixAction: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "dismiss_fix";
+            /** Code */
+            code: string;
+            /** Hotel Id */
+            hotel_id: string;
         };
         /** District */
         District: {
@@ -675,6 +708,25 @@ export interface components {
             base_price_per_night: number;
             /** Description */
             description?: string | null;
+            /** Website */
+            website?: string | null;
+            /**
+             * Elevation M
+             * @description высота над морем, м (Open-Meteo, реальная)
+             */
+            elevation_m?: number | null;
+            /**
+             * Climb To Hotel M
+             * @description подъём от ближайшего пляжа до отеля, м
+             */
+            climb_to_hotel_m?: number | null;
+            /**
+             * Nearest M
+             * @description расстояние до ближайших POI (реальное, OSM): beach, water_park, park, ski_lift, playground, sight
+             */
+            nearest_m?: {
+                [key: string]: number;
+            };
             provenance: components["schemas"]["Provenance"];
         };
         /**
@@ -719,6 +771,14 @@ export interface components {
             early_check_in_fee_pct?: number | null;
             /** Pets Allowed */
             pets_allowed?: boolean | null;
+            /** Pets Max Weight Kg */
+            pets_max_weight_kg?: number | null;
+            /** Climb To Hotel M */
+            climb_to_hotel_m?: number | null;
+            /** Nearest M */
+            nearest_m?: {
+                [key: string]: number;
+            };
             /** Lat */
             lat: number;
             /** Lon */
@@ -941,7 +1001,7 @@ export interface components {
              * Path
              * @enum {string}
              */
-            path: "district_ids" | "dates" | "dates.check_in" | "dates.check_out" | "dates.month" | "dates.year" | "dates.nights" | "dates.flexibility_days" | "guests.adults" | "guests.children_ages" | "guests.pets" | "guests.rooms" | "budget.amount" | "budget.scope" | "budget.flex_pct" | "preferences" | "transport.origin_city" | "transport.arrival_mode" | "transport.arrival_hub_id" | "transport.arrival_time" | "transport.departure_time" | "notes";
+            path: "district_ids" | "dates" | "dates.check_in" | "dates.check_out" | "dates.month" | "dates.year" | "dates.nights" | "dates.flexibility_days" | "guests.adults" | "guests.children_ages" | "guests.pets" | "guests.rooms" | "budget.amount" | "budget.scope" | "budget.flex_pct" | "preferences" | "transport.origin_city" | "transport.arrival_mode" | "transport.arrival_hub_id" | "transport.arrival_time" | "transport.departure_time" | "transport.max_stops" | "notes";
             /** Value */
             value?: unknown;
         };
@@ -1091,7 +1151,7 @@ export interface components {
             /** Text */
             text?: string | null;
             /** Action */
-            action?: (components["schemas"]["SelectVariantAction"] | components["schemas"]["ApplyPatchAction"] | components["schemas"]["CompareAction"] | components["schemas"]["AddToCartAction"] | components["schemas"]["AddExtraAction"] | components["schemas"]["RemoveCartItemAction"] | components["schemas"]["CheckoutAction"] | components["schemas"]["PayAction"] | components["schemas"]["PostPurchaseAction"] | components["schemas"]["ResetAction"]) | null;
+            action?: (components["schemas"]["SelectVariantAction"] | components["schemas"]["ApplyPatchAction"] | components["schemas"]["CompareAction"] | components["schemas"]["AddToCartAction"] | components["schemas"]["AddExtraAction"] | components["schemas"]["RemoveCartItemAction"] | components["schemas"]["CheckoutAction"] | components["schemas"]["PayAction"] | components["schemas"]["PostPurchaseAction"] | components["schemas"]["ConfirmAssumptionsAction"] | components["schemas"]["DismissFixAction"] | components["schemas"]["ResetAction"]) | null;
         };
         /**
          * Relaxation
@@ -1333,6 +1393,70 @@ export interface components {
             kind: "airport" | "rail";
             point: components["schemas"]["GeoPoint"];
         };
+        /**
+         * TransportOffer
+         * @description Билет туда или обратно (самолёт/поезд). DEMO-расписание и цены — помечено is_demo.
+         */
+        TransportOffer: {
+            /** Id */
+            id: string;
+            /**
+             * Direction
+             * @description outbound | inbound
+             */
+            direction: string;
+            /**
+             * Mode
+             * @description plane | train
+             */
+            mode: string;
+            /** Carrier */
+            carrier: string;
+            /** Number */
+            number: string;
+            /** Origin City */
+            origin_city: string;
+            /** From Name */
+            from_name: string;
+            /** To Name */
+            to_name: string;
+            /**
+             * Hub Id
+             * @description хаб в локации (прилёт для outbound, вылет для inbound)
+             */
+            hub_id: string;
+            /**
+             * Depart At
+             * Format: date-time
+             */
+            depart_at: string;
+            /**
+             * Arrive At
+             * Format: date-time
+             */
+            arrive_at: string;
+            /** Duration Min */
+            duration_min: number;
+            /**
+             * Stops
+             * @default 0
+             */
+            stops: number;
+            /** Stop City */
+            stop_city?: string | null;
+            /** Price Per Person */
+            price_per_person: number;
+            /**
+             * Passengers Price
+             * @description за всех пассажиров
+             */
+            passengers_price: number;
+            /**
+             * Is Demo
+             * @default true
+             */
+            is_demo: boolean;
+        };
         /** TransportPlan */
         TransportPlan: {
             /** Origin City */
@@ -1345,6 +1469,11 @@ export interface components {
             arrival_time?: string | null;
             /** Departure Time */
             departure_time?: string | null;
+            /**
+             * Max Stops
+             * @description 0 = только прямые рейсы
+             */
+            max_stops?: number | null;
         };
         /**
          * TripStage
@@ -1390,6 +1519,11 @@ export interface components {
              * @description о чём уже спрашивали — не повторяться
              */
             asked_paths?: string[];
+            /**
+             * Dismissed Fixes
+             * @description '<hotel_id>:<code>' — от каких исправлений отказались
+             */
+            dismissed_fixes?: string[];
             /** Cart Id */
             cart_id?: string | null;
             /** Order Ids */
@@ -1418,7 +1552,7 @@ export interface components {
             /** Text */
             text?: string | null;
             /** Action */
-            action?: (components["schemas"]["SelectVariantAction"] | components["schemas"]["ApplyPatchAction"] | components["schemas"]["CompareAction"] | components["schemas"]["AddToCartAction"] | components["schemas"]["AddExtraAction"] | components["schemas"]["RemoveCartItemAction"] | components["schemas"]["CheckoutAction"] | components["schemas"]["PayAction"] | components["schemas"]["PostPurchaseAction"] | components["schemas"]["ResetAction"]) | null;
+            action?: (components["schemas"]["SelectVariantAction"] | components["schemas"]["ApplyPatchAction"] | components["schemas"]["CompareAction"] | components["schemas"]["AddToCartAction"] | components["schemas"]["AddExtraAction"] | components["schemas"]["RemoveCartItemAction"] | components["schemas"]["CheckoutAction"] | components["schemas"]["PayAction"] | components["schemas"]["PostPurchaseAction"] | components["schemas"]["ConfirmAssumptionsAction"] | components["schemas"]["DismissFixAction"] | components["schemas"]["ResetAction"]) | null;
             /**
              * Expected Version
              * @description оптимистичная блокировка: версия состояния, которую видел клиент
@@ -1470,6 +1604,8 @@ export interface components {
             offer: components["schemas"]["Offer"];
             transfer_in?: components["schemas"]["TransferQuote"] | null;
             transfer_out?: components["schemas"]["TransferQuote"] | null;
+            outbound?: components["schemas"]["TransportOffer"] | null;
+            inbound?: components["schemas"]["TransportOffer"] | null;
             /** Total Price */
             total_price: number;
             /**

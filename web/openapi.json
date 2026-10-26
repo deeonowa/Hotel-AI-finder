@@ -767,6 +767,7 @@
     "type": "string",
     "enum": [
      "hotel_stay",
+     "ticket",
      "transfer",
      "early_check_in",
      "late_check_out"
@@ -951,6 +952,36 @@
      "cells"
     ],
     "title": "ComparisonRow"
+   },
+   "ConfirmAssumptionsAction": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "confirm_assumptions",
+      "title": "Type",
+      "default": "confirm_assumptions"
+     },
+     "paths": {
+      "items": {
+       "type": "string",
+       "enum": [
+        "dates",
+        "guests"
+       ]
+      },
+      "type": "array",
+      "title": "Paths"
+     },
+     "then_checkout": {
+      "type": "boolean",
+      "title": "Then Checkout",
+      "default": true
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "title": "ConfirmAssumptionsAction",
+    "description": "Пользователь подтвердил то, что агент предположил (даты, состав). Без этого заказ не оформляется."
    },
    "CreateSessionRequest": {
     "properties": {
@@ -1276,6 +1307,32 @@
      "label"
     ],
     "title": "DiffItem"
+   },
+   "DismissFixAction": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "dismiss_fix",
+      "title": "Type",
+      "default": "dismiss_fix"
+     },
+     "code": {
+      "type": "string",
+      "title": "Code"
+     },
+     "hotel_id": {
+      "type": "string",
+      "title": "Hotel Id"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "code",
+     "hotel_id"
+    ],
+    "title": "DismissFixAction",
+    "description": "Пользователь отказался от предложенного агентом исправления — больше не предлагать."
    },
    "District": {
     "properties": {
@@ -1663,6 +1720,49 @@
       ],
       "title": "Description"
      },
+     "website": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Website"
+     },
+     "elevation_m": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Elevation M",
+      "description": "высота над морем, м (Open-Meteo, реальная)"
+     },
+     "climb_to_hotel_m": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Climb To Hotel M",
+      "description": "подъём от ближайшего пляжа до отеля, м"
+     },
+     "nearest_m": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "type": "object",
+      "title": "Nearest M",
+      "description": "расстояние до ближайших POI (реальное, OSM): beach, water_park, park, ski_lift, playground, sight"
+     },
      "provenance": {
       "$ref": "#/components/schemas/Provenance"
      }
@@ -1796,6 +1896,35 @@
        }
       ],
       "title": "Pets Allowed"
+     },
+     "pets_max_weight_kg": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Pets Max Weight Kg"
+     },
+     "climb_to_hotel_m": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Climb To Hotel M"
+     },
+     "nearest_m": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "type": "object",
+      "title": "Nearest M"
      },
      "lat": {
       "type": "number",
@@ -2284,6 +2413,7 @@
        "transport.arrival_hub_id",
        "transport.arrival_time",
        "transport.departure_time",
+       "transport.max_stops",
        "notes"
       ],
       "title": "Path"
@@ -2687,6 +2817,12 @@
           "$ref": "#/components/schemas/PostPurchaseAction"
          },
          {
+          "$ref": "#/components/schemas/ConfirmAssumptionsAction"
+         },
+         {
+          "$ref": "#/components/schemas/DismissFixAction"
+         },
+         {
           "$ref": "#/components/schemas/ResetAction"
          }
         ],
@@ -2698,6 +2834,8 @@
           "apply_patch": "#/components/schemas/ApplyPatchAction",
           "checkout": "#/components/schemas/CheckoutAction",
           "compare": "#/components/schemas/CompareAction",
+          "confirm_assumptions": "#/components/schemas/ConfirmAssumptionsAction",
+          "dismiss_fix": "#/components/schemas/DismissFixAction",
           "pay": "#/components/schemas/PayAction",
           "post_purchase": "#/components/schemas/PostPurchaseAction",
           "remove_cart_item": "#/components/schemas/RemoveCartItemAction",
@@ -3156,6 +3294,113 @@
     ],
     "title": "TransportHub"
    },
+   "TransportOffer": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "direction": {
+      "type": "string",
+      "title": "Direction",
+      "description": "outbound | inbound"
+     },
+     "mode": {
+      "type": "string",
+      "title": "Mode",
+      "description": "plane | train"
+     },
+     "carrier": {
+      "type": "string",
+      "title": "Carrier"
+     },
+     "number": {
+      "type": "string",
+      "title": "Number"
+     },
+     "origin_city": {
+      "type": "string",
+      "title": "Origin City"
+     },
+     "from_name": {
+      "type": "string",
+      "title": "From Name"
+     },
+     "to_name": {
+      "type": "string",
+      "title": "To Name"
+     },
+     "hub_id": {
+      "type": "string",
+      "title": "Hub Id",
+      "description": "хаб в локации (прилёт для outbound, вылет для inbound)"
+     },
+     "depart_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Depart At"
+     },
+     "arrive_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Arrive At"
+     },
+     "duration_min": {
+      "type": "integer",
+      "title": "Duration Min"
+     },
+     "stops": {
+      "type": "integer",
+      "title": "Stops",
+      "default": 0
+     },
+     "stop_city": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Stop City"
+     },
+     "price_per_person": {
+      "type": "integer",
+      "title": "Price Per Person"
+     },
+     "passengers_price": {
+      "type": "integer",
+      "title": "Passengers Price",
+      "description": "за всех пассажиров"
+     },
+     "is_demo": {
+      "type": "boolean",
+      "title": "Is Demo",
+      "default": true
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "id",
+     "direction",
+     "mode",
+     "carrier",
+     "number",
+     "origin_city",
+     "from_name",
+     "to_name",
+     "hub_id",
+     "depart_at",
+     "arrive_at",
+     "duration_min",
+     "price_per_person",
+     "passengers_price"
+    ],
+    "title": "TransportOffer",
+    "description": "Билет туда или обратно (самолёт/поезд). DEMO-расписание и цены — помечено is_demo."
+   },
    "TransportPlan": {
     "properties": {
      "origin_city": {
@@ -3207,6 +3452,20 @@
        }
       ],
       "title": "Departure Time"
+     },
+     "max_stops": {
+      "anyOf": [
+       {
+        "type": "integer",
+        "maximum": 2.0,
+        "minimum": 0.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Max Stops",
+      "description": "0 = только прямые рейсы"
      }
     },
     "additionalProperties": false,
@@ -3313,6 +3572,14 @@
       "title": "Asked Paths",
       "description": "о чём уже спрашивали — не повторяться"
      },
+     "dismissed_fixes": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Dismissed Fixes",
+      "description": "'<hotel_id>:<code>' — от каких исправлений отказались"
+     },
      "cart_id": {
       "anyOf": [
        {
@@ -3403,6 +3670,12 @@
           "$ref": "#/components/schemas/PostPurchaseAction"
          },
          {
+          "$ref": "#/components/schemas/ConfirmAssumptionsAction"
+         },
+         {
+          "$ref": "#/components/schemas/DismissFixAction"
+         },
+         {
           "$ref": "#/components/schemas/ResetAction"
          }
         ],
@@ -3414,6 +3687,8 @@
           "apply_patch": "#/components/schemas/ApplyPatchAction",
           "checkout": "#/components/schemas/CheckoutAction",
           "compare": "#/components/schemas/CompareAction",
+          "confirm_assumptions": "#/components/schemas/ConfirmAssumptionsAction",
+          "dismiss_fix": "#/components/schemas/DismissFixAction",
           "pay": "#/components/schemas/PayAction",
           "post_purchase": "#/components/schemas/PostPurchaseAction",
           "remove_cart_item": "#/components/schemas/RemoveCartItemAction",
@@ -3623,6 +3898,26 @@
       "anyOf": [
        {
         "$ref": "#/components/schemas/TransferQuote"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "outbound": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/TransportOffer"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "inbound": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/TransportOffer"
        },
        {
         "type": "null"

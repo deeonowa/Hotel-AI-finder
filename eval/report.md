@@ -3,14 +3,15 @@
 | метрика | значение |
 |---|---|
 | mode | rules |
-| scenarios | 25 |
+| scenarios | 44 |
 | completion_rate | 1.0 |
-| avg_clarifications | 0.12 |
-| avg_turns_to_first_offer | 1.11 |
-| avg_ms_to_first_offer | 21 |
+| avg_clarifications | 0.07 |
+| avg_turns_to_first_offer | 1.05 |
+| avg_ms_to_first_offer | 232 |
 | constraint_violations | 0 |
 | logistics_errors | 0 |
 | crashes | 0 |
+| interpretation_errors | 0 |
 
 | сценарий | цель | ок | вопросов | ход до вариантов | замечания |
 |---|---|---|---|---|---|
@@ -28,9 +29,9 @@
 | all_inclusive_must | variants_or_no_results | ✅ | 0 | 1 |  |
 | breakfast_cancel | variants_or_no_results | ✅ | 0 | 1 |  |
 | ski_february | variants | ✅ | 0 | 1 |  |
-| wellness_sanatorium | variants_or_no_results | ✅ | 0 | 1 |  |
+| wellness_sanatorium | variants | ✅ | 0 | 1 |  |
 | train_arrival | selected | ✅ | 0 | 1 |  |
-| compare_select | in_cart | ✅ | 0 | 1 |  |
+| compare_select | selected | ✅ | 0 | 1 |  |
 | ask_info | selected | ✅ | 0 | 1 |  |
 | inject_price | no_crash | ✅ | 0 | — |  |
 | inject_system | no_crash | ✅ | 0 | — |  |
@@ -39,3 +40,22 @@
 | night_arrival | in_cart | ✅ | 0 | 1 |  |
 | accessibility | variants_or_no_results | ✅ | 0 | 1 |  |
 | reset_flow | variants | ✅ | 0 | 1 |  |
+| confirm_gate | order_paid | ✅ | 0 | 1 |  |
+| pinned_shift_cart | in_cart_kept | ✅ | 0 | 1 |  |
+| pinned_dog_replaced | diff_or_no_results | ✅ | 0 | 1 |  |
+| autofix_night_lazarevskoe | autofix | ✅ | 0 | 1 |  |
+| autofix_hilly_family | variants | ✅ | 0 | 1 |  |
+| autofix_keep | in_cart | ✅ | 0 | 1 |  |
+| u_friend_october | variants | ✅ | 0 | 1 |  |
+| u_big_family | variants_or_no_results | ✅ | 0 | 1 |  |
+| u_ny_family_budget | variants_or_no_results | ✅ | 0 | 1 |  |
+| u_english | variants | ✅ | 0 | 1 |  |
+| u_pensioners | variants_or_no_results | ✅ | 0 | 1 |  |
+| u_numeric_dates | variants_or_no_results | ✅ | 0 | 1 |  |
+| u_landing_late | in_cart | ✅ | 0 | 1 |  |
+| u_per_night_march | variants_or_no_results | ✅ | 0 | 1 |  |
+| u_shift_forward | diff | ✅ | 0 | 1 |  |
+| u_extend | diff | ✅ | 0 | 1 |  |
+| u_injection_discount | no_crash | ✅ | 0 | — |  |
+| tickets_full_trip | order_paid | ✅ | 0 | 1 |  |
+| tickets_direct_only | diff_or_no_results | ✅ | 0 | 1 |  |

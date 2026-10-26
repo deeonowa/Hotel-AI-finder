@@ -22,6 +22,10 @@ export function TracePanel({ resp }: { resp?: TurnResponse }) {
       <p className="muted small">
         Этап: {resp.stage} · версия плана {resp.version}
       </p>
+      <p className="muted small">
+        Данные: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap contributors</a> (ODbL),
+        климат и рельеф — Open-Meteo (CC BY 4.0). Цены, наличие и билеты — демо.
+      </p>
     </div>
   );
 }
