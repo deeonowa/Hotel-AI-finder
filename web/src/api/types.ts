@@ -13,6 +13,7 @@ export type Issue = S["Issue"];
 export type Cart = S["Cart"];
 export type Order = S["Order"];
 export type Requirements = S["Requirements"];
+export type TripState = S["TripState"];
 
 export type TextBlock = S["TextBlock"];
 export type AssumptionsBlock = S["AssumptionsBlock"];

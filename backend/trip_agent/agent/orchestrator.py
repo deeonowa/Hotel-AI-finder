@@ -246,7 +246,7 @@ class Agent:
         if isinstance(a, PayAction):
             return self._pay(st, a.order_id)
         if isinstance(a, PostPurchaseAction):
-            return self._post_purchase(st, a.kind, a.details)
+            return self._post_purchase(st, a.kind, a.details, order_id=a.order_id)
         if isinstance(a, ConfirmAssumptionsAction):
             return self._confirm(st, a, tr)
         if isinstance(a, DismissFixAction):
@@ -569,6 +569,13 @@ class Agent:
         cart = self.booking.repo.get_cart(st.cart_id or "")
         if cart is None:
             return [TextBlock(markdown="Сначала добавьте вариант в корзину.")], []
+        # Повтор клика, повтор доставки запроса или retry клиента не должен создать второй заказ.
+        if st.order_ids:
+            previous = self.booking.repo.get_order(st.order_ids[-1])
+            if previous is not None and previous.status == OrderStatus.awaiting_payment:
+                return [TextBlock(markdown=f"Заказ **{previous.number}** уже создан и ждёт оплаты."), OrderBlock(order=previous)], [
+                    QuickReply(label=f"Оплатить {fmt_rub(previous.total)}", action=PayAction(order_id=previous.id))
+                ]
         pending = pending_confirmations(st.requirements)
         if pending:
             # Предположения допустимы для подбора, но не для покупки: подтверждаем явно.
@@ -601,6 +608,8 @@ class Agent:
         ], [QuickReply(label=f"Оплатить {fmt_rub(order.total)}", action=PayAction(order_id=order.id))]
 
     def _pay(self, st: TripState, order_id: str) -> Out:
+        if order_id not in st.order_ids:
+            return [TextBlock(markdown="Этот заказ не относится к текущей поездке.")], []
         order = self.booking.repo.get_order(order_id)
         if order is None:
             return [TextBlock(markdown="Заказ не найден.")], []
@@ -611,8 +620,11 @@ class Agent:
             OrderBlock(order=order),
         ], self._post_purchase_suggestions(order.id)
 
-    def _post_purchase(self, st: TripState, kind: PostPurchaseKind, details: dict) -> Out:
-        order = self.booking.repo.get_order(st.order_ids[-1]) if st.order_ids else None
+    def _post_purchase(self, st: TripState, kind: PostPurchaseKind, details: dict, *, order_id: str | None = None) -> Out:
+        target_id = order_id or (st.order_ids[-1] if st.order_ids else None)
+        if target_id is not None and target_id not in st.order_ids:
+            return [TextBlock(markdown="Этот заказ не относится к текущей поездке.")], []
+        order = self.booking.repo.get_order(target_id) if target_id else None
         if order is None or order.status == OrderStatus.awaiting_payment and kind != PostPurchaseKind.cancel:
             return [TextBlock(markdown="Это доступно после оформления заказа.")], []
         order, msg = self.booking.post_purchase(order, kind, details)
@@ -847,6 +859,8 @@ class Agent:
         st.requirements = Requirements(location_id=self.location_id)
         st.variants, st.previous_variants = [], []
         st.recommended_variant_id = st.selected_variant_id = st.cart_id = None
+        st.order_ids = []
+        st.dismissed_fixes = []
         st.stage = TripStage.collecting
         st.clarifications_asked, st.asked_paths = 0, []
         return self._greeting()
