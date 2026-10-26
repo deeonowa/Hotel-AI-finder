@@ -97,9 +97,16 @@ export default function App() {
         try {
           const fresh = await api.getSession(sessionId);
           setVersion(fresh.version);
-          setError("План обновился в другой вкладке. Я синхронизировал версию — повторите последнее действие.");
-        } catch {
-          setError("План изменился, но не удалось синхронизировать состояние. Обновите страницу.");
+          const retried = await api.turn(sessionId, { ...req, expected_version: fresh.version });
+          setVersion(retried.version);
+          setMsgs((m) => [...m, { role: "agent", resp: retried }]);
+          setError(null);
+        } catch (retryError) {
+          setError(
+            retryError instanceof Error
+              ? `План обновился, но действие не повторилось: ${retryError.message}`
+              : "План обновился, но действие не повторилось. Обновите страницу.",
+          );
         }
       } else {
         setError(e instanceof Error ? e.message : "Не удалось выполнить действие");
