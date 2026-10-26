@@ -40,7 +40,7 @@ def test_openapi_schema_builds():
     from trip_agent.api.app import create_app
     from trip_agent.config import Settings
 
-    api = create_app(Settings(agent_mode="rules", db_path=":memory:"))
+    api = create_app(Settings(agent_mode="rules", database_url="memory://"))
     schema = api.openapi()
     assert "/api/v1/sessions/{session_id}/turns" in schema["paths"]
     # дискриминированные объединения должны попасть в схему — из неё генерируются TS-типы

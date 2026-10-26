@@ -209,7 +209,7 @@ def main() -> None:
     ap.add_argument("--out", default=str(ROOT / "eval" / "report.md"))
     args = ap.parse_args()
 
-    app = build(Settings(agent_mode=args.mode), today=lambda: TODAY, db_path=":memory:")
+    app = build(Settings(agent_mode=args.mode), today=lambda: TODAY, database_url="memory://")
     scenarios = [json.loads(x) for x in (ROOT / "eval" / "scenarios.jsonl").read_text("utf-8").splitlines() if x.strip()]
     if args.only:
         scenarios = [s for s in scenarios if args.only in s.get("tags", [])]

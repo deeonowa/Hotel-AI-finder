@@ -1,21 +1,53 @@
 # Запуск:            docker compose up --build            → http://localhost:8000
 # С локальной LLM:   docker compose --profile local up --build
 #                    (один раз: docker compose exec ollama ollama pull qwen2.5:7b-instruct)
+# Тесты на Postgres: docker compose --profile test run --rm --build tests
 # Ключи/модель берутся из .env (см. .env.example). Без .env агент работает в режиме правил.
 services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-trip}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-trip}
+      POSTGRES_DB: ${POSTGRES_DB:-trip_agent}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
   app:
     build: .
     ports:
       - "8000:8000"
     environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-trip}:${POSTGRES_PASSWORD:-trip}@postgres:5432/${POSTGRES_DB:-trip_agent}
       LLM_BASE_URL: ${LLM_BASE_URL:-}
       LLM_API_KEY: ${LLM_API_KEY:-}
       LLM_MODEL: ${LLM_MODEL:-}
       AGENT_MODE: ${AGENT_MODE:-auto}
       LOCATION_ID: ${LOCATION_ID:-sochi}
-    volumes:
-      - agent-data:/app/var
+    depends_on:
+      postgres:
+        condition: service_healthy
     restart: unless-stopped
+
+  tests:
+    build:
+      context: .
+      target: test
+    profiles: ["test"]
+    environment:
+      TEST_DATABASE_URL: postgresql://${POSTGRES_USER:-trip}:${POSTGRES_PASSWORD:-trip}@postgres:5432/${POSTGRES_DB:-trip_agent}
+      REQUIRE_POSTGRES: "1"
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   ollama:
     image: ollama/ollama:latest
@@ -26,5 +58,5 @@ services:
       - ollama:/root/.ollama
 
 volumes:
-  agent-data:
+  pg-data:
   ollama:

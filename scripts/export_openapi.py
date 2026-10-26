@@ -18,7 +18,7 @@ from trip_agent.api.app import create_app  # noqa: E402
 from trip_agent.config import Settings  # noqa: E402
 
 if __name__ == "__main__":
-    api = create_app(Settings(agent_mode="rules", db_path=":memory:"))
+    api = create_app(Settings(agent_mode="rules", database_url="memory://"))
     out = ROOT / "web" / "openapi.json"
     out.write_text(json.dumps(api.openapi(), ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(f"[openapi] → {out}")

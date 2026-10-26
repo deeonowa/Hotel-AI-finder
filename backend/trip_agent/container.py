@@ -1,6 +1,6 @@
 """Composition root: ЕДИНСТВЕННОЕ место, где выбираются реализации портов.
 
-Хотите заменить демо-цены на реальный API поставщика, правила NLU на LLM, SQLite на Postgres —
+Хотите заменить демо-цены на реальный API поставщика, правила NLU на LLM, Postgres на другое хранилище —
 меняете одну строку здесь. Агент, API и фронт не трогаются. Это и есть «строительный блок».
 """
 
@@ -10,6 +10,7 @@ import logging
 from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import date
+from typing import TYPE_CHECKING
 
 from .agent.nlg import LlmNlg, TemplateNlg
 from .agent.nlu_llm import LlmNlu
@@ -20,10 +21,14 @@ from .catalog.json_catalog import JsonCatalog
 from .config import Settings
 from .pricing.demo_pricing import DemoPricing
 from .ranking.baseline import BaselineRanker
-from .storage.sqlite import SqliteStore
+from .storage import open_store
 from .transfer.matrix import MatrixTransfer
 from .transfer.schedule import DemoSchedule
 from .validation.rules import RulesValidator
+
+if TYPE_CHECKING:
+    from .storage.memory import MemoryStore
+    from .storage.postgres import PostgresStore
 
 log = logging.getLogger(__name__)
 
@@ -33,18 +38,18 @@ class App:
     settings: Settings
     agent: Agent
     catalog: JsonCatalog
-    store: SqliteStore
+    store: PostgresStore | MemoryStore
     mode: str
 
 
-def build(settings: Settings, *, today: Callable[[], date] = date.today, db_path: str | None = None) -> App:
+def build(settings: Settings, *, today: Callable[[], date] = date.today, database_url: str | None = None) -> App:
     catalog = JsonCatalog(settings.data_dir)
     location = catalog.get_location(settings.location_id)
     pricing = DemoPricing(location)
     transfer = MatrixTransfer(settings.data_dir)  # реальные дороги (OSRM), откат — по прямой
     validator = RulesValidator(today=today)
     ranker = BaselineRanker(location, pricing, transfer, schedule=DemoSchedule(location))
-    store = SqliteStore(db_path or settings.db_path)
+    store = open_store(database_url or settings.database_url)
     booking = BookingService(store, validator)
 
     nlu, nlg, mode = RuleNlu(), TemplateNlg(), "rules"
