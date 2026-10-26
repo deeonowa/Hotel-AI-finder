@@ -3,6 +3,7 @@ import { ApiError, api } from "./api/client";
 import type { QuickReply, TurnRequest, TurnResponse } from "./api/types";
 import { BlockView } from "./components/BlockView";
 import { TracePanel } from "./components/TracePanel";
+import { TripBoard } from "./components/TripBoard";
 
 type Msg = { role: "user"; text: string } | { role: "agent"; resp: TurnResponse };
 type SavedConversation = { sessionId: string; version: number; msgs: Msg[] };
@@ -78,7 +79,9 @@ export default function App() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ sessionId, version, msgs } satisfies SavedConversation));
   }, [sessionId, version, msgs]);
 
-  useEffect(() => bottom.current?.scrollIntoView({ behavior: "smooth" }), [msgs]);
+  useEffect(() => {
+    bottom.current?.scrollIntoView({ behavior: "smooth" });
+  }, [msgs]);
 
   async function send(req: TurnRequest, echo?: string) {
     if (!sessionId || busy) return;
@@ -118,20 +121,26 @@ export default function App() {
   };
 
   return (
-    <div className="app">
-      <header className="top">
-        <div className="brand">О!дин запрос</div>
-        <div className="sub">AI-агент поездок · {last?.mode === "llm" ? "LLM" : "режим правил"}</div>
-        <button className="ghost" onClick={() => send({ action: { type: "reset" } }, "Начать заново")} disabled={busy}>
-          Начать заново
+    <div className="app atlas-app">
+      <header className="masthead">
+        <a className="wordmark" href="#top" aria-label="О!дин запрос, в начало">О<span>!</span>дин запрос</a>
+        <p>Путешествие от мысли до ключа от номера</p>
+        <button className="reset-link" onClick={() => send({ action: { type: "reset" } }, "Новая поездка")} disabled={busy}>
+          Новая поездка
         </button>
       </header>
 
-      <main className="layout">
-        <section className="chat">
+      <main className="atlas-workspace" id="top">
+        <TripBoard response={last} />
+        <section className="conversation" aria-label="Диалог с агентом">
+          <div className="conversation-head">
+            <p>ПЛАНИРОВАНИЕ</p>
+            <h1>Одна мысль —<br />и поездка складывается.</h1>
+          </div>
+          <div className="chat">
           {msgs.map((m, i) =>
             m.role === "user" ? (
-              <div key={i} className="bubble user">{m.text}</div>
+              <div key={i} className="user-entry"><span>ВЫ</span><p>{m.text}</p></div>
             ) : (
               <div key={i} className="agent-turn">
                 {m.resp.blocks.map((b, j) => (
@@ -140,36 +149,37 @@ export default function App() {
               </div>
             ),
           )}
-          {busy && <div className="bubble agent typing">Думаю…</div>}
+          {busy && <div className="agent-working"><i /> Ищу, сравниваю, проверяю маршрут</div>}
           {error && <div className="error">{error}</div>}
           <div ref={bottom} />
+          </div>
+
+          <details className="mobile-trace">
+            <summary>Как агент собрал план</summary>
+            <TracePanel resp={last} />
+          </details>
+
+          <footer className="composer">
+            {last && (last.suggestions ?? []).length > 0 && (
+              <div className="chips">
+                {(last.suggestions ?? []).map((q, i) => (
+                  <button key={i} className="chip" onClick={() => onReply(q)} disabled={busy}>{q.label}</button>
+                ))}
+              </div>
+            )}
+            <form onSubmit={submit}>
+              <label htmlFor="trip-request">Куда хочется?</label>
+              <input id="trip-request" value={input} onChange={(e) => setInput(e.target.value)}
+                placeholder="Например: к морю с ребёнком в ноябре, до 120 000 ₽" disabled={!sessionId} />
+              <button type="submit" disabled={busy || !input.trim()}>Отправить</button>
+            </form>
+          </footer>
         </section>
 
-        <aside className="side">
+        <aside className="agent-log" aria-label="Прозрачность работы агента">
           <TracePanel resp={last} />
         </aside>
       </main>
-
-      <footer className="composer">
-        {last && (last.suggestions ?? []).length > 0 && (
-          <div className="chips">
-            {(last.suggestions ?? []).map((q, i) => (
-              <button key={i} className="chip" onClick={() => onReply(q)} disabled={busy}>
-                {q.label}
-              </button>
-            ))}
-          </div>
-        )}
-        <form onSubmit={submit}>
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Опишите поездку своими словами…"
-            disabled={!sessionId}
-          />
-          <button type="submit" disabled={busy || !input.trim()}>Отправить</button>
-        </form>
-      </footer>
     </div>
   );
 }
