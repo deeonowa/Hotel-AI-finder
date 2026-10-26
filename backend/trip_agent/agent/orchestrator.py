@@ -834,23 +834,8 @@ class Agent:
         ]
 
     def _greeting(self) -> Out:
-        text = (
-            f"Привет! Я подберу поездку в **{self.location.name}** — от идеи до оформления. "
-            "Опишите своими словами: когда, кто едет, бюджет, чего хочется. Можно размыто — уточню только главное."
-        )
-        return [TextBlock(markdown=text)], self._examples()
-
-    @staticmethod
-    def _examples() -> list[QuickReply]:
-        return [
-            QuickReply(
-                label="Семья, ноябрь, море",
-                text="Хотим с женой и сыном 6 лет в ноябре на неделю к морю, до 120 тысяч, нужен бассейн",
-            ),
-            QuickReply(label="Вдвоём в горы на НГ", text="Вдвоём на новогодние в горы, хочется романтично и чтобы был спа"),
-            QuickReply(label="Не знаю куда, с собакой", text="Не знаю куда поехать, хочу тихо и с собакой в декабре на неделю"),
-            QuickReply(label="Один, подешевле", text="Еду один на ближайшие выходные, подешевле, прилетаю в 9:30"),
-        ]
+        text = "Расскажите, куда и когда хотите поехать. Остальное уточню по ходу."
+        return [TextBlock(markdown=text)], []
 
     def _ask_for_details(self) -> Out:
         return [TextBlock(markdown="Расскажите, когда хотите поехать, кто едет и что важно — подберу варианты.")], self._examples()

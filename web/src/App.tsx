@@ -59,8 +59,8 @@ export default function App() {
   const isContinuation = msgs.some((message) => message.role === "user");
   const composerLabel = isContinuation ? "Продолжить маршрут" : "Куда хочется?";
   const composerPlaceholder = isContinuation
-    ? "Например: дешевле, на два дня позже, с ребёнком или с собакой"
-    : "Например: к морю с ребёнком в ноябре";
+    ? "Измените условия поездки"
+    : "Опишите поездку";
 
   function refreshTripState(id: string) {
     void api.getSession(id).then(setTripState, () => undefined);
@@ -187,7 +187,6 @@ export default function App() {
           </svg>
           <span>путёво</span>
         </a>
-        <p>Поездка, собранная по ходу разговора</p>
         <button className="reset-link" onClick={() => void startNewTrip()} disabled={busy}>
           Новая поездка
         </button>
@@ -197,7 +196,6 @@ export default function App() {
         <TripBoard response={last} state={tripState} cart={cart} order={order} />
         <section className="conversation" aria-label="Диалог с агентом">
           <div className="conversation-head">
-            <p>ПЛАНИРОВАНИЕ</p>
             <h1>Одна мысль —<br />и поездка складывается.</h1>
           </div>
           <div className="chat">

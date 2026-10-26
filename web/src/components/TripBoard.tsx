@@ -21,10 +21,11 @@ function tripDates(req: Requirements): string {
 }
 
 function guests(req: Requirements): string {
-  const adults = req.guests?.adults ?? 1;
+  const adults = req.guests?.adults;
   const children = req.guests?.children_ages?.length ?? 0;
+  if (adults == null && children === 0) return "Кто поедет?";
   const people = [
-    `${adults} ${adults === 1 ? "взрослый" : "взрослых"}`,
+    adults != null ? `${adults} ${adults === 1 ? "взрослый" : "взрослых"}` : "",
     children ? `${children} ${children === 1 ? "ребёнок" : "детей"}` : "",
   ].filter(Boolean);
   return people.join(" · ");
@@ -54,7 +55,6 @@ export function TripBoard({ response, state, cart, order }: Props) {
   return (
     <aside className="trip-board" aria-label="Ваша поездка">
       <div className="board-head">
-        <p>ВАША ПОЕЗДКА</p>
         <h2>Путевой лист</h2>
         <span className="board-state">{response?.mode === "llm" ? "агент онлайн" : "демо-режим"}</span>
       </div>
@@ -83,8 +83,7 @@ export function TripBoard({ response, state, cart, order }: Props) {
         </section>
       ) : (
         <section className="board-promise">
-          <span>СЛЕДУЮЩИЙ ШАГ</span>
-          <p>Расскажите о поездке — маршрут начнёт собираться здесь.</p>
+          <p>Здесь появится ваш маршрут.</p>
         </section>
       )}
 
