@@ -315,18 +315,17 @@ def enrich(base: dict[str, Any], district: dict, seed: str = "v1") -> dict[str, 
     synthetic.append("pets")
 
     check_in = (
-        rng.choice(["14:00", "14:00", "15:00"])
-        if kind not in ("guest_house", "apartment")
-        else rng.choice(["12:00", "13:00", "14:00"])
+        rng.choice(["14:00", "14:00", "15:00"]) if kind not in ("guest_house", "apartment") else rng.choice(["12:00", "13:00", "14:00"])
     )
     check_out = "12:00" if check_in != "15:00" else "11:00"
     early_fee = rng.choice([50, 50, 100, None]) if kind != "hostel" else None
     synthetic += ["check_in_time", "check_out_time", "early_check_in_fee_pct"]
 
-    hilly = None
-    beach_walk = None
-    if dist_sea is not None:
-        beach_walk = max(1, round(dist_sea / 75))  # ~4.5 км/ч
+    hilly = base.get("hilly_walk")  # реальное значение из высот (build_location.py), если есть
+    beach_walk = base.get("beach_walk_minutes")
+    if dist_sea is not None and beach_walk is None:
+        beach_walk = max(1, round(dist_sea / 75))  # ~4.5 км/ч по ровному
+    if dist_sea is not None and hilly is None:
         hilly = False if district["id"] == "sirius" else (dist_sea > 300 and rng.random() < 0.55)
         synthetic.append("hilly_walk")
 
@@ -360,6 +359,10 @@ def enrich(base: dict[str, Any], district: dict, seed: str = "v1") -> dict[str, 
         "room_types": _rooms(kind, rng, near_sea, mountain),
         "base_price_per_night": base_price,
         "description": base.get("description"),
+        "website": base.get("website"),
+        "elevation_m": base.get("elevation_m"),
+        "climb_to_hotel_m": base.get("climb_to_hotel_m"),
+        "nearest_m": base.get("nearest_m") or {},
         "provenance": {
             "source": base["provenance"]["source"],
             "source_id": base["provenance"].get("source_id"),

@@ -80,6 +80,7 @@ class TransportPlan(Model):
     arrival_hub_id: str | None = None
     arrival_time: time | None = None
     departure_time: time | None = None
+    max_stops: int | None = Field(default=None, ge=0, le=2, description="0 = только прямые рейсы")
 
 
 class Requirements(Model):
@@ -91,9 +92,7 @@ class Requirements(Model):
     preferences: list[Preference] = Field(default_factory=list)
     transport: TransportPlan = Field(default_factory=TransportPlan)
     notes: list[str] = Field(default_factory=list, description="Факты без поля: «годовщина свадьбы»")
-    provenance: dict[str, Source] = Field(
-        default_factory=dict, description="путь поля → откуда значение, напр. 'dates.nights': assumed"
-    )
+    provenance: dict[str, Source] = Field(default_factory=dict, description="путь поля → откуда значение, напр. 'dates.nights': assumed")
 
     def pref(self, key: PrefKey) -> Preference | None:
         return next((p for p in self.preferences if p.key == key), None)
@@ -128,6 +127,7 @@ PatchPath = Literal[
     "transport.arrival_hub_id",
     "transport.arrival_time",
     "transport.departure_time",
+    "transport.max_stops",
     "notes",
 ]
 """Белый список путей. NLU не может изменить ничего за его пределами — это и защита от инъекций."""
@@ -157,9 +157,7 @@ class NluResult(Model):
 
     intent: Intent
     patch: list[PatchOp] = Field(default_factory=list)
-    assumed_paths: list[str] = Field(
-        default_factory=list, description="какие пути патча — догадка NLU (покажем чипсом как «предположил»)"
-    )
+    assumed_paths: list[str] = Field(default_factory=list, description="какие пути патча — догадка NLU (покажем чипсом как «предположил»)")
     target_variant_ids: list[str] = Field(default_factory=list)
     variant_ordinal: int | None = Field(default=None, description="«второй вариант» → 2")
     info_question: str | None = None

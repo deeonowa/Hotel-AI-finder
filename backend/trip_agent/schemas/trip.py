@@ -13,6 +13,28 @@ from .requirements import PatchOp, Requirements
 from .vocab import Amenity, Archetype, HotelKind, PrefKey, Severity, TripStage, VibeTag
 
 
+class TransportOffer(Model):
+    """Билет туда или обратно (самолёт/поезд). DEMO-расписание и цены — помечено is_demo."""
+
+    id: str
+    direction: str = Field(description="outbound | inbound")
+    mode: str = Field(description="plane | train")
+    carrier: str
+    number: str
+    origin_city: str
+    from_name: str
+    to_name: str
+    hub_id: str = Field(description="хаб в локации (прилёт для outbound, вылет для inbound)")
+    depart_at: datetime
+    arrive_at: datetime
+    duration_min: int
+    stops: int = 0
+    stop_city: str | None = None
+    price_per_person: int
+    passengers_price: int = Field(description="за всех пассажиров")
+    is_demo: bool = True
+
+
 class TransferQuote(Model):
     hub_id: str
     hub_name: str
@@ -64,6 +86,9 @@ class HotelCard(Model):
     check_out_time: str
     early_check_in_fee_pct: int | None = Field(default=None, description="% от ночи; None = ранний заезд не продаётся")
     pets_allowed: bool | None = None
+    pets_max_weight_kg: int | None = None
+    climb_to_hotel_m: int | None = None
+    nearest_m: dict[str, int] = Field(default_factory=dict)
     lat: float
     lon: float
     data_source: str = Field(description="osm | fixture | synthetic — показываем честно")
@@ -77,6 +102,8 @@ class Variant(Model):
     offer: Offer
     transfer_in: TransferQuote | None = None
     transfer_out: TransferQuote | None = None
+    outbound: TransportOffer | None = None
+    inbound: TransportOffer | None = None
     total_price: int
     budget_delta: int | None = Field(default=None, description="total - budget; <0 значит в бюджете")
     score: float
@@ -105,11 +132,22 @@ class Relaxation(Model):
     results_count: int
 
 
+class PinnedOutcome(Model):
+    """Что стало с отелем, который пользователь уже выбрал, при пересборке."""
+
+    hotel_id: str
+    hotel_name: str
+    kept: bool
+    reason: str | None = Field(default=None, description="почему пришлось заменить (если kept=False)")
+
+
 class RankingResult(Model):
     variants: list[Variant] = Field(default_factory=list)
     recommended_id: str | None = None
     stats: SearchStats = Field(default_factory=SearchStats)
     relaxations: list[Relaxation] = Field(default_factory=list)
+    pinned: PinnedOutcome | None = None
+    ticket_issue: str | None = Field(default=None, description="почему не нашлось билетов (если искали)")
 
 
 class TripState(Model):
@@ -127,6 +165,7 @@ class TripState(Model):
     last_stats: SearchStats | None = None
     clarifications_asked: int = 0
     asked_paths: list[str] = Field(default_factory=list, description="о чём уже спрашивали — не повторяться")
+    dismissed_fixes: list[str] = Field(default_factory=list, description="'<hotel_id>:<code>' — от каких исправлений отказались")
     cart_id: str | None = None
     order_ids: list[str] = Field(default_factory=list)
     turn_count: int = 0

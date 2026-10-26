@@ -22,12 +22,48 @@ from ..schemas import (
     QuickReply,
     Requirements,
     Severity,
+    Source,
     Variant,
 )
-from ..schemas.actions import AddExtraAction, ApplyPatchAction
+from ..schemas.actions import AddExtraAction, ApplyPatchAction, ConfirmAssumptionsAction
 
 AIRPORT_BUFFER_MIN = 120
 RAIL_BUFFER_MIN = 30
+
+
+MONTHS_GEN = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"]
+
+
+def pending_confirmations(req: Requirements) -> list[tuple[str, str]]:
+    """Что агент ПРЕДПОЛОЖИЛ из ключевого для заказа и пользователь ещё не подтвердил.
+
+    Возвращает [(группа, человекочитаемое значение)], группы: "dates", "guests".
+    Для подбора вариантов предположения допустимы; для оформления заказа — нет.
+    """
+    out: list[tuple[str, str]] = []
+    prov = req.provenance
+    d = req.dates
+    if d.check_in and d.check_out and prov.get("dates.check_in") != Source.user:
+        out.append(
+            (
+                "dates",
+                f"даты {d.check_in.day} {MONTHS_GEN[d.check_in.month - 1]} — {d.check_out.day} "
+                f"{MONTHS_GEN[d.check_out.month - 1]} ({(d.check_out - d.check_in).days} ноч.)",
+            )
+        )
+    g = req.guests
+    if (
+        g.adults is None
+        or prov.get("guests.adults") != Source.user
+        or (g.children_ages and prov.get("guests.children_ages") != Source.user)
+        or (g.rooms and g.rooms > 1 and prov.get("guests.rooms") != Source.user)
+    ):
+        adults = g.adults or 2
+        label = f"{adults} взросл." + (f" + дети ({', '.join(map(str, g.children_ages))} лет)" if g.children_ages else "")
+        if g.rooms and g.rooms > 1:
+            label += f", {g.rooms} номера"
+        out.append(("guests", label))
+    return out
 
 
 def _t(s: str) -> time:
@@ -79,22 +115,28 @@ class RulesValidator:
             issues.append(Issue(code="dates_in_past", severity=Severity.blocker, message="Дата заезда уже прошла."))
         if o.adults != (req.guests.adults or o.adults) or len(o.children_ages) != len(req.guests.children_ages):
             issues.append(
-                Issue(
-                    code="guests_mismatch", severity=Severity.blocker, message="Состав гостей в предложении не совпадает с вашим."
-                )
+                Issue(code="guests_mismatch", severity=Severity.blocker, message="Состав гостей в предложении не совпадает с вашим.")
             )
 
         # бюджет
         b = req.budget.amount
         if b and req.budget.scope != BudgetScope.per_night and v.total_price > b * (1 + req.budget.flex_pct / 100):
+            issues.append(Issue(code="over_budget", severity=Severity.warning, message=f"Выше бюджета на {fmt_rub(v.total_price - b)}."))
+
+        if req.guests.pets and v.hotel.pets_max_weight_kg:
             issues.append(
-                Issue(code="over_budget", severity=Severity.warning, message=f"Выше бюджета на {fmt_rub(v.total_price - b)}.")
+                Issue(
+                    code="pet_weight_limit",
+                    severity=Severity.info,
+                    message=f"Отель принимает животных до {v.hotel.pets_max_weight_kg} кг — проверьте вес питомца.",
+                )
             )
 
         # прибытие → заселение
         ci = _t(v.hotel.check_in_time)
         co = _t(v.hotel.check_out_time)
-        arr = req.transport.arrival_time
+        # время прибытия: из подобранного билета (если есть), иначе — со слов пользователя
+        arr = v.outbound.arrive_at.time() if v.outbound else req.transport.arrival_time
         if arr is None:
             issues.append(
                 Issue(
@@ -141,9 +183,10 @@ class RulesValidator:
                 )
 
         # выезд → отъезд
-        dep = req.transport.departure_time
+        dep = v.inbound.depart_at.time() if v.inbound else req.transport.departure_time
         if dep is not None and v.transfer_out:
-            buffer = AIRPORT_BUFFER_MIN if req.transport.arrival_mode != ArrivalMode.train else RAIL_BUFFER_MIN
+            train = (v.inbound.mode == "train") if v.inbound else req.transport.arrival_mode == ArrivalMode.train
+            buffer = RAIL_BUFFER_MIN if train else AIRPORT_BUFFER_MIN
             leave_hotel = _minutes(dep) - buffer - v.transfer_out.minutes
             gap = leave_hotel - _minutes(co)
             if gap >= 180:
@@ -151,8 +194,7 @@ class RulesValidator:
                     Issue(
                         code="late_departure",
                         severity=Severity.info,
-                        message=f"Выезд в {v.hotel.check_out_time}, а выходить можно в {_hhmm(leave_hotel)} — "
-                        f"{gap // 60} ч без номера.",
+                        message=f"Выезд в {v.hotel.check_out_time}, а выходить можно в {_hhmm(leave_hotel)} — {gap // 60} ч без номера.",
                         fix=QuickReply(label="Добавить поздний выезд", action=AddExtraAction(kind=CartItemKind.late_check_out)),
                     )
                 )
@@ -173,6 +215,19 @@ class RulesValidator:
             issues.append(Issue(code="cart_no_stay", severity=Severity.blocker, message="В корзине должно быть проживание."))
         if sum(i.price for i in cart.items) != cart.total:
             issues.append(Issue(code="cart_total_mismatch", severity=Severity.blocker, message="Сумма корзины не сходится."))
+        pending = pending_confirmations(req)
+        if pending:
+            issues.append(
+                Issue(
+                    code="unconfirmed_assumptions",
+                    severity=Severity.blocker,
+                    message="Перед оформлением подтвердите то, что я предположил: " + "; ".join(v for _, v in pending) + ".",
+                    fix=QuickReply(
+                        label="Всё верно — оформить",
+                        action=ConfirmAssumptionsAction(paths=[g for g, _ in pending], then_checkout=True),
+                    ),
+                )
+            )
         if variant is not None:
             for x in self.validate_variant(variant, req):
                 if x.code == "early_arrival" and any(i.kind == CartItemKind.early_check_in for i in cart.items):
