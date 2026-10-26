@@ -134,7 +134,7 @@ def main() -> None:
     ap.add_argument("--out", default=str(ROOT / "eval" / "nlu_report.md"))
     args = ap.parse_args()
 
-    app = build(Settings(agent_mode=args.mode), today=lambda: TODAY, db_path=":memory:")
+    app = build(Settings(agent_mode=args.mode), today=lambda: TODAY, database_url="memory://")
     sets = ["dev", "holdout", "holdout2"] if args.set == "all" else [args.set]
     lines = [f"# NLU eval ({app.mode})", "", f"Сегодня (фиксировано): {TODAY}. База для изменений: «{BASE}».", ""]
     for name in sets:

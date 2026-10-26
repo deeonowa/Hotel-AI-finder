@@ -1,7 +1,8 @@
-"""python -m trip_agent [serve|chat]
+"""python -m trip_agent [serve|chat|migrate]
 
 serve — HTTP API (+ собранный фронт), по умолчанию :8000
-chat  — диалог с агентом в терминале (удобно ML1/ML2 отлаживать без фронта)
+chat  — диалог с агентом в терминале (удобно ML1/ML2 отлаживать без фронта, БД в памяти)
+migrate — накатить миграции схемы Postgres по DATABASE_URL и выйти
 """
 
 from __future__ import annotations
@@ -17,14 +18,26 @@ def main() -> None:
     s.add_argument("--host", default="0.0.0.0")
     s.add_argument("--port", type=int, default=8000)
     sub.add_parser("chat")
+    sub.add_parser("migrate")
     args = ap.parse_args()
+
+    if args.cmd == "migrate":
+        import psycopg
+
+        from .config import get_settings
+        from .storage.migrations import migrate
+
+        with psycopg.connect(get_settings().database_url) as conn:
+            applied = migrate(conn)
+        print(f"[migrate] применено: {applied or 'ничего, схема актуальна'}")
+        return
 
     if args.cmd == "chat":
         from .config import get_settings
         from .container import build
         from .schemas import TurnRequest
 
-        app = build(get_settings(), db_path=":memory:")
+        app = build(get_settings(), database_url="memory://")
         r = app.agent.new_session()
         sid = r.session_id
         _print(r)
