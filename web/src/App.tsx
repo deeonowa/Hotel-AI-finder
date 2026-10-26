@@ -7,6 +7,7 @@ import { TripBoard } from "./components/TripBoard";
 
 type Msg = { role: "user"; text: string } | { role: "agent"; resp: TurnResponse };
 type SavedConversation = { sessionId: string; version: number; msgs: Msg[] };
+type ErrorNotice = { title: string; message: string; retry?: () => void };
 
 const STORAGE_KEY = "odin-zapros-conversation";
 
@@ -29,6 +30,16 @@ function loadSavedConversation(): SavedConversation | null {
   return null;
 }
 
+function errorNotice(error: unknown, fallback: string, retry?: () => void): ErrorNotice {
+  if (error instanceof ApiError) {
+    if (error.status === 404) return { title: "Поездка больше недоступна", message: "Сессия на сервере не найдена. Начните новую поездку.", retry };
+    if (error.status >= 500) return { title: "Сервис временно недоступен", message: "Сервер ответил с ошибкой. Попробуйте ещё раз через несколько секунд.", retry };
+    return { title: "Запрос не прошёл", message: error.message || fallback, retry };
+  }
+  if (error instanceof TypeError) return { title: "Не удаётся связаться с сервером", message: "Проверьте, что backend запущен, и повторите действие.", retry };
+  return { title: "Не удалось выполнить действие", message: error instanceof Error ? error.message : fallback, retry };
+}
+
 export default function App() {
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [version, setVersion] = useState(0);
@@ -36,7 +47,7 @@ export default function App() {
   const [tripState, setTripState] = useState<TripState | null>(null);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<ErrorNotice | null>(null);
   const bottom = useRef<HTMLDivElement>(null);
   const initialized = useRef(false);
 
@@ -81,7 +92,7 @@ export default function App() {
       setMsgs([{ role: "agent", resp: r }]);
       refreshTripState(r.session_id);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Не удалось начать новую сессию");
+      setError(errorNotice(e, "Не удалось начать новую сессию", () => void createFreshSession()));
     }
   }
 
@@ -102,7 +113,7 @@ export default function App() {
       setMsgs([{ role: "agent", resp: r }]);
       refreshTripState(r.session_id);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Не удалось начать новую поездку");
+      setError(errorNotice(e, "Не удалось начать новую поездку", () => void startNewTrip()));
     } finally {
       setBusy(false);
     }
@@ -138,14 +149,11 @@ export default function App() {
           refreshTripState(sessionId);
           setError(null);
         } catch (retryError) {
-          setError(
-            retryError instanceof Error
-              ? `План обновился, но действие не повторилось: ${retryError.message}`
-              : "План обновился, но действие не повторилось. Обновите страницу.",
-          );
+          const notice = errorNotice(retryError, "План обновился, но действие не повторилось.", () => void send(req));
+          setError({ ...notice, title: "План обновился, но действие не повторилось" });
         }
       } else {
-        setError(e instanceof Error ? e.message : "Не удалось выполнить действие");
+        setError(errorNotice(e, "Не удалось выполнить действие", () => void send(req)));
       }
     } finally {
       setBusy(false);
@@ -193,7 +201,12 @@ export default function App() {
             ),
           )}
           {busy && <div className="agent-working"><i /> Ищу, сравниваю, проверяю маршрут</div>}
-          {error && <div className="error">{error}</div>}
+          {error && (
+            <div className="error" role="alert">
+              <div><strong>{error.title}</strong><p>{error.message}</p></div>
+              {error.retry && <button className="error-retry" onClick={error.retry} disabled={busy}>Повторить</button>}
+            </div>
+          )}
           <div ref={bottom} />
           </div>
 
