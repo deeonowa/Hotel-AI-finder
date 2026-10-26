@@ -51,8 +51,18 @@ def test_full_journey(app):
 
     # 6. оформление и имитация оплаты
     r = c.post(f"/api/v1/sessions/{sid}/turns", json={"action": {"type": "checkout", "guest_name": "Иван"}}).json()
+    # Даты и состав гостей были предположены при размытом запросе: подтверждаем их
+    # тем же действием, которое получает UI, прежде чем создавать заказ.
+    if "question" in _types(r):
+        question = next(b for b in r["blocks"] if b["type"] == "question")
+        confirm = next(q["action"] for q in question["quick_replies"] if q["action"]["type"] == "confirm_assumptions")
+        r = c.post(f"/api/v1/sessions/{sid}/turns", json={"action": confirm}).json()
     order = next(b for b in r["blocks"] if b["type"] == "order")["order"]
     assert order["status"] == "awaiting_payment" and order["number"].startswith("OST-")
+    # Повторный запрос не создаёт второй заказ.
+    repeat = c.post(f"/api/v1/sessions/{sid}/turns", json={"action": {"type": "checkout", "guest_name": "Иван"}}).json()
+    repeated_order = next(b for b in repeat["blocks"] if b["type"] == "order")["order"]
+    assert repeated_order["id"] == order["id"]
     r = c.post(f"/api/v1/sessions/{sid}/turns", json={"action": {"type": "pay", "order_id": order["id"]}}).json()
     order = next(b for b in r["blocks"] if b["type"] == "order")["order"]
     assert order["status"] == "paid" and order["payment_ref"].startswith("SIM-")
@@ -61,6 +71,11 @@ def test_full_journey(app):
     # 7. после покупки
     r = c.post(f"/api/v1/sessions/{sid}/turns", json={"text": "можно ранний заезд?"}).json()
     assert "order" in _types(r)
+
+    # Новый сценарий не наследует post-purchase контекст старого заказа.
+    r = c.post(f"/api/v1/sessions/{sid}/turns", json={"action": {"type": "reset"}}).json()
+    state = c.get(f"/api/v1/sessions/{sid}").json()
+    assert r["stage"] == "collecting" and state["order_ids"] == []
 
 
 def test_version_conflict_and_404(app):
@@ -73,3 +88,10 @@ def test_version_conflict_and_404(app):
 def test_health(app):
     h = _client(app).get("/api/v1/health").json()
     assert h["status"] == "ok" and h["hotels_loaded"] > 0 and h["llm_configured"] is False
+
+
+def test_order_actions_cannot_target_another_session(app):
+    c = _client(app)
+    sid = c.post("/api/v1/sessions").json()["session_id"]
+    r = c.post(f"/api/v1/sessions/{sid}/turns", json={"action": {"type": "pay", "order_id": "ord_other"}}).json()
+    assert "не относится к текущей поездке" in r["blocks"][0]["markdown"]
