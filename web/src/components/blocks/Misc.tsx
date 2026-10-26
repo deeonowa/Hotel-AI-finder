@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type {
   AssumptionsBlock,
   ComparisonBlock,
@@ -17,6 +18,7 @@ export function TextView({ b }: { b: TextBlock }) {
 }
 
 export function QuestionView({ b, onReply, disabled }: P<QuestionBlock>) {
+  const asksArrivalTime = b.paths?.includes("transport.arrival_time");
   return (
     <div className="card question">
       <div className="q">{b.text}</div>
@@ -27,7 +29,26 @@ export function QuestionView({ b, onReply, disabled }: P<QuestionBlock>) {
           </button>
         ))}
       </div>
+      {asksArrivalTime && <ArrivalTimeInput onReply={onReply} disabled={disabled} />}
     </div>
+  );
+}
+
+function ArrivalTimeInput({ onReply, disabled }: { onReply: ReplyFn; disabled: boolean }) {
+  const [value, setValue] = useState("");
+
+  return (
+    <form
+      className="arrival-time"
+      onSubmit={(event) => {
+        event.preventDefault();
+        if (value) onReply({ label: `Прилетаю в ${value}`, text: `прилетаю в ${value}` });
+      }}
+    >
+      <label htmlFor="arrival-time">Или укажите время сами</label>
+      <input id="arrival-time" type="time" value={value} disabled={disabled} onChange={(event) => setValue(event.target.value)} />
+      <button type="submit" disabled={disabled || !value}>Проверить</button>
+    </form>
   );
 }
 
