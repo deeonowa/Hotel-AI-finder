@@ -1,0 +1,30 @@
+# Запуск:            docker compose up --build            → http://localhost:8000
+# С локальной LLM:   docker compose --profile local up --build
+#                    (один раз: docker compose exec ollama ollama pull qwen2.5:7b-instruct)
+# Ключи/модель берутся из .env (см. .env.example). Без .env агент работает в режиме правил.
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      LLM_BASE_URL: ${LLM_BASE_URL:-}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_MODEL: ${LLM_MODEL:-}
+      AGENT_MODE: ${AGENT_MODE:-auto}
+      LOCATION_ID: ${LOCATION_ID:-sochi}
+    volumes:
+      - agent-data:/app/var
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    profiles: ["local"]
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+
+volumes:
+  agent-data:
+  ollama:

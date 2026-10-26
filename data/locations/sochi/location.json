@@ -1,0 +1,508 @@
+{
+  "id": "sochi",
+  "name": "Большой Сочи",
+  "timezone": "Europe/Moscow",
+  "currency": "RUB",
+  "bbox": {
+    "south": 43.38,
+    "west": 39.15,
+    "north": 44.05,
+    "east": 40.4
+  },
+  "center": {
+    "lat": 43.5855,
+    "lon": 39.7231
+  },
+  "districts": [
+    {
+      "id": "lazarevskoe",
+      "name": "Лазаревское",
+      "kind": "sea",
+      "center": {
+        "lat": 43.9089,
+        "lon": 39.3306
+      },
+      "radius_km": 4.0,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "budget",
+        "family",
+        "party"
+      ],
+      "description": "Самый северный курортный район Большого Сочи: много гостевых домов и недорогого жилья, оживлённая набережная. Далеко от аэропорта.",
+      "highlights": [
+        "Бюджетное жильё",
+        "Набережная и аквапарк",
+        "Далеко от аэропорта"
+      ]
+    },
+    {
+      "id": "dagomys",
+      "name": "Дагомыс",
+      "kind": "sea",
+      "center": {
+        "lat": 43.6616,
+        "lon": 39.6519
+      },
+      "radius_km": 3.0,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "quiet",
+        "wellness",
+        "family"
+      ],
+      "description": "Спокойный район к северу от центра: санатории, зелень, чайные плантации в окрестностях.",
+      "highlights": [
+        "Санатории",
+        "Тише, чем в центре",
+        "Чайные плантации рядом"
+      ]
+    },
+    {
+      "id": "central",
+      "name": "Центральный Сочи",
+      "kind": "sea",
+      "center": {
+        "lat": 43.5855,
+        "lon": 39.7231
+      },
+      "radius_km": 3.5,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "party",
+        "romantic",
+        "business"
+      ],
+      "description": "Центр города: набережная, Морской порт, рестораны и ночная жизнь, Дендрарий и парк Ривьера.",
+      "highlights": [
+        "Рестораны и ночная жизнь",
+        "Дендрарий и Ривьера",
+        "Всё пешком"
+      ]
+    },
+    {
+      "id": "khosta",
+      "name": "Хоста",
+      "kind": "sea",
+      "center": {
+        "lat": 43.5151,
+        "lon": 39.867
+      },
+      "radius_km": 2.5,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "quiet",
+        "nature",
+        "romantic"
+      ],
+      "description": "Небольшой тихий район между центром и Адлером, рядом тисо-самшитовая роща и Агурские водопады недалеко.",
+      "highlights": [
+        "Тишина",
+        "Природа рядом",
+        "Между центром и Адлером"
+      ]
+    },
+    {
+      "id": "adler",
+      "name": "Адлер",
+      "kind": "sea",
+      "center": {
+        "lat": 43.4285,
+        "lon": 39.9239
+      },
+      "radius_km": 3.5,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "family",
+        "budget"
+      ],
+      "description": "Рядом с аэропортом: много семейных отелей и гостевых домов, длинная набережная.",
+      "highlights": [
+        "Близко к аэропорту",
+        "Семейные отели",
+        "Набережная"
+      ]
+    },
+    {
+      "id": "sirius",
+      "name": "Сириус (Имеретинская низменность)",
+      "kind": "sea",
+      "center": {
+        "lat": 43.403,
+        "lon": 39.96
+      },
+      "radius_km": 3.0,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "family",
+        "luxury",
+        "sport"
+      ],
+      "description": "Ровная ухоженная набережная, Олимпийский парк и Сочи Парк. Удобно с детьми и колясками: без подъёмов в гору.",
+      "highlights": [
+        "Ровная набережная — удобно с коляской",
+        "Олимпийский парк и Сочи Парк",
+        "Новые отели"
+      ]
+    },
+    {
+      "id": "krasnaya_polyana",
+      "name": "Красная Поляна",
+      "kind": "mountain",
+      "center": {
+        "lat": 43.68,
+        "lon": 40.265
+      },
+      "radius_km": 4.0,
+      "climate_zone": "mountain",
+      "vibe_tags": [
+        "sport",
+        "nature",
+        "romantic",
+        "luxury"
+      ],
+      "description": "Горный кластер (Красная Поляна, Эсто-Садок, Роза Хутор): горнолыжный сезон зимой, канатные дороги, треккинг и горный воздух летом.",
+      "highlights": [
+        "Горные лыжи зимой",
+        "Канатные дороги и треккинг",
+        "Моря нет"
+      ]
+    }
+  ],
+  "hubs": [
+    {
+      "id": "AER",
+      "name": "Аэропорт Сочи (Адлер)",
+      "kind": "airport",
+      "point": {
+        "lat": 43.4499,
+        "lon": 39.9566
+      }
+    },
+    {
+      "id": "rail_sochi",
+      "name": "Ж/д вокзал Сочи",
+      "kind": "rail",
+      "point": {
+        "lat": 43.5925,
+        "lon": 39.729
+      }
+    },
+    {
+      "id": "rail_adler",
+      "name": "Ж/д вокзал Адлер",
+      "kind": "rail",
+      "point": {
+        "lat": 43.4386,
+        "lon": 39.902
+      }
+    },
+    {
+      "id": "rail_olympic",
+      "name": "Ж/д станция Имеретинский Курорт",
+      "kind": "rail",
+      "point": {
+        "lat": 43.4065,
+        "lon": 39.9513
+      }
+    },
+    {
+      "id": "rail_lazarevskaya",
+      "name": "Ж/д станция Лазаревская",
+      "kind": "rail",
+      "point": {
+        "lat": 43.9087,
+        "lon": 39.3297
+      }
+    },
+    {
+      "id": "rail_rosa",
+      "name": "Ж/д станция Роза Хутор (Эсто-Садок)",
+      "kind": "rail",
+      "point": {
+        "lat": 43.6869,
+        "lon": 40.2597
+      }
+    }
+  ],
+  "seasonality": {
+    "coast": [
+      0.7,
+      0.7,
+      0.75,
+      0.85,
+      1.0,
+      1.25,
+      1.6,
+      1.7,
+      1.3,
+      0.95,
+      0.75,
+      0.85
+    ],
+    "mountain": [
+      1.6,
+      1.7,
+      1.4,
+      0.9,
+      0.8,
+      0.95,
+      1.1,
+      1.15,
+      0.95,
+      0.8,
+      0.75,
+      1.3
+    ]
+  },
+  "peak_periods": [
+    {
+      "start_mmdd": "12-28",
+      "end_mmdd": "01-08",
+      "factor": 1.5,
+      "label": "Новогодние праздники"
+    },
+    {
+      "start_mmdd": "05-01",
+      "end_mmdd": "05-10",
+      "factor": 1.2,
+      "label": "Майские праздники"
+    }
+  ],
+  "climate": {
+    "coast": [
+      {
+        "month": 1,
+        "air_temp_day_c": 10.2,
+        "air_temp_night_c": 3.7,
+        "precip_days": 15.1,
+        "sea_temp_c": 11.3,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 2,
+        "air_temp_day_c": 9.4,
+        "air_temp_night_c": 3.1,
+        "precip_days": 14.3,
+        "sea_temp_c": 10.3,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 3,
+        "air_temp_day_c": 11.8,
+        "air_temp_night_c": 5.0,
+        "precip_days": 14.9,
+        "sea_temp_c": 10.4,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 4,
+        "air_temp_day_c": 16.3,
+        "air_temp_night_c": 8.9,
+        "precip_days": 13.6,
+        "sea_temp_c": 12.9,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 5,
+        "air_temp_day_c": 19.8,
+        "air_temp_night_c": 12.7,
+        "precip_days": 14.0,
+        "sea_temp_c": 16.9,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 6,
+        "air_temp_day_c": 24.7,
+        "air_temp_night_c": 18.3,
+        "precip_days": 13.3,
+        "sea_temp_c": 22.8,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 7,
+        "air_temp_day_c": 27.0,
+        "air_temp_night_c": 20.3,
+        "precip_days": 10.9,
+        "sea_temp_c": 26.2,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 8,
+        "air_temp_day_c": 28.2,
+        "air_temp_night_c": 21.1,
+        "precip_days": 11.0,
+        "sea_temp_c": 27.9,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 9,
+        "air_temp_day_c": 24.5,
+        "air_temp_night_c": 17.4,
+        "precip_days": 12.4,
+        "sea_temp_c": 25.7,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 10,
+        "air_temp_day_c": 20.0,
+        "air_temp_night_c": 12.5,
+        "precip_days": 11.4,
+        "sea_temp_c": 20.9,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 11,
+        "air_temp_day_c": 16.3,
+        "air_temp_night_c": 8.7,
+        "precip_days": 11.4,
+        "sea_temp_c": 16.9,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 12,
+        "air_temp_day_c": 12.5,
+        "air_temp_night_c": 5.9,
+        "precip_days": 14.0,
+        "sea_temp_c": 13.6,
+        "source": "open-meteo 2019–2025 mean"
+      }
+    ],
+    "mountain": [
+      {
+        "month": 1,
+        "air_temp_day_c": 6.7,
+        "air_temp_night_c": -2.9,
+        "precip_days": 15.1,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 2,
+        "air_temp_day_c": 6.4,
+        "air_temp_night_c": -2.7,
+        "precip_days": 15.0,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 3,
+        "air_temp_day_c": 9.8,
+        "air_temp_night_c": -0.3,
+        "precip_days": 17.6,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 4,
+        "air_temp_day_c": 15.5,
+        "air_temp_night_c": 4.3,
+        "precip_days": 16.6,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 5,
+        "air_temp_day_c": 18.7,
+        "air_temp_night_c": 8.3,
+        "precip_days": 18.4,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 6,
+        "air_temp_day_c": 23.2,
+        "air_temp_night_c": 13.5,
+        "precip_days": 19.3,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 7,
+        "air_temp_day_c": 24.9,
+        "air_temp_night_c": 15.2,
+        "precip_days": 16.0,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 8,
+        "air_temp_day_c": 26.2,
+        "air_temp_night_c": 15.8,
+        "precip_days": 14.4,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 9,
+        "air_temp_day_c": 22.1,
+        "air_temp_night_c": 12.1,
+        "precip_days": 14.7,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 10,
+        "air_temp_day_c": 17.9,
+        "air_temp_night_c": 7.4,
+        "precip_days": 13.1,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 11,
+        "air_temp_day_c": 14.0,
+        "air_temp_night_c": 3.3,
+        "precip_days": 11.4,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 12,
+        "air_temp_day_c": 9.8,
+        "air_temp_night_c": -0.4,
+        "precip_days": 14.1,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      }
+    ]
+  },
+  "climate_points": {
+    "coast": {
+      "air": {
+        "lat": 43.585,
+        "lon": 39.723
+      },
+      "sea": {
+        "lat": 43.56,
+        "lon": 39.7
+      }
+    },
+    "mountain": {
+      "air": {
+        "lat": 43.68,
+        "lon": 40.265
+      }
+    }
+  },
+  "data_sources": [
+    {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/copyright",
+      "license": "ODbL 1.0",
+      "used_for": "отели (название, тип, координаты, звёзды, часть удобств), пляжи и POI — после запуска scripts/build_location.py"
+    },
+    {
+      "name": "Open-Meteo",
+      "url": "https://open-meteo.com/",
+      "license": "CC BY 4.0",
+      "used_for": "климатические нормы по месяцам (воздух, море, дни с осадками)"
+    },
+    {
+      "name": "Синтетика (seed)",
+      "url": null,
+      "license": null,
+      "used_for": "DEMO: цены, наличие, типы номеров, рейтинги, условия отмены, правила для животных"
+    }
+  ]
+}

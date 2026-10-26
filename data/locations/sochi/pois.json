@@ -1,0 +1,179 @@
+{
+ "meta": {
+  "source": "fixture",
+  "generator": "scripts/gen_fixtures.py",
+  "seed": "fixture-v1",
+  "count": 13
+ },
+ "pois": [
+  {
+   "id": "poi-lazarevskoe-beach",
+   "name": "Городской пляж — Лазаревское",
+   "kind": "beach",
+   "point": {
+    "lat": 43.9089,
+    "lon": 39.3306
+   },
+   "district_id": "lazarevskoe",
+   "tags": [
+    "fixture"
+   ]
+  },
+  {
+   "id": "poi-lazarevskoe-park",
+   "name": "Парк — Лазаревское",
+   "kind": "park",
+   "point": {
+    "lat": 43.912489,
+    "lon": 39.336212
+   },
+   "district_id": "lazarevskoe",
+   "tags": [
+    "fixture"
+   ]
+  },
+  {
+   "id": "poi-dagomys-beach",
+   "name": "Городской пляж — Дагомыс",
+   "kind": "beach",
+   "point": {
+    "lat": 43.6616,
+    "lon": 39.6519
+   },
+   "district_id": "dagomys",
+   "tags": [
+    "fixture"
+   ]
+  },
+  {
+   "id": "poi-dagomys-park",
+   "name": "Парк — Дагомыс",
+   "kind": "park",
+   "point": {
+    "lat": 43.665189,
+    "lon": 39.657489
+   },
+   "district_id": "dagomys",
+   "tags": [
+    "fixture"
+   ]
+  },
+  {
+   "id": "poi-central-beach",
+   "name": "Городской пляж — Центральный Сочи",
+   "kind": "beach",
+   "point": {
+    "lat": 43.5855,
+    "lon": 39.7231
+   },
+   "district_id": "central",
+   "tags": [
+    "fixture"
+   ]
+  },
+  {
+   "id": "poi-central-park",
+   "name": "Парк — Центральный Сочи",
+   "kind": "park",
+   "point": {
+    "lat": 43.589089,
+    "lon": 39.728682
+   },
+   "district_id": "central",
+   "tags": [
+    "fixture"
+   ]
+  },
+  {
+   "id": "poi-khosta-beach",
+   "name": "Городской пляж — Хоста",
+   "kind": "beach",
+   "point": {
+    "lat": 43.5151,
+    "lon": 39.867
+   },
+   "district_id": "khosta",
+   "tags": [
+    "fixture"
+   ]
+  },
+  {
+   "id": "poi-khosta-park",
+   "name": "Парк — Хоста",
+   "kind": "park",
+   "point": {
+    "lat": 43.518689,
+    "lon": 39.872575
+   },
+   "district_id": "khosta",
+   "tags": [
+    "fixture"
+   ]
+  },
+  {
+   "id": "poi-adler-beach",
+   "name": "Городской пляж — Адлер",
+   "kind": "beach",
+   "point": {
+    "lat": 43.4285,
+    "lon": 39.9239
+   },
+   "district_id": "adler",
+   "tags": [
+    "fixture"
+   ]
+  },
+  {
+   "id": "poi-adler-park",
+   "name": "Парк — Адлер",
+   "kind": "park",
+   "point": {
+    "lat": 43.432089,
+    "lon": 39.929467
+   },
+   "district_id": "adler",
+   "tags": [
+    "fixture"
+   ]
+  },
+  {
+   "id": "poi-sirius-beach",
+   "name": "Городской пляж — Сириус (Имеретинская низменность)",
+   "kind": "beach",
+   "point": {
+    "lat": 43.403,
+    "lon": 39.96
+   },
+   "district_id": "sirius",
+   "tags": [
+    "fixture"
+   ]
+  },
+  {
+   "id": "poi-sirius-park",
+   "name": "Парк — Сириус (Имеретинская низменность)",
+   "kind": "park",
+   "point": {
+    "lat": 43.406589,
+    "lon": 39.965565
+   },
+   "district_id": "sirius",
+   "tags": [
+    "fixture"
+   ]
+  },
+  {
+   "id": "poi-krasnaya_polyana-lift",
+   "name": "Канатная дорога (демо-точка)",
+   "kind": "ski_lift",
+   "point": {
+    "lat": 43.68,
+    "lon": 40.265
+   },
+   "district_id": "krasnaya_polyana",
+   "tags": [
+    "fixture"
+   ]
+  }
+ ]
+}
