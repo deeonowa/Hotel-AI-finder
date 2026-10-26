@@ -74,6 +74,27 @@ export default function App() {
     }
   }
 
+  async function startNewTrip() {
+    if (busy) return;
+    setBusy(true);
+    setError(null);
+    localStorage.removeItem(STORAGE_KEY);
+    setSessionId(null);
+    setVersion(0);
+    setMsgs([]);
+    setInput("");
+    try {
+      const r = await api.createSession();
+      setSessionId(r.session_id);
+      setVersion(r.version);
+      setMsgs([{ role: "agent", resp: r }]);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Не удалось начать новую поездку");
+    } finally {
+      setBusy(false);
+    }
+  }
+
   useEffect(() => {
     if (!sessionId || msgs.length === 0) return;
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ sessionId, version, msgs } satisfies SavedConversation));
@@ -132,7 +153,7 @@ export default function App() {
       <header className="masthead">
         <a className="wordmark" href="#top" aria-label="О!дин запрос, в начало">О<span>!</span>дин запрос</a>
         <p>Путешествие от мысли до ключа от номера</p>
-        <button className="reset-link" onClick={() => send({ action: { type: "reset" } }, "Новая поездка")} disabled={busy}>
+        <button className="reset-link" onClick={() => void startNewTrip()} disabled={busy}>
           Новая поездка
         </button>
       </header>
