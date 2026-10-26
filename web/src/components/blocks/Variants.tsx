@@ -2,6 +2,8 @@ import type { Variant, VariantsBlock } from "../../api/types";
 import { MEALS, rub } from "../../lib/format";
 import type { ReplyFn } from "../BlockView";
 
+const fmtTime = (iso: string) => iso.slice(11, 16);
+
 const ARCH_CLASS: Record<string, string> = {
   balanced: "a-balanced",
   best_value: "a-value",
@@ -41,6 +43,13 @@ function VariantCard({ v, recommended, onReply, disabled }: { v: Variant; recomm
         {o.cancellation.refundable ? `бесплатная отмена до ${o.cancellation.free_until}` : "невозвратный"}
         {v.transfer_in && ` · дорога ~${v.transfer_in.minutes} мин`}
       </div>
+      {v.outbound && v.inbound && (
+        <div className="small tickets">
+          {v.outbound.mode === "plane" ? "✈" : "🚆"} туда {fmtTime(v.outbound.depart_at)}–{fmtTime(v.outbound.arrive_at)}
+          {v.outbound.stops === 0 ? " прямой" : " с пересадкой"} · обратно {fmtTime(v.inbound.depart_at)}
+          {v.inbound.stops === 0 ? " прямой" : " с пересадкой"} · билеты {rub(v.outbound.passengers_price + v.inbound.passengers_price)} (демо)
+        </div>
+      )}
 
       <div className="bars" title="Из чего сложилась оценка">
         {(v.breakdown ?? []).map((c) => (
