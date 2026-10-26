@@ -56,6 +56,11 @@ export default function App() {
   const blocks = responses.flatMap((response) => response.blocks);
   const cart = [...blocks].reverse().find((block): block is CartBlock => block.type === "cart")?.cart;
   const order = [...blocks].reverse().find((block): block is OrderBlock => block.type === "order")?.order;
+  const isContinuation = msgs.some((message) => message.role === "user");
+  const composerLabel = isContinuation ? "Продолжить маршрут" : "Куда хочется?";
+  const composerPlaceholder = isContinuation
+    ? "Например: дешевле, на два дня позже, с ребёнком или с собакой"
+    : "Например: к морю с ребёнком в ноябре";
 
   function refreshTripState(id: string) {
     void api.getSession(id).then(setTripState, () => undefined);
@@ -174,8 +179,11 @@ export default function App() {
   return (
     <div className="app atlas-app">
       <header className="masthead">
-        <a className="wordmark" href="#top" aria-label="О!дин запрос, в начало">О<span>!</span>дин запрос</a>
-        <p>Путешествие от мысли до ключа от номера</p>
+        <a className="wordmark" href="#top" aria-label="Маяк, в начало">
+          <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M5 21c4-9 9-13 18-14M8 22c4-2 8-2 14 0M18 5v6M15 8h6" /></svg>
+          <span>маяк</span>
+        </a>
+        <p>Поездка, собранная по ходу разговора</p>
         <button className="reset-link" onClick={() => void startNewTrip()} disabled={busy}>
           Новая поездка
         </button>
@@ -224,9 +232,9 @@ export default function App() {
               </div>
             )}
             <form onSubmit={submit}>
-              <label htmlFor="trip-request">Куда хочется?</label>
+              <label htmlFor="trip-request">{composerLabel}</label>
               <input id="trip-request" value={input} onChange={(e) => setInput(e.target.value)}
-                placeholder="Например: к морю с ребёнком в ноябре, до 120 000 ₽" disabled={!sessionId} />
+                placeholder={composerPlaceholder} disabled={!sessionId} />
               <button type="submit" disabled={busy || !input.trim()}>Отправить</button>
             </form>
           </footer>
