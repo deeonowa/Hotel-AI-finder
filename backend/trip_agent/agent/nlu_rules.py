@@ -3,98 +3,101 @@
 Зачем, если есть LLM:
   * режим без ключа — жюри запустит даже без доступа к модели (агент работает, просто попроще);
   * fallback, когда LLM недоступна/ответила мусором;
-  * быстрый эталон для eval: LLM-NLU должен быть НЕ хуже правил на тех же сценариях.
+  * быстрый эталон для eval: LLM-NLU должен быть НЕ хуже правил на тех же наборах (eval/nlu_*.jsonl);
+  * guard от инъекций, который срабатывает ДО вызова LLM (см. is_injection).
+
+Устройство: отдельный извлекатель на каждый слот (даты, длительность, гости, бюджет, транспорт,
+пожелания), затем выбор намерения. Порядок намерений важен: «беру второй» — это выбор, а не покупка;
+«есть там парковка?» — вопрос, а не новое требование; «а если бюджет 150?» — изменение, а не вопрос.
 """
 
 from __future__ import annotations
 
 import re
-from datetime import date
+from datetime import date, timedelta
 
 from ..schemas import Intent, NluResult, PatchOp, PostPurchaseKind, TripStage, TripState
 
 MONTHS = {
-    "январ": 1,
-    "феврал": 2,
-    "март": 3,
-    "апрел": 4,
-    "мая": 5,
-    "май": 5,
-    "мае": 5,
-    "июн": 6,
-    "июл": 7,
-    "август": 8,
-    "сентябр": 9,
-    "октябр": 10,
-    "ноябр": 11,
-    "декабр": 12,
-}
+    "январ": 1, "феврал": 2, "март": 3, "апрел": 4, "мая": 5, "май": 5, "мае": 5, "июн": 6, "июл": 7,
+    "август": 8, "сентябр": 9, "октябр": 10, "ноябр": 11, "декабр": 12,
+}  # fmt: skip
 MONTH_RE = r"(январ\w*|феврал\w*|март\w*|апрел\w*|ма[йяе]|июн\w*|июл\w*|август\w*|сентябр\w*|октябр\w*|ноябр\w*|декабр\w*)"
 NUM_WORDS = {
-    "один": 1,
-    "одна": 1,
-    "два": 2,
-    "две": 2,
-    "три": 3,
-    "четыре": 4,
-    "пять": 5,
-    "шесть": 6,
-    "семь": 7,
-    "восемь": 8,
-    "девять": 9,
-    "десять": 10,
-    "двое": 2,
-    "трое": 3,
-    "четверо": 4,
-}
-ORDINALS = {"перв": 1, "втор": 2, "трет": 3, "1": 1, "2": 2, "3": 3}
+    "один": 1, "одна": 1, "одну": 1, "одного": 1, "два": 2, "две": 2, "двух": 2, "пару": 2, "пара": 2,
+    "три": 3, "трех": 3, "четыре": 4, "четырех": 4, "пять": 5, "пяти": 5, "шесть": 6, "шести": 6,
+    "семь": 7, "семи": 7, "восемь": 8, "восьми": 8, "девять": 9, "десять": 10, "десяти": 10,
+    "одиннадцать": 11, "двенадцать": 12, "четырнадцать": 14, "пятнадцать": 15, "двадцать": 20,
+    "тридцать": 30, "двое": 2, "трое": 3, "четверо": 4, "пятеро": 5, "шестеро": 6, "семеро": 7,
+}  # fmt: skip
+NUM_TOKEN = r"(\d{1,3}|" + "|".join(sorted(NUM_WORDS, key=len, reverse=True)) + r")"
+EN_MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+GROUP_WORDS = {"вдвоем": 2, "втроем": 3, "вчетвером": 4, "впятером": 5, "вшестером": 6}
+ORDINALS = {"перв": 1, "втор": 2, "трет": 3, "четв": 4, "1": 1, "2": 2, "3": 3}
 
 DISTRICTS = [
     (r"лазаревск", "lazarevskoe"),
     (r"дагомыс", "dagomys"),
-    (r"центральн\w* район", "central"),
-    (r"хост", "khosta"),
+    (r"центральн\w* (?:район|соч)|центр\w* (?:г\.? ?)?соч|в центре соч", "central"),
+    (r"\bхост\w*", "khosta"),
     (r"адлер", "adler"),
     (r"сириус|имеретин|олимпийск\w* парк", "sirius"),
-    (r"красн\w* полян|роза хутор|эсто-?садок|горки город", "krasnaya_polyana"),
+    (r"красн\w* полян|роз\w* хутор|эсто-?садок|горки город|газпром\w* лаур", "krasnaya_polyana"),
 ]
 
-PREFS: list[tuple[str, str, str, float | int | None]] = [
-    # (regex, key, priority, value)
-    (r"перв\w* лини", "beach_first_line", "important", None),
-    (r"вид\w* на море", "sea_view", "important", None),
-    (r"\bморе\b|\bморя\b|у моря|к морю|пляж|покупаться", "near_sea", "important", None),
-    (r"лыж|сноуборд|горнолыж|склон", "ski_access", "important", None),
-    (r"\bгор[ыауе]?\b|в горах|горн\w* воздух", "mountains", "important", None),
-    (r"тих|спокойн|уединен|без шума|не шумн", "quiet", "important", None),
-    (r"тусов|ночн\w* жизн|клуб|вечеринк", "nightlife", "important", None),
-    (r"в центре|центр города|рядом с центром", "city_center", "important", None),
-    (r"детск\w* клуб|аниматор|анимаци", "kids_club", "important", None),
-    (r"подогрев\w* бассейн|крыт\w* бассейн|тёпл\w* бассейн|тепл\w* бассейн", "heated_pool", "important", None),
-    (r"бассейн", "pool", "important", None),
-    (r"\bспа\b|\bspa\b|массаж|сауна|баня", "spa", "nice", None),
-    (r"романт|годовщин|медов\w* месяц|предложение сделать", "romantic", "important", None),
-    (r"всё включено|все включено|all inclusive|ультра", "all_inclusive", "important", None),
-    (r"завтрак", "breakfast_included", "important", None),
-    (r"бесплатн\w* отмен|можно отменить|возможност\w* отмен|возврат", "free_cancellation", "important", None),
-    (r"парковк|на машине|на авто|на своей машине", "parking", "important", None),
-    (r"коляск|инвалид|доступн\w* сред|пожил", "accessible", "important", None),
+PREFS: list[tuple[str, str, str]] = [
+    (r"перв\w* лини", "beach_first_line", "important"),
+    (r"вид\w* на море", "sea_view", "important"),
+    (r"\bмор[еяюи]\b|у моря|к морю|пляж|покупаться|ближе к морю|\bsea\b|\bbeach", "near_sea", "important"),
+    (r"лыж|сноуборд|горнолыж|склон|ski", "ski_access", "important"),
+    (r"\bгор[ыауе]?\b|в горах|горн\w* воздух", "mountains", "important"),
+    (r"\bтих|тиш|спокойн|уединен|без шума|от шума|не шумн|перезагруз|quiet", "quiet", "important"),
+    (r"тусов|ночн\w* жизн|клуб(?!\w* детск)|вечеринк|бары|ресторан\w* и ночн", "nightlife", "important"),
+    (r"в центре(?! соч)|центр города|рядом с центром", "city_center", "important"),
+    (r"детск\w* клуб|аниматор|анимаци", "kids_club", "important"),
+    (r"подогрев\w* бассейн|крыт\w* бассейн|тепл\w* бассейн", "heated_pool", "important"),
+    (r"бассейн", "pool", "important"),
+    (r"\bспа\b|\bspa\b|массаж|сауна|баня", "spa", "nice"),
+    (r"романт|годовщин|медов\w* месяц|предложение сделать", "romantic", "important"),
+    (r"все включено|all inclusive|ультра вс", "all_inclusive", "important"),
+    (r"завтрак", "breakfast_included", "important"),
+    (r"бесплатн\w* отмен|можно отменить|отменить без|без штраф|возможност\w* отмен|возврат", "free_cancellation", "important"),
+    (r"парковк|на (?:сво\w+ )?машин|на (?:сво\w+ )?авто", "parking", "important"),
+    (r"коляск|инвалид|доступн\w* сред|пожил|лифт", "accessible", "important"),
     (
-        r"недалеко от аэропорта|короткий трансфер|без долгой дороги|не хочу долго ехать|ближе к аэропорту",
+        r"недалеко от аэропорт|рядом с аэропорт|ближе к аэропорт|от аэропорта (?:недалеко|близко|минимум|быстро|недолго)"
+        r"|ехать от аэропорта (?:минимум|недолго|мало)|короткий трансфер|без долгой дороги|не хочу долго ехать",
         "short_transfer",
         "important",
-        None,
     ),
-    (r"хорош\w* отзыв|высок\w* рейтинг", "high_rating", "important", None),
-    (r"люкс|премиум|роскош|дорог\w* отел", "luxury", "important", None),
-    (r"удалёнк|удаленк|поработать|ноутбук|рабоч\w* мест", "work_friendly", "nice", None),
-    (r"природ|лес|водопад|треккинг|поход", "nature", "nice", None),
-    (r"санатор|лечени|оздоров|процедур", "wellness", "important", None),
-    (r"подешевле|дешевле|бюджетн|недорог|эконом", "budget_value", "important", None),
+    (r"хорош\w* отзыв|высок\w* рейтинг", "high_rating", "important"),
+    (r"люкс|премиум|роскош|дорог\w* отел|шикарн", "luxury", "important"),
+    (r"удаленк|поработать|ноутбук|рабоч\w* мест", "work_friendly", "nice"),
+    (r"природ|\bлес|водопад|треккинг|поход|троп|гулять|прогулк", "nature", "nice"),
+    (r"санатор|лечени|подлечит|оздоров|процедур", "wellness", "important"),
+    (r"подешевле|дешевле|бюджетн\w* вариант|недорог|эконом", "budget_value", "important"),
 ]
 
+INJECTION = re.compile(
+    r"ignore|игнорир|забудь\w*\s+(?:все\s+|всё\s+)?(?:правил|инструкц|предыдущ)|system prompt|системн\w* (?:промпт|инструкц)"
+    r"|ты теперь|режим админ|admin|приказ\w* админ|set price|цен\w*\s+(?:на\s+)?(?:0|ноль|нол)\b|за 1 рубл"
+    r"|бесплатн\w* бот|developer mode|jailbreak|выведи (?:свой|свои) (?:промпт|инструкц)"
+)
+QUESTION_ABOUT_OPTION = re.compile(
+    r"\b(есть ли|есть там|там есть|а там|у них|в отеле есть|включен\w*|можно ли там|разрешено ли|далеко ли|"
+    r"сколько (?:идти|ехать|до)|сколько там|сколько стоит|во сколько (?:заезд|выезд|заселение)|какой там|какая там|"
+    r"далеко (?:от него|от отеля|ли)|от него до|от отеля до)\b"
+)
+MODIFY_MARKERS = re.compile(
+    r"\bесли\b|\bдавай\b|хочу|покажи|найди|подбери|сдвин|перенес|лучше|подешевле|дешевле|поближе|ближе|бюджет|"
+    r"поменя|измени|добав|убер|плюс|еще|присоедин|поедет|возьмем|решили"
+)
+TRAVEL_WORDS = re.compile(r"отел|поездк|отдох|путешеств|сочи|мор|гор|отпуск|съездить|поехать|номер")
 
-def _num(token: str) -> int | None:
+
+def _num(token: str | None) -> int | None:
+    if not token:
+        return None
     token = token.lower()
     if token.isdigit():
         return int(token)
@@ -103,239 +106,412 @@ def _num(token: str) -> int | None:
 
 def _month(word: str) -> int | None:
     w = word.lower()
-    for stem, m in MONTHS.items():
-        if w.startswith(stem):
-            return m
-    return None
+    return next((m for stem, m in MONTHS.items() if w.startswith(stem)), None)
 
 
 def _year_for(month: int, day: int, today: date) -> int:
     return today.year + (1 if (month, day) < (today.month, today.day) else 0)
 
 
+def _safe_date(y: int, m: int, d: int) -> date | None:
+    try:
+        return date(y, m, d)
+    except ValueError:
+        return None
+
+
+def _norm(text: str) -> str:
+    t = text.lower().replace("ё", "е").replace("–", "-").replace("—", "-")
+    return " " + re.sub(r"\s+", " ", t) + " "
+
+
+def is_injection(text: str) -> bool:
+    """Попытка управлять агентом через текст пользователя. Срабатывает и перед LLM (defense-in-depth)."""
+    return bool(INJECTION.search(_norm(text)))
+
+
 class RuleNlu:
     def parse(self, text: str, state: TripState, today: date) -> NluResult:
-        t = " " + text.lower().replace("ё", "е") + " "
-        ops: list[PatchOp] = []
-        assumed: list[str] = []
-        has_req = state.turn_count > 0 and bool(
-            state.variants or state.requirements.dates.month or state.requirements.dates.check_in
-        )
+        t = _norm(text)
+        req = state.requirements
+        has_plan = state.turn_count > 0 and bool(state.variants or req.dates.month or req.dates.check_in)
 
-        # ---- служебные интенты ------------------------------------------------
-        if re.search(r"начать заново|начнем сначала|новый поиск|забудь вс", t):
+        # ---- служебные намерения (порядок важен) ------------------------------------------
+        if INJECTION.search(t):
+            return NluResult(intent=Intent.off_topic, confidence=0.95, parser="rules")
+        if re.search(r"начать заново|начнем сначала|новый поиск|сбрось|забудь вс", t):
             return NluResult(intent=Intent.reset, parser="rules")
         if state.stage == TripStage.ordered or state.order_ids:
-            if re.search(r"ранн\w* заезд|заселиться раньше", t):
-                return NluResult(intent=Intent.post_purchase, post_purchase_kind=PostPurchaseKind.early_check_in, parser="rules")
-            if re.search(r"поздн\w* выезд", t):
-                return NluResult(intent=Intent.post_purchase, post_purchase_kind=PostPurchaseKind.late_check_out, parser="rules")
-            if re.search(r"трансфер", t):
-                return NluResult(intent=Intent.post_purchase, post_purchase_kind=PostPurchaseKind.add_transfer, parser="rules")
-            if re.search(r"напомн|напомин", t):
-                return NluResult(intent=Intent.post_purchase, post_purchase_kind=PostPurchaseKind.reminder, parser="rules")
-            if re.search(r"отмени\w* брон|отменить заказ", t):
-                return NluResult(intent=Intent.post_purchase, post_purchase_kind=PostPurchaseKind.cancel, parser="rules")
-        if re.search(r"оформ|забронир|брониру|в корзину|оплат|\bберу\b|\bберем\b", t):
-            return NluResult(intent=Intent.book, parser="rules")
-        m = re.search(r"(перв|втор|трет|\b[123]\b)\w*\s*(вариант|отел)?", t)
-        if re.search(r"выбира|выберу|давай|хочу|нравится|подходит", t) and m and re.search(r"вариант|отел|перв|втор|трет", t):
-            return NluResult(
-                intent=Intent.select_variant,
-                variant_ordinal=ORDINALS.get(m.group(1)[:4].rstrip("ь"), None) or ORDINALS.get(m.group(1), None),
-                parser="rules",
+            pp = self._post_purchase(t)
+            if pp:
+                return NluResult(intent=Intent.post_purchase, post_purchase_kind=pp, parser="rules")
+        if state.variants:
+            sel = re.search(
+                r"\b(перв|втор|трет|четв|последн)\w*\b(?!\s+лини)|\b([123])(?:-?[йиео]\w*)?\s*(?:вариант|отел)"
+                r"|номер\s+(один|два|три|1|2|3)\b",
+                t,
             )
-        if re.search(r"сравн|чем отлича|в чем разниц|что лучше", t):
+            if sel and re.search(r"бер|возьм|выбира|выбер|давай|нрав|подход|хочу|остановимся|вариант|отел", t):
+                key = sel.group(1) or sel.group(2) or sel.group(3)
+                n = len(state.variants) if key.startswith("последн") else ORDINALS.get(key[:4]) or ORDINALS.get(key) or _num(key)
+                return NluResult(intent=Intent.select_variant, variant_ordinal=n, parser="rules")
+        if re.search(r"сравн|чем (?:они )?отлича|в ч[её]м разниц|разниц\w* между|что лучше", t):
             return NluResult(intent=Intent.compare, parser="rules")
+        if re.search(r"оформ|забронир|бронир|в корзину|оплат|\bберу\b|\bберем\b", t):
+            return NluResult(intent=Intent.book, parser="rules")
 
-        # ---- вопрос о выбранном/показанном отеле (не путать с изменением условий) --------
-        if state.variants and re.search(
-            r"\b(есть ли|можно ли|разрешено ли|далеко ли|сколько|какой|какая|какие|где|во сколько|а там)\b", t
-        ) and not re.search(r"вариант|найди|покажи|подбери|хочу|давай|поменя|измени", t):
+        ops, assumed = self._extract(t, text, state, today)
+
+        if has_plan and state.variants and ("?" in t or QUESTION_ABOUT_OPTION.search(t)):
+            about_option = QUESTION_ABOUT_OPTION.search(t)
+            if about_option and not MODIFY_MARKERS.search(t):
+                return NluResult(intent=Intent.ask_info, info_question=text.strip(), parser="rules")
+            if not ops:
+                return NluResult(intent=Intent.ask_info, info_question=text.strip(), parser="rules")
+        if re.search(r"не знаю куда|куда поехать|куда лучше|посоветуй\w* (?:район|куда)|предложи\w* (?:район|куда)|где лучше", t):
+            return NluResult(intent=Intent.inspire, patch=ops, assumed_paths=assumed, parser="rules")
+        if ops:
+            return NluResult(intent=Intent.modify if has_plan else Intent.plan_trip, patch=ops, assumed_paths=assumed, parser="rules")
+        if re.search(r"привет|здравств|добр\w* (?:день|вечер|утро)|что ты (?:умеешь|можешь)|кто ты|спасибо|благодар", t):
+            return NluResult(intent=Intent.smalltalk, parser="rules")
+        if "?" in t or re.search(r"\b(есть ли|можно ли|сколько|какой|какая|какие|далеко ли|где)\b", t):
             return NluResult(intent=Intent.ask_info, info_question=text.strip(), parser="rules")
+        if TRAVEL_WORDS.search(t):
+            return NluResult(intent=Intent.plan_trip, parser="rules")
+        return NluResult(intent=Intent.unclear, confidence=0.2, parser="rules")
 
-        # ---- сдвиг дат ----------------------------------------------------------
-        if mm := re.search(r"на (\w+) (дн\w*|недел\w*) (позже|раньше)", t):
-            n = _num(mm.group(1)) or (1 if mm.group(1) in ("одну", "день") else None)
-            if n:
-                days = n * (7 if mm.group(2).startswith("недел") else 1) * (1 if mm.group(3) == "позже" else -1)
-                ops.append(PatchOp(op="shift_days", path="dates", value=days))
-        elif re.search(r"на (день|сутки) (позже|раньше)", t):
-            ops.append(PatchOp(op="shift_days", path="dates", value=1 if "позже" in t else -1))
+    # ================================================================ слоты
+    def _extract(self, t: str, raw: str, state: TripState, today: date) -> tuple[list[PatchOp], list[str]]:
+        ops: list[PatchOp] = []
+        assumed: list[str] = []
+        self._dates(t, state, today, ops, assumed)
+        self._guests(t, state, ops, assumed)
+        self._budget(t, state, ops)
+        self._transport(t, raw, ops, assumed)
+        districts = sorted({did for rx, did in DISTRICTS if re.search(rx, t)})
+        if districts:
+            ops.append(PatchOp(op="set", path="district_ids", value=districts))
+        self._prefs(t, ops)
+        return ops, assumed
 
-        # ---- точные даты --------------------------------------------------------
-        if mm := re.search(r"(?:с\s+)?(\d{1,2})\s*(?:-|–|по|до)\s*(\d{1,2})\s+" + MONTH_RE, t):
-            d1, d2, mon = int(mm.group(1)), int(mm.group(2)), _month(mm.group(3))
+    # ---------------------------------------------------------------- даты
+    def _dates(self, t: str, state: TripState, today: date, ops: list[PatchOp], assumed: list[str]) -> None:
+        d = state.requirements.dates
+        exact = d.check_in is not None and d.check_out is not None
+
+        # сдвиг («на 3 дня раньше», «на недельку позже», «на день позже»)
+        sm = re.search(NUM_TOKEN + r"?\s*(дн\w*|ден\w*|сут\w*|недел\w*)\s+(позже|раньше|вперед|назад)", t)
+        if sm and re.search(r"\bна\s", t[max(0, sm.start() - 4) : sm.start() + 1]):
+            n = _num(sm.group(1)) or 1
+            days = n * (7 if sm.group(2).startswith("недел") else 1) * (1 if sm.group(3) in ("позже", "вперед") else -1)
+            ops.append(PatchOp(op="shift_days", path="dates", value=days))
+            return
+
+        # изменение длительности («на 2 ночи меньше», «на день дольше»)
+        if exact and (dm := re.search(r"на " + NUM_TOKEN + r"?\s*(ноч\w*|дн\w*|ден\w*|сут\w*)\s+(меньше|короче|больше|дольше)", t)):
+            n = _num(dm.group(1)) or 1
+            sign = -1 if dm.group(3) in ("меньше", "короче") else 1
+            ops.append(PatchOp(op="set", path="dates.check_out", value=(d.check_out + timedelta(days=sign * n)).isoformat()))
+            return
+
+        if exact and (pm := re.search(r"продл\w*\s+(?:на\s+)?" + NUM_TOKEN + r"?\s*(ноч\w*|дн\w*|ден\w*|сут\w*)", t)):
+            n = _num(pm.group(1)) or 1
+            ops.append(PatchOp(op="set", path="dates.check_out", value=(d.check_out + timedelta(days=n)).isoformat()))
+            return
+
+        ci = co = None
+        # диапазон «10-17 ноября», «с 10 по 17 ноября»
+        if m := re.search(r"(\d{1,2})\s*(?:-|по|до)\s*(\d{1,2})\s+" + MONTH_RE, t):
+            mon = _month(m.group(3))
             if mon:
-                y = _year_for(mon, d1, today)
-                try:
-                    ci, co = date(y, mon, d1), date(y, mon, d2)
-                    if co > ci:
-                        ops += [
-                            PatchOp(op="set", path="dates.check_in", value=ci.isoformat()),
-                            PatchOp(op="set", path="dates.check_out", value=co.isoformat()),
-                        ]
-                except ValueError:
-                    pass
-        elif mm := re.search(r"(\d{1,2})\.(\d{1,2})(?:\.\d{2,4})?\s*(?:-|–|по|до)\s*(\d{1,2})\.(\d{1,2})", t):
-            d1, m1, d2, m2 = map(int, mm.groups())
-            try:
-                y = _year_for(m1, d1, today)
-                ci, co = date(y, m1, d1), date(y if m2 >= m1 else y + 1, m2, d2)
+                y = _year_for(mon, int(m.group(1)), today)
+                ci, co = _safe_date(y, mon, int(m.group(1))), _safe_date(y, mon, int(m.group(2)))
+        elif m := re.search(r"(\d{1,2})\.(\d{1,2})(?:\.\d{2,4})?\s*(?:-|по|до)\s*(\d{1,2})\.(\d{1,2})", t):
+            d1, m1, d2, m2 = map(int, m.groups())
+            y = _year_for(m1, d1, today)
+            ci, co = _safe_date(y, m1, d1), _safe_date(y if m2 >= m1 else y + 1, m2, d2)
+        elif re.search(r"\b\d{1,2}\.\d{1,2}\b", t):
+            # «заезд 3.12, выезд 7.12» — числовые даты с якорями
+            for m in re.finditer(r"(заезд\w*|с|выезд\w*|до|по|обратно)?\s*\b(\d{1,2})\.(\d{1,2})\b(?!\.\d|:)", t):
+                dd, mm_ = int(m.group(2)), int(m.group(3))
+                dt = _safe_date(_year_for(mm_, dd, today), mm_, dd) if 1 <= mm_ <= 12 else None
+                if not dt:
+                    continue
+                if (m.group(1) or "").startswith(("выезд", "до", "по", "обратно")):
+                    co = dt
+                elif ci is None:
+                    ci = dt
+                elif co is None:
+                    co = dt
+        else:
+            # одиночная дата «14 ноября», «приедем 12 декабря»: до/обратно/улетаем → выезд, иначе заезд
+            for m in re.finditer(r"(\d{1,2})(?:-?го)?\s+" + MONTH_RE, t):
+                mon = _month(m.group(2))
+                if not mon:
+                    continue
+                before = t[max(0, m.start() - 14) : m.start()]
+                dt = _safe_date(_year_for(mon, int(m.group(1)), today), mon, int(m.group(1)))
+                if re.search(r"\b(?:до|по|обратно|улета\w*|уезжа\w*|выезд\w*)\s*$", before):
+                    co = dt
+                elif ci is None:
+                    ci = dt
+            # день без месяца «обратно 9-го», «улетаем 25-го», «заехать 11-го», «заезд на 12-е»
+            for m in re.finditer(
+                r"(обратно|улета\w*|уезжа\w*|выезд\w*|до|заезд\w*|заехать|заселени\w*|заселиться|с)\s+"
+                r"(?:на\s+)?(\d{1,2})-?(?:го|е|ое)\b",
+                t,
+            ):
+                anchor = ci or d.check_in
+                base_month = anchor.month if anchor else today.month
+                base_year = anchor.year if anchor else today.year
+                day = int(m.group(2))
+                dt = _safe_date(base_year, base_month, day)
+                if dt and anchor and dt <= anchor and m.group(1) not in ("заезд", "заехать", "с"):
+                    nm = base_month % 12 + 1
+                    dt = _safe_date(base_year + (base_month == 12), nm, day)
+                if m.group(1).startswith(("обратно", "улета", "уезжа", "выезд", "до")):
+                    co = dt
+                else:
+                    ci = dt
+        if ci and co and co <= ci:
+            co = None
+        if ci:
+            ops.append(PatchOp(op="set", path="dates.check_in", value=ci.isoformat()))
+        if co:
+            ops.append(PatchOp(op="set", path="dates.check_out", value=co.isoformat()))
+
+        if not (ci or co):
+            if re.search(r"на новогодн|на новый год|новогодн\w* праздник", t):
+                y = today.year if (today.month, today.day) <= (12, 28) else today.year + 1
                 ops += [
-                    PatchOp(op="set", path="dates.check_in", value=ci.isoformat()),
-                    PatchOp(op="set", path="dates.check_out", value=co.isoformat()),
+                    PatchOp(op="set", path="dates.check_in", value=date(y, 12, 30).isoformat()),
+                    PatchOp(op="set", path="dates.check_out", value=date(y + 1, 1, 3).isoformat()),
                 ]
-            except ValueError:
-                pass
-        elif mm := re.search(r"с\s+(\d{1,2})\s+" + MONTH_RE, t):
-            mon = _month(mm.group(2))
-            if mon:
-                d1 = int(mm.group(1))
-                try:
-                    ops.append(
-                        PatchOp(op="set", path="dates.check_in", value=date(_year_for(mon, d1, today), mon, d1).isoformat())
-                    )
-                except ValueError:
-                    pass
-        elif mm := re.search(r"\bв\s+" + MONTH_RE, t) or re.search(r"\b" + MONTH_RE + r"\b", t):
-            mon = _month(mm.group(1))
-            if mon and not re.search(r"\d\s+" + mm.group(1), t):
-                ops.append(PatchOp(op="set", path="dates.month", value=mon))
-        if re.search(r"на новогодн|на новый год", t):
-            y = today.year if today.month < 12 or today.day < 28 else today.year + 1
-            ops += [
-                PatchOp(op="set", path="dates.check_in", value=date(y, 12, 30).isoformat()),
-                PatchOp(op="set", path="dates.check_out", value=date(y + 1, 1, 3).isoformat()),
-            ]
-            assumed += ["dates.check_in", "dates.check_out"]
-        if re.search(r"на (эти |ближайшие )?выходные", t):
-            days_to_fri = (4 - today.weekday()) % 7 or 7
-            fri = date.fromordinal(today.toordinal() + days_to_fri)
-            ops += [
-                PatchOp(op="set", path="dates.check_in", value=fri.isoformat()),
-                PatchOp(op="set", path="dates.check_out", value=date.fromordinal(fri.toordinal() + 2).isoformat()),
-            ]
+                assumed += ["dates.check_in", "dates.check_out"]
+            elif re.search(r"майск", t):
+                y = today.year + (1 if (today.month, today.day) > (5, 1) else 0)
+                ops += [
+                    PatchOp(op="set", path="dates.check_in", value=date(y, 5, 1).isoformat()),
+                    PatchOp(op="set", path="dates.check_out", value=date(y, 5, 5).isoformat()),
+                ]
+                assumed += ["dates.check_in", "dates.check_out"]
+            elif re.search(r"на (?:эти |ближайшие )?выходные|в (?:эти |ближайшие )?выходные", t):
+                fri = today + timedelta(days=(4 - today.weekday()) % 7 or 7)
+                ops += [
+                    PatchOp(op="set", path="dates.check_in", value=fri.isoformat()),
+                    PatchOp(op="set", path="dates.check_out", value=(fri + timedelta(days=2)).isoformat()),
+                ]
+            elif m := re.search(r"\b(january|february|march|april|may|june|july|august|september|october|november|december)\b", t):
+                ops.append(PatchOp(op="set", path="dates.month", value=EN_MONTHS.index(m.group(1)) + 1))
+            elif m := re.search(r"\b(?:в|на|начале|середине|конце)\s+" + MONTH_RE, t) or re.search(r"\b" + MONTH_RE + r"\b", t):
+                mon = _month(m.group(1))
+                if mon:
+                    ops.append(PatchOp(op="set", path="dates.month", value=mon))
 
-        # ---- длительность -------------------------------------------------------
-        if not any(o.op == "shift_days" for o in ops):
-            if re.search(r"на (одну |1 )?недел", t):
-                ops.append(PatchOp(op="set", path="dates.nights", value=7))
-            elif re.search(r"на (две|2) недел", t):
-                ops.append(PatchOp(op="set", path="dates.nights", value=14))
-            elif mm := re.search(r"на (\w+) (ноч\w*|дн\w*|сут\w*)", t):
-                n = _num(mm.group(1))
-                if n:
-                    ops.append(PatchOp(op="set", path="dates.nights", value=n))
+        # длительность (если нет обеих дат)
+        if ci and co:
+            return
+        n = self._nights(t)
+        if n:
+            ops.append(PatchOp(op="set", path="dates.nights", value=n))
 
-        # ---- гости --------------------------------------------------------------
-        adults = None
-        if re.search(r"вдво[её]м|с муж|с жен|с девушк|с парн|с подруг|с друг\b|с другом|пара\b|парой", t):
+    @staticmethod
+    def _nights(t: str) -> int | None:
+        if m := re.search(NUM_TOKEN + r"\s*(?:ноч\w*|сут\w*)", t):
+            return _num(m.group(1))
+        if m := re.search(r"(?:дн\w*|ден\w*|ноч\w*)\s+(?:на\s+)?" + NUM_TOKEN + r"\b(?!\s*(?:лет|год|звезд|взросл))", t):
+            return _num(m.group(1))
+        if m := re.search(r"(\d{1,2})\s*nights?", t):
+            return int(m.group(1))
+        if m := re.search(NUM_TOKEN + r"\s+(?:дн\w*|ден\w*)", t):
+            n = _num(m.group(1))
+            if n and n <= 60 and not re.search(r"\b(?:за|через)\s*$", t[max(0, m.start() - 7) : m.start()]):
+                return n
+        if re.search(r"полтор\w* недел", t):
+            return 10
+        if m := re.search(r"\b(две|2|пару|три|3)\s+недел|недел\w*\s+на\s+(две|три)", t):
+            return {"две": 14, "2": 14, "пару": 14, "три": 21, "3": 21}[m.group(1) or m.group(2)]
+        if re.search(r"\bнедел(?:ю|ька|ьку|я)\b|на недел", t) and not re.search(r"через недел|на этой недел|на следующ\w* недел", t):
+            return 7
+        if re.search(r"\bмесяц\b|на месяц", t) and not re.search(r"медов\w* месяц|в этом месяце|в следующем месяце", t):
+            return 30
+        return None
+
+    # ---------------------------------------------------------------- гости
+    def _guests(self, t: str, state: TripState, ops: list[PatchOp], assumed: list[str]) -> None:
+        cur = state.requirements.guests
+        adults: int | None = None
+        relative = 0
+        if m := re.search(NUM_TOKEN + r"\s+взросл", t):
+            if not re.search(r"(?:еще|плюс)\s*$", t[max(0, m.start() - 6) : m.start()]):
+                adults = _num(m.group(1))
+        plus = re.search(r"\((\d)\s*\+\s*(\d)\)|\b(\d)\s*\+\s*(\d)\b(?!\s*(?:ноч|дн))", t)  # «нас 4 (2+2)»
+        if adults is None and plus:
+            adults = int(plus.group(1) or plus.group(3))
+        if adults is None and (m := re.search(NUM_TOKEN + r"\s+(?:пенсионер\w*|человек\w*|чел\b|туриста?|adults?)", t)):
+            adults = _num(m.group(1))
+        if adults is None and (m := re.search(r"\bнас\s+" + NUM_TOKEN + r"\b", t)):
+            adults = _num(m.group(1))
+        if adults is None:
+            adults = next((n for w, n in GROUP_WORDS.items() if w in t), None)
+        if adults is None and re.search(
+            r"с жен|с муж|с девушк|с парн|с подруг|с другом|\bпар[аеуы]\b(?!\s+(?:недел|дн|ноч|сут|час))|парой|молодожен"
+            r"|медов\w* месяц|годовщин|мы с (?:женой|мужем)",
+            t,
+        ):
             adults = 2
-        if re.search(r"втро[её]м", t) and not re.search(r"ребен|дет", t):
-            adults = 3
-        if mm := re.search(r"(\w+) взросл", t):
-            adults = _num(mm.group(1)) or adults
-        if re.search(r"\b(один|одна|сам|сама|одному|одной)\b", t) and adults is None:
-            adults = 1
+        if adults is None and (m := re.search(r"\b(двое|трое|четверо|пятеро|шестеро)\b(?!\s+(?:дет|ребят|внук))", t)):
+            adults = NUM_WORDS[m.group(1)]
+        single_parent = re.search(r"\bя (?:и|с) (?:сын|доч|ребен|детьми|малыш)", t)
+        if adults is None and (single_parent or re.search(r"\b(?:один|одна|сам|сама|одному|одной)\b(?!\s+взросл)", t)):
+            if not re.search(r"еще (?:один|одна)", t):
+                adults = 1
+        # относительное: «ещё один взрослый», «с нами поедет ещё мама», «присоединится ещё двое»
+        if rm := re.search(
+            r"(?:еще|плюс|присоедин\w*)\s+"
+            + NUM_TOKEN
+            + r"?\s*(взросл\w*|человек\w*|мама|папа|бабушк\w*|дедушк\w*|друг\w*|подруг\w*|коллег\w*)",
+            t,
+        ):  # noqa: E501
+            relative = _num(rm.group(1)) or 1
+        elif re.search(r"(?:поедет|едет|присоедин\w*)\s+(?:с нами\s+)?еще\s+(?:мама|папа|бабушк|дедушк|друг|подруг|один|одна)", t):
+            relative = 1
+        if relative and adults is None:
+            adults = (cur.adults or 2) + relative
         if adults:
             ops.append(PatchOp(op="set", path="guests.adults", value=adults))
+        if m := re.search(NUM_TOKEN + r"\s+номер(?:а|ов)?\b", t):
+            if (n := _num(m.group(1))) and 1 < n <= 5:
+                ops.append(PatchOp(op="set", path="guests.rooms", value=n))
 
         kids: list[int] = []
-        for mm in re.finditer(r"(?:ребенк\w*|ребен\w*|сын\w*|доч\w*|малыш\w*)\s*(\d{1,2})\s*(?:лет|год)", t):
-            kids.append(int(mm.group(1)))
-        if mm := re.search(r"дет\w*\s*(\d{1,2})\s*(?:и|,)\s*(\d{1,2})\s*(?:лет|год)", t):
-            kids += [int(mm.group(1)), int(mm.group(2))]
+        for m in re.finditer(r"(?:ребенк\w*|ребен\w*|сын\w*|доч\w*|малыш\w*|внук\w*|внучк\w*)\s*(\d{1,2})\s*(?:лет|год)", t):
+            kids.append(int(m.group(1)))
+        if not kids and (m := re.search(r"(?:дет\w*|ребят\w*)\s*\(?\s*((?:\d{1,2}\s*(?:,|и)?\s*){1,5})\s*(?:лет|год)", t)):
+            kids = [int(x) for x in re.findall(r"\d{1,2}", m.group(1))]
+        if not kids and plus:
+            kids = [7] * int(plus.group(2) or plus.group(4))
+            assumed.append("guests.children_ages")
         if not kids:
-            if mm := re.search(r"(\w+)\s+(?:дет|ребен)", t):
-                n = _num(mm.group(1))
-                if n and n < 6:
-                    kids = [7] * n
-                    assumed.append("guests.children_ages")
-            elif re.search(r"с ребен|с малыш|с сыном|с дочк|с дочер|с детьми", t):
-                kids = [7] if not re.search(r"с детьми", t) else [7, 7]
+            m = re.search(r"\b(\w+)\s+(?:дет|ребен|ребят)", t)
+            n = _num(m.group(1)) if m else None
+            if m and n is None and m.group(1) in ("двумя", "тремя"):
+                n = {"двумя": 2, "тремя": 3}[m.group(1)]
+            if n and n < 6:
+                kids = [7] * n
+                assumed.append("guests.children_ages")
+            elif re.search(r"младен|грудн|малыш", t):
+                kids = [1]
+                assumed.append("guests.children_ages")
+            elif re.search(r"с ребен|с сыном|с дочк|с дочер|с детьми|с ребятами|с внук|с внучк|\bребенок\b|семь[яеи] с", t):
+                kids = [7, 7] if re.search(r"с детьми|с ребятами|с внуками", t) else [7]
                 assumed.append("guests.children_ages")
         if kids:
+            if cur.children_ages and re.search(r"\b(?:еще|плюс)\b", t):
+                kids = [*cur.children_ages, *kids]
             ops.append(PatchOp(op="set", path="guests.children_ages", value=kids))
-            if adults is None and state.requirements.guests.adults is None:
-                ops.append(PatchOp(op="set", path="guests.adults", value=2))
+            if adults is None and cur.adults is None:
+                ops.append(PatchOp(op="set", path="guests.adults", value=1 if single_parent else 2))
                 assumed.append("guests.adults")
 
-        if re.search(r"без (собак|кош|кот|животн|питомц)", t):
+        if re.search(r"без (?:собак|кош|кот|животн|питомц)|(?:собак|кошк|кот|питомц)\w*\s+(?:оставим|не берем|не поедет|не едет)", t):
             ops.append(PatchOp(op="set", path="guests.pets", value=[]))
         else:
-            if re.search(r"собак|пес\b|псом|щен|\bдог\b", t):
+            if re.search(r"собак|\bпес\b|\bпсом|щен|лабрадор|овчарк|шпиц|такс", t):
                 ops.append(PatchOp(op="add", path="guests.pets", value="dog"))
             if re.search(r"\bкот\b|котом|кошк", t):
                 ops.append(PatchOp(op="add", path="guests.pets", value="cat"))
 
-        # ---- бюджет -------------------------------------------------------------
-        if mm := re.search(
-            r"(?:до|бюджет\w*|за|не дороже|максимум|в пределах|около|примерно|уложиться в)\s*(\d[\d\s]*[\d])?\s*(\d+)?\s*(тыс\w*|т\.?р\.?|к\b|k\b|руб\w*|₽|р\b)?",  # noqa: E501
-            t,
-        ):
-            raw = (mm.group(1) or mm.group(2) or "").replace(" ", "")
-            unit = mm.group(3) or ""
-            if raw.isdigit():
-                amount = int(raw)
-                if unit.startswith(("тыс", "т", "к", "k")) or amount < 1000:
-                    amount *= 1000
-                if 1000 <= amount <= 5_000_000 and unit:
-                    ops.append(PatchOp(op="set", path="budget.amount", value=amount))
-                    if re.search(r"за ночь|в сутки|за сутки|ночь", t[mm.start() : mm.end() + 15]):
-                        ops.append(PatchOp(op="set", path="budget.scope", value="per_night"))
-                    elif re.search(r"на отель|за отель|за проживание|на проживание", t):
-                        ops.append(PatchOp(op="set", path="budget.scope", value="hotel_total"))
-                    if re.search(r"около|примерно|плюс-минус", t):
-                        ops.append(PatchOp(op="set", path="budget.flex_pct", value=10))
-        if not any(o.path == "budget.amount" for o in ops):
-            if re.search(r"бюджет меньше|подешевле|дешевле|экономнее", t) and state.requirements.budget.amount:
+    # ---------------------------------------------------------------- бюджет
+    def _budget(self, t: str, state: TripState, ops: list[PatchOp]) -> None:
+        amount: int | None = None
+        span = None
+        thousands = r"(?:тыс\w*|тыщ\w*|т\.?\s?р\.?|к|k)"
+        not_units = r"(?!\s*(?:ноч|дн|ден|сут|недел|лет|год|звезд|\*|взросл|человек|мин|час|[:.]\d))"
+        if m := re.search(r"(\d+(?:[.,]\d)?)\s*" + thousands + r"(?![а-я])", t):
+            amount, span = int(float(m.group(1).replace(",", ".")) * 1000), m
+        elif m := re.search(r"тысяч\w*\s+(\d{1,4})\b", t):
+            amount, span = int(m.group(1)) * 1000, m
+        elif m := re.search(r"(\d{1,3}(?:[  ]\d{3})+|\d{4,7})\s*(?:руб\w*|₽|р\b)?", t):
+            ctx = t[max(0, m.start() - 25) : m.end() + 15]
+            if re.search(
+                r"бюджет|до|не дороже|максимум|в пределах|около|примерно|уложиться|за все|на все|на всех|руб|₽|в сутки|за ночь", ctx
+            ):  # noqa: E501
+                amount, span = int(re.sub(r"\D", "", m.group(1))), m
+        elif m := re.search(r"(?:бюджет\w*|до|не дороже|максимум|в пределах|уложиться в)\s*(?:до\s+)?(\d{2,3})\b" + not_units, t):
+            if re.search(r"бюджет|не дороже|максимум|уложиться|в пределах", t):
+                amount, span = int(m.group(1)) * 1000, m  # «бюджет 150», «до 130?» — в тысячах
+        if amount and 1000 <= amount <= 10_000_000:
+            ops.append(PatchOp(op="set", path="budget.amount", value=amount))
+            tail = t[span.start() : span.end() + 20] if span else ""
+            if re.search(r"за ночь|в сутки|за сутки|/ночь|в ночь", tail):
+                ops.append(PatchOp(op="set", path="budget.scope", value="per_night"))
+            elif re.search(r"на отель|за отель|за проживание|на проживание", t):
+                ops.append(PatchOp(op="set", path="budget.scope", value="hotel_total"))
+            if re.search(r"около|примерно|плюс-минус|в районе", t):
+                ops.append(PatchOp(op="set", path="budget.flex_pct", value=10))
+            return
+        if state.requirements.budget.amount:
+            if re.search(r"бюджет меньше|подешевле|дешевле|экономнее|сократ\w* бюджет", t):
                 ops.append(PatchOp(op="scale", path="budget.amount", value=0.85))
-            elif re.search(r"можно дороже|бюджет больше|подороже", t) and state.requirements.budget.amount:
+            elif re.search(r"можно дороже|бюджет больше|подороже|увелич\w* бюджет", t):
                 ops.append(PatchOp(op="scale", path="budget.amount", value=1.25))
 
-        # ---- районы, транспорт ----------------------------------------------------
-        districts = [did for rx, did in DISTRICTS if re.search(rx, t)]
-        if districts:
-            ops.append(PatchOp(op="set", path="district_ids", value=sorted(set(districts))))
-        if re.search(r"прилет|прилеч|самолет|рейс|аэропорт|перелет", t):
+    # ---------------------------------------------------------------- транспорт
+    def _transport(self, t: str, raw: str, ops: list[PatchOp], assumed: list[str]) -> None:
+        if re.search(r"без пересад|прям\w* рейс|прямым|только прям|direct", t):
+            ops.append(PatchOp(op="set", path="transport.max_stops", value=0))
+        elif re.search(r"(?:можно|пусть|ладно)\s+(?:и\s+)?с пересадк|пересадк\w* (?:не страшн|допустим|можно)", t):
+            ops.append(PatchOp(op="unset", path="transport.max_stops"))
+        if re.search(r"прилет|прилеч|самолет|рейс|перелет|вылет|приземл|лет(?:им|им из|аем)", t):
             ops.append(PatchOp(op="set", path="transport.arrival_mode", value="plane"))
-        elif re.search(r"поезд|ласточк|\bжд\b|ж/д|вокзал", t):
+        elif re.search(r"поезд|ласточк|\bжд\b|ж/д|вокзал|электричк", t):
             ops.append(PatchOp(op="set", path="transport.arrival_mode", value="train"))
-        elif re.search(r"на машине|на авто|своим ходом", t):
+        elif re.search(r"на (?:сво\w+ )?(?:машин|авто)|своим ходом", t):
             ops.append(PatchOp(op="set", path="transport.arrival_mode", value="car"))
-        if mm := re.search(r"(?:прилет\w*|приезж\w*|прибыва\w*|прилеча\w*)\D{0,12}(\d{1,2})[:.](\d{2})", t):
-            ops.append(PatchOp(op="set", path="transport.arrival_time", value=f"{int(mm.group(1)):02d}:{mm.group(2)}"))
-        elif mm := re.search(r"(?:прилет\w*|приезж\w*|прибыва\w*)\s+(утром|днем|вечером|ночью)", t):
-            ops.append(
-                PatchOp(
-                    op="set",
-                    path="transport.arrival_time",
-                    value={"утром": "08:00", "днем": "13:00", "вечером": "19:00", "ночью": "01:00"}[mm.group(1)],
-                )
-            )
-            assumed.append("transport.arrival_time")
-        if mm := re.search(r"(?:улета\w*|обратн\w* рейс|уезжа\w*|отъезд\w*)\D{0,12}(\d{1,2})[:.](\d{2})", t):
-            ops.append(PatchOp(op="set", path="transport.departure_time", value=f"{int(mm.group(1)):02d}:{mm.group(2)}"))
-        if mm := re.search(r"\bиз\s+(москв\w*|питер\w*|санкт-петербург\w*|спб|екатеринбург\w*|казан\w*|новосибирск\w*)", t):
-            city = {
-                "москв": "Москва",
-                "питер": "Санкт-Петербург",
-                "санкт": "Санкт-Петербург",
-                "спб": "Санкт-Петербург",
-                "екате": "Екатеринбург",
-                "казан": "Казань",
-                "новос": "Новосибирск",
-            }
-            ops.append(
-                PatchOp(
-                    op="set", path="transport.origin_city", value=next(v for k, v in city.items() if mm.group(1).startswith(k))
-                )
-            )
 
-        # ---- предпочтения ---------------------------------------------------------
+        def find_time(anchor: str) -> tuple[str | None, bool]:
+            a = re.search(anchor, t)
+            if not a:
+                return None, False
+            window = t[a.end() : a.end() + 60]
+            if m := re.search(r"\bв\s*(\d{1,2})(?:[:.](\d{2}))?\s*(утра|утром|вечера|вечером|ночи|ночью|дня|час\w*)?", window):
+                h, mi, part = int(m.group(1)), int(m.group(2) or 0), m.group(3) or ""
+                if part.startswith("вечер") and h < 12 or part == "дня" and h < 12:
+                    h += 12
+                if part.startswith("ноч") and h == 12:
+                    h = 0
+                if h <= 23 and mi <= 59 and (m.group(2) or part):
+                    return f"{h:02d}:{mi:02d}", False
+            if m := re.search(r"\b(рано утром|утром|днем|вечером|поздно вечером|ночью)\b", window):
+                return {
+                    "рано утром": "06:00",
+                    "утром": "08:00",
+                    "днем": "13:00",
+                    "вечером": "19:00",
+                    "поздно вечером": "22:00",
+                    "ночью": "01:00",
+                }[m.group(1)], True
+            return None, False
+
+        at, guess = find_time(r"прилет\w*|прилеч\w*|приезж\w*|приед\w*|прибыва\w*|прибыт\w*|садится|приземл\w*|посадк\w*")
+        if at:
+            ops.append(PatchOp(op="set", path="transport.arrival_time", value=at))
+            if guess:
+                assumed.append("transport.arrival_time")
+        dt, _ = find_time(r"улета\w*|улетим|обратн\w*|уезжа\w*|уедем|отъезд\w*")
+        if dt:
+            ops.append(PatchOp(op="set", path="transport.departure_time", value=dt))
+
+        if m := re.search(r"\bиз\s+([А-ЯЁ][а-яё\-]+(?:[ -][А-ЯЁ][а-яё]+)?)", raw):
+            ops.append(PatchOp(op="set", path="transport.origin_city", value=_city(m.group(1))))
+
+    # ---------------------------------------------------------------- пожелания
+    @staticmethod
+    def _prefs(t: str, ops: list[PatchOp]) -> None:
         seen: set[str] = set()
-        for rx, key, prio, val in PREFS:
+        neg_after = r"\w*\s+(?:не нужен|не нужна|не нужно|не нужны|не обязател\w*|необязател\w*|не важ\w*|не принципиал\w*)"
+        for rx, key, prio in PREFS:
             if key in seen or not re.search(rx, t):
                 continue
             if key == "pool" and "heated_pool" in seen:
@@ -344,37 +520,55 @@ class RuleNlu:
                 continue
             if key == "budget_value" and any(o.path == "budget.amount" for o in ops):
                 continue
-            neg = re.search(r"(?:не нужн\w*|без)\s+(?:" + rx + ")", t)
-            if neg:
-                ops.append(PatchOp(op="remove", path="preferences", value=key))
+            if key == "parking" and re.search(r"без машин", t):
                 continue
-            must = re.search(r"(?:обязательно|только|точно|непременно)[^.,!?]{0,25}(?:" + rx + ")", t) or re.search(
+            if (
+                re.search(r"(?:не нужн\w*|без|обойдемся без|можно без)\s+(?:" + rx + ")", t)
+                or re.search(r"(?:убер\w*|удали\w*|не учитыва\w*|забудь\w*)[^.!?]{0,25}(?:" + rx + ")", t)
+                or re.search(r"(?:" + rx + ")" + neg_after, t)
+            ):
+                ops.append(PatchOp(op="remove", path="preferences", value=key))
+                seen.add(key)
+                continue
+            must = re.search(r"(?:обязательно|только|точно|непременно|строго|именно)[^.,!?]{0,25}(?:" + rx + ")", t) or re.search(
                 r"(?:" + rx + r")[^.!?]{0,30}(?:обязательно|обязателен|обязательна|непременно)", t
             )
-            ops.append(
-                PatchOp(
-                    op="add",
-                    path="preferences",
-                    value={"key": key, "priority": "must" if must else prio, **({"value": val} if val else {})},
-                )
-            )
+            ops.append(PatchOp(op="add", path="preferences", value={"key": key, "priority": "must" if must else prio}))
             seen.add(key)
-        if mm := re.search(r"(\d)\s*(?:звезд|\*|★)", t):
-            ops.append(
-                PatchOp(op="add", path="preferences", value={"key": "min_stars", "priority": "must", "value": int(mm.group(1))})
-            )
+        if m := re.search(r"(\d)\s*(?:звезд|\*|★)|(пяти|четырех|трех)звезд", t):
+            stars = int(m.group(1)) if m.group(1) else {"пяти": 5, "четырех": 4, "трех": 3}[m.group(2)]
+            ops.append(PatchOp(op="add", path="preferences", value={"key": "min_stars", "priority": "must", "value": stars}))
 
-        # ---- интент ----------------------------------------------------------------
-        if re.search(r"не знаю куда|куда поехать|куда лучше|посоветуй\w* (район|куда)|предложи\w* (район|куда)|где лучше", t):
-            return NluResult(intent=Intent.inspire, patch=ops, assumed_paths=assumed, parser="rules")
-        if ops:
-            return NluResult(
-                intent=Intent.modify if has_req else Intent.plan_trip, patch=ops, assumed_paths=assumed, parser="rules"
-            )
-        if "?" in t or re.search(r"\b(есть ли|можно ли|сколько|какой|какая|какие|далеко ли|где)\b", t):
-            return NluResult(intent=Intent.ask_info, info_question=text.strip(), parser="rules")
-        if re.search(r"привет|здравств|добрый|спасибо|благодар", t):
-            return NluResult(intent=Intent.smalltalk, parser="rules")
-        if re.search(r"отел|поездк|отдох|путешеств|сочи|море|гор", t):
-            return NluResult(intent=Intent.plan_trip, parser="rules")
-        return NluResult(intent=Intent.unclear, confidence=0.2, parser="rules")
+    @staticmethod
+    def _post_purchase(t: str) -> PostPurchaseKind | None:
+        if re.search(r"ранн\w* заезд|заселиться раньше", t):
+            return PostPurchaseKind.early_check_in
+        if re.search(r"поздн\w* выезд", t):
+            return PostPurchaseKind.late_check_out
+        if re.search(r"трансфер", t):
+            return PostPurchaseKind.add_transfer
+        if re.search(r"напомн|напомин", t):
+            return PostPurchaseKind.reminder
+        if re.search(r"отмени\w* брон|отменить заказ|отмените", t):
+            return PostPurchaseKind.cancel
+        if re.search(r"перенес|сдвин|другие даты|позже|раньше", t):
+            return PostPurchaseKind.change_dates
+        return None
+
+
+CITY_FORMS = {
+    "москвы": "Москва", "питера": "Санкт-Петербург", "санкт-петербурга": "Санкт-Петербург", "спб": "Санкт-Петербург",
+    "екатеринбурга": "Екатеринбург", "казани": "Казань", "новосибирска": "Новосибирск", "краснодара": "Краснодар",
+    "ростова": "Ростов-на-Дону", "ростова-на-дону": "Ростов-на-Дону", "самары": "Самара", "перми": "Пермь",
+    "воронежа": "Воронеж", "уфы": "Уфа", "нижнего новгорода": "Нижний Новгород", "минска": "Минск",
+}  # fmt: skip
+
+
+def _city(word: str) -> str:
+    w = word.lower()
+    if w in CITY_FORMS:
+        return CITY_FORMS[w]
+    for suffix, repl in (("ы", "а"), ("и", "ь"), ("а", "")):
+        if w.endswith(suffix) and len(w) > 4:
+            return (w[: -len(suffix)] + repl).capitalize()
+    return word

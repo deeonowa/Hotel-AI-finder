@@ -33,6 +33,7 @@ PATH_LABELS = {
     "transport.arrival_hub_id": "Прибытие в",
     "transport.arrival_time": "Время прибытия",
     "transport.departure_time": "Время отъезда",
+    "transport.max_stops": "Пересадки",
     "notes": "Заметки",
 }
 
@@ -89,9 +90,7 @@ def apply_patch(
                 new = Preference.model_validate({**p, "source": p.get("source", source)})
                 prefs[:] = [x for x in prefs if x["key"] != new.key]
                 prefs.append(new.model_dump(mode="python"))
-                changes.append(
-                    f"+ {PREF_LABELS.get(new.key, new.key)}" + (" (обязательно)" if new.priority == Priority.must else "")
-                )
+                changes.append(f"+ {PREF_LABELS.get(new.key, new.key)}" + (" (обязательно)" if new.priority == Priority.must else ""))
             elif op.op == "remove":
                 key = op.value["key"] if isinstance(op.value, dict) else op.value
                 before = len(prefs)
@@ -105,11 +104,13 @@ def apply_patch(
         current = _get(req, path)
         if op.op == "set":
             _set(data, path, op.value)
-            changes.append(f"{label}: {_fmt(current, path)} → {_fmt(op.value, path)}")
+            if _fmt(current, path) != _fmt(op.value, path):  # «plane → plane» в списке изменений не показываем
+                changes.append(f"{label}: {_fmt(current, path)} → {_fmt(op.value, path)}")
         elif op.op == "unset":
             default = [] if isinstance(current, list) else None
             _set(data, path, default)
-            changes.append(f"{label}: убрано")
+            if current not in (None, []):
+                changes.append(f"{label}: убрано" if path != "transport.max_stops" else "Пересадки: можно")
         elif op.op in ("add", "remove"):
             if not isinstance(current, list):
                 raise PatchError(f"{path} не список")
@@ -175,6 +176,10 @@ def _fmt(v: Any, path: str = "") -> str:
         return "да" if v else "нет"
     if path in MONEY_PATHS and isinstance(v, int | float):
         return fmt_rub(int(v))
+    if path == "transport.max_stops":
+        return "только прямые" if v == 0 else f"не больше {v}"
+    if path == "transport.arrival_mode":
+        return {"plane": "самолёт", "train": "поезд", "car": "машина", "unknown": "не указано"}.get(str(getattr(v, "value", v)), str(v))
     if isinstance(v, date):
         return v.strftime("%d.%m.%Y")
     if isinstance(v, list):

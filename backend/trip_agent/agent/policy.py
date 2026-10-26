@@ -85,6 +85,14 @@ def critical_question(req: Requirements, asked: list[str], asked_count: int) -> 
     return None
 
 
+def assume_rooms(req: Requirements) -> list[PatchOp]:
+    """Группа от 4 взрослых без указания номеров → по умолчанию по двое в номере (предположение, видно чипсом)."""
+    a = req.guests.adults or 0
+    if req.guests.rooms is None and a >= 4:
+        return [PatchOp(op="set", path="guests.rooms", value=-(-a // 2))]
+    return []
+
+
 def resolve_dates(req: Requirements, today: date) -> tuple[list[PatchOp], list[str]]:
     """Достроить точные даты из «месяц + ночи». Возвращает (ops, пути-предположения)."""
     d = req.dates
@@ -119,6 +127,8 @@ def resolve_dates(req: Requirements, today: date) -> tuple[list[PatchOp], list[s
 def guests_label(req: Requirements) -> str:
     a = req.guests.adults or 2
     s = {1: "1 взрослый"}.get(a, f"{a} взрослых")
+    if req.guests.rooms and req.guests.rooms > 1:
+        s += f", {req.guests.rooms} номера" if req.guests.rooms < 5 else f", {req.guests.rooms} номеров"
     if req.guests.children_ages:
         ages = ", ".join(str(x) for x in req.guests.children_ages)
         n = len(req.guests.children_ages)
@@ -182,9 +192,7 @@ def assumption_chips(req: Requirements) -> list[AssumptionChip]:
                 label="Бюджет",
                 value_label=f"до {fmt_rub(b.amount)} {scope}",
                 source=prov.get("budget.amount", Source.user),
-                options=[
-                    QuickReply(label="−15%", action=ApplyPatchAction(ops=[PatchOp(op="scale", path="budget.amount", value=0.85)]))
-                ],
+                options=[QuickReply(label="−15%", action=ApplyPatchAction(ops=[PatchOp(op="scale", path="budget.amount", value=0.85)]))],
             )
         )
     else:
@@ -195,9 +203,7 @@ def assumption_chips(req: Requirements) -> list[AssumptionChip]:
                 value_label="не ограничен — подберу по соотношению цена/качество",
                 source=Source.default,
                 options=[
-                    QuickReply(
-                        label=f"до {fmt_rub(v)}", action=ApplyPatchAction(ops=[PatchOp(op="set", path="budget.amount", value=v)])
-                    )
+                    QuickReply(label=f"до {fmt_rub(v)}", action=ApplyPatchAction(ops=[PatchOp(op="set", path="budget.amount", value=v)]))
                     for v in (60_000, 100_000, 150_000)
                 ],
             )
@@ -206,17 +212,11 @@ def assumption_chips(req: Requirements) -> list[AssumptionChip]:
         chips.append(
             AssumptionChip(
                 path=f"preferences.{p.key.value}",
-                label="Обязательно"
-                if p.priority == Priority.must
-                else "Важно"
-                if p.priority == Priority.important
-                else "Желательно",
+                label="Обязательно" if p.priority == Priority.must else "Важно" if p.priority == Priority.important else "Желательно",
                 value_label=PREF_LABELS.get(p.key, p.key.value),
                 source=p.source,
                 options=[
-                    QuickReply(
-                        label="Убрать", action=ApplyPatchAction(ops=[PatchOp(op="remove", path="preferences", value=p.key.value)])
-                    )
+                    QuickReply(label="Убрать", action=ApplyPatchAction(ops=[PatchOp(op="remove", path="preferences", value=p.key.value)]))
                 ],
             )
         )
@@ -227,9 +227,7 @@ def assumption_chips(req: Requirements) -> list[AssumptionChip]:
                 label="Район",
                 value_label=", ".join(req.district_ids),
                 source=prov.get("district_ids", Source.user),
-                options=[
-                    QuickReply(label="Любой район", action=ApplyPatchAction(ops=[PatchOp(op="unset", path="district_ids")]))
-                ],
+                options=[QuickReply(label="Любой район", action=ApplyPatchAction(ops=[PatchOp(op="unset", path="district_ids")]))],
             )
         )
     return chips

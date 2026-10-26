@@ -39,9 +39,7 @@ def main() -> None:
 
     import uvicorn
 
-    uvicorn.run(
-        "trip_agent.api.app:create_app", factory=True, host=getattr(args, "host", "0.0.0.0"), port=getattr(args, "port", 8000)
-    )
+    uvicorn.run("trip_agent.api.app:create_app", factory=True, host=getattr(args, "host", "0.0.0.0"), port=getattr(args, "port", 8000))
 
 
 def _print(r) -> None:  # noqa: ANN001

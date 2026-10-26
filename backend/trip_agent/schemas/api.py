@@ -18,9 +18,7 @@ class TurnRequest(Model):
 
     text: str | None = Field(default=None, max_length=4000)
     action: Action | None = None
-    expected_version: int | None = Field(
-        default=None, description="оптимистичная блокировка: версия состояния, которую видел клиент"
-    )
+    expected_version: int | None = Field(default=None, description="оптимистичная блокировка: версия состояния, которую видел клиент")
 
     @model_validator(mode="after")
     def _one_of(self) -> TurnRequest:

@@ -24,8 +24,7 @@ class SqliteStore:
         self._db.execute("PRAGMA journal_mode=WAL")
         for table in ("sessions", "carts", "orders"):
             self._db.execute(
-                f"CREATE TABLE IF NOT EXISTS {table} (id TEXT PRIMARY KEY, body TEXT NOT NULL, "
-                "updated_at TEXT DEFAULT CURRENT_TIMESTAMP)"
+                f"CREATE TABLE IF NOT EXISTS {table} (id TEXT PRIMARY KEY, body TEXT NOT NULL, updated_at TEXT DEFAULT CURRENT_TIMESTAMP)"
             )
         self._db.commit()
 

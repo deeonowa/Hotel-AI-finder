@@ -76,9 +76,7 @@ def suggest_districts(
                     prices.append(min(o.price_per_night_avg for o in offers))
         airport = next((h for h in location.hubs if h.kind == "airport"), None)
         minutes = (
-            int(statistics.median(transfer.estimate(location, airport.id, h, "to_hotel").minutes for h in dh[:15]))
-            if airport
-            else None
+            int(statistics.median(transfer.estimate(location, airport.id, h, "to_hotel").minutes for h in dh[:15])) if airport else None
         )
         if minutes is not None and minutes <= 25:
             why.append("рядом с аэропортом")

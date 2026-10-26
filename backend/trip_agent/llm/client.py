@@ -98,9 +98,7 @@ class OpenAICompatibleClient:
 
     def complete_text(self, system: str, user: str, *, temperature: float = 0.3, max_tokens: int = 600) -> str:
         try:
-            raw = self._create(
-                [{"role": "system", "content": system}, {"role": "user", "content": user}], temperature, None, max_tokens
-            )
+            raw = self._create([{"role": "system", "content": system}, {"role": "user", "content": user}], temperature, None, max_tokens)
         except Exception as e:
             raise LLMError(str(e)) from e
         return _THINK.sub("", raw).strip()

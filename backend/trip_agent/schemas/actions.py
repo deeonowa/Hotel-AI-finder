@@ -65,6 +65,22 @@ class PostPurchaseAction(Model):
     details: dict[str, Any] = Field(default_factory=dict)
 
 
+class ConfirmAssumptionsAction(Model):
+    """Пользователь подтвердил то, что агент предположил (даты, состав). Без этого заказ не оформляется."""
+
+    type: Literal["confirm_assumptions"] = "confirm_assumptions"
+    paths: list[Literal["dates", "guests"]] = Field(default_factory=lambda: ["dates", "guests"])
+    then_checkout: bool = True
+
+
+class DismissFixAction(Model):
+    """Пользователь отказался от предложенного агентом исправления — больше не предлагать."""
+
+    type: Literal["dismiss_fix"] = "dismiss_fix"
+    code: str
+    hotel_id: str
+
+
 class ResetAction(Model):
     type: Literal["reset"] = "reset"
 
@@ -79,6 +95,8 @@ Action = Annotated[
     | CheckoutAction
     | PayAction
     | PostPurchaseAction
+    | ConfirmAssumptionsAction
+    | DismissFixAction
     | ResetAction,
     Field(discriminator="type"),
 ]
