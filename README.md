@@ -21,6 +21,9 @@ docker compose up --build
 # → http://localhost:8000      (API: http://localhost:8000/docs)
 ```
 
+Поднимаются два контейнера: `app` и `postgres` (сессии, корзины и заказы хранятся в Postgres,
+схема создаётся миграциями при старте). Строка подключения — `DATABASE_URL`.
+
 Работает **без ключей** — в режиме правил. Чтобы включить LLM, скопируйте `.env.example` в `.env`,
 укажите `LLM_BASE_URL` / `LLM_API_KEY` / `LLM_MODEL` (OpenRouter, Ollama или любой OpenAI-совместимый
 endpoint) и перезапустите. Локальная модель: `docker compose --profile local up --build`.
@@ -30,7 +33,11 @@ endpoint) и перезапустите. Локальная модель: `docke
 ```bash
 python -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"
-pytest                               # тесты
+docker compose up -d postgres        # Postgres на 127.0.0.1:5432 (trip/trip, БД trip_agent)
+python -m trip_agent migrate         # накатить миграции (serve делает это и сам)
+pytest                               # тесты (без TEST_DATABASE_URL — на БД в памяти)
+TEST_DATABASE_URL=postgresql://trip:trip@localhost:5432/trip_agent pytest   # тесты на Postgres
+docker compose --profile test run --rm --build tests                        # тесты в Docker
 python eval/run_eval.py              # сценарии и метрики качества → eval/report.md
 python -m trip_agent chat            # диалог с агентом в терминале
 python -m trip_agent serve           # API на :8000

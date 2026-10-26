@@ -23,7 +23,8 @@ class Settings(BaseSettings):
 
     data_dir: Path = ROOT / "data"
     location_id: str = "sochi"
-    db_path: Path = ROOT / "var" / "trip_agent.sqlite3"
+    # postgresql://user:pass@host:5432/db | memory:// (без БД — для eval/экспорта схемы/chat)
+    database_url: str = "postgresql://trip:trip@localhost:5432/trip_agent"
     web_dist_dir: Path = ROOT / "web" / "dist"
     cors_origins: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
     log_level: str = "INFO"
