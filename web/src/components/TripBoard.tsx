@@ -45,7 +45,8 @@ export function TripBoard({ response, state, cart, order }: Props) {
   const stage = state?.stage ?? response?.stage;
   const picked = state?.variants?.find((variant) => variant.id === state.selected_variant_id)
     ?? state?.variants?.find((variant) => variant.id === cart?.variant_id)
-    ?? state?.variants?.find((variant) => variant.id === order?.variant_id);
+    ?? state?.variants?.find((variant) => variant.id === order?.variant_id)
+    ?? state?.variants?.find((variant) => variant.id === state.recommended_variant_id);
   const stageIndex = Math.max(0, STEPS.findIndex(([step]) => step === stage));
   const hasCart = (stage === "in_cart" || stage === "ordered") && cart;
   const hasOrder = stage === "ordered" && order;
