@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ApiError, api } from "./api/client";
-import type { QuickReply, TurnRequest, TurnResponse } from "./api/types";
+import type { CartBlock, OrderBlock, QuickReply, TripState, TurnRequest, TurnResponse } from "./api/types";
 import { BlockView } from "./components/BlockView";
 import { TracePanel } from "./components/TracePanel";
 import { TripBoard } from "./components/TripBoard";
@@ -33,13 +33,22 @@ export default function App() {
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [version, setVersion] = useState(0);
   const [msgs, setMsgs] = useState<Msg[]>([]);
+  const [tripState, setTripState] = useState<TripState | null>(null);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const bottom = useRef<HTMLDivElement>(null);
   const initialized = useRef(false);
 
-  const last = [...msgs].reverse().find((m): m is Extract<Msg, { role: "agent" }> => m.role === "agent")?.resp;
+  const responses = msgs.filter((m): m is Extract<Msg, { role: "agent" }> => m.role === "agent").map((m) => m.resp);
+  const last: TurnResponse | undefined = responses.length ? responses[responses.length - 1] : undefined;
+  const blocks = responses.flatMap((response) => response.blocks);
+  const cart = [...blocks].reverse().find((block): block is CartBlock => block.type === "cart")?.cart;
+  const order = [...blocks].reverse().find((block): block is OrderBlock => block.type === "order")?.order;
+
+  function refreshTripState(id: string) {
+    void api.getSession(id).then(setTripState, () => undefined);
+  }
 
   useEffect(() => {
     if (initialized.current) return;
@@ -51,6 +60,7 @@ export default function App() {
         (state) => {
           setSessionId(saved.sessionId);
           setVersion(state.version);
+          setTripState(state);
           setMsgs(saved.msgs);
         },
         () => {
@@ -69,6 +79,7 @@ export default function App() {
       setSessionId(r.session_id);
       setVersion(r.version);
       setMsgs([{ role: "agent", resp: r }]);
+      refreshTripState(r.session_id);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Не удалось начать новую сессию");
     }
@@ -82,12 +93,14 @@ export default function App() {
     setSessionId(null);
     setVersion(0);
     setMsgs([]);
+    setTripState(null);
     setInput("");
     try {
       const r = await api.createSession();
       setSessionId(r.session_id);
       setVersion(r.version);
       setMsgs([{ role: "agent", resp: r }]);
+      refreshTripState(r.session_id);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Не удалось начать новую поездку");
     } finally {
@@ -113,6 +126,7 @@ export default function App() {
       const r = await api.turn(sessionId, { ...req, expected_version: version });
       setVersion(r.version);
       setMsgs((m) => [...m, { role: "agent", resp: r }]);
+      refreshTripState(sessionId);
     } catch (e) {
       if (e instanceof ApiError && e.status === 409) {
         try {
@@ -121,6 +135,7 @@ export default function App() {
           const retried = await api.turn(sessionId, { ...req, expected_version: fresh.version });
           setVersion(retried.version);
           setMsgs((m) => [...m, { role: "agent", resp: retried }]);
+          refreshTripState(sessionId);
           setError(null);
         } catch (retryError) {
           setError(
@@ -159,7 +174,7 @@ export default function App() {
       </header>
 
       <main className="atlas-workspace" id="top">
-        <TripBoard response={last} />
+        <TripBoard response={last} state={tripState} cart={cart} order={order} />
         <section className="conversation" aria-label="Диалог с агентом">
           <div className="conversation-head">
             <p>ПЛАНИРОВАНИЕ</p>

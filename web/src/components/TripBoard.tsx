@@ -1,4 +1,4 @@
-import type { Requirements, TurnResponse, Variant } from "../api/types";
+import type { Cart, Order, Requirements, TripState, TurnResponse } from "../api/types";
 import { rub } from "../lib/format";
 
 const MONTHS = [
@@ -30,12 +30,6 @@ function guests(req: Requirements): string {
   return people.join(" · ");
 }
 
-function recommendation(response?: TurnResponse): Variant | undefined {
-  const block = response?.blocks.find((item) => item.type === "variants");
-  if (!block || block.type !== "variants") return undefined;
-  return block.items.find((item) => item.id === block.recommended_id) ?? block.items[0];
-}
-
 const STEPS = [
   ["collecting", "Запрос", "Собираю важное"],
   ["proposing", "Выбор", "Варианты готовы"],
@@ -44,10 +38,17 @@ const STEPS = [
   ["ordered", "Готово", "Поездка оформлена"],
 ] as const;
 
-export function TripBoard({ response }: { response?: TurnResponse }) {
-  const req = response?.requirements;
-  const picked = recommendation(response);
-  const stageIndex = Math.max(0, STEPS.findIndex(([stage]) => stage === response?.stage));
+type Props = { response?: TurnResponse; state: TripState | null; cart?: Cart; order?: Order };
+
+export function TripBoard({ response, state, cart, order }: Props) {
+  const req = state?.requirements ?? response?.requirements;
+  const stage = state?.stage ?? response?.stage;
+  const picked = state?.variants?.find((variant) => variant.id === state.selected_variant_id)
+    ?? state?.variants?.find((variant) => variant.id === cart?.variant_id)
+    ?? state?.variants?.find((variant) => variant.id === order?.variant_id);
+  const stageIndex = Math.max(0, STEPS.findIndex(([step]) => step === stage));
+  const hasCart = (stage === "in_cart" || stage === "ordered") && cart;
+  const hasOrder = stage === "ordered" && order;
 
   return (
     <aside className="trip-board" aria-label="Ваша поездка">
@@ -83,6 +84,13 @@ export function TripBoard({ response }: { response?: TurnResponse }) {
         <section className="board-promise">
           <span>СЛЕДУЮЩИЙ ШАГ</span>
           <p>Расскажите о поездке — маршрут начнёт собираться здесь.</p>
+        </section>
+      )}
+
+      {(hasCart || hasOrder) && (
+        <section className="board-booking" aria-label="Статус бронирования">
+          {hasCart && <p><span>КОРЗИНА</span><strong>{rub(cart.total)} · {cart.items?.length ?? 0} поз.</strong></p>}
+          {hasOrder && <p><span>ЗАКАЗ</span><strong>{order.number} · {order.status === "paid" ? "оплачен" : "ждёт оплаты"}</strong></p>}
         </section>
       )}
     </aside>
