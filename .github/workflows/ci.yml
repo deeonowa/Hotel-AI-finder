@@ -1,0 +1,27 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -e ".[dev]"
+      - run: ruff check backend scripts eval
+      - run: pytest
+      - run: python eval/run_eval.py --mode rules
+      - name: OpenAPI-схема не устарела
+        run: python scripts/export_openapi.py && git diff --exit-code web/openapi.json
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: npm ci --no-audit --no-fund
+        working-directory: web
+      - run: npm run gen:types && git diff --exit-code src/api/schema.d.ts
+        working-directory: web
+      - run: npm run build
+        working-directory: web

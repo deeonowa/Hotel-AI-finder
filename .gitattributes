@@ -1,0 +1,5 @@
+# Единые переводы строк (LF) у всех — иначе на Windows ломаются Dockerfile/скрипты и шумят диффы.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.ico binary

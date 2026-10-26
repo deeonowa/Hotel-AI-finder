@@ -1,0 +1,3780 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "Trip Agent API",
+  "description": "AI-агент: одно сообщение путешественника → готовый сценарий поездки (трек «О!дин запрос»).",
+  "version": "0.1.0"
+ },
+ "paths": {
+  "/api/v1/health": {
+   "get": {
+    "tags": [
+     "system"
+    ],
+    "summary": "Health",
+    "operationId": "health_api_v1_health_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HealthResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/sessions": {
+   "post": {
+    "tags": [
+     "agent"
+    ],
+    "summary": "Create Session",
+    "operationId": "create_session_api_v1_sessions_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "anyOf": [
+         {
+          "$ref": "#/components/schemas/CreateSessionRequest"
+         },
+         {
+          "type": "null"
+         }
+        ],
+        "title": "Body"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/TurnResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/sessions/{session_id}/turns": {
+   "post": {
+    "tags": [
+     "agent"
+    ],
+    "summary": "Turn",
+    "operationId": "turn_api_v1_sessions__session_id__turns_post",
+    "parameters": [
+     {
+      "name": "session_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Session Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TurnRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/TurnResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/sessions/{session_id}": {
+   "get": {
+    "tags": [
+     "agent"
+    ],
+    "summary": "Get Session",
+    "operationId": "get_session_api_v1_sessions__session_id__get",
+    "parameters": [
+     {
+      "name": "session_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Session Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/TripState"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/carts/{cart_id}": {
+   "get": {
+    "tags": [
+     "booking"
+    ],
+    "summary": "Get Cart",
+    "operationId": "get_cart_api_v1_carts__cart_id__get",
+    "parameters": [
+     {
+      "name": "cart_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Cart Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Cart"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/orders/{order_id}": {
+   "get": {
+    "tags": [
+     "booking"
+    ],
+    "summary": "Get Order",
+    "operationId": "get_order_api_v1_orders__order_id__get",
+    "parameters": [
+     {
+      "name": "order_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Order Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Order"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/locations/{location_id}": {
+   "get": {
+    "tags": [
+     "catalog"
+    ],
+    "summary": "Get Location",
+    "operationId": "get_location_api_v1_locations__location_id__get",
+    "parameters": [
+     {
+      "name": "location_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Location Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/LocationPack"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/hotels/{hotel_id}": {
+   "get": {
+    "tags": [
+     "catalog"
+    ],
+    "summary": "Get Hotel",
+    "operationId": "get_hotel_api_v1_hotels__hotel_id__get",
+    "parameters": [
+     {
+      "name": "hotel_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Hotel Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Hotel"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "AddExtraAction": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "add_extra",
+      "title": "Type",
+      "default": "add_extra"
+     },
+     "kind": {
+      "$ref": "#/components/schemas/CartItemKind"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "kind"
+    ],
+    "title": "AddExtraAction"
+   },
+   "AddToCartAction": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "add_to_cart",
+      "title": "Type",
+      "default": "add_to_cart"
+     },
+     "variant_id": {
+      "type": "string",
+      "title": "Variant Id"
+     },
+     "with_transfer": {
+      "type": "boolean",
+      "title": "With Transfer",
+      "default": true
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "variant_id"
+    ],
+    "title": "AddToCartAction"
+   },
+   "Amenity": {
+    "type": "string",
+    "enum": [
+     "pool",
+     "heated_pool",
+     "indoor_pool",
+     "spa",
+     "sauna",
+     "gym",
+     "kids_club",
+     "playground",
+     "kids_menu",
+     "private_beach",
+     "beach_shuttle",
+     "restaurant",
+     "bar",
+     "parking",
+     "wifi",
+     "workspace",
+     "elevator",
+     "wheelchair_accessible",
+     "airport_shuttle",
+     "ski_storage",
+     "ski_in_out",
+     "kitchen",
+     "laundry",
+     "medical_treatments"
+    ],
+    "title": "Amenity"
+   },
+   "ApplyPatchAction": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "apply_patch",
+      "title": "Type",
+      "default": "apply_patch"
+     },
+     "ops": {
+      "items": {
+       "$ref": "#/components/schemas/PatchOp"
+      },
+      "type": "array",
+      "title": "Ops"
+     },
+     "label": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Label"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "ops"
+    ],
+    "title": "ApplyPatchAction",
+    "description": "Правка чипса-предположения, кнопки «Дешевле», «+2 дня», «С собакой», ослабление ограничения."
+   },
+   "Archetype": {
+    "type": "string",
+    "enum": [
+     "best_value",
+     "balanced",
+     "comfort",
+     "alternative"
+    ],
+    "title": "Archetype"
+   },
+   "ArrivalMode": {
+    "type": "string",
+    "enum": [
+     "plane",
+     "train",
+     "car",
+     "unknown"
+    ],
+    "title": "ArrivalMode"
+   },
+   "AssumptionChip": {
+    "properties": {
+     "path": {
+      "type": "string",
+      "title": "Path",
+      "description": "путь в Requirements, напр. 'dates.nights'"
+     },
+     "label": {
+      "type": "string",
+      "title": "Label",
+      "description": "«Ночей»"
+     },
+     "value_label": {
+      "type": "string",
+      "title": "Value Label",
+      "description": "«7»"
+     },
+     "source": {
+      "$ref": "#/components/schemas/Source"
+     },
+     "options": {
+      "items": {
+       "$ref": "#/components/schemas/QuickReply"
+      },
+      "type": "array",
+      "title": "Options",
+      "description": "быстрые альтернативы"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "path",
+     "label",
+     "value_label",
+     "source"
+    ],
+    "title": "AssumptionChip"
+   },
+   "AssumptionsBlock": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "assumptions",
+      "title": "Type",
+      "default": "assumptions"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title",
+      "default": "Я понял так"
+     },
+     "items": {
+      "items": {
+       "$ref": "#/components/schemas/AssumptionChip"
+      },
+      "type": "array",
+      "title": "Items"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "items"
+    ],
+    "title": "AssumptionsBlock"
+   },
+   "BBox": {
+    "properties": {
+     "south": {
+      "type": "number",
+      "title": "South"
+     },
+     "west": {
+      "type": "number",
+      "title": "West"
+     },
+     "north": {
+      "type": "number",
+      "title": "North"
+     },
+     "east": {
+      "type": "number",
+      "title": "East"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "south",
+     "west",
+     "north",
+     "east"
+    ],
+    "title": "BBox"
+   },
+   "Budget": {
+    "properties": {
+     "amount": {
+      "anyOf": [
+       {
+        "type": "integer",
+        "minimum": 0.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Amount",
+      "description": "RUB"
+     },
+     "scope": {
+      "$ref": "#/components/schemas/BudgetScope",
+      "default": "total_trip"
+     },
+     "flex_pct": {
+      "type": "integer",
+      "maximum": 50.0,
+      "minimum": 0.0,
+      "title": "Flex Pct",
+      "description": "«около 100к» → 10",
+      "default": 0
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "title": "Budget"
+   },
+   "BudgetScope": {
+    "type": "string",
+    "enum": [
+     "total_trip",
+     "hotel_total",
+     "per_night"
+    ],
+    "title": "BudgetScope"
+   },
+   "CancellationPolicy": {
+    "properties": {
+     "refundable": {
+      "type": "boolean",
+      "title": "Refundable"
+     },
+     "free_until": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Free Until"
+     },
+     "penalty_pct_after": {
+      "type": "integer",
+      "maximum": 100.0,
+      "minimum": 0.0,
+      "title": "Penalty Pct After",
+      "default": 100
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "refundable"
+    ],
+    "title": "CancellationPolicy"
+   },
+   "Cart": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "session_id": {
+      "type": "string",
+      "title": "Session Id"
+     },
+     "variant_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Variant Id"
+     },
+     "items": {
+      "items": {
+       "$ref": "#/components/schemas/CartItem"
+      },
+      "type": "array",
+      "title": "Items"
+     },
+     "total": {
+      "type": "integer",
+      "title": "Total",
+      "default": 0
+     },
+     "issues": {
+      "items": {
+       "$ref": "#/components/schemas/Issue"
+      },
+      "type": "array",
+      "title": "Issues"
+     },
+     "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Updated At"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "id",
+     "session_id",
+     "updated_at"
+    ],
+    "title": "Cart"
+   },
+   "CartBlock": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "cart",
+      "title": "Type",
+      "default": "cart"
+     },
+     "cart": {
+      "$ref": "#/components/schemas/Cart"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "cart"
+    ],
+    "title": "CartBlock"
+   },
+   "CartItem": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "kind": {
+      "$ref": "#/components/schemas/CartItemKind"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "details": {
+      "type": "string",
+      "title": "Details",
+      "default": ""
+     },
+     "price": {
+      "type": "integer",
+      "title": "Price"
+     },
+     "ref_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Ref Id",
+      "description": "offer_id / variant_id / hub_id"
+     },
+     "removable": {
+      "type": "boolean",
+      "title": "Removable",
+      "default": true
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "id",
+     "kind",
+     "title",
+     "price"
+    ],
+    "title": "CartItem"
+   },
+   "CartItemKind": {
+    "type": "string",
+    "enum": [
+     "hotel_stay",
+     "transfer",
+     "early_check_in",
+     "late_check_out"
+    ],
+    "title": "CartItemKind"
+   },
+   "CheckoutAction": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "checkout",
+      "title": "Type",
+      "default": "checkout"
+     },
+     "guest_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Guest Name"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "title": "CheckoutAction"
+   },
+   "ClimateMonth": {
+    "properties": {
+     "month": {
+      "type": "integer",
+      "maximum": 12.0,
+      "minimum": 1.0,
+      "title": "Month"
+     },
+     "air_temp_day_c": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Air Temp Day C"
+     },
+     "air_temp_night_c": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Air Temp Night C"
+     },
+     "sea_temp_c": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Sea Temp C"
+     },
+     "precip_days": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Precip Days"
+     },
+     "source": {
+      "type": "string",
+      "title": "Source",
+      "default": "unknown"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "month"
+    ],
+    "title": "ClimateMonth"
+   },
+   "CompareAction": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "compare",
+      "title": "Type",
+      "default": "compare"
+     },
+     "variant_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Variant Ids",
+      "description": "пусто = все текущие"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "title": "CompareAction"
+   },
+   "ComparisonBlock": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "comparison",
+      "title": "Type",
+      "default": "comparison"
+     },
+     "variant_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Variant Ids"
+     },
+     "headers": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Headers"
+     },
+     "rows": {
+      "items": {
+       "$ref": "#/components/schemas/ComparisonRow"
+      },
+      "type": "array",
+      "title": "Rows"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "variant_ids",
+     "headers",
+     "rows"
+    ],
+    "title": "ComparisonBlock"
+   },
+   "ComparisonRow": {
+    "properties": {
+     "label": {
+      "type": "string",
+      "title": "Label"
+     },
+     "cells": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Cells"
+     },
+     "best_index": {
+      "items": {
+       "type": "integer"
+      },
+      "type": "array",
+      "title": "Best Index",
+      "description": "какие колонки лучшие по строке"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "label",
+     "cells"
+    ],
+    "title": "ComparisonRow"
+   },
+   "CreateSessionRequest": {
+    "properties": {
+     "user_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "User Id",
+      "description": "для памяти между сессиями (опционально)"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "title": "CreateSessionRequest"
+   },
+   "DataSource": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "url": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Url"
+     },
+     "license": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "License"
+     },
+     "used_for": {
+      "type": "string",
+      "title": "Used For"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "name",
+     "used_for"
+    ],
+    "title": "DataSource"
+   },
+   "DateWindow": {
+    "properties": {
+     "check_in": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Check In"
+     },
+     "check_out": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Check Out"
+     },
+     "month": {
+      "anyOf": [
+       {
+        "type": "integer",
+        "maximum": 12.0,
+        "minimum": 1.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Month",
+      "description": "Если точных дат нет"
+     },
+     "year": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Year"
+     },
+     "nights": {
+      "anyOf": [
+       {
+        "type": "integer",
+        "maximum": 60.0,
+        "minimum": 1.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Nights"
+     },
+     "flexibility_days": {
+      "type": "integer",
+      "maximum": 14.0,
+      "minimum": 0.0,
+      "title": "Flexibility Days",
+      "default": 0
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "title": "DateWindow"
+   },
+   "DestinationCard": {
+    "properties": {
+     "district_id": {
+      "type": "string",
+      "title": "District Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "kind": {
+      "$ref": "#/components/schemas/DistrictKind"
+     },
+     "why": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Why"
+     },
+     "price_from_per_night": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Price From Per Night"
+     },
+     "hotels_count": {
+      "type": "integer",
+      "title": "Hotels Count",
+      "default": 0
+     },
+     "transfer_minutes_from_airport": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Transfer Minutes From Airport"
+     },
+     "climate": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/ClimateMonth"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "choose": {
+      "$ref": "#/components/schemas/QuickReply"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "district_id",
+     "name",
+     "kind",
+     "choose"
+    ],
+    "title": "DestinationCard"
+   },
+   "DestinationsBlock": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "destinations",
+      "title": "Type",
+      "default": "destinations"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title",
+      "default": "Куда можно поехать"
+     },
+     "items": {
+      "items": {
+       "$ref": "#/components/schemas/DestinationCard"
+      },
+      "type": "array",
+      "title": "Items"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "items"
+    ],
+    "title": "DestinationsBlock"
+   },
+   "DiffBlock": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "diff",
+      "title": "Type",
+      "default": "diff"
+     },
+     "summary": {
+      "type": "string",
+      "title": "Summary"
+     },
+     "requirement_changes": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Requirement Changes",
+      "description": "что поменялось в условиях"
+     },
+     "items": {
+      "items": {
+       "$ref": "#/components/schemas/DiffItem"
+      },
+      "type": "array",
+      "title": "Items",
+      "description": "что поменялось в плане"
+     },
+     "kept": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Kept",
+      "description": "что удалось сохранить"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "summary"
+    ],
+    "title": "DiffBlock"
+   },
+   "DiffItem": {
+    "properties": {
+     "label": {
+      "type": "string",
+      "title": "Label"
+     },
+     "before": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Before"
+     },
+     "after": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "After"
+     },
+     "impact": {
+      "type": "string",
+      "enum": [
+       "better",
+       "worse",
+       "neutral"
+      ],
+      "title": "Impact",
+      "default": "neutral"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "label"
+    ],
+    "title": "DiffItem"
+   },
+   "District": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "kind": {
+      "$ref": "#/components/schemas/DistrictKind"
+     },
+     "center": {
+      "$ref": "#/components/schemas/GeoPoint"
+     },
+     "radius_km": {
+      "type": "number",
+      "title": "Radius Km",
+      "default": 3.0
+     },
+     "climate_zone": {
+      "type": "string",
+      "enum": [
+       "coast",
+       "mountain"
+      ],
+      "title": "Climate Zone",
+      "default": "coast"
+     },
+     "vibe_tags": {
+      "items": {
+       "$ref": "#/components/schemas/VibeTag"
+      },
+      "type": "array",
+      "title": "Vibe Tags"
+     },
+     "description": {
+      "type": "string",
+      "title": "Description",
+      "default": ""
+     },
+     "highlights": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Highlights"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "id",
+     "name",
+     "kind",
+     "center"
+    ],
+    "title": "District"
+   },
+   "DistrictKind": {
+    "type": "string",
+    "enum": [
+     "sea",
+     "mountain"
+    ],
+    "title": "DistrictKind"
+   },
+   "GeoPoint": {
+    "properties": {
+     "lat": {
+      "type": "number",
+      "maximum": 90.0,
+      "minimum": -90.0,
+      "title": "Lat"
+     },
+     "lon": {
+      "type": "number",
+      "maximum": 180.0,
+      "minimum": -180.0,
+      "title": "Lon"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "lat",
+     "lon"
+    ],
+    "title": "GeoPoint"
+   },
+   "Guests": {
+    "properties": {
+     "adults": {
+      "anyOf": [
+       {
+        "type": "integer",
+        "maximum": 10.0,
+        "minimum": 1.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Adults"
+     },
+     "children_ages": {
+      "items": {
+       "type": "integer"
+      },
+      "type": "array",
+      "title": "Children Ages"
+     },
+     "pets": {
+      "items": {
+       "$ref": "#/components/schemas/PetKind"
+      },
+      "type": "array",
+      "title": "Pets"
+     },
+     "rooms": {
+      "anyOf": [
+       {
+        "type": "integer",
+        "maximum": 5.0,
+        "minimum": 1.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Rooms"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "title": "Guests"
+   },
+   "HTTPValidationError": {
+    "properties": {
+     "detail": {
+      "items": {
+       "$ref": "#/components/schemas/ValidationError"
+      },
+      "type": "array",
+      "title": "Detail"
+     }
+    },
+    "type": "object",
+    "title": "HTTPValidationError"
+   },
+   "HealthResponse": {
+    "properties": {
+     "status": {
+      "type": "string",
+      "const": "ok",
+      "title": "Status",
+      "default": "ok"
+     },
+     "llm_configured": {
+      "type": "boolean",
+      "title": "Llm Configured"
+     },
+     "llm_model": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Llm Model"
+     },
+     "location_id": {
+      "type": "string",
+      "title": "Location Id"
+     },
+     "hotels_loaded": {
+      "type": "integer",
+      "title": "Hotels Loaded"
+     },
+     "data_source": {
+      "type": "string",
+      "title": "Data Source"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "llm_configured",
+     "location_id",
+     "hotels_loaded",
+     "data_source"
+    ],
+    "title": "HealthResponse"
+   },
+   "Hotel": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "kind": {
+      "$ref": "#/components/schemas/HotelKind"
+     },
+     "location_id": {
+      "type": "string",
+      "title": "Location Id"
+     },
+     "district_id": {
+      "type": "string",
+      "title": "District Id"
+     },
+     "point": {
+      "$ref": "#/components/schemas/GeoPoint"
+     },
+     "address": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Address"
+     },
+     "stars": {
+      "anyOf": [
+       {
+        "type": "integer",
+        "maximum": 5.0,
+        "minimum": 0.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Stars"
+     },
+     "rating": {
+      "anyOf": [
+       {
+        "type": "number",
+        "maximum": 10.0,
+        "minimum": 0.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Rating"
+     },
+     "review_count": {
+      "type": "integer",
+      "title": "Review Count",
+      "default": 0
+     },
+     "amenities": {
+      "items": {
+       "$ref": "#/components/schemas/Amenity"
+      },
+      "type": "array",
+      "title": "Amenities"
+     },
+     "vibe_tags": {
+      "items": {
+       "$ref": "#/components/schemas/VibeTag"
+      },
+      "type": "array",
+      "title": "Vibe Tags"
+     },
+     "check_in_time": {
+      "type": "string",
+      "format": "time",
+      "title": "Check In Time",
+      "default": "14:00:00"
+     },
+     "check_out_time": {
+      "type": "string",
+      "format": "time",
+      "title": "Check Out Time",
+      "default": "12:00:00"
+     },
+     "early_check_in_fee_pct": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Early Check In Fee Pct",
+      "description": "% от цены ночи; None = нельзя",
+      "default": 50
+     },
+     "adults_only": {
+      "type": "boolean",
+      "title": "Adults Only",
+      "default": false
+     },
+     "pets": {
+      "$ref": "#/components/schemas/PetPolicy"
+     },
+     "distance_to_sea_m": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Distance To Sea M"
+     },
+     "beach_walk_minutes": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Beach Walk Minutes"
+     },
+     "hilly_walk": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Hilly Walk",
+      "description": "дорога к морю в гору — важно с детьми/коляской"
+     },
+     "distance_to_center_m": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Distance To Center M"
+     },
+     "meal_plans": {
+      "items": {
+       "$ref": "#/components/schemas/MealPlan"
+      },
+      "type": "array",
+      "title": "Meal Plans"
+     },
+     "room_types": {
+      "items": {
+       "$ref": "#/components/schemas/RoomType"
+      },
+      "type": "array",
+      "title": "Room Types"
+     },
+     "base_price_per_night": {
+      "type": "integer",
+      "exclusiveMinimum": 0.0,
+      "title": "Base Price Per Night",
+      "description": "ориентир для DEMO-цен, стандарт DBL, низкий сезон"
+     },
+     "description": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Description"
+     },
+     "provenance": {
+      "$ref": "#/components/schemas/Provenance"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "id",
+     "name",
+     "kind",
+     "location_id",
+     "district_id",
+     "point",
+     "room_types",
+     "base_price_per_night",
+     "provenance"
+    ],
+    "title": "Hotel"
+   },
+   "HotelCard": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "kind": {
+      "$ref": "#/components/schemas/HotelKind"
+     },
+     "district_id": {
+      "type": "string",
+      "title": "District Id"
+     },
+     "district_name": {
+      "type": "string",
+      "title": "District Name"
+     },
+     "stars": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Stars"
+     },
+     "rating": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Rating"
+     },
+     "review_count": {
+      "type": "integer",
+      "title": "Review Count",
+      "default": 0
+     },
+     "distance_to_sea_m": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Distance To Sea M"
+     },
+     "beach_walk_minutes": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Beach Walk Minutes"
+     },
+     "amenities": {
+      "items": {
+       "$ref": "#/components/schemas/Amenity"
+      },
+      "type": "array",
+      "title": "Amenities"
+     },
+     "vibe_tags": {
+      "items": {
+       "$ref": "#/components/schemas/VibeTag"
+      },
+      "type": "array",
+      "title": "Vibe Tags"
+     },
+     "check_in_time": {
+      "type": "string",
+      "title": "Check In Time"
+     },
+     "check_out_time": {
+      "type": "string",
+      "title": "Check Out Time"
+     },
+     "early_check_in_fee_pct": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Early Check In Fee Pct",
+      "description": "% от ночи; None = ранний заезд не продаётся"
+     },
+     "pets_allowed": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Pets Allowed"
+     },
+     "lat": {
+      "type": "number",
+      "title": "Lat"
+     },
+     "lon": {
+      "type": "number",
+      "title": "Lon"
+     },
+     "data_source": {
+      "type": "string",
+      "title": "Data Source",
+      "description": "osm | fixture | synthetic — показываем честно"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "id",
+     "name",
+     "kind",
+     "district_id",
+     "district_name",
+     "check_in_time",
+     "check_out_time",
+     "lat",
+     "lon",
+     "data_source"
+    ],
+    "title": "HotelCard",
+    "description": "Облегчённая карточка отеля для UI (полный Hotel — через GET /hotels/{id})."
+   },
+   "HotelKind": {
+    "type": "string",
+    "enum": [
+     "hotel",
+     "resort",
+     "sanatorium",
+     "guest_house",
+     "apartment",
+     "hostel",
+     "chalet",
+     "motel"
+    ],
+    "title": "HotelKind"
+   },
+   "Issue": {
+    "properties": {
+     "code": {
+      "type": "string",
+      "title": "Code"
+     },
+     "severity": {
+      "$ref": "#/components/schemas/Severity"
+     },
+     "message": {
+      "type": "string",
+      "title": "Message"
+     },
+     "fix": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/QuickReply"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "code",
+     "severity",
+     "message"
+    ],
+    "title": "Issue",
+    "description": "Проблема/риск. Используется и валидатором (состыковки), и fit-проверкой («кому не подойдёт»)."
+   },
+   "LocationPack": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "timezone": {
+      "type": "string",
+      "title": "Timezone"
+     },
+     "currency": {
+      "type": "string",
+      "const": "RUB",
+      "title": "Currency",
+      "default": "RUB"
+     },
+     "bbox": {
+      "$ref": "#/components/schemas/BBox"
+     },
+     "center": {
+      "$ref": "#/components/schemas/GeoPoint"
+     },
+     "districts": {
+      "items": {
+       "$ref": "#/components/schemas/District"
+      },
+      "type": "array",
+      "title": "Districts"
+     },
+     "hubs": {
+      "items": {
+       "$ref": "#/components/schemas/TransportHub"
+      },
+      "type": "array",
+      "title": "Hubs"
+     },
+     "seasonality": {
+      "additionalProperties": {
+       "items": {
+        "type": "number"
+       },
+       "type": "array"
+      },
+      "type": "object",
+      "title": "Seasonality",
+      "description": "climate_zone → 12 множителей цены"
+     },
+     "peak_periods": {
+      "items": {
+       "$ref": "#/components/schemas/PeakPeriod"
+      },
+      "type": "array",
+      "title": "Peak Periods"
+     },
+     "climate": {
+      "additionalProperties": {
+       "items": {
+        "$ref": "#/components/schemas/ClimateMonth"
+       },
+       "type": "array"
+      },
+      "type": "object",
+      "title": "Climate",
+      "description": "climate_zone → 12 мес."
+     },
+     "climate_points": {
+      "additionalProperties": {
+       "additionalProperties": {
+        "$ref": "#/components/schemas/GeoPoint"
+       },
+       "type": "object"
+      },
+      "type": "object",
+      "title": "Climate Points",
+      "description": "для scripts/build_climate.py: zone → {air, sea}"
+     },
+     "data_sources": {
+      "items": {
+       "$ref": "#/components/schemas/DataSource"
+      },
+      "type": "array",
+      "title": "Data Sources"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "id",
+     "name",
+     "timezone",
+     "bbox",
+     "center",
+     "districts",
+     "hubs",
+     "seasonality"
+    ],
+    "title": "LocationPack",
+    "description": "Всё, что нужно агенту о локации. Новая локация = новый каталог data/locations/<id>/."
+   },
+   "MealPlan": {
+    "type": "string",
+    "enum": [
+     "RO",
+     "BB",
+     "HB",
+     "FB",
+     "AI"
+    ],
+    "title": "MealPlan"
+   },
+   "NoResultsBlock": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "no_results",
+      "title": "Type",
+      "default": "no_results"
+     },
+     "reason": {
+      "type": "string",
+      "title": "Reason"
+     },
+     "rejected": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "type": "object",
+      "title": "Rejected"
+     },
+     "relaxations": {
+      "items": {
+       "$ref": "#/components/schemas/Relaxation"
+      },
+      "type": "array",
+      "title": "Relaxations"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "reason"
+    ],
+    "title": "NoResultsBlock"
+   },
+   "Offer": {
+    "properties": {
+     "offer_id": {
+      "type": "string",
+      "title": "Offer Id"
+     },
+     "hotel_id": {
+      "type": "string",
+      "title": "Hotel Id"
+     },
+     "room_type_id": {
+      "type": "string",
+      "title": "Room Type Id"
+     },
+     "room_name": {
+      "type": "string",
+      "title": "Room Name"
+     },
+     "check_in": {
+      "type": "string",
+      "format": "date",
+      "title": "Check In"
+     },
+     "check_out": {
+      "type": "string",
+      "format": "date",
+      "title": "Check Out"
+     },
+     "nights": {
+      "type": "integer",
+      "title": "Nights"
+     },
+     "adults": {
+      "type": "integer",
+      "title": "Adults"
+     },
+     "children_ages": {
+      "items": {
+       "type": "integer"
+      },
+      "type": "array",
+      "title": "Children Ages"
+     },
+     "meal_plan": {
+      "$ref": "#/components/schemas/MealPlan"
+     },
+     "cancellation": {
+      "$ref": "#/components/schemas/CancellationPolicy"
+     },
+     "price_total": {
+      "type": "integer",
+      "title": "Price Total"
+     },
+     "price_per_night_avg": {
+      "type": "integer",
+      "title": "Price Per Night Avg"
+     },
+     "pet_fee_total": {
+      "type": "integer",
+      "title": "Pet Fee Total",
+      "default": 0
+     },
+     "is_demo_price": {
+      "type": "boolean",
+      "title": "Is Demo Price",
+      "default": true
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "offer_id",
+     "hotel_id",
+     "room_type_id",
+     "room_name",
+     "check_in",
+     "check_out",
+     "nights",
+     "adults",
+     "meal_plan",
+     "cancellation",
+     "price_total",
+     "price_per_night_avg"
+    ],
+    "title": "Offer",
+    "description": "Конкретное предложение на даты. Цена всегда DEMO (is_demo_price=True), пока нет партнёрского API."
+   },
+   "Order": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "number": {
+      "type": "string",
+      "title": "Number",
+      "description": "человекочитаемый номер, напр. OST-2611-4821"
+     },
+     "session_id": {
+      "type": "string",
+      "title": "Session Id"
+     },
+     "variant_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Variant Id"
+     },
+     "items": {
+      "items": {
+       "$ref": "#/components/schemas/CartItem"
+      },
+      "type": "array",
+      "title": "Items"
+     },
+     "total": {
+      "type": "integer",
+      "title": "Total"
+     },
+     "status": {
+      "$ref": "#/components/schemas/OrderStatus",
+      "default": "awaiting_payment"
+     },
+     "guest_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Guest Name"
+     },
+     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At"
+     },
+     "paid_at": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date-time"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Paid At"
+     },
+     "payment_ref": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Payment Ref",
+      "description": "имитация: SIM-…"
+     },
+     "requests": {
+      "items": {
+       "$ref": "#/components/schemas/PostPurchaseRequest"
+      },
+      "type": "array",
+      "title": "Requests"
+     },
+     "is_simulated": {
+      "type": "boolean",
+      "title": "Is Simulated",
+      "default": true
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "id",
+     "number",
+     "session_id",
+     "items",
+     "total",
+     "created_at"
+    ],
+    "title": "Order"
+   },
+   "OrderBlock": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "order",
+      "title": "Type",
+      "default": "order"
+     },
+     "order": {
+      "$ref": "#/components/schemas/Order"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "order"
+    ],
+    "title": "OrderBlock"
+   },
+   "OrderStatus": {
+    "type": "string",
+    "enum": [
+     "awaiting_payment",
+     "paid",
+     "change_requested",
+     "cancelled"
+    ],
+    "title": "OrderStatus"
+   },
+   "PatchOp": {
+    "properties": {
+     "op": {
+      "type": "string",
+      "enum": [
+       "set",
+       "unset",
+       "add",
+       "remove",
+       "shift_days",
+       "scale"
+      ],
+      "title": "Op"
+     },
+     "path": {
+      "type": "string",
+      "enum": [
+       "district_ids",
+       "dates",
+       "dates.check_in",
+       "dates.check_out",
+       "dates.month",
+       "dates.year",
+       "dates.nights",
+       "dates.flexibility_days",
+       "guests.adults",
+       "guests.children_ages",
+       "guests.pets",
+       "guests.rooms",
+       "budget.amount",
+       "budget.scope",
+       "budget.flex_pct",
+       "preferences",
+       "transport.origin_city",
+       "transport.arrival_mode",
+       "transport.arrival_hub_id",
+       "transport.arrival_time",
+       "transport.departure_time",
+       "notes"
+      ],
+      "title": "Path"
+     },
+     "value": {
+      "title": "Value"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "op",
+     "path"
+    ],
+    "title": "PatchOp",
+    "description": "Атомарное изменение требований.\n\nПримеры:\n  {\"op\":\"set\",\"path\":\"guests.adults\",\"value\":2}\n  {\"op\":\"add\",\"path\":\"guests.pets\",\"value\":\"dog\"}\n  {\"op\":\"add\",\"path\":\"preferences\",\"value\":{\"key\":\"near_sea\",\"priority\":\"must\"}}\n  {\"op\":\"remove\",\"path\":\"preferences\",\"value\":\"pool\"}          # по ключу\n  {\"op\":\"shift_days\",\"path\":\"dates\",\"value\":2}                 # «на 2 дня позже»\n  {\"op\":\"scale\",\"path\":\"budget.amount\",\"value\":0.85}           # «подешевле»"
+   },
+   "PayAction": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "pay",
+      "title": "Type",
+      "default": "pay"
+     },
+     "order_id": {
+      "type": "string",
+      "title": "Order Id"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "order_id"
+    ],
+    "title": "PayAction"
+   },
+   "PeakPeriod": {
+    "properties": {
+     "start_mmdd": {
+      "type": "string",
+      "pattern": "^\\d{2}-\\d{2}$",
+      "title": "Start Mmdd"
+     },
+     "end_mmdd": {
+      "type": "string",
+      "pattern": "^\\d{2}-\\d{2}$",
+      "title": "End Mmdd"
+     },
+     "factor": {
+      "type": "number",
+      "title": "Factor"
+     },
+     "label": {
+      "type": "string",
+      "title": "Label"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "start_mmdd",
+     "end_mmdd",
+     "factor",
+     "label"
+    ],
+    "title": "PeakPeriod"
+   },
+   "PetKind": {
+    "type": "string",
+    "enum": [
+     "dog",
+     "cat",
+     "other"
+    ],
+    "title": "PetKind"
+   },
+   "PetPolicy": {
+    "properties": {
+     "allowed": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Allowed",
+      "description": "None = неизвестно (НЕ считать разрешённым)"
+     },
+     "fee_per_night": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Fee Per Night"
+     },
+     "max_weight_kg": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Max Weight Kg"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "title": "PetPolicy"
+   },
+   "PostPurchaseAction": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "post_purchase",
+      "title": "Type",
+      "default": "post_purchase"
+     },
+     "order_id": {
+      "type": "string",
+      "title": "Order Id"
+     },
+     "kind": {
+      "$ref": "#/components/schemas/PostPurchaseKind"
+     },
+     "details": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Details"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "order_id",
+     "kind"
+    ],
+    "title": "PostPurchaseAction"
+   },
+   "PostPurchaseKind": {
+    "type": "string",
+    "enum": [
+     "early_check_in",
+     "late_check_out",
+     "change_dates",
+     "add_transfer",
+     "reminder",
+     "cancel"
+    ],
+    "title": "PostPurchaseKind"
+   },
+   "PostPurchaseRequest": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "kind": {
+      "$ref": "#/components/schemas/PostPurchaseKind"
+     },
+     "status": {
+      "type": "string",
+      "title": "Status",
+      "default": "requested"
+     },
+     "details": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Details"
+     },
+     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "id",
+     "kind",
+     "created_at"
+    ],
+    "title": "PostPurchaseRequest"
+   },
+   "PrefKey": {
+    "type": "string",
+    "enum": [
+     "near_sea",
+     "beach_first_line",
+     "sea_view",
+     "mountains",
+     "ski_access",
+     "quiet",
+     "nightlife",
+     "city_center",
+     "family_friendly",
+     "kids_club",
+     "pool",
+     "heated_pool",
+     "spa",
+     "romantic",
+     "breakfast_included",
+     "all_inclusive",
+     "free_cancellation",
+     "pet_friendly",
+     "parking",
+     "accessible",
+     "short_transfer",
+     "high_rating",
+     "min_stars",
+     "budget_value",
+     "luxury",
+     "work_friendly",
+     "nature",
+     "wellness"
+    ],
+    "title": "PrefKey",
+    "description": "Что может быть важно путешественнику. Каждый ключ обязан иметь обработчик в ranking/."
+   },
+   "Preference": {
+    "properties": {
+     "key": {
+      "$ref": "#/components/schemas/PrefKey"
+     },
+     "priority": {
+      "$ref": "#/components/schemas/Priority",
+      "default": "important"
+     },
+     "value": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "integer"
+       },
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Value"
+     },
+     "source": {
+      "$ref": "#/components/schemas/Source",
+      "default": "user"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "key"
+    ],
+    "title": "Preference"
+   },
+   "Priority": {
+    "type": "string",
+    "enum": [
+     "must",
+     "important",
+     "nice"
+    ],
+    "title": "Priority"
+   },
+   "Provenance": {
+    "properties": {
+     "source": {
+      "type": "string",
+      "enum": [
+       "osm",
+       "fixture",
+       "synthetic",
+       "partner_api"
+      ],
+      "title": "Source"
+     },
+     "source_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Source Id"
+     },
+     "synthetic_fields": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Synthetic Fields",
+      "description": "какие поля сгенерированы"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "source"
+    ],
+    "title": "Provenance"
+   },
+   "QuestionBlock": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "question",
+      "title": "Type",
+      "default": "question"
+     },
+     "text": {
+      "type": "string",
+      "title": "Text"
+     },
+     "paths": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Paths",
+      "description": "какие поля закрывает вопрос"
+     },
+     "quick_replies": {
+      "items": {
+       "$ref": "#/components/schemas/QuickReply"
+      },
+      "type": "array",
+      "title": "Quick Replies"
+     },
+     "allow_free_text": {
+      "type": "boolean",
+      "title": "Allow Free Text",
+      "default": true
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "text"
+    ],
+    "title": "QuestionBlock"
+   },
+   "QuickReply": {
+    "properties": {
+     "label": {
+      "type": "string",
+      "title": "Label"
+     },
+     "text": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Text"
+     },
+     "action": {
+      "anyOf": [
+       {
+        "oneOf": [
+         {
+          "$ref": "#/components/schemas/SelectVariantAction"
+         },
+         {
+          "$ref": "#/components/schemas/ApplyPatchAction"
+         },
+         {
+          "$ref": "#/components/schemas/CompareAction"
+         },
+         {
+          "$ref": "#/components/schemas/AddToCartAction"
+         },
+         {
+          "$ref": "#/components/schemas/AddExtraAction"
+         },
+         {
+          "$ref": "#/components/schemas/RemoveCartItemAction"
+         },
+         {
+          "$ref": "#/components/schemas/CheckoutAction"
+         },
+         {
+          "$ref": "#/components/schemas/PayAction"
+         },
+         {
+          "$ref": "#/components/schemas/PostPurchaseAction"
+         },
+         {
+          "$ref": "#/components/schemas/ResetAction"
+         }
+        ],
+        "discriminator": {
+         "propertyName": "type",
+         "mapping": {
+          "add_extra": "#/components/schemas/AddExtraAction",
+          "add_to_cart": "#/components/schemas/AddToCartAction",
+          "apply_patch": "#/components/schemas/ApplyPatchAction",
+          "checkout": "#/components/schemas/CheckoutAction",
+          "compare": "#/components/schemas/CompareAction",
+          "pay": "#/components/schemas/PayAction",
+          "post_purchase": "#/components/schemas/PostPurchaseAction",
+          "remove_cart_item": "#/components/schemas/RemoveCartItemAction",
+          "reset": "#/components/schemas/ResetAction",
+          "select_variant": "#/components/schemas/SelectVariantAction"
+         }
+        }
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Action"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "label"
+    ],
+    "title": "QuickReply",
+    "description": "Кнопка в чате: либо отправляет текст (как будто напечатал пользователь), либо действие."
+   },
+   "Relaxation": {
+    "properties": {
+     "label": {
+      "type": "string",
+      "title": "Label"
+     },
+     "ops": {
+      "items": {
+       "$ref": "#/components/schemas/PatchOp"
+      },
+      "type": "array",
+      "title": "Ops"
+     },
+     "results_count": {
+      "type": "integer",
+      "title": "Results Count"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "label",
+     "ops",
+     "results_count"
+    ],
+    "title": "Relaxation",
+    "description": "«Если ослабить X — найдётся N вариантов». Считается реальным перезапуском фильтров."
+   },
+   "RemoveCartItemAction": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "remove_cart_item",
+      "title": "Type",
+      "default": "remove_cart_item"
+     },
+     "item_id": {
+      "type": "string",
+      "title": "Item Id"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "item_id"
+    ],
+    "title": "RemoveCartItemAction"
+   },
+   "Requirements": {
+    "properties": {
+     "location_id": {
+      "type": "string",
+      "title": "Location Id",
+      "default": "sochi"
+     },
+     "district_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "District Ids",
+      "description": "Пусто = любой район"
+     },
+     "dates": {
+      "$ref": "#/components/schemas/DateWindow"
+     },
+     "guests": {
+      "$ref": "#/components/schemas/Guests"
+     },
+     "budget": {
+      "$ref": "#/components/schemas/Budget"
+     },
+     "preferences": {
+      "items": {
+       "$ref": "#/components/schemas/Preference"
+      },
+      "type": "array",
+      "title": "Preferences"
+     },
+     "transport": {
+      "$ref": "#/components/schemas/TransportPlan"
+     },
+     "notes": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Notes",
+      "description": "Факты без поля: «годовщина свадьбы»"
+     },
+     "provenance": {
+      "additionalProperties": {
+       "$ref": "#/components/schemas/Source"
+      },
+      "type": "object",
+      "title": "Provenance",
+      "description": "путь поля → откуда значение, напр. 'dates.nights': assumed"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "title": "Requirements"
+   },
+   "ResetAction": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "reset",
+      "title": "Type",
+      "default": "reset"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "title": "ResetAction"
+   },
+   "RoomType": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "max_adults": {
+      "type": "integer",
+      "minimum": 1.0,
+      "title": "Max Adults"
+     },
+     "max_children": {
+      "type": "integer",
+      "minimum": 0.0,
+      "title": "Max Children",
+      "default": 0
+     },
+     "max_occupancy": {
+      "type": "integer",
+      "minimum": 1.0,
+      "title": "Max Occupancy"
+     },
+     "area_m2": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Area M2"
+     },
+     "view": {
+      "type": "string",
+      "enum": [
+       "sea",
+       "mountain",
+       "city",
+       "garden",
+       "none"
+      ],
+      "title": "View",
+      "default": "none"
+     },
+     "price_factor": {
+      "type": "number",
+      "exclusiveMinimum": 0.0,
+      "title": "Price Factor",
+      "description": "относительно базовой цены отеля",
+      "default": 1.0
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "id",
+     "name",
+     "max_adults",
+     "max_occupancy"
+    ],
+    "title": "RoomType"
+   },
+   "ScoreComponent": {
+    "properties": {
+     "key": {
+      "type": "string",
+      "title": "Key"
+     },
+     "label": {
+      "type": "string",
+      "title": "Label"
+     },
+     "score": {
+      "type": "number",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Score",
+      "description": "насколько хорошо по критерию, 0..1"
+     },
+     "weight": {
+      "type": "number",
+      "minimum": 0.0,
+      "title": "Weight",
+      "description": "важность критерия для ЭТОГО пользователя"
+     },
+     "contribution": {
+      "type": "number",
+      "title": "Contribution"
+     },
+     "detail": {
+      "type": "string",
+      "title": "Detail",
+      "default": ""
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "key",
+     "label",
+     "score",
+     "weight",
+     "contribution"
+    ],
+    "title": "ScoreComponent",
+    "description": "Вклад одного критерия в итоговый скор. Это и есть «объяснение выбора» в цифрах."
+   },
+   "SearchStats": {
+    "properties": {
+     "hotels_total": {
+      "type": "integer",
+      "title": "Hotels Total",
+      "default": 0
+     },
+     "after_hard_filters": {
+      "type": "integer",
+      "title": "After Hard Filters",
+      "default": 0
+     },
+     "with_offers": {
+      "type": "integer",
+      "title": "With Offers",
+      "default": 0
+     },
+     "rejected": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "type": "object",
+      "title": "Rejected",
+      "description": "причина → сколько отсеяно"
+     },
+     "elapsed_ms": {
+      "type": "integer",
+      "title": "Elapsed Ms",
+      "default": 0
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "title": "SearchStats"
+   },
+   "SelectVariantAction": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "select_variant",
+      "title": "Type",
+      "default": "select_variant"
+     },
+     "variant_id": {
+      "type": "string",
+      "title": "Variant Id"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "variant_id"
+    ],
+    "title": "SelectVariantAction"
+   },
+   "Severity": {
+    "type": "string",
+    "enum": [
+     "info",
+     "warning",
+     "blocker"
+    ],
+    "title": "Severity"
+   },
+   "Source": {
+    "type": "string",
+    "enum": [
+     "user",
+     "assumed",
+     "profile",
+     "default"
+    ],
+    "title": "Source",
+    "description": "Откуда взято значение требования. Показывается пользователю чипсами."
+   },
+   "TextBlock": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "text",
+      "title": "Type",
+      "default": "text"
+     },
+     "markdown": {
+      "type": "string",
+      "title": "Markdown"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "markdown"
+    ],
+    "title": "TextBlock"
+   },
+   "TraceStep": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "detail": {
+      "type": "string",
+      "title": "Detail",
+      "default": ""
+     },
+     "ms": {
+      "type": "integer",
+      "title": "Ms",
+      "default": 0
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "name"
+    ],
+    "title": "TraceStep",
+    "description": "Шаг работы агента — показываем в UI («что я сделал») и используем для метрик."
+   },
+   "TransferQuote": {
+    "properties": {
+     "hub_id": {
+      "type": "string",
+      "title": "Hub Id"
+     },
+     "hub_name": {
+      "type": "string",
+      "title": "Hub Name"
+     },
+     "hotel_id": {
+      "type": "string",
+      "title": "Hotel Id"
+     },
+     "direction": {
+      "type": "string",
+      "title": "Direction",
+      "description": "to_hotel | from_hotel"
+     },
+     "minutes": {
+      "type": "integer",
+      "title": "Minutes"
+     },
+     "distance_km": {
+      "type": "number",
+      "title": "Distance Km"
+     },
+     "price": {
+      "type": "integer",
+      "title": "Price"
+     },
+     "mode": {
+      "type": "string",
+      "title": "Mode",
+      "default": "taxi"
+     },
+     "is_estimate": {
+      "type": "boolean",
+      "title": "Is Estimate",
+      "default": true
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "hub_id",
+     "hub_name",
+     "hotel_id",
+     "direction",
+     "minutes",
+     "distance_km",
+     "price"
+    ],
+    "title": "TransferQuote"
+   },
+   "TransportHub": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "kind": {
+      "type": "string",
+      "enum": [
+       "airport",
+       "rail"
+      ],
+      "title": "Kind"
+     },
+     "point": {
+      "$ref": "#/components/schemas/GeoPoint"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "id",
+     "name",
+     "kind",
+     "point"
+    ],
+    "title": "TransportHub"
+   },
+   "TransportPlan": {
+    "properties": {
+     "origin_city": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Origin City"
+     },
+     "arrival_mode": {
+      "$ref": "#/components/schemas/ArrivalMode",
+      "default": "unknown"
+     },
+     "arrival_hub_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Arrival Hub Id"
+     },
+     "arrival_time": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "time"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Arrival Time"
+     },
+     "departure_time": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "time"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Departure Time"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "title": "TransportPlan"
+   },
+   "TripStage": {
+    "type": "string",
+    "enum": [
+     "collecting",
+     "proposing",
+     "selected",
+     "in_cart",
+     "ordered"
+    ],
+    "title": "TripStage"
+   },
+   "TripState": {
+    "properties": {
+     "session_id": {
+      "type": "string",
+      "title": "Session Id"
+     },
+     "user_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "User Id"
+     },
+     "version": {
+      "type": "integer",
+      "title": "Version",
+      "default": 0
+     },
+     "stage": {
+      "$ref": "#/components/schemas/TripStage",
+      "default": "collecting"
+     },
+     "requirements": {
+      "$ref": "#/components/schemas/Requirements"
+     },
+     "variants": {
+      "items": {
+       "$ref": "#/components/schemas/Variant"
+      },
+      "type": "array",
+      "title": "Variants"
+     },
+     "recommended_variant_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Recommended Variant Id"
+     },
+     "previous_variants": {
+      "items": {
+       "$ref": "#/components/schemas/Variant"
+      },
+      "type": "array",
+      "title": "Previous Variants",
+      "description": "для diff при пересборке"
+     },
+     "selected_variant_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Selected Variant Id"
+     },
+     "last_stats": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/SearchStats"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "clarifications_asked": {
+      "type": "integer",
+      "title": "Clarifications Asked",
+      "default": 0
+     },
+     "asked_paths": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Asked Paths",
+      "description": "о чём уже спрашивали — не повторяться"
+     },
+     "cart_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Cart Id"
+     },
+     "order_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Order Ids"
+     },
+     "turn_count": {
+      "type": "integer",
+      "title": "Turn Count",
+      "default": 0
+     },
+     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At"
+     },
+     "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Updated At"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "session_id",
+     "created_at",
+     "updated_at"
+    ],
+    "title": "TripState",
+    "description": "Состояние сессии. Хранится целиком (JSON) в SessionStore, версионируется на каждом ходу."
+   },
+   "TurnRequest": {
+    "properties": {
+     "text": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 4000
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Text"
+     },
+     "action": {
+      "anyOf": [
+       {
+        "oneOf": [
+         {
+          "$ref": "#/components/schemas/SelectVariantAction"
+         },
+         {
+          "$ref": "#/components/schemas/ApplyPatchAction"
+         },
+         {
+          "$ref": "#/components/schemas/CompareAction"
+         },
+         {
+          "$ref": "#/components/schemas/AddToCartAction"
+         },
+         {
+          "$ref": "#/components/schemas/AddExtraAction"
+         },
+         {
+          "$ref": "#/components/schemas/RemoveCartItemAction"
+         },
+         {
+          "$ref": "#/components/schemas/CheckoutAction"
+         },
+         {
+          "$ref": "#/components/schemas/PayAction"
+         },
+         {
+          "$ref": "#/components/schemas/PostPurchaseAction"
+         },
+         {
+          "$ref": "#/components/schemas/ResetAction"
+         }
+        ],
+        "discriminator": {
+         "propertyName": "type",
+         "mapping": {
+          "add_extra": "#/components/schemas/AddExtraAction",
+          "add_to_cart": "#/components/schemas/AddToCartAction",
+          "apply_patch": "#/components/schemas/ApplyPatchAction",
+          "checkout": "#/components/schemas/CheckoutAction",
+          "compare": "#/components/schemas/CompareAction",
+          "pay": "#/components/schemas/PayAction",
+          "post_purchase": "#/components/schemas/PostPurchaseAction",
+          "remove_cart_item": "#/components/schemas/RemoveCartItemAction",
+          "reset": "#/components/schemas/ResetAction",
+          "select_variant": "#/components/schemas/SelectVariantAction"
+         }
+        }
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Action"
+     },
+     "expected_version": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Expected Version",
+      "description": "оптимистичная блокировка: версия состояния, которую видел клиент"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "title": "TurnRequest",
+    "description": "Ровно одно из: text (свободный ввод) или action (клик в UI)."
+   },
+   "TurnResponse": {
+    "properties": {
+     "session_id": {
+      "type": "string",
+      "title": "Session Id"
+     },
+     "version": {
+      "type": "integer",
+      "title": "Version"
+     },
+     "stage": {
+      "$ref": "#/components/schemas/TripStage"
+     },
+     "blocks": {
+      "items": {
+       "oneOf": [
+        {
+         "$ref": "#/components/schemas/TextBlock"
+        },
+        {
+         "$ref": "#/components/schemas/AssumptionsBlock"
+        },
+        {
+         "$ref": "#/components/schemas/QuestionBlock"
+        },
+        {
+         "$ref": "#/components/schemas/DestinationsBlock"
+        },
+        {
+         "$ref": "#/components/schemas/VariantsBlock"
+        },
+        {
+         "$ref": "#/components/schemas/ComparisonBlock"
+        },
+        {
+         "$ref": "#/components/schemas/DiffBlock"
+        },
+        {
+         "$ref": "#/components/schemas/NoResultsBlock"
+        },
+        {
+         "$ref": "#/components/schemas/CartBlock"
+        },
+        {
+         "$ref": "#/components/schemas/OrderBlock"
+        }
+       ],
+       "discriminator": {
+        "propertyName": "type",
+        "mapping": {
+         "assumptions": "#/components/schemas/AssumptionsBlock",
+         "cart": "#/components/schemas/CartBlock",
+         "comparison": "#/components/schemas/ComparisonBlock",
+         "destinations": "#/components/schemas/DestinationsBlock",
+         "diff": "#/components/schemas/DiffBlock",
+         "no_results": "#/components/schemas/NoResultsBlock",
+         "order": "#/components/schemas/OrderBlock",
+         "question": "#/components/schemas/QuestionBlock",
+         "text": "#/components/schemas/TextBlock",
+         "variants": "#/components/schemas/VariantsBlock"
+        }
+       }
+      },
+      "type": "array",
+      "title": "Blocks"
+     },
+     "suggestions": {
+      "items": {
+       "$ref": "#/components/schemas/QuickReply"
+      },
+      "type": "array",
+      "title": "Suggestions"
+     },
+     "requirements": {
+      "$ref": "#/components/schemas/Requirements"
+     },
+     "trace": {
+      "items": {
+       "$ref": "#/components/schemas/TraceStep"
+      },
+      "type": "array",
+      "title": "Trace"
+     },
+     "mode": {
+      "type": "string",
+      "enum": [
+       "llm",
+       "rules"
+      ],
+      "title": "Mode",
+      "default": "rules"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "session_id",
+     "version",
+     "stage",
+     "blocks",
+     "requirements"
+    ],
+    "title": "TurnResponse"
+   },
+   "ValidationError": {
+    "properties": {
+     "loc": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      },
+      "type": "array",
+      "title": "Location"
+     },
+     "msg": {
+      "type": "string",
+      "title": "Message"
+     },
+     "type": {
+      "type": "string",
+      "title": "Error Type"
+     },
+     "input": {
+      "title": "Input"
+     },
+     "ctx": {
+      "type": "object",
+      "title": "Context"
+     }
+    },
+    "type": "object",
+    "required": [
+     "loc",
+     "msg",
+     "type"
+    ],
+    "title": "ValidationError"
+   },
+   "Variant": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "archetype": {
+      "$ref": "#/components/schemas/Archetype"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "hotel": {
+      "$ref": "#/components/schemas/HotelCard"
+     },
+     "offer": {
+      "$ref": "#/components/schemas/Offer"
+     },
+     "transfer_in": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/TransferQuote"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "transfer_out": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/TransferQuote"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "total_price": {
+      "type": "integer",
+      "title": "Total Price"
+     },
+     "budget_delta": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Budget Delta",
+      "description": "total - budget; <0 значит в бюджете"
+     },
+     "score": {
+      "type": "number",
+      "title": "Score"
+     },
+     "breakdown": {
+      "items": {
+       "$ref": "#/components/schemas/ScoreComponent"
+      },
+      "type": "array",
+      "title": "Breakdown"
+     },
+     "why": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Why"
+     },
+     "tradeoffs": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Tradeoffs"
+     },
+     "fit_warnings": {
+      "items": {
+       "$ref": "#/components/schemas/Issue"
+      },
+      "type": "array",
+      "title": "Fit Warnings",
+      "description": "кому этот отель НЕ подойдёт"
+     },
+     "issues": {
+      "items": {
+       "$ref": "#/components/schemas/Issue"
+      },
+      "type": "array",
+      "title": "Issues",
+      "description": "проблемы состыковок от валидатора"
+     },
+     "matched_prefs": {
+      "items": {
+       "$ref": "#/components/schemas/PrefKey"
+      },
+      "type": "array",
+      "title": "Matched Prefs"
+     },
+     "missed_prefs": {
+      "items": {
+       "$ref": "#/components/schemas/PrefKey"
+      },
+      "type": "array",
+      "title": "Missed Prefs"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "id",
+     "archetype",
+     "title",
+     "hotel",
+     "offer",
+     "total_price",
+     "score"
+    ],
+    "title": "Variant"
+   },
+   "VariantsBlock": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "const": "variants",
+      "title": "Type",
+      "default": "variants"
+     },
+     "items": {
+      "items": {
+       "$ref": "#/components/schemas/Variant"
+      },
+      "type": "array",
+      "title": "Items"
+     },
+     "recommended_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Recommended Id"
+     },
+     "stats": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/SearchStats"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "items"
+    ],
+    "title": "VariantsBlock"
+   },
+   "VibeTag": {
+    "type": "string",
+    "enum": [
+     "quiet",
+     "party",
+     "family",
+     "romantic",
+     "business",
+     "budget",
+     "luxury",
+     "nature",
+     "sport",
+     "wellness"
+    ],
+    "title": "VibeTag",
+    "description": "«Настроение» отеля и поездки. NLU мапит «хочу спокойно/романтично/тусить» сюда."
+   }
+  }
+ }
+}
