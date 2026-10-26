@@ -21,7 +21,8 @@ from .config import Settings
 from .pricing.demo_pricing import DemoPricing
 from .ranking.baseline import BaselineRanker
 from .storage.sqlite import SqliteStore
-from .transfer.estimator import HaversineTransfer
+from .transfer.matrix import MatrixTransfer
+from .transfer.schedule import DemoSchedule
 from .validation.rules import RulesValidator
 
 log = logging.getLogger(__name__)
@@ -40,9 +41,9 @@ def build(settings: Settings, *, today: Callable[[], date] = date.today, db_path
     catalog = JsonCatalog(settings.data_dir)
     location = catalog.get_location(settings.location_id)
     pricing = DemoPricing(location)
-    transfer = HaversineTransfer()
+    transfer = MatrixTransfer(settings.data_dir)  # реальные дороги (OSRM), откат — по прямой
     validator = RulesValidator(today=today)
-    ranker = BaselineRanker(location, pricing, transfer)
+    ranker = BaselineRanker(location, pricing, transfer, schedule=DemoSchedule(location))
     store = SqliteStore(db_path or settings.db_path)
     booking = BookingService(store, validator)
 

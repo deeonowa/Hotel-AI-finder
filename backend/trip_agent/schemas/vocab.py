@@ -180,6 +180,7 @@ class TripStage(StrEnum):
 
 class CartItemKind(StrEnum):
     hotel_stay = "hotel_stay"
+    ticket = "ticket"
     transfer = "transfer"
     early_check_in = "early_check_in"
     late_check_out = "late_check_out"

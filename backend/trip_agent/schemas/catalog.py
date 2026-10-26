@@ -133,6 +133,13 @@ class Hotel(Model):
     room_types: list[RoomType]
     base_price_per_night: int = Field(gt=0, description="ориентир для DEMO-цен, стандарт DBL, низкий сезон")
     description: str | None = None
+    website: str | None = None
+    elevation_m: int | None = Field(default=None, description="высота над морем, м (Open-Meteo, реальная)")
+    climb_to_hotel_m: int | None = Field(default=None, description="подъём от ближайшего пляжа до отеля, м")
+    nearest_m: dict[str, int] = Field(
+        default_factory=dict,
+        description="расстояние до ближайших POI (реальное, OSM): beach, water_park, park, ski_lift, playground, sight",
+    )
     provenance: Provenance
 
 

@@ -32,6 +32,44 @@ def _sea(ctx: Ctx, value: float | None) -> float:
     return 1.0 if d <= limit else max(0.0, 1.0 - (d - limit) / 2000)
 
 
+def _near(h: Hotel, key: str) -> int | None:
+    """Реальное расстояние до ближайшего POI (OSM, build_location.py) или None."""
+    return h.nearest_m.get(key)
+
+
+def _climb(h: Hotel) -> int:
+    """Подъём от пляжа до отеля, м (реальные высоты). Нет данных → по флагу hilly_walk."""
+    if h.climb_to_hotel_m is not None:
+        return h.climb_to_hotel_m
+    return 30 if h.hilly_walk else 0
+
+
+def _ski(c: Ctx) -> float:
+    if _has(c.hotel, Amenity.ski_in_out):
+        return 1.0
+    lift = _near(c.hotel, "ski_lift")
+    mountain = bool(c.district and c.district.kind == DistrictKind.mountain)
+    if lift is not None and mountain:
+        return 0.95 if lift <= 400 else 0.8 if lift <= 1200 else 0.6
+    return 0.5 if mountain else 0.0
+
+
+def _family(c: Ctx) -> float:
+    h = c.hotel
+    if h.adults_only:
+        return 0.0
+    s = 0.2
+    s += 0.35 * _has(h, Amenity.kids_club) + 0.15 * _has(h, Amenity.kids_menu)
+    pg = _near(h, "playground")
+    s += 0.15 if _has(h, Amenity.playground) or (pg is not None and pg <= 400) else 0.0
+    wp = _near(h, "water_park")
+    s += 0.1 if wp is not None and wp <= 2500 else 0.0
+    s += 0.1 * (VibeTag.family in h.vibe_tags)
+    s -= min(0.35, _climb(h) / 120)  # подъём с ребёнком/коляской
+    s -= 0.25 * (VibeTag.party in h.vibe_tags)
+    return max(0.0, min(1.0, s))
+
+
 def _meal_score(offer: Offer | None, wanted: set[MealPlan]) -> float:
     if offer is None:
         return 0.5
@@ -46,34 +84,11 @@ SCORERS: dict[PrefKey, Scorer] = {
     PrefKey.beach_first_line: lambda c, v: _sea(c, 150),
     PrefKey.sea_view: lambda c, v: 1.0 if any(r.view == "sea" for r in c.hotel.room_types) else 0.0,
     PrefKey.mountains: lambda c, v: 1.0 if c.district and c.district.kind == DistrictKind.mountain else 0.0,
-    PrefKey.ski_access: lambda c, v: (
-        1.0
-        if _has(c.hotel, Amenity.ski_in_out)
-        else 0.8
-        if c.district and c.district.kind == DistrictKind.mountain and _has(c.hotel, Amenity.ski_storage)
-        else 0.6
-        if c.district and c.district.kind == DistrictKind.mountain
-        else 0.0
-    ),
-    PrefKey.quiet: lambda c, v: (
-        1.0 if VibeTag.quiet in c.hotel.vibe_tags else 0.15 if VibeTag.party in c.hotel.vibe_tags else 0.5
-    ),
-    PrefKey.nightlife: lambda c, v: (
-        1.0 if VibeTag.party in c.hotel.vibe_tags or (c.district and c.district.id == "central") else 0.25
-    ),
+    PrefKey.ski_access: lambda c, v: _ski(c),
+    PrefKey.quiet: lambda c, v: 1.0 if VibeTag.quiet in c.hotel.vibe_tags else 0.15 if VibeTag.party in c.hotel.vibe_tags else 0.5,
+    PrefKey.nightlife: lambda c, v: 1.0 if VibeTag.party in c.hotel.vibe_tags or (c.district and c.district.id == "central") else 0.25,
     PrefKey.city_center: lambda c, v: max(0.0, 1.0 - (c.hotel.distance_to_center_m or 10_000) / 5000),
-    PrefKey.family_friendly: lambda c, v: (
-        min(
-            1.0,
-            0.4 * _has(c.hotel, Amenity.kids_club)
-            + 0.3 * _has(c.hotel, Amenity.playground)
-            + 0.3 * (VibeTag.family in c.hotel.vibe_tags)
-            - 0.3 * bool(c.hotel.hilly_walk)
-            + 0.2,
-        )
-        if not c.hotel.adults_only
-        else 0.0
-    ),
+    PrefKey.family_friendly: lambda c, v: _family(c),
     PrefKey.kids_club: lambda c, v: 1.0 if _has(c.hotel, Amenity.kids_club) else 0.0,
     PrefKey.pool: lambda c, v: 1.0 if _has(c.hotel, Amenity.pool, Amenity.heated_pool, Amenity.indoor_pool) else 0.0,
     PrefKey.heated_pool: lambda c, v: (
@@ -81,11 +96,7 @@ SCORERS: dict[PrefKey, Scorer] = {
     ),
     PrefKey.spa: lambda c, v: 1.0 if _has(c.hotel, Amenity.spa) else 0.5 if _has(c.hotel, Amenity.sauna) else 0.0,
     PrefKey.romantic: lambda c, v: (
-        1.0
-        if c.hotel.adults_only or VibeTag.romantic in c.hotel.vibe_tags
-        else 0.6
-        if VibeTag.luxury in c.hotel.vibe_tags
-        else 0.2
+        1.0 if c.hotel.adults_only or VibeTag.romantic in c.hotel.vibe_tags else 0.6 if VibeTag.luxury in c.hotel.vibe_tags else 0.2
     ),
     PrefKey.breakfast_included: lambda c, v: _meal_score(c.offer, {MealPlan.BB, MealPlan.HB, MealPlan.FB, MealPlan.AI}),
     PrefKey.all_inclusive: lambda c, v: (
@@ -95,11 +106,13 @@ SCORERS: dict[PrefKey, Scorer] = {
     PrefKey.pet_friendly: lambda c, v: 1.0 if c.hotel.pets.allowed else 0.0,
     PrefKey.parking: lambda c, v: 1.0 if _has(c.hotel, Amenity.parking) else 0.0,
     PrefKey.accessible: lambda c, v: (
-        1.0
+        0.0
+        if _climb(c.hotel) >= 25
+        else 1.0
         if _has(c.hotel, Amenity.wheelchair_accessible)
-        else 0.4
-        if _has(c.hotel, Amenity.elevator) and not c.hotel.hilly_walk
-        else 0.0
+        else 0.5
+        if _has(c.hotel, Amenity.elevator)
+        else 0.1
     ),
     PrefKey.short_transfer: lambda c, v: (
         0.5 if c.transfer_minutes is None else max(0.0, 1.0 - c.transfer_minutes / (float(v) * 2 if v else 120))
@@ -114,9 +127,7 @@ SCORERS: dict[PrefKey, Scorer] = {
     PrefKey.nature: lambda c, v: (
         1.0 if VibeTag.nature in c.hotel.vibe_tags or (c.district and VibeTag.nature in c.district.vibe_tags) else 0.3
     ),
-    PrefKey.wellness: lambda c, v: (
-        1.0 if _has(c.hotel, Amenity.medical_treatments) else 0.6 if _has(c.hotel, Amenity.spa) else 0.0
-    ),
+    PrefKey.wellness: lambda c, v: 1.0 if _has(c.hotel, Amenity.medical_treatments) else 0.6 if _has(c.hotel, Amenity.spa) else 0.0,
 }
 
 # Для «must» на уровне ОТЕЛЯ (до запроса цен): порог мягкой оценки.

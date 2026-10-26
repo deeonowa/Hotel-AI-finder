@@ -22,6 +22,7 @@ from ..schemas import (
     Requirements,
     Variant,
 )
+from ..transfer.schedule import fmt_leg
 from ..validation.rules import early_check_in_price, late_check_out_price
 
 MEALS_RU = {"RO": "без питания", "BB": "завтраки", "HB": "полупансион", "FB": "полный пансион", "AI": "всё включено"}
@@ -59,6 +60,19 @@ class BookingService:
                 removable=False,
             )
         ]
+        for leg in (v.outbound, v.inbound):
+            if leg is None:
+                continue
+            items.append(
+                CartItem(
+                    id=_id("ci"),
+                    kind=CartItemKind.ticket,
+                    title=("Туда: " if leg.direction == "outbound" else "Обратно: ") + f"{leg.from_name} → {leg.to_name}",
+                    details=fmt_leg(leg),
+                    price=leg.passengers_price,
+                    ref_id=leg.id,
+                )
+            )
         if with_transfer and v.transfer_in:
             for t in (v.transfer_in, v.transfer_out):
                 if t is None:
@@ -101,9 +115,7 @@ class BookingService:
                 price=price,
             )
         elif kind == CartItemKind.late_check_out:
-            item = CartItem(
-                id=_id("ci"), kind=kind, title="Поздний выезд", details="до 18:00 (50% от ночи)", price=late_check_out_price(v)
-            )
+            item = CartItem(id=_id("ci"), kind=kind, title="Поздний выезд", details="до 18:00 (50% от ночи)", price=late_check_out_price(v))
         else:
             raise BookingError(f"Нельзя добавить {kind}")
         cart.items.append(item)
@@ -121,7 +133,12 @@ class BookingService:
         return cart
 
     # ---------------------------------------------------------------- заказ
-    def checkout(self, cart: Cart, guest_name: str | None) -> Order:
+    def checkout(self, cart: Cart, guest_name: str | None, *, variant: Variant | None = None, req: Requirements | None = None) -> Order:
+        """Оформление. Проверки повторяются ЗДЕСЬ (а не берутся из корзины): условия могли измениться,
+        а неподтверждённые предположения о датах и составе гостей — блокер."""
+        if req is not None:
+            cart.issues = self.validator.validate_cart(cart, variant, req)
+            self.repo.save_cart(cart)
         if any(i.severity.value == "blocker" for i in cart.issues):
             raise BookingError("В корзине есть блокирующие проблемы: " + "; ".join(i.message for i in cart.issues))
         now = _now()
