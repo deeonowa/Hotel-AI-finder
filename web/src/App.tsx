@@ -196,7 +196,7 @@ export default function App() {
         <TripBoard response={last} state={tripState} cart={cart} order={order} />
         <section className="conversation" aria-label="Диалог с агентом">
           <div className="conversation-head">
-            <h1>Одна мысль —<br />и поездка складывается.</h1>
+            <h1>Одна мысль — и поездка складывается.</h1>
           </div>
           <div className="chat">
           {msgs.map((m, i) =>
