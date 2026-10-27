@@ -26,14 +26,23 @@ export function TracePanel({ resp }: { resp?: TurnResponse }) {
   const stage = STAGE[resp.stage] ?? STAGE.collecting;
   const updates = [...new Set((resp.trace ?? []).map((step) => TRACE_COPY[step.name]).filter(Boolean))].slice(-3);
   return (
-    <div className="panel journey-panel">
-      <h3>{stage.title}</h3>
+    <section className="panel journey-panel" aria-live="polite">
+      <h3>Что с поездкой</h3>
+      <div className="journey-status">
+        <i aria-hidden="true" />
+        <div>
+          <b>{stage.title}</b>
+          <p>{stage.hint}</p>
+        </div>
+      </div>
       {updates.length > 0 && (
-        <ul className="journey-updates" aria-label="Что уже проверено">
-          {updates.map((update) => <li key={update}>{update}</li>)}
-        </ul>
+        <div className="journey-checks">
+          <span>Уже проверил</span>
+          <ul className="journey-updates" aria-label="Что уже проверено">
+            {updates.map((update) => <li key={update}>{update}</li>)}
+          </ul>
+        </div>
       )}
-      <p className="journey-hint">{stage.hint}</p>
       <details className="source-note">
         <summary>О данных</summary>
         <p>
@@ -41,6 +50,6 @@ export function TracePanel({ resp }: { resp?: TurnResponse }) {
           климат — Open-Meteo. Цены, наличие, билеты и оплата — демо.
         </p>
       </details>
-    </div>
+    </section>
   );
 }
