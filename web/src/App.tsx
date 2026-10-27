@@ -49,6 +49,7 @@ export default function App() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<ErrorNotice | null>(null);
   const bottom = useRef<HTMLDivElement>(null);
+  const latestAgentTurn = useRef<HTMLDivElement>(null);
   const initialized = useRef(false);
 
   const responses = msgs.filter((m): m is Extract<Msg, { role: "agent" }> => m.role === "agent").map((m) => m.resp);
@@ -130,6 +131,11 @@ export default function App() {
   }, [sessionId, version, msgs]);
 
   useEffect(() => {
+    const lastMessage = msgs[msgs.length - 1];
+    if (lastMessage?.role === "agent" && msgs.length > 1) {
+      latestAgentTurn.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
     bottom.current?.scrollIntoView({ behavior: "smooth" });
   }, [msgs]);
 
@@ -203,7 +209,7 @@ export default function App() {
             m.role === "user" ? (
               <div key={i} className="user-entry"><span>ВЫ</span><p>{m.text}</p></div>
             ) : (
-              <div key={i} className="agent-turn">
+              <div key={i} className="agent-turn" ref={i === msgs.length - 1 ? latestAgentTurn : null}>
                 {m.resp.blocks.map((b, j) => (
                   <BlockView key={j} block={b} onReply={onReply} disabled={busy || i !== msgs.length - 1} />
                 ))}

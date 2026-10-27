@@ -103,6 +103,32 @@ def test_replan_explains_why_chosen_hotel_was_replaced(agent, hotels):
     assert agent.get_state(sid).cart_id is None, "корзина под старый отель очищена"
 
 
+def test_reselecting_the_same_hotel_is_idempotent_and_keeps_next_step(agent):
+    """Старая карточка не должна снова запускать выбор и плодить одинаковые ответы."""
+    sid = agent.new_session().session_id
+    _say(agent, sid, "вдвоём с 10 по 17 ноября у моря")
+    chosen = agent.get_state(sid).recommended_variant_id
+    _act(agent, sid, type="select_variant", variant_id=chosen)
+
+    r = _act(agent, sid, type="select_variant", variant_id=chosen)
+    assert _types(r) == ["text"]
+    assert "уже выбран" in _text(r)
+    assert any(s.label == "В корзину" for s in r.suggestions)
+    assert agent.get_state(sid).selected_variant_id == chosen
+
+
+def test_question_after_selection_does_not_restart_selection(agent):
+    """Вопрос между шагами — нормальная часть диалога, а не повторный выбор отеля."""
+    sid = agent.new_session().session_id
+    _say(agent, sid, "вдвоём с 10 по 17 ноября у моря")
+    chosen = agent.get_state(sid).recommended_variant_id
+    _act(agent, sid, type="select_variant", variant_id=chosen)
+
+    r = _say(agent, sid, "есть там бассейн?")
+    assert "variants" not in _types(r)
+    assert agent.get_state(sid).selected_variant_id == chosen
+
+
 # ------------------------------------------------------------------ P1: автоисправление
 def test_agent_fixes_long_night_transfer_on_its_own(agent):
     sid = agent.new_session().session_id

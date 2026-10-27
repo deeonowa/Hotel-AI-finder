@@ -20,3 +20,18 @@ test("выбор сохраняется в путевом листе после 
   await expect(page.getByLabel("Ваша поездка")).toContainText("Отель «Олива»");
   await expect(page.getByLabel("Статус бронирования")).toContainText("46 060");
 });
+
+test("выбранный вариант нельзя выбрать повторно, но можно добавить в корзину", async ({ page }) => {
+  await page.route("**/api/v1/**", async (route) => {
+    const url = route.request().url();
+    if (url.endsWith("/sessions") && route.request().method() === "POST") return route.fulfill({ json: { ...session, blocks: [{ type: "text", markdown: "Расскажите о поездке" }], suggestions: [], trace: [], mode: "rules" } });
+    if (url.endsWith("/sessions/demo") && route.request().method() === "GET") return route.fulfill({ json: { ...session, stage: "selected", variants: [variant], selected_variant_id: variant.id } });
+    return route.fulfill({ json: { ...session, version: 2, stage: "selected", blocks: [{ type: "variants", items: [variant], recommended_id: variant.id, selected_id: variant.id }], suggestions: [], trace: [{ name: "validate", detail: "", ms: 0 }], mode: "rules" } });
+  });
+  await page.goto("/");
+  await page.getByLabel("Куда хочется?").fill("К морю в ноябре");
+  await page.getByRole("button", { name: "Отправить" }).click();
+  await expect(page.getByRole("button", { name: "Выбрано" })).toBeDisabled();
+  await expect(page.getByRole("button", { name: /В корзину/ })).toBeEnabled();
+  await expect(page.getByLabel("Прозрачность работы агента").getByText("Проверил условия и логистику")).toBeVisible();
+});

@@ -1861,6 +1861,11 @@ export interface components {
             items: components["schemas"]["Variant"][];
             /** Recommended Id */
             recommended_id?: string | null;
+            /**
+             * Selected Id
+             * @description вариант, который пользователь уже выбрал; его нельзя выбрать повторно
+             */
+            selected_id?: string | null;
             stats?: components["schemas"]["SearchStats"] | null;
         };
         /**
