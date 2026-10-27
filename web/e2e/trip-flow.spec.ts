@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 const requirements = { dates: { check_in: "2026-11-10", check_out: "2026-11-17" }, guests: { adults: 2, children_ages: [] }, budget: { amount: 120000 } };
-const variant = { id: "v-oliva", title: "Лучший баланс", archetype: "balanced", total_price: 46060, score: .86, hotel: { name: "Отель «Олива»", district_name: "Адлер", data_source: "fixture" }, offer: { room_name: "Стандарт", meal_plan: "none", price_per_night_avg: 6580, cancellation: { refundable: true, free_until: "2026-11-01" } }, why: ["Близко к морю"], tradeoffs: [], fit_warnings: [], issues: [], breakdown: [] };
+const variant = { id: "v-oliva", title: "Лучший баланс", archetype: "balanced", total_price: 46060, score: .86, hotel: { name: "Отель «Олива»", district_name: "Адлер", data_source: "fixture" }, offer: { room_name: "Стандарт", meal_plan: "none", price_per_night_avg: 6580, cancellation: { refundable: true, free_until: "2026-11-01" } }, why: ["Близко к морю"], tradeoffs: [], fit_warnings: [], issues: [{ code: "arrival_unknown", severity: "info", message: "Во сколько вы прибываете?" }], breakdown: [] };
 const session = { session_id: "demo", version: 1, stage: "collecting", requirements, variants: [], selected_variant_id: null };
 
 test("выбор сохраняется в путевом листе после добавления в корзину", async ({ page }) => {
@@ -19,6 +19,7 @@ test("выбор сохраняется в путевом листе после 
   await page.getByRole("button", { name: /В корзину/ }).click();
   await expect(page.getByLabel("Ваша поездка")).toContainText("Отель «Олива»");
   await expect(page.getByLabel("Статус бронирования")).toContainText("46 060");
+  await expect(page.getByText("Во сколько вы прибываете?")).not.toBeVisible();
 });
 
 test("выбранный вариант нельзя выбрать повторно, но можно добавить в корзину", async ({ page }) => {

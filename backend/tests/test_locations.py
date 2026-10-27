@@ -153,10 +153,11 @@ def test_switching_city_mid_dialog_resets_districts_and_cart(agent):
 def test_cold_sea_suggests_warmer_destinations(agent):
     sid = agent.new_session().session_id
     r = _say(agent, sid, "вдвоём на море с 5 по 12 декабря, хотим купаться")
-    assert agent.get_state(sid).requirements.location_id == "sochi"
-    warm = [b for b in _blocks(r, "destinations") if b.title == "Где море теплее"]
-    assert warm, "в декабре море в Сочи холодное — надо показать, где теплее"
-    assert all(c.scope == "location" and c.climate.sea_temp_c >= 22 and not c.cons for c in warm[0].items)
+    (choices,) = _blocks(r, "destinations")
+    assert choices.title == "Выберите направление"
+    assert not _blocks(r, "variants"), "без города не должны молча выдавать дефолтный Сочи"
+    assert all(c.scope == "location" for c in choices.items)
+    assert choices.items[0].climate.sea_temp_c >= 22
 
 
 def test_where_to_go_compares_cities(agent):
@@ -180,11 +181,24 @@ def test_unknown_city_gets_honest_answer(agent):
 
 def test_city_must_be_confirmed_only_if_user_did_not_name_it(agent):
     sid = agent.new_session().session_id
-    _say(agent, sid, "вдвоём с 10 по 17 ноября у моря")  # город не назван → Сочи по умолчанию
-    assert [g for g, _ in agent._pending(agent.get_state(sid))] == ["location"]
+    r = _say(agent, sid, "вдвоём с 10 по 17 ноября у моря")
+    assert _blocks(r, "destinations") and not _blocks(r, "variants")
     sid = agent.new_session().session_id
     _say(agent, sid, "вдвоём в Сочи с 10 по 17 ноября у моря")
     assert agent._pending(agent.get_state(sid)) == []
+
+
+def test_unspecified_city_can_be_selected_before_hotel_search(agent):
+    sid = agent.new_session().session_id
+    r = _say(agent, sid, "вдвоём на море в ноябре на неделю, до 150 тысяч")
+    (choices,) = _blocks(r, "destinations")
+    assert choices.title == "Выберите направление"
+    assert not _blocks(r, "variants")
+
+    antalya = next(card for card in choices.items if card.location_id == "antalya")
+    r = agent.turn(sid, TurnRequest(action=antalya.choose.action))
+    (variants,) = _blocks(r, "variants")
+    assert variants.items and all(agent.catalog.get_hotel(v.hotel.id).location_id == "antalya" for v in variants.items)
 
 
 def test_visa_free_limit_is_checked(agent):

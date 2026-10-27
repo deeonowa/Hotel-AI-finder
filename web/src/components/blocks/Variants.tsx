@@ -37,7 +37,8 @@ function VariantCard({ v, recommended, selected, onReply, disabled }: {
 }) {
   const h = v.hotel;
   const o = v.offer;
-  const risks = [...(v.fit_warnings ?? []), ...(v.issues ?? [])];
+  // Время прилёта выясняем после выбора конкретного отеля; на трёх карточках это только отвлекает.
+  const risks = [...(v.fit_warnings ?? []), ...(v.issues ?? [])].filter((risk) => risk.code !== "arrival_unknown");
   return (
     <article className={`card variant ${recommended ? "recommended" : ""} ${selected ? "selected" : ""}`}>
       <div className={`arch ${ARCH_CLASS[v.archetype] ?? ""}`}>{v.title}{recommended && " · рекомендую"}</div>
