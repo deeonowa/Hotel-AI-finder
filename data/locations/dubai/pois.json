@@ -1,0 +1,11400 @@
+{
+ "meta": {
+  "source": "osm",
+  "license": "ODbL 1.0 © OpenStreetMap contributors; высоты: Open-Meteo (CC BY 4.0); маршруты: OSRM (данные OSM, ODbL)",
+  "generator": "scripts/build_location.py",
+  "seed": "osm-v1",
+  "built_at": "2026-10-27T11:16:03",
+  "count": 876
+ },
+ "pois": [
+  {
+   "id": "osm-n260810847",
+   "name": "Deira Clocktower",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.25865,
+    "lon": 55.32645
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n838298272",
+   "name": "The Waterfall",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.19529,
+    "lon": 55.279465
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1207189557",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.111313,
+    "lon": 55.142854
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1207189558",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.112712,
+    "lon": 55.141081
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1360302456",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.302219,
+    "lon": 55.375188
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1467815877",
+   "name": "Al Mahatta Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.345952,
+    "lon": 55.395927
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1541940355",
+   "name": "Repton Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.138776,
+    "lon": 55.359905
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1612048262",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.124968,
+    "lon": 55.397513
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2246365936",
+   "name": "Ski Hall",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.117677,
+    "lon": 55.198197
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2488004018",
+   "name": "Hindu Temple",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.264823,
+    "lon": 55.296826
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2534031728",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.268771,
+    "lon": 55.38016
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2534031729",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.272264,
+    "lon": 55.386199
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2534031730",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.273415,
+    "lon": 55.374645
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2649536796",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.131098,
+    "lon": 55.152486
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2673107130",
+   "name": "Playground, Street 4-5, Discovery Gardens, Dubai, UAE",
+   "kind": "playground",
+   "point": {
+    "lat": 25.042911,
+    "lon": 55.139619
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2673129565",
+   "name": "Playground, Streets 8-9, Discovery Gardens, Dubai, UAE",
+   "kind": "playground",
+   "point": {
+    "lat": 25.033721,
+    "lon": 55.150431
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3120382738",
+   "name": "Fun City",
+   "kind": "playground",
+   "point": {
+    "lat": 25.252528,
+    "lon": 55.331393
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3129080913",
+   "name": "Sabka Bus Station",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.269865,
+    "lon": 55.302774
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3272826588",
+   "name": "Barjeel Art Foundation",
+   "kind": "museum",
+   "point": {
+    "lat": 25.32179,
+    "lon": 55.376589
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3276931149",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.047913,
+    "lon": 55.135494
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3485744345",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.07524,
+    "lon": 55.155689
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3574765796",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.044547,
+    "lon": 55.188465
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3641107106",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.106887,
+    "lon": 55.191544
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3641107107",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.107579,
+    "lon": 55.191886
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3641107131",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.108809,
+    "lon": 55.189235
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3641607039",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.062585,
+    "lon": 55.158626
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3641607047",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.0604,
+    "lon": 55.161395
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3641607080",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.05838,
+    "lon": 55.164587
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3641607082",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.057387,
+    "lon": 55.169272
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3641634374",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.060335,
+    "lon": 55.187462
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3641637100",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.054617,
+    "lon": 55.177816
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3641637107",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.054161,
+    "lon": 55.176538
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3641637196",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.062895,
+    "lon": 55.185615
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3641637215",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.063755,
+    "lon": 55.191902
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3641653904",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.058498,
+    "lon": 55.185386
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3641662312",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.057747,
+    "lon": 55.180623
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3641662326",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.060046,
+    "lon": 55.179187
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3641671070",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.05695,
+    "lon": 55.177898
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3641671075",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.056184,
+    "lon": 55.173015
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3642221598",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.08115,
+    "lon": 55.169708
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3642221599",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.083481,
+    "lon": 55.170273
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3642221600",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.085266,
+    "lon": 55.170003
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3643212845",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.093922,
+    "lon": 55.213991
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3643212846",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.093845,
+    "lon": 55.213422
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3643212907",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.102164,
+    "lon": 55.220769
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3643212908",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.10219,
+    "lon": 55.220114
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3643262919",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.108681,
+    "lon": 55.211204
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3643262920",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.108189,
+    "lon": 55.211324
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3643358110",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.116596,
+    "lon": 55.20893
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3643455327",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.058764,
+    "lon": 55.287414
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3643455328",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.059163,
+    "lon": 55.28892
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3643455329",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.057154,
+    "lon": 55.291907
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3643455330",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.056579,
+    "lon": 55.290708
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3643455642",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.052781,
+    "lon": 55.266789
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3644706335",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.003458,
+    "lon": 55.250376
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3644706336",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.002853,
+    "lon": 55.249325
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3644706337",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.002653,
+    "lon": 55.247997
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3644731636",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.002916,
+    "lon": 55.2467
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3644731637",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.003801,
+    "lon": 55.245824
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3644732735",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.00522,
+    "lon": 55.252231
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3644792947",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.008334,
+    "lon": 55.25297
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3644792948",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.007169,
+    "lon": 55.253428
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3644792949",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.006033,
+    "lon": 55.253037
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3644792979",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.004724,
+    "lon": 55.252858
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3644792980",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.005652,
+    "lon": 55.25382
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3644792981",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.005724,
+    "lon": 55.255261
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3644823716",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.003716,
+    "lon": 55.256751
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3644823717",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.001465,
+    "lon": 55.25672
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3644823718",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.002546,
+    "lon": 55.256883
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3644827819",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.003033,
+    "lon": 55.250911
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3646806705",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.034451,
+    "lon": 55.173916
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3646806706",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.035015,
+    "lon": 55.174908
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3646806707",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.034089,
+    "lon": 55.173622
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3646822222",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.049783,
+    "lon": 55.188659
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3646822240",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.04823,
+    "lon": 55.191951
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3646822448",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.055594,
+    "lon": 55.192815
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3647015152",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.03217,
+    "lon": 55.2709
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3648146817",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.076888,
+    "lon": 55.350824
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3648147712",
+   "name": "Courtyard 5 - Hacienda",
+   "kind": "park",
+   "point": {
+    "lat": 25.090932,
+    "lon": 55.361933
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3648147713",
+   "name": "Courtyard 11",
+   "kind": "park",
+   "point": {
+    "lat": 25.084032,
+    "lon": 55.357955
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3648147714",
+   "name": "Courtyard 12 - Aldea",
+   "kind": "park",
+   "point": {
+    "lat": 25.083758,
+    "lon": 55.359944
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3648147715",
+   "name": "Courtyard 6",
+   "kind": "park",
+   "point": {
+    "lat": 25.08133,
+    "lon": 55.344853
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3648147716",
+   "name": "Courtyard 8",
+   "kind": "park",
+   "point": {
+    "lat": 25.081855,
+    "lon": 55.346899
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3648174855",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.088255,
+    "lon": 55.375164
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3684877164",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.117192,
+    "lon": 55.385686
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3688748257",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.135325,
+    "lon": 55.386493
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3688748258",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.135442,
+    "lon": 55.38652
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3690704230",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.043038,
+    "lon": 55.262016
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3690704231",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.044374,
+    "lon": 55.264339
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3690704233",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.040239,
+    "lon": 55.26133
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3690704238",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.038085,
+    "lon": 55.259061
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3690704242",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.04243,
+    "lon": 55.255413
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3690704244",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.044136,
+    "lon": 55.257526
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3690704275",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.04193,
+    "lon": 55.258803
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3690704280",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.046299,
+    "lon": 55.258701
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3690768037",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.053497,
+    "lon": 55.256315
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3690768038",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.05265,
+    "lon": 55.253417
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3690768039",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.049165,
+    "lon": 55.253594
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3691938533",
+   "name": "Beaufort Playground",
+   "kind": "playground",
+   "point": {
+    "lat": 25.044559,
+    "lon": 55.246022
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3691938546",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.040327,
+    "lon": 55.239343
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3691938547",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.039301,
+    "lon": 55.236894
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3717446089",
+   "name": "Dubai Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.263521,
+    "lon": 55.297183
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3801221173",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.163512,
+    "lon": 55.270362
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3801221176",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.163684,
+    "lon": 55.270638
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3801221182",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.165911,
+    "lon": 55.266811
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3926958024",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.268873,
+    "lon": 55.397709
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3982135651",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.338363,
+    "lon": 55.366514
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4002843165",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.060056,
+    "lon": 55.290953
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4002906041",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.055899,
+    "lon": 55.184828
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4039645958",
+   "name": "The Journey",
+   "kind": "water_park",
+   "point": {
+    "lat": 25.164001,
+    "lon": 55.209463
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4039658482",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.051307,
+    "lon": 55.17475
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4106443490",
+   "name": "Sightseeing Cruise at Pier 1",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.258445,
+    "lon": 55.317732
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4123902009",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.330765,
+    "lon": 55.358544
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4125219654",
+   "name": "SplashPad",
+   "kind": "water_park",
+   "point": {
+    "lat": 25.078554,
+    "lon": 55.132609
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4146725689",
+   "name": "Action international workshop",
+   "kind": "attraction",
+   "point": {
+    "lat": 24.968973,
+    "lon": 55.178571
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4172485862",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.053747,
+    "lon": 55.182858
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4212624789",
+   "name": "Ansar Gallery",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.252421,
+    "lon": 55.308503
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4224573689",
+   "name": "BK gulf office",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 24.995259,
+    "lon": 55.108277
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4249027289",
+   "name": "Downtown Slide",
+   "kind": "playground",
+   "point": {
+    "lat": 25.191216,
+    "lon": 55.275326
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4290250989",
+   "name": "Ibn Batutta Gate",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.041076,
+    "lon": 55.115781
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4310332589",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.233945,
+    "lon": 55.281441
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4328794391",
+   "name": "Al Taawun Roundabout",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.30877,
+    "lon": 55.37056
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4329094589",
+   "name": "Пляж Альхан",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.336015,
+    "lon": 55.359496
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4330514587",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.303629,
+    "lon": 55.365352
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4343404389",
+   "name": "Home Alqasemiah",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.342431,
+    "lon": 55.393216
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4368153990",
+   "name": "Kids Playing Area 3",
+   "kind": "playground",
+   "point": {
+    "lat": 25.099338,
+    "lon": 55.341642
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4384889930",
+   "name": "Crocodile Enclosures",
+   "kind": "zoo",
+   "point": {
+    "lat": 25.107906,
+    "lon": 55.309955
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4394144029",
+   "name": "AL WADI AL AKHDAR AGRI.MATERIALS AND LANDSCAPING",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.299958,
+    "lon": 55.432214
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4401270408",
+   "name": "Fish Roundabout",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.270056,
+    "lon": 55.316445
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4403899196",
+   "name": "Knot Garden South",
+   "kind": "park",
+   "point": {
+    "lat": 25.044895,
+    "lon": 55.248487
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4416348236",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.106096,
+    "lon": 55.186056
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4417703990",
+   "name": "New Gold souq",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.25142,
+    "lon": 55.28263
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4434443291",
+   "name": "Diplomat hotel",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.27685,
+    "lon": 55.312951
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4434443593",
+   "name": "Skycourt towers",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.090255,
+    "lon": 55.385333
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4466949490",
+   "name": "Traditional Souq",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.274272,
+    "lon": 55.310479
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4466960289",
+   "name": "Al Falasi Building",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.273875,
+    "lon": 55.311542
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4495793289",
+   "name": "Ritaj K",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 24.987091,
+    "lon": 55.201371
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4508957089",
+   "name": "Al Montazah Amusement and Water Park",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.343025,
+    "lon": 55.380378
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4515527391",
+   "name": "Green Park building",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.043018,
+    "lon": 55.188632
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4521575789",
+   "name": "Delta",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.087385,
+    "lon": 55.302845
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4521783461",
+   "name": "KidZania",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.195031,
+    "lon": 55.279989
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4527484391",
+   "name": "Prime Residency 1",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.165603,
+    "lon": 55.398086
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4529352694",
+   "name": "Entrepreneur Business Village Deira Dubai",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.257355,
+    "lon": 55.327078
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4547227989",
+   "name": "Alqasbah",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.306648,
+    "lon": 55.344184
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4547227990",
+   "name": "Almajaz Park",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.326166,
+    "lon": 55.386437
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4550749396",
+   "name": "Al Salem tower",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.290238,
+    "lon": 55.378659
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4550798296",
+   "name": "Amani Residence",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.290946,
+    "lon": 55.377468
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4558811339",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.000435,
+    "lon": 55.256323
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4561184090",
+   "name": "OnStage International",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.067532,
+    "lon": 55.144344
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4566731489",
+   "name": "Calida victory heights",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.041896,
+    "lon": 55.208247
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4571596190",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.246064,
+    "lon": 55.293295
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4584814060",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.277042,
+    "lon": 55.324099
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4585783118",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.321931,
+    "lon": 55.348868
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4587086378",
+   "name": "Парк динозавров",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.227575,
+    "lon": 55.297322
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4589620093",
+   "name": "Al Sabah Tower",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.290607,
+    "lon": 55.378169
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4605376506",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.044913,
+    "lon": 55.173099
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4628418750",
+   "name": "Dubai Moving Image Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.097138,
+    "lon": 55.178904
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4651829897",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.002453,
+    "lon": 55.307026
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4656375730",
+   "name": "Dhow Wharfage",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.255992,
+    "lon": 55.321544
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4665833994",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.278849,
+    "lon": 55.3374
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4704738284",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.091742,
+    "lon": 55.174111
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4704740009",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.092815,
+    "lon": 55.17305
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4787906123",
+   "name": "Karcher FZE",
+   "kind": "attraction",
+   "point": {
+    "lat": 24.961248,
+    "lon": 55.09467
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4787925722",
+   "name": "Pakistan Association Dubai",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.238552,
+    "lon": 55.315185
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4813684903",
+   "name": "Women's museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.271823,
+    "lon": 55.298703
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4865916821",
+   "name": "Old Sharjah Planetarium",
+   "kind": "museum",
+   "point": {
+    "lat": 25.337554,
+    "lon": 55.374103
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4875464223",
+   "name": "Windsor Residence Dubailand",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.09518,
+    "lon": 55.383054
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4906305921",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.075942,
+    "lon": 55.146699
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4906306021",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.076576,
+    "lon": 55.146925
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4911768519",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.057008,
+    "lon": 55.203519
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4911768520",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.057008,
+    "lon": 55.203513
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4911769921",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.061103,
+    "lon": 55.206254
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4911769928",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.053725,
+    "lon": 55.205477
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4931575743",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.33569,
+    "lon": 55.395121
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4994338530",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.145601,
+    "lon": 55.245835
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5001313530",
+   "name": "AWRostamani Building Industries",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.128356,
+    "lon": 55.243156
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5044621621",
+   "name": "Ozti Machines",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.118017,
+    "lon": 55.232388
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5102444624",
+   "name": "Kids Zone",
+   "kind": "playground",
+   "point": {
+    "lat": 25.250187,
+    "lon": 55.358461
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5109606422",
+   "name": "Dubai Textile Souk",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.264141,
+    "lon": 55.296206
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5109710124",
+   "name": "Ras al Khor Wildlife Sanctuary",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.191798,
+    "lon": 55.322082
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5126105425",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 24.988649,
+    "lon": 55.202785
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5129502093",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.206864,
+    "lon": 55.406604
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5129502094",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.206489,
+    "lon": 55.406958
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5129502329",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.205551,
+    "lon": 55.423663
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5129502330",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.205454,
+    "lon": 55.42349
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5129502453",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.18104,
+    "lon": 55.415606
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5129502454",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.180647,
+    "lon": 55.416449
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5154948426",
+   "name": "The Empty Quarter Gallery",
+   "kind": "museum",
+   "point": {
+    "lat": 25.213255,
+    "lon": 55.282383
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5274807122",
+   "name": "Mawaheb Art Studio",
+   "kind": "museum",
+   "point": {
+    "lat": 25.264408,
+    "lon": 55.299423
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5274840822",
+   "name": "The National Gallery",
+   "kind": "museum",
+   "point": {
+    "lat": 25.14123,
+    "lon": 55.225874
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5277942022",
+   "name": "Old Souq",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.278957,
+    "lon": 55.310315
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5300594330",
+   "name": "Dhurba ko room",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.000365,
+    "lon": 55.107247
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5300594334",
+   "name": "Al saya dubai",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.107889,
+    "lon": 55.197894
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5300595223",
+   "name": "lalu ko company ko room",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.271301,
+    "lon": 55.427993
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5300595227",
+   "name": "Jogendar ko salo ko room",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.274636,
+    "lon": 55.427166
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5300595231",
+   "name": "home centar stor g4",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.000404,
+    "lon": 55.113443
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5332056385",
+   "name": "Etihad Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.241433,
+    "lon": 55.269331
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5334433325",
+   "name": "Coffee Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.263708,
+    "lon": 55.300098
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5358415727",
+   "name": "Body langeg rabari",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.099909,
+    "lon": 55.313516
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5358440523",
+   "name": "Renches primary school",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.030077,
+    "lon": 55.272009
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5400471722",
+   "name": "Aerosoft by Sylvia & Jangjoo",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.273459,
+    "lon": 55.299591
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5400491721",
+   "name": "Gold centar",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.271356,
+    "lon": 55.297446
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5414621021",
+   "name": "medwin medical jumera",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.181135,
+    "lon": 55.224343
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5414621221",
+   "name": "w astoria hotel",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.135999,
+    "lon": 55.150332
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5420170966",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.334138,
+    "lon": 55.384871
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5422713721",
+   "name": "barsha 43 barsa 2",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.102714,
+    "lon": 55.224491
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5448804122",
+   "name": "madhu suparmarke bur dubai",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.261875,
+    "lon": 55.296246
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5456633222",
+   "name": "Dubai Design District",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.189152,
+    "lon": 55.298142
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5462556829",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.036919,
+    "lon": 55.222877
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5462644794",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.037661,
+    "lon": 55.222183
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5474534122",
+   "name": "Sharjah museum authority",
+   "kind": "museum",
+   "point": {
+    "lat": 25.347176,
+    "lon": 55.372627
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5488845621",
+   "name": "Two Seasons Hotel",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.102697,
+    "lon": 55.172344
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5494247222",
+   "name": "Art Dubai",
+   "kind": "museum",
+   "point": {
+    "lat": 25.133841,
+    "lon": 55.187338
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5520156122",
+   "name": "mediclinic al bahr",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.226375,
+    "lon": 55.259778
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5526247121",
+   "name": "Al Karama Medical Fitness Service Center",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.245262,
+    "lon": 55.309593
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5594456121",
+   "name": "Wildlife Sanctuary (Flamingo Lagoon)",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.192745,
+    "lon": 55.31231
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5603809223",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.295998,
+    "lon": 55.355061
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5645108525",
+   "name": "al kayed garaj",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.272748,
+    "lon": 55.344897
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5666252543",
+   "name": "Port Saeed Plaza",
+   "kind": "park",
+   "point": {
+    "lat": 25.254862,
+    "lon": 55.332987
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5677944524",
+   "name": "lotus hotel",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.26466,
+    "lon": 55.318655
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5693185510",
+   "name": "Al Masjid Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.270565,
+    "lon": 55.365285
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5721097564",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.068941,
+    "lon": 55.138347
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5729566273",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.060224,
+    "lon": 55.185407
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5775551054",
+   "name": "furjan disa",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.03101,
+    "lon": 55.14953
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5879089385",
+   "name": "kings barsa",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.082947,
+    "lon": 55.252179
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5901889387",
+   "name": "bank saderat iran",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.268337,
+    "lon": 55.303049
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5933248187",
+   "name": "polo club motor city preeya",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.037785,
+    "lon": 55.253197
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5933268185",
+   "name": "Gurudwara Jabal Ali",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.027489,
+    "lon": 55.113648
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5971795886",
+   "name": "bikanerwala karama",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.24859,
+    "lon": 55.302281
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5983186785",
+   "name": "Akaas Visual Arts",
+   "kind": "museum",
+   "point": {
+    "lat": 25.264243,
+    "lon": 55.299955
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5994830385",
+   "name": "mercore hotel mina road",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.242897,
+    "lon": 55.275767
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6001213914",
+   "name": "Diplodocus",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.196888,
+    "lon": 55.279414
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6069061385",
+   "name": "ARN Arabian Radio Network",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.10353,
+    "lon": 55.168971
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6087131485",
+   "name": "Essentra FZE",
+   "kind": "attraction",
+   "point": {
+    "lat": 24.955928,
+    "lon": 55.08568
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6147631785",
+   "name": "volleyball court al muteena",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.276963,
+    "lon": 55.323963
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6193455617",
+   "name": "Museum of Illusions",
+   "kind": "museum",
+   "point": {
+    "lat": 25.264456,
+    "lon": 55.303856
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6254640408",
+   "name": "Dubai Garden Glow",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.228837,
+    "lon": 55.29602
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6289700042",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.25915,
+    "lon": 55.310241
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6289700043",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.259817,
+    "lon": 55.309734
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6358621691",
+   "name": "Bluewaters Island",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.079906,
+    "lon": 55.121916
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6513218485",
+   "name": "Creek view from top of parking garage",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.267624,
+    "lon": 55.298869
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6670241701",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.065179,
+    "lon": 55.138988
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n7150180585",
+   "name": "Fountain Watching Hill",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.195124,
+    "lon": 55.273843
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n7282280685",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.15926,
+    "lon": 55.223303
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n8093979406",
+   "name": "Boat Park",
+   "kind": "playground",
+   "point": {
+    "lat": 25.022994,
+    "lon": 55.110143
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n8093979407",
+   "name": "Kids Play Ground",
+   "kind": "playground",
+   "point": {
+    "lat": 25.024248,
+    "lon": 55.111561
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n8479589117",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.131331,
+    "lon": 55.41896
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n8775414328",
+   "name": "Bridge",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.170136,
+    "lon": 55.277058
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n8886830675",
+   "name": "The View at The Palm",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.11397,
+    "lon": 55.139833
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n8928205061",
+   "name": "Adult Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 25.24276,
+    "lon": 55.332276
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n9042427636",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.229708,
+    "lon": 55.258342
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n9042427674",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.231801,
+    "lon": 55.260299
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n9574530103",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.187483,
+    "lon": 55.243625
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n9689612205",
+   "name": "Sky Views Dubai",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.20147,
+    "lon": 55.270658
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n9957349206",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.196805,
+    "lon": 55.246977
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n9960232729",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.195189,
+    "lon": 55.245995
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10265104090",
+   "name": "Adventure Valley",
+   "kind": "playground",
+   "point": {
+    "lat": 25.175009,
+    "lon": 55.448188
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10308760208",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.151619,
+    "lon": 55.294814
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10308783609",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.151542,
+    "lon": 55.295164
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10575619551",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.303631,
+    "lon": 55.348671
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10832004780",
+   "name": "Global Village fireworks spot",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.061867,
+    "lon": 55.309093
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10832097912",
+   "name": "DFC fireworks spot",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.221696,
+    "lon": 55.347589
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11071582397",
+   "name": "Eisbej Park Entrance",
+   "kind": "park",
+   "point": {
+    "lat": 25.054062,
+    "lon": 55.219448
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11419884972",
+   "name": "Pet's Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 25.300182,
+    "lon": 55.294061
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11492518444",
+   "name": "Бассейн на смотровой",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.11387,
+    "lon": 55.139869
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11493922169",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.063849,
+    "lon": 55.214408
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11505252754",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.048637,
+    "lon": 55.202603
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11505257500",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.050293,
+    "lon": 55.202574
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11524889971",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.058721,
+    "lon": 55.244237
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11524967270",
+   "name": "Smurf Village",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.060793,
+    "lon": 55.244406
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11526059454",
+   "name": "Balerinas",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.059041,
+    "lon": 55.244234
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11526059455",
+   "name": "Horse head",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.058876,
+    "lon": 55.244573
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11536568569",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.183533,
+    "lon": 55.2467
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11536778069",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.184991,
+    "lon": 55.244898
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11584108971",
+   "name": "AYA",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.229234,
+    "lon": 55.318711
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11601532960",
+   "name": "The Viewing Point",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.205709,
+    "lon": 55.340897
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11748541361",
+   "name": "1 DUBAI TOURS",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.227914,
+    "lon": 55.340245
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11754876993",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.246737,
+    "lon": 55.276672
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11763907511",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.244596,
+    "lon": 55.324112
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11919671087",
+   "name": "The Dubai Balloon At Atlantis",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.131832,
+    "lon": 55.120064
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11927748577",
+   "name": "Al Shindagha Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.266474,
+    "lon": 55.288964
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11927910263",
+   "name": "Traditional Crafts Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.267297,
+    "lon": 55.289812
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11927910264",
+   "name": "Perfume Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.267322,
+    "lon": 55.290063
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11928312466",
+   "name": "Al Shindagha Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.266427,
+    "lon": 55.289452
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11966252092",
+   "name": "DSO Water Wall",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.119353,
+    "lon": 55.380127
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12042968616",
+   "name": "Ready Set Go",
+   "kind": "playground",
+   "point": {
+    "lat": 25.16263,
+    "lon": 55.23837
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12100103735",
+   "name": "Mercedes-Benz Off-Road Experience Center",
+   "kind": "park",
+   "point": {
+    "lat": 25.19218,
+    "lon": 55.29633
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12116933987",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 24.997999,
+    "lon": 55.38622
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12154642732",
+   "name": "Yacht Rental Dubai Marina",
+   "kind": "beach",
+   "point": {
+    "lat": 25.072636,
+    "lon": 55.124389
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12308957681",
+   "name": "Magic Planet",
+   "kind": "playground",
+   "point": {
+    "lat": 25.254175,
+    "lon": 55.302872
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12411888002",
+   "name": "Illusion City Dubai",
+   "kind": "museum",
+   "point": {
+    "lat": 25.079484,
+    "lon": 55.122729
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12451415001",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.187183,
+    "lon": 55.393334
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12486010908",
+   "name": "Coins Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.264582,
+    "lon": 55.299793
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12486010926",
+   "name": "Arabic Calligraphy House",
+   "kind": "museum",
+   "point": {
+    "lat": 25.264276,
+    "lon": 55.30086
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12486010942",
+   "name": "Traditional Emirati House",
+   "kind": "museum",
+   "point": {
+    "lat": 25.264122,
+    "lon": 55.300004
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12486393305",
+   "name": "Al Majaz Park Entrance",
+   "kind": "playground",
+   "point": {
+    "lat": 25.323487,
+    "lon": 55.386395
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12573814209",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.138698,
+    "lon": 55.295269
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12650340038",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.07845,
+    "lon": 55.149101
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12710626157",
+   "name": "Al-Mamzar Park - Flamingo Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 25.326407,
+    "lon": 55.351371
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12717545501",
+   "name": "Woo-hoo!",
+   "kind": "museum",
+   "point": {
+    "lat": 25.145881,
+    "lon": 55.225486
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12790190901",
+   "name": "3D Blacklight Minigolf Dubai",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.077901,
+    "lon": 55.135537
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12839584213",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.163473,
+    "lon": 55.291545
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13042905107",
+   "name": "Welcome to Dubai",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.233613,
+    "lon": 55.402541
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13048372901",
+   "name": "The Flag Island",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.346419,
+    "lon": 55.378191
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13048373157",
+   "name": "Pearls Kingdom Waterpark",
+   "kind": "water_park",
+   "point": {
+    "lat": 25.341329,
+    "lon": 55.380227
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13304614201",
+   "name": "Oud Al Muteena Park 1",
+   "kind": "park",
+   "point": {
+    "lat": 25.265654,
+    "lon": 55.449904
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13324185970",
+   "name": "Take Off VR Park",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.254204,
+    "lon": 55.303004
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13356952291",
+   "name": "Meadows Village Playground",
+   "kind": "playground",
+   "point": {
+    "lat": 25.063858,
+    "lon": 55.158439
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13383845101",
+   "name": "The Souk Tower",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.263324,
+    "lon": 55.295505
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13383845401",
+   "name": "Souk Al Seef",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.263733,
+    "lon": 55.305316
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13432199358",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.078217,
+    "lon": 55.138403
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13723912267",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.305554,
+    "lon": 55.374073
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13849979074",
+   "name": "BounceX",
+   "kind": "playground",
+   "point": {
+    "lat": 25.220115,
+    "lon": 55.353216
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13849979101",
+   "name": "Stay & Play",
+   "kind": "playground",
+   "point": {
+    "lat": 25.220796,
+    "lon": 55.352338
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13927939780",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.331499,
+    "lon": 55.373984
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13928368267",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.185659,
+    "lon": 55.260669
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13928368269",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.183693,
+    "lon": 55.259987
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13928368270",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.18389,
+    "lon": 55.266306
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13928368271",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.185682,
+    "lon": 55.268083
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13928368351",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.188946,
+    "lon": 55.265353
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13932168926",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.179589,
+    "lon": 55.270817
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13932168927",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.17754,
+    "lon": 55.272032
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13945337709",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.187396,
+    "lon": 55.291301
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13992267942",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.178978,
+    "lon": 55.266762
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n14010809801",
+   "name": "Central Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.177387,
+    "lon": 55.309859
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n14019294801",
+   "name": "Modesh World",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.223551,
+    "lon": 55.287024
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n14089593303",
+   "name": "FalconCity central roundabout",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.102611,
+    "lon": 55.340089
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n14099209801",
+   "name": "Sandy Mamzar Beach",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.312577,
+    "lon": 55.34029
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n14124528101",
+   "name": "Dubai Fountain Viewpoint",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.196478,
+    "lon": 55.276336
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n14132626501",
+   "name": "Wadi Al Safa Airport",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.11571,
+    "lon": 55.293397
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n14183158803",
+   "name": "Eden Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.178076,
+    "lon": 55.311836
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n14191393630",
+   "name": "Estates Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.176206,
+    "lon": 55.308486
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n14248740905",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.164242,
+    "lon": 55.268682
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n14317439301",
+   "name": "Sandy Beach",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 25.18382,
+    "lon": 55.222338
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w10573404",
+   "name": "Al-Mamzar Park - Sadaf Beach (5)",
+   "kind": "beach",
+   "point": {
+    "lat": 25.318684,
+    "lon": 55.350706
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w21081900",
+   "name": "Creek Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.240852,
+    "lon": 55.327361
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w23978061",
+   "name": "Dubai Municipality",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.264526,
+    "lon": 55.311728
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w24504053",
+   "name": "Al Mamzar Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.321864,
+    "lon": 55.349683
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w24509208",
+   "name": "Abu Shagara Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.33547,
+    "lon": 55.395676
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w24517036",
+   "name": "Umm Suqeim Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.147555,
+    "lon": 55.195648
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w24517124",
+   "name": "Al Khazzan Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.208816,
+    "lon": 55.264997
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w28702957",
+   "name": "Heritage Village",
+   "kind": "museum",
+   "point": {
+    "lat": 25.26999,
+    "lon": 55.291148
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w70634333",
+   "name": "Al Nahda Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.302618,
+    "lon": 55.375451
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w70789884",
+   "name": "Al Safya Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.332688,
+    "lon": 55.373043
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w70877324",
+   "name": "Round Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.350851,
+    "lon": 55.3855
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w87182924",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.121455,
+    "lon": 55.141031
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w87183162",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.110625,
+    "lon": 55.131116
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w87183867",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.126033,
+    "lon": 55.138738
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w87184075",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.117598,
+    "lon": 55.121846
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w87184436",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.110935,
+    "lon": 55.128396
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w87184834",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.128512,
+    "lon": 55.131725
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w87185359",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.110828,
+    "lon": 55.133358
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w87185591",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.123908,
+    "lon": 55.140097
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w87185637",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.111854,
+    "lon": 55.125657
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w87185975",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.121368,
+    "lon": 55.121776
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w87186436",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.128036,
+    "lon": 55.135447
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w87186647",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.114317,
+    "lon": 55.122921
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w87186668",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.119111,
+    "lon": 55.141328
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w87287172",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.201446,
+    "lon": 55.236958
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w87287187",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.136981,
+    "lon": 55.185131
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w87408738",
+   "name": "Safa Park 2",
+   "kind": "park",
+   "point": {
+    "lat": 25.155685,
+    "lon": 55.221939
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w89560399",
+   "name": "Mercato Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 25.217025,
+    "lon": 55.249355
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w89562340",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.20696,
+    "lon": 55.241524
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w89654734",
+   "name": "Jumeirah Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 25.184798,
+    "lon": 55.224175
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w89658654",
+   "name": "Кайт Бич",
+   "kind": "beach",
+   "point": {
+    "lat": 25.162994,
+    "lon": 55.206351
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w89659245",
+   "name": "Jumeirah Public Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 25.148205,
+    "lon": 55.194279
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w93632515",
+   "name": "Ski Dubai",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.117337,
+    "lon": 55.198613
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w94404600",
+   "name": "Atlantis-Aquaventure",
+   "kind": "water_park",
+   "point": {
+    "lat": 25.134616,
+    "lon": 55.122118
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w94404632",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.133234,
+    "lon": 55.120254
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w94404635",
+   "name": "Lagoons Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 25.13328,
+    "lon": 55.1195
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w94404694",
+   "name": "Rapids Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 25.134856,
+    "lon": 55.121666
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w94405226",
+   "name": "Aquaventure Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 25.133607,
+    "lon": 55.122786
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w94406814",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.135729,
+    "lon": 55.122521
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w94406815",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.136097,
+    "lon": 55.123664
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w94406816",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.135685,
+    "lon": 55.123214
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w94408337",
+   "name": "Nasimi Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 25.129562,
+    "lon": 55.117959
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w95773973",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.112982,
+    "lon": 55.163696
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w95774236",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.096994,
+    "lon": 55.147648
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w113042743",
+   "name": "Karama Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.243046,
+    "lon": 55.305269
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w133341251",
+   "name": "Al Mahatta Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.346872,
+    "lon": 55.394431
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w139639892",
+   "name": "Deira Twin Towers",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.266298,
+    "lon": 55.308733
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w148132566",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.338487,
+    "lon": 55.361032
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w148166858",
+   "name": "заброшенный пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.340662,
+    "lon": 55.36235
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w148171039",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.327355,
+    "lon": 55.366825
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w148172869",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.341795,
+    "lon": 55.363284
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w148174685",
+   "name": "Бесплатный пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.342804,
+    "lon": 55.364128
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w148178065",
+   "name": "Butterfly park",
+   "kind": "park",
+   "point": {
+    "lat": 25.33426,
+    "lon": 55.384561
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w148219029",
+   "name": "Khalidiya Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.33786,
+    "lon": 55.366508
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w165185449",
+   "name": "Queen Elizabeth 2 Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.261845,
+    "lon": 55.281514
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w169309443",
+   "name": "Burj Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.194182,
+    "lon": 55.273424
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w169322113",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.116946,
+    "lon": 55.142778
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w169337858",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.109881,
+    "lon": 55.136373
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w169345398",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.113953,
+    "lon": 55.143739
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w169356184",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.100554,
+    "lon": 55.125928
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w169357643",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.115611,
+    "lon": 55.112472
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w169683527",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.34999,
+    "lon": 55.368617
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w173974591",
+   "name": "Sharjah Maritime Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.331442,
+    "lon": 55.359029
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w177431206",
+   "name": "Jumeirah Lakes Towers Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.074895,
+    "lon": 55.145783
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w179420647",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.346249,
+    "lon": 55.366387
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w182920459",
+   "name": "Sinbad's Kids Club",
+   "kind": "playground",
+   "point": {
+    "lat": 25.142457,
+    "lon": 55.19061
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w182920461",
+   "name": "Wild Wadi Waterpark",
+   "kind": "water_park",
+   "point": {
+    "lat": 25.13963,
+    "lon": 55.189245
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w194025973",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.072156,
+    "lon": 55.13733
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w196113904",
+   "name": "Al Ittihad Park/Al Itihad Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.347855,
+    "lon": 55.386531
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w196115558",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.343573,
+    "lon": 55.377855
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w199518561",
+   "name": "The Leap of Faith",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.134089,
+    "lon": 55.120412
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w199825820",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.234982,
+    "lon": 55.332116
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w199825892",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.238934,
+    "lon": 55.328078
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w200668260",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.109521,
+    "lon": 55.158362
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w200668271",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.113535,
+    "lon": 55.155382
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w200668275",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.116967,
+    "lon": 55.157314
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w200668290",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.115066,
+    "lon": 55.156828
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w200668296",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.116204,
+    "lon": 55.155881
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w203031469",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.126047,
+    "lon": 55.17543
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w206904551",
+   "name": "Hamreya Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.285141,
+    "lon": 55.332398
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w206906548",
+   "name": "Naif Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.273241,
+    "lon": 55.307184
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w210337906",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.337867,
+    "lon": 55.447574
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w210558634",
+   "name": "Al-Mamzar Park - Danah Beach (3)",
+   "kind": "beach",
+   "point": {
+    "lat": 25.32271,
+    "lon": 55.34862
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w210564143",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.321209,
+    "lon": 55.368811
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w210564153",
+   "name": "Al Mamzar Sea Island",
+   "kind": "beach",
+   "point": {
+    "lat": 25.313571,
+    "lon": 55.357247
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w213204573",
+   "name": "Zabeel Palace",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.20928,
+    "lon": 55.301804
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w215315472",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.107746,
+    "lon": 55.159146
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w215315494",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.10395,
+    "lon": 55.155696
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w215563781",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.120553,
+    "lon": 55.169957
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w215563782",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.12176,
+    "lon": 55.171415
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w215563783",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.130861,
+    "lon": 55.17979
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w217396549",
+   "name": "Dubai Public Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.266431,
+    "lon": 55.401805
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w217934213",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.234429,
+    "lon": 55.262215
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w217936504",
+   "name": "Jumeirah Mosque",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.233934,
+    "lon": 55.265532
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w224326346",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.145486,
+    "lon": 55.37681
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w230622240",
+   "name": "Al Wasl Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.222593,
+    "lon": 55.265921
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w230622241",
+   "name": "Al Satwa Park 3",
+   "kind": "park",
+   "point": {
+    "lat": 25.214873,
+    "lon": 55.274177
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w230622242",
+   "name": "Central Park (City Walk)",
+   "kind": "park",
+   "point": {
+    "lat": 25.204323,
+    "lon": 55.259596
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w235605426",
+   "name": "Al Nad Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.343587,
+    "lon": 55.389612
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w236374015",
+   "name": "Al Tarfa Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.324425,
+    "lon": 55.450592
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w236374022",
+   "name": "Al Darari Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.328549,
+    "lon": 55.44145
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w239554701",
+   "name": "Al Twar Park 1",
+   "kind": "park",
+   "point": {
+    "lat": 25.267372,
+    "lon": 55.374418
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w239574967",
+   "name": "Al Twar 3 Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.253733,
+    "lon": 55.397331
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w240475022",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.333581,
+    "lon": 55.378647
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w242038804",
+   "name": "Al Barsha 1 Park 1",
+   "kind": "park",
+   "point": {
+    "lat": 25.106754,
+    "lon": 55.187778
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w242047527",
+   "name": "Al Quoz Park 1",
+   "kind": "park",
+   "point": {
+    "lat": 25.168751,
+    "lon": 55.256297
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w242048150",
+   "name": "Al Quoz Park 3",
+   "kind": "park",
+   "point": {
+    "lat": 25.167808,
+    "lon": 55.246099
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w242048300",
+   "name": "Al Quoz Park 2",
+   "kind": "park",
+   "point": {
+    "lat": 25.172549,
+    "lon": 55.252018
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w242815345",
+   "name": "Zabeel Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.235233,
+    "lon": 55.297774
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w245925909",
+   "name": "Al Nahda Pond Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.288789,
+    "lon": 55.381644
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w272673147",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.123029,
+    "lon": 55.393085
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w285375402",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.123588,
+    "lon": 55.392828
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w285375448",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.124894,
+    "lon": 55.391876
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w298451029",
+   "name": "Al Muteena Community Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.272358,
+    "lon": 55.327766
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w298457409",
+   "name": "Community Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.271203,
+    "lon": 55.324663
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w299893024",
+   "name": "Skydive Dubai",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.090267,
+    "lon": 55.134311
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w307444397",
+   "name": "Rigga Carnival",
+   "kind": "playground",
+   "point": {
+    "lat": 25.265838,
+    "lon": 55.318018
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w309488164",
+   "name": "Сад чудес(цветов)",
+   "kind": "park",
+   "point": {
+    "lat": 25.059735,
+    "lon": 55.24471
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w311254501",
+   "name": "Mushrif National Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.217921,
+    "lon": 55.452679
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w317173868",
+   "name": "Port Saeed Plaza",
+   "kind": "park",
+   "point": {
+    "lat": 25.254907,
+    "lon": 55.333289
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w320162564",
+   "name": "Marina Beach Dubai",
+   "kind": "beach",
+   "point": {
+    "lat": 25.080783,
+    "lon": 55.132097
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w333314788",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.187443,
+    "lon": 55.278199
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w337780860",
+   "name": "Al Sufouh",
+   "kind": "beach",
+   "point": {
+    "lat": 25.117334,
+    "lon": 55.167139
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w349480140",
+   "name": "Knot Garden North",
+   "kind": "park",
+   "point": {
+    "lat": 25.046744,
+    "lon": 55.248336
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w350269151",
+   "name": "Baniyas Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.268843,
+    "lon": 55.306612
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w351247150",
+   "name": "Al Quoz Pond Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.163753,
+    "lon": 55.268026
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w351667356",
+   "name": "Central Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.046094,
+    "lon": 55.18826
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w359366886",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.113276,
+    "lon": 55.17186
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w359366887",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.112963,
+    "lon": 55.171577
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w359366892",
+   "name": "Al Sufouh Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.113236,
+    "lon": 55.17203
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w359423050",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.084063,
+    "lon": 55.187056
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w359506733",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.075676,
+    "lon": 55.165132
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w359506734",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.076224,
+    "lon": 55.165661
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w359649016",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.103033,
+    "lon": 55.201246
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w359649017",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.102531,
+    "lon": 55.200313
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w359649039",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.102639,
+    "lon": 55.205566
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w359677333",
+   "name": "Парк бабочек",
+   "kind": "park",
+   "point": {
+    "lat": 25.062054,
+    "lon": 55.246277
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w359840056",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.005023,
+    "lon": 55.249076
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360052304",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.04335,
+    "lon": 55.096991
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360052320",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.052746,
+    "lon": 55.105895
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360052324",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.055064,
+    "lon": 55.108786
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360052327",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.057517,
+    "lon": 55.110966
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360055711",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.060845,
+    "lon": 55.113937
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360055714",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.0632,
+    "lon": 55.115479
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360055718",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.070081,
+    "lon": 55.122996
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360055719",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.067845,
+    "lon": 55.120463
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360055738",
+   "name": "DEWA Staff",
+   "kind": "park",
+   "point": {
+    "lat": 25.064839,
+    "lon": 55.130381
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360058461",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.065365,
+    "lon": 55.118184
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360064766",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.047907,
+    "lon": 55.101134
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360075535",
+   "name": "Community Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.045396,
+    "lon": 55.152513
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360075547",
+   "name": "District 6 Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.045043,
+    "lon": 55.159572
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360080834",
+   "name": "JVT District 1 Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.034402,
+    "lon": 55.17351
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360082054",
+   "name": "Selim",
+   "kind": "park",
+   "point": {
+    "lat": 25.070684,
+    "lon": 55.211031
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360082069",
+   "name": "Markh Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.059682,
+    "lon": 55.21769
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360082072",
+   "name": "Khansoor Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.054617,
+    "lon": 55.217111
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360082073",
+   "name": "Yas Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.05391,
+    "lon": 55.208774
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360082075",
+   "name": "Halfa",
+   "kind": "park",
+   "point": {
+    "lat": 25.049294,
+    "lon": 55.202488
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360082076",
+   "name": "2nd of December",
+   "kind": "park",
+   "point": {
+    "lat": 25.054155,
+    "lon": 55.205968
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360209805",
+   "name": "Centro Courtyard 4",
+   "kind": "park",
+   "point": {
+    "lat": 25.091379,
+    "lon": 55.366069
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360209806",
+   "name": "Centro Courtyard 5",
+   "kind": "park",
+   "point": {
+    "lat": 25.093653,
+    "lon": 55.367714
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360213180",
+   "name": "IMG Worlds of Adventure",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.081394,
+    "lon": 55.318349
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360213219",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.098625,
+    "lon": 55.338773
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360213220",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.100365,
+    "lon": 55.337846
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w360213683",
+   "name": "Courtyard 7",
+   "kind": "park",
+   "point": {
+    "lat": 25.078261,
+    "lon": 55.3501
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w364191048",
+   "name": "Sheikh Hamdan Falcon Center",
+   "kind": "zoo",
+   "point": {
+    "lat": 25.12595,
+    "lon": 55.329909
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w364691920",
+   "name": "Al Wasl Park 2",
+   "kind": "park",
+   "point": {
+    "lat": 25.198228,
+    "lon": 55.260946
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w364819836",
+   "name": "Silicon Oasis Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.126277,
+    "lon": 55.378486
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w364828062",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.116114,
+    "lon": 55.376777
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w364837563",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.13537,
+    "lon": 55.38644
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w364840311",
+   "name": "Central park",
+   "kind": "park",
+   "point": {
+    "lat": 25.114306,
+    "lon": 55.372512
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w365212285",
+   "name": "Centro Courtyard 3",
+   "kind": "park",
+   "point": {
+    "lat": 25.094666,
+    "lon": 55.366719
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w365212286",
+   "name": "Centro Courtyard 11",
+   "kind": "park",
+   "point": {
+    "lat": 25.091094,
+    "lon": 55.373074
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w365212287",
+   "name": "Centro Courtyard 10",
+   "kind": "park",
+   "point": {
+    "lat": 25.089918,
+    "lon": 55.371972
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w365212288",
+   "name": "Centro Courtyard 7",
+   "kind": "park",
+   "point": {
+    "lat": 25.088917,
+    "lon": 55.370538
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w382068979",
+   "name": "Bay Avenue Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.19011,
+    "lon": 55.266556
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w386206274",
+   "name": "Children's City",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.235848,
+    "lon": 55.328454
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w386472670",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.138049,
+    "lon": 55.200331
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w386649647",
+   "name": "Dubai Frame",
+   "kind": "museum",
+   "point": {
+    "lat": 25.235456,
+    "lon": 55.300367
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w389370906",
+   "name": "Wonderland Theme & Water Park",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.23197,
+    "lon": 55.32973
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w392451384",
+   "name": "Nad Al Sheba Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.150162,
+    "lon": 55.323286
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w392529728",
+   "name": "Central Park",
+   "kind": "park",
+   "point": {
+    "lat": 24.99683,
+    "lon": 55.163188
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w418520759",
+   "name": "Dubai Garden Glow",
+   "kind": "park",
+   "point": {
+    "lat": 25.228947,
+    "lon": 55.296167
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w428655526",
+   "name": "Uptown Mirdif Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.222508,
+    "lon": 55.427115
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w433292205",
+   "name": "Nadd Al Hamar Park 1",
+   "kind": "park",
+   "point": {
+    "lat": 25.201328,
+    "lon": 55.380035
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w433292212",
+   "name": "Nadd Al Hamar Park 2",
+   "kind": "park",
+   "point": {
+    "lat": 25.206975,
+    "lon": 55.385211
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w435098492",
+   "name": "Mamzar Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.304047,
+    "lon": 55.365456
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w437031040",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.068359,
+    "lon": 55.151837
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w437031041",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.067042,
+    "lon": 55.152073
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w437031042",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.069664,
+    "lon": 55.148996
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w437617706",
+   "name": "Dubai Municipality Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.267897,
+    "lon": 55.297835
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w437789978",
+   "name": "Union Square",
+   "kind": "park",
+   "point": {
+    "lat": 25.265441,
+    "lon": 55.313939
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w442808609",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.058629,
+    "lon": 55.166053
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w443238041",
+   "name": "Al Barsha 3 Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.082573,
+    "lon": 55.2076
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w445161116",
+   "name": "Mirdif Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.219563,
+    "lon": 55.418251
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w446646206",
+   "name": "Бурдж-Халифа",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.197035,
+    "lon": 55.274213
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w459249281",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.148129,
+    "lon": 55.249612
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w461934579",
+   "name": "Garhoud Park 3",
+   "kind": "park",
+   "point": {
+    "lat": 25.239702,
+    "lon": 55.358706
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w463189184",
+   "name": "Burj Al Nahar Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.275362,
+    "lon": 55.316075
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w466665752",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.003746,
+    "lon": 55.161918
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w468206984",
+   "name": "Khaja Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.161881,
+    "lon": 55.219389
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w473716953",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 24.983172,
+    "lon": 55.184281
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w475268464",
+   "name": "Jameel Arts Centre",
+   "kind": "museum",
+   "point": {
+    "lat": 25.229015,
+    "lon": 55.340847
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w486200767",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.138882,
+    "lon": 55.133804
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w488337185",
+   "name": "Nobel",
+   "kind": "museum",
+   "point": {
+    "lat": 25.122209,
+    "lon": 55.221851
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w490722537",
+   "name": "Majlis Ghorfat Umm Al Sheif",
+   "kind": "museum",
+   "point": {
+    "lat": 25.186676,
+    "lon": 55.230801
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w492136457",
+   "name": "Greens Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.092442,
+    "lon": 55.169818
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w492136611",
+   "name": "Greens Park 6",
+   "kind": "playground",
+   "point": {
+    "lat": 25.09198,
+    "lon": 55.170392
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w492136721",
+   "name": "Emaar Business Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.095547,
+    "lon": 55.167865
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w495448048",
+   "name": "The Green Planet",
+   "kind": "zoo",
+   "point": {
+    "lat": 25.206065,
+    "lon": 55.260399
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w495449950",
+   "name": "Safa Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.185382,
+    "lon": 55.245546
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w499972778",
+   "name": "Roolh",
+   "kind": "park",
+   "point": {
+    "lat": 25.06479,
+    "lon": 55.205848
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w499984809",
+   "name": "Shooa",
+   "kind": "park",
+   "point": {
+    "lat": 25.052252,
+    "lon": 55.203794
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w499994007",
+   "name": "Eisbej",
+   "kind": "park",
+   "point": {
+    "lat": 25.054075,
+    "lon": 55.218829
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w499995130",
+   "name": "Qesad",
+   "kind": "park",
+   "point": {
+    "lat": 25.051135,
+    "lon": 55.209896
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w500185264",
+   "name": "Harmel",
+   "kind": "park",
+   "point": {
+    "lat": 25.054284,
+    "lon": 55.200657
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w500201005",
+   "name": "Qaret",
+   "kind": "park",
+   "point": {
+    "lat": 25.058046,
+    "lon": 55.201826
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w501787003",
+   "name": "Al Muhaisnah Park 3 / Solar Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.269041,
+    "lon": 55.406452
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w506680076",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.147515,
+    "lon": 55.195724
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w507006131",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.100271,
+    "lon": 55.15367
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w507151846",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.081835,
+    "lon": 55.145003
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w507161950",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.11597,
+    "lon": 55.156132
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w507161951",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.108069,
+    "lon": 55.149982
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w508159350",
+   "name": "Sharjah Science Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.349596,
+    "lon": 55.424866
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w508159359",
+   "name": "Sharjah Archeological Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.348161,
+    "lon": 55.423843
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w509437906",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.243741,
+    "lon": 55.266264
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w509577639",
+   "name": "Nikki Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 25.247509,
+    "lon": 55.255536
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w509577640",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.241451,
+    "lon": 55.262486
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w509577641",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.239843,
+    "lon": 55.265818
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w509577645",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.238711,
+    "lon": 55.265177
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w509577646",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.229567,
+    "lon": 55.248343
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w509577647",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.224752,
+    "lon": 55.250509
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w509577648",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.223968,
+    "lon": 55.25187
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w509577649",
+   "name": "Пляж La Mer",
+   "kind": "beach",
+   "point": {
+    "lat": 25.231695,
+    "lon": 55.258681
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w509577650",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.21194,
+    "lon": 55.235795
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w509577651",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.212016,
+    "lon": 55.239022
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w509577653",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.20356,
+    "lon": 55.238163
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w509577656",
+   "name": "La Mer",
+   "kind": "beach",
+   "point": {
+    "lat": 25.227143,
+    "lon": 55.25575
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w509583821",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.240763,
+    "lon": 55.266298
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w511252242",
+   "name": "Explorer Village",
+   "kind": "zoo",
+   "point": {
+    "lat": 25.181558,
+    "lon": 55.452602
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w511252244",
+   "name": "African Village",
+   "kind": "zoo",
+   "point": {
+    "lat": 25.177942,
+    "lon": 55.451803
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w511252245",
+   "name": "Arabian Desert Safari",
+   "kind": "zoo",
+   "point": {
+    "lat": 25.179871,
+    "lon": 55.447888
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w511252247",
+   "name": "Asian Village",
+   "kind": "zoo",
+   "point": {
+    "lat": 25.181639,
+    "lon": 55.449899
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w514650689",
+   "name": "Splash ’n’ Party",
+   "kind": "water_park",
+   "point": {
+    "lat": 25.159635,
+    "lon": 55.223368
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w516078206",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.208855,
+    "lon": 55.265383
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w517913688",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.210198,
+    "lon": 55.242971
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w518545225",
+   "name": "Sider Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.055561,
+    "lon": 55.204822
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w518547025",
+   "name": "Sabar Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.059297,
+    "lon": 55.207135
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w525130259",
+   "name": "Bayside Park 7",
+   "kind": "park",
+   "point": {
+    "lat": 25.18778,
+    "lon": 55.291195
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w525404347",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.081878,
+    "lon": 55.119927
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w525529784",
+   "name": "Burjuman Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.255502,
+    "lon": 55.305473
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w527602290",
+   "name": "Al Warqa'a Third Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.19064,
+    "lon": 55.418746
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w532676046",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.027126,
+    "lon": 55.080528
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w532678086",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.023896,
+    "lon": 55.07583
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w532776533",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.030187,
+    "lon": 55.084045
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w532776536",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.033239,
+    "lon": 55.087552
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w532777268",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.073216,
+    "lon": 55.144789
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w532782490",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.044602,
+    "lon": 55.098184
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w532788520",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.051191,
+    "lon": 55.103636
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w536681286",
+   "name": "Ficus Gardens",
+   "kind": "park",
+   "point": {
+    "lat": 25.221049,
+    "lon": 55.285885
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w542042595",
+   "name": "Al Fahidi Historical Neighbourhood",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.264182,
+    "lon": 55.300205
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w542042596",
+   "name": "Spice Souk",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.267564,
+    "lon": 55.297247
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w542798650",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.091575,
+    "lon": 55.191067
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w544339717",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.230251,
+    "lon": 55.345727
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w551627055",
+   "name": "Dubai Safari Zoo Park",
+   "kind": "zoo",
+   "point": {
+    "lat": 25.179585,
+    "lon": 55.451618
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w551996664",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.217031,
+    "lon": 55.231003
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w561277691",
+   "name": "Aventura Parks",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.223103,
+    "lon": 55.449447
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w570496096",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.127186,
+    "lon": 55.1249
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w570496097",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.124172,
+    "lon": 55.121696
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w584337908",
+   "name": "Union Metro Station Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.266005,
+    "lon": 55.313716
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w585358310",
+   "name": "Queen Elizabeth 2",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.262256,
+    "lon": 55.280939
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w599704239",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.339049,
+    "lon": 55.419128
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w601357119",
+   "name": "District 5 Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.046667,
+    "lon": 55.157547
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w610906314",
+   "name": "MTN rent a car for Luxury and sport cars in Dubai",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.272859,
+    "lon": 55.34357
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w613142268",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.336649,
+    "lon": 55.359849
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w613142269",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.335618,
+    "lon": 55.359223
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w613142270",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.332384,
+    "lon": 55.357225
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w613945512",
+   "name": "Laguna Waterpark",
+   "kind": "water_park",
+   "point": {
+    "lat": 25.230385,
+    "lon": 55.256433
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w613947945",
+   "name": "Creekside Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.263668,
+    "lon": 55.311033
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w627105873",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.322704,
+    "lon": 55.386694
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w627532206",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.229854,
+    "lon": 55.339326
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w628864495",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.085227,
+    "lon": 55.137974
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w638350875",
+   "name": "Dubai Crocodile Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.202316,
+    "lon": 55.441053
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w651696125",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.142568,
+    "lon": 55.314035
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w660798343",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.225878,
+    "lon": 55.169115
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w660798344",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.2258,
+    "lon": 55.169641
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w660803664",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.105705,
+    "lon": 55.15788
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w660803670",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.105762,
+    "lon": 55.156673
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w660898590",
+   "name": "Pearl Jumeirah Public Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 25.245629,
+    "lon": 55.253943
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w671677250",
+   "name": "Al Seef Dubai",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.26088,
+    "lon": 55.307001
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w679125083",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.195113,
+    "lon": 55.32224
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w681319515",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.082458,
+    "lon": 55.144268
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w682854626",
+   "name": "DOSC private beach",
+   "kind": "beach",
+   "point": {
+    "lat": 25.175493,
+    "lon": 55.216814
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w683708027",
+   "name": "Kids Fun House",
+   "kind": "playground",
+   "point": {
+    "lat": 25.322261,
+    "lon": 55.377583
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w694277217",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.202801,
+    "lon": 55.342059
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w694340098",
+   "name": "Damac Hills Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.018884,
+    "lon": 55.257909
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w694345916",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.018034,
+    "lon": 55.255471
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w694345917",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.022071,
+    "lon": 55.260402
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w694348277",
+   "name": "Mudon Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.024251,
+    "lon": 55.266476
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w694349405",
+   "name": "Town Square Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.004472,
+    "lon": 55.291379
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w705035117",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.194297,
+    "lon": 55.277887
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w709227414",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.076075,
+    "lon": 55.146885
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w709291429",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.080437,
+    "lon": 55.15186
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w709300170",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.072398,
+    "lon": 55.141882
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w709660755",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.065145,
+    "lon": 55.138966
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w715042444",
+   "name": "Mag 5 Park area",
+   "kind": "park",
+   "point": {
+    "lat": 24.95028,
+    "lon": 55.230548
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w715728848",
+   "name": "Dubai Silicon Oasis North Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.122448,
+    "lon": 55.395967
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w727252597",
+   "name": "Action Hub",
+   "kind": "park",
+   "point": {
+    "lat": 25.188298,
+    "lon": 55.266138
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w727252598",
+   "name": "Action Hub",
+   "kind": "park",
+   "point": {
+    "lat": 25.186889,
+    "lon": 55.26652
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w733438093",
+   "name": "Al Rashidiya Park 3",
+   "kind": "park",
+   "point": {
+    "lat": 25.21506,
+    "lon": 55.384809
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w733438094",
+   "name": "Nad Shamma Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.219484,
+    "lon": 55.380192
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w733438095",
+   "name": "Al Rashidiya Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.22863,
+    "lon": 55.39439
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w733438096",
+   "name": "Al Rashidiya PArk 7",
+   "kind": "park",
+   "point": {
+    "lat": 25.219096,
+    "lon": 55.397991
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w733438097",
+   "name": "Al Mizhar 1 Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.236887,
+    "lon": 55.447039
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w733438098",
+   "name": "Muhaisnah 1 Park 2",
+   "kind": "park",
+   "point": {
+    "lat": 25.251833,
+    "lon": 55.425192
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w733438099",
+   "name": "Muhaisnah 1 Park 1",
+   "kind": "park",
+   "point": {
+    "lat": 25.248066,
+    "lon": 55.411449
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740186069",
+   "name": "Al Khail Gate Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.139988,
+    "lon": 55.251448
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740186072",
+   "name": "Animal Fun Playground",
+   "kind": "playground",
+   "point": {
+    "lat": 25.144028,
+    "lon": 55.251034
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740186073",
+   "name": "Kids Playground",
+   "kind": "playground",
+   "point": {
+    "lat": 25.14333,
+    "lon": 55.251765
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740186074",
+   "name": "Parklet",
+   "kind": "park",
+   "point": {
+    "lat": 25.142719,
+    "lon": 55.252538
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740186075",
+   "name": "parklet",
+   "kind": "park",
+   "point": {
+    "lat": 25.142397,
+    "lon": 55.253138
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740186076",
+   "name": "Parklet",
+   "kind": "park",
+   "point": {
+    "lat": 25.142271,
+    "lon": 55.25279
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740186077",
+   "name": "Parklet",
+   "kind": "park",
+   "point": {
+    "lat": 25.142066,
+    "lon": 55.25263
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740186078",
+   "name": "Backyard Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.141913,
+    "lon": 55.25345
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740186079",
+   "name": "kids Playground",
+   "kind": "playground",
+   "point": {
+    "lat": 25.141918,
+    "lon": 55.25379
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740186080",
+   "name": "Backyard Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.142142,
+    "lon": 55.254106
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740186081",
+   "name": "Play2Go Playground",
+   "kind": "playground",
+   "point": {
+    "lat": 25.141566,
+    "lon": 55.253671
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740186082",
+   "name": "small park",
+   "kind": "park",
+   "point": {
+    "lat": 25.141722,
+    "lon": 55.25393
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740186084",
+   "name": "Al Khail gate Phase 1 Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.141539,
+    "lon": 55.255332
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740186085",
+   "name": "Harmony Kids Playground",
+   "kind": "playground",
+   "point": {
+    "lat": 25.140038,
+    "lon": 55.256048
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740186088",
+   "name": "kids Adventure Playground",
+   "kind": "playground",
+   "point": {
+    "lat": 25.138404,
+    "lon": 55.252904
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740186089",
+   "name": "Colorful Playground",
+   "kind": "playground",
+   "point": {
+    "lat": 25.13654,
+    "lon": 55.253765
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740186090",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.137812,
+    "lon": 55.254791
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740300104",
+   "name": "Bakcyard Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.140386,
+    "lon": 55.254128
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740300105",
+   "name": "Harmony Playground",
+   "kind": "playground",
+   "point": {
+    "lat": 25.140589,
+    "lon": 55.254394
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740300106",
+   "name": "parklet",
+   "kind": "park",
+   "point": {
+    "lat": 25.140217,
+    "lon": 55.253822
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740300107",
+   "name": "L Parklet",
+   "kind": "park",
+   "point": {
+    "lat": 25.141173,
+    "lon": 55.253309
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740300111",
+   "name": "playground at park",
+   "kind": "playground",
+   "point": {
+    "lat": 25.140442,
+    "lon": 55.250271
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740300113",
+   "name": "Al Khail Gate Park Playground",
+   "kind": "playground",
+   "point": {
+    "lat": 25.139271,
+    "lon": 55.252321
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740303129",
+   "name": "WestZone Mall Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.139045,
+    "lon": 55.254141
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w740637957",
+   "name": "parklet",
+   "kind": "park",
+   "point": {
+    "lat": 25.140542,
+    "lon": 55.255325
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w743796937",
+   "name": "enoc park",
+   "kind": "park",
+   "point": {
+    "lat": 25.130756,
+    "lon": 55.251354
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w743796938",
+   "name": "Enoc Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.130382,
+    "lon": 55.251453
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w743796939",
+   "name": "enoc Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.130652,
+    "lon": 55.251057
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w749689392",
+   "name": "AL HUDAIBA COMMUNITY PARK",
+   "kind": "park",
+   "point": {
+    "lat": 25.241605,
+    "lon": 55.277468
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w751777554",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.075167,
+    "lon": 55.129192
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w751777555",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.076029,
+    "lon": 55.124371
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w752109961",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.075186,
+    "lon": 55.137314
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w752109962",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.075874,
+    "lon": 55.136422
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w752135740",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.094725,
+    "lon": 55.148567
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w752135741",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.085086,
+    "lon": 55.149509
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w752977392",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.124508,
+    "lon": 55.350646
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w763994453",
+   "name": "Muteena Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.273909,
+    "lon": 55.322633
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w764002928",
+   "name": "Hor Al Anz Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.27419,
+    "lon": 55.335332
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w764096285",
+   "name": "Union Metro East Exit Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.266931,
+    "lon": 55.315117
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w775209649",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.076503,
+    "lon": 55.23734
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w790881638",
+   "name": "Al Barsha Pond Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.101925,
+    "lon": 55.202777
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w795168939",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.062298,
+    "lon": 55.161783
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w795881371",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.068427,
+    "lon": 55.156036
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w804594379",
+   "name": "Nisreen park",
+   "kind": "park",
+   "point": {
+    "lat": 25.073569,
+    "lon": 55.180706
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w814995925",
+   "name": "Mankhool Sand Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.25177,
+    "lon": 55.297776
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w828781367",
+   "name": "Terra - The Sustainability Pavilion",
+   "kind": "attraction",
+   "point": {
+    "lat": 24.958871,
+    "lon": 55.154505
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w857721900",
+   "name": "Dubai Hills Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.109689,
+    "lon": 55.246827
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w857722893",
+   "name": "Dubai Hills Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.106188,
+    "lon": 55.24357
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w873327418",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.078145,
+    "lon": 55.138302
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w930647142",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.098805,
+    "lon": 55.174877
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w977140425",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.230932,
+    "lon": 55.259684
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w977140426",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.232644,
+    "lon": 55.2601
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w977143798",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.205426,
+    "lon": 55.240511
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w981329828",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.22635,
+    "lon": 55.256233
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w985908853",
+   "name": "Al Forsan Park",
+   "kind": "park",
+   "point": {
+    "lat": 24.962099,
+    "lon": 55.154345
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w985908884",
+   "name": "Rashid’s Playground",
+   "kind": "playground",
+   "point": {
+    "lat": 24.957558,
+    "lon": 55.150745
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w985913947",
+   "name": "Jubilee Park",
+   "kind": "park",
+   "point": {
+    "lat": 24.957291,
+    "lon": 55.151066
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w989401298",
+   "name": "Expo Park",
+   "kind": "park",
+   "point": {
+    "lat": 24.964882,
+    "lon": 55.143432
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w989725109",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 24.96261,
+    "lon": 55.142783
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w991715203",
+   "name": "Latifa’s Playground",
+   "kind": "playground",
+   "point": {
+    "lat": 24.962234,
+    "lon": 55.153753
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1004849353",
+   "name": "Al Garhoud Park 3",
+   "kind": "park",
+   "point": {
+    "lat": 25.245989,
+    "lon": 55.342133
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1014223738",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.006781,
+    "lon": 55.309308
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1015845324",
+   "name": "Mira Oasis 3 Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.011181,
+    "lon": 55.300029
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1047288986",
+   "name": "Ain Dubai",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.080052,
+    "lon": 55.123789
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1049470165",
+   "name": "Al Nakhla",
+   "kind": "park",
+   "point": {
+    "lat": 25.053663,
+    "lon": 55.198819
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1054289435",
+   "name": "Музей будущего",
+   "kind": "museum",
+   "point": {
+    "lat": 25.219106,
+    "lon": 55.2818
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1056541073",
+   "name": "Farfar",
+   "kind": "park",
+   "point": {
+    "lat": 25.047814,
+    "lon": 55.201662
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1061659938",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.001531,
+    "lon": 55.253644
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1061660052",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.001799,
+    "lon": 55.253449
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1062053981",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.003317,
+    "lon": 55.253538
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1064453421",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.15553,
+    "lon": 55.222045
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1064453422",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.155666,
+    "lon": 55.221791
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1064453423",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.156031,
+    "lon": 55.222438
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1064539623",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.194015,
+    "lon": 55.246569
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1083776007",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.074926,
+    "lon": 55.243673
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1087063866",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.222837,
+    "lon": 55.266079
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1087126885",
+   "name": "Halool",
+   "kind": "park",
+   "point": {
+    "lat": 25.058898,
+    "lon": 55.215271
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1087261158",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.168727,
+    "lon": 55.25572
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1095297926",
+   "name": "Sharjah Archeological Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.348057,
+    "lon": 55.424072
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1095297927",
+   "name": "Sharjah Science Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.349873,
+    "lon": 55.42487
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1095297928",
+   "name": "Sharjah Science Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.349542,
+    "lon": 55.424646
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1109978059",
+   "name": "Triangular Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.14321,
+    "lon": 55.253261
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1114888014",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.119804,
+    "lon": 55.376244
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1116630529",
+   "name": "Central Park (under construction)",
+   "kind": "park",
+   "point": {
+    "lat": 25.006975,
+    "lon": 55.289796
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1122322634",
+   "name": "Al Wadi",
+   "kind": "park",
+   "point": {
+    "lat": 25.177456,
+    "lon": 55.45019
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1127506424",
+   "name": "Polo Residence Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.151788,
+    "lon": 55.294983
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1127702779",
+   "name": "Bayside Park 3",
+   "kind": "park",
+   "point": {
+    "lat": 25.183944,
+    "lon": 55.276598
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1130882348",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.244188,
+    "lon": 55.258594
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1130882349",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.243453,
+    "lon": 55.258596
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1149891056",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.007759,
+    "lon": 55.305639
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1177592813",
+   "name": "Henna Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.055562,
+    "lon": 55.214102
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1201886577",
+   "name": "Bayside Park 4",
+   "kind": "park",
+   "point": {
+    "lat": 25.178092,
+    "lon": 55.272692
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1201886750",
+   "name": "Bayside Park 2",
+   "kind": "park",
+   "point": {
+    "lat": 25.179023,
+    "lon": 55.268858
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1205055396",
+   "name": "Global Village",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.068137,
+    "lon": 55.306445
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1217619144",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.035885,
+    "lon": 55.166417
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1217619145",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.035598,
+    "lon": 55.166488
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1230291286",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.240029,
+    "lon": 55.326472
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1236610020",
+   "name": "Sgal Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.054731,
+    "lon": 55.202264
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1238085310",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.075201,
+    "lon": 55.137233
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1238085311",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.071192,
+    "lon": 55.1332
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1241866930",
+   "name": "Thamam Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.058411,
+    "lon": 55.213707
+   },
+   "district_id": "al_barsha",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1254092334",
+   "name": "Public Playground Dubai Mall",
+   "kind": "park",
+   "point": {
+    "lat": 25.196998,
+    "lon": 55.272509
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1258628811",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.217693,
+    "lon": 55.44941
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1264052141",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.237555,
+    "lon": 55.328841
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1264052149",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.242053,
+    "lon": 55.326341
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1264052155",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.244981,
+    "lon": 55.325551
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1264100526",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.237098,
+    "lon": 55.329599
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1265790591",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.218676,
+    "lon": 55.449125
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1265806351",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.323056,
+    "lon": 55.377223
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1266448995",
+   "name": "Wasl Village East Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.288509,
+    "lon": 55.418941
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1267080894",
+   "name": "Dubai Crocodile Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 25.201946,
+    "lon": 55.440826
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1268631502",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.327134,
+    "lon": 55.391007
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1268655440",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.235344,
+    "lon": 55.295359
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1268974199",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.324223,
+    "lon": 55.386347
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1268974200",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.323663,
+    "lon": 55.387396
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1268985094",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.327773,
+    "lon": 55.391973
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1268985095",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.327821,
+    "lon": 55.392088
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1268985096",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.327687,
+    "lon": 55.391971
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1269017952",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.32337,
+    "lon": 55.377926
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1273072929",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.325896,
+    "lon": 55.387356
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1273072930",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.325908,
+    "lon": 55.386861
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1273304431",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.327041,
+    "lon": 55.389558
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1273304432",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.327139,
+    "lon": 55.38906
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1274077937",
+   "name": "Abu Hail Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.279764,
+    "lon": 55.345837
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1278984827",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.160101,
+    "lon": 55.288892
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1278996549",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.16081,
+    "lon": 55.29037
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1287038425",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.13687,
+    "lon": 55.128418
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1291298439",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.25843,
+    "lon": 55.419336
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1310994545",
+   "name": "Azizi Playground and Basketball court",
+   "kind": "playground",
+   "point": {
+    "lat": 25.171596,
+    "lon": 55.299689
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1324095479",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.163418,
+    "lon": 55.221142
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1349719808",
+   "name": "Al Seef Promenade",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.258929,
+    "lon": 55.310642
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1358561152",
+   "name": "The Square",
+   "kind": "park",
+   "point": {
+    "lat": 25.138678,
+    "lon": 55.29578
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1367603427",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.220619,
+    "lon": 55.230621
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1378574825",
+   "name": "Al Thamam Transition Park 6",
+   "kind": "park",
+   "point": {
+    "lat": 25.006654,
+    "lon": 55.248904
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1378574826",
+   "name": "Al Thamam Transition Park 5",
+   "kind": "park",
+   "point": {
+    "lat": 25.007568,
+    "lon": 55.249915
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1378574827",
+   "name": "Al Thamam Transition Park 7",
+   "kind": "park",
+   "point": {
+    "lat": 25.005865,
+    "lon": 55.247701
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1378574828",
+   "name": "Al Thamam Transition Park 8",
+   "kind": "park",
+   "point": {
+    "lat": 25.004847,
+    "lon": 55.247053
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1378574829",
+   "name": "Al Thamam Transition Park 9",
+   "kind": "park",
+   "point": {
+    "lat": 25.004026,
+    "lon": 55.248263
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1378584224",
+   "name": "Al Thamam 18-20 Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.006151,
+    "lon": 55.24838
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1378814897",
+   "name": "Al Thamam Transition Park 10",
+   "kind": "park",
+   "point": {
+    "lat": 25.00468,
+    "lon": 55.249385
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1378814898",
+   "name": "Al Thamam Transition Park 3",
+   "kind": "park",
+   "point": {
+    "lat": 25.006527,
+    "lon": 55.251334
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1378814899",
+   "name": "Al Thamam Transition Park 4",
+   "kind": "park",
+   "point": {
+    "lat": 25.007915,
+    "lon": 55.251268
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1378814900",
+   "name": "Al Thamam Transition Park 11",
+   "kind": "playground",
+   "point": {
+    "lat": 25.005575,
+    "lon": 55.250458
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1382491542",
+   "name": "Wasl Village Central Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.289061,
+    "lon": 55.412987
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1386948752",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.163507,
+    "lon": 55.291556
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1426845215",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.289756,
+    "lon": 55.380671
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1427983584",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 24.99694,
+    "lon": 55.395678
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1435709813",
+   "name": "Dreamz Park 1",
+   "kind": "park",
+   "point": {
+    "lat": 25.025654,
+    "lon": 55.137119
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1435709814",
+   "name": "Dreamz Park 2",
+   "kind": "park",
+   "point": {
+    "lat": 25.02461,
+    "lon": 55.137125
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1483703528",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.011274,
+    "lon": 55.279124
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1484836689",
+   "name": "Mandarin Oriental",
+   "kind": "beach",
+   "point": {
+    "lat": 25.217377,
+    "lon": 55.249798
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1495008053",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.155804,
+    "lon": 55.285559
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1495008057",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.157053,
+    "lon": 55.281496
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1502406222",
+   "name": "Circle park",
+   "kind": "park",
+   "point": {
+    "lat": 25.07475,
+    "lon": 55.362402
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1502406223",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.075069,
+    "lon": 55.362476
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1505591522",
+   "name": "Hill park",
+   "kind": "playground",
+   "point": {
+    "lat": 25.076154,
+    "lon": 55.360079
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1509706747",
+   "name": "Amaranta Park And playground",
+   "kind": "playground",
+   "point": {
+    "lat": 25.071788,
+    "lon": 55.360276
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1526374967",
+   "name": "Jungle park",
+   "kind": "park",
+   "point": {
+    "lat": 25.239381,
+    "lon": 55.440047
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1526438743",
+   "name": "Bayside Park 1",
+   "kind": "park",
+   "point": {
+    "lat": 25.186254,
+    "lon": 55.261298
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1526438744",
+   "name": "Family Hub",
+   "kind": "park",
+   "point": {
+    "lat": 25.183643,
+    "lon": 55.260062
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1527601991",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.080254,
+    "lon": 55.359828
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1527601993",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.079443,
+    "lon": 55.363141
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1528194348",
+   "name": "Bayside Park 8",
+   "kind": "park",
+   "point": {
+    "lat": 25.193242,
+    "lon": 55.289533
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1528194353",
+   "name": "Bayside Park 8",
+   "kind": "park",
+   "point": {
+    "lat": 25.191777,
+    "lon": 55.290757
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1528194354",
+   "name": "Bayside Park 7",
+   "kind": "park",
+   "point": {
+    "lat": 25.185556,
+    "lon": 55.291152
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1528194355",
+   "name": "Bayside Park 5",
+   "kind": "park",
+   "point": {
+    "lat": 25.188319,
+    "lon": 55.282223
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1528337947",
+   "name": "Bayside Park 3",
+   "kind": "park",
+   "point": {
+    "lat": 25.184799,
+    "lon": 55.277082
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1529316688",
+   "name": "Bayside Park 4",
+   "kind": "park",
+   "point": {
+    "lat": 25.180631,
+    "lon": 55.275217
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1534254578",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.026466,
+    "lon": 55.233567
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1534254579",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.027691,
+    "lon": 55.235217
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1534254580",
+   "name": "Elan 1 Kids Playground",
+   "kind": "playground",
+   "point": {
+    "lat": 25.028407,
+    "lon": 55.233721
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1534254581",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.026687,
+    "lon": 55.233486
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1545055160",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.043612,
+    "lon": 55.165839
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1545133670",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.051937,
+    "lon": 55.172223
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1547967343",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.155866,
+    "lon": 55.254442
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1548679364",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 25.213758,
+    "lon": 55.273311
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1553363777",
+   "name": "community playpark",
+   "kind": "park",
+   "point": {
+    "lat": 25.127678,
+    "lon": 55.404897
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1555871419",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.096885,
+    "lon": 55.137374
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1561086957",
+   "name": "Wasl Village West Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.292171,
+    "lon": 55.407713
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r2883617",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 24.974963,
+    "lon": 55.42802
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r2954564",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.15624,
+    "lon": 55.356615
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r3852853",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.221455,
+    "lon": 55.139393
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r4278312",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.334267,
+    "lon": 55.384612
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r5467412",
+   "name": "Sheikh Obaid bin Thani House",
+   "kind": "museum",
+   "point": {
+    "lat": 25.268577,
+    "lon": 55.290537
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r5573487",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.127805,
+    "lon": 55.127378
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r5755009",
+   "name": "Saeed Al Maktoum House",
+   "kind": "museum",
+   "point": {
+    "lat": 25.267941,
+    "lon": 55.290068
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r6193588",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.152474,
+    "lon": 55.355863
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r6193589",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.162744,
+    "lon": 55.367146
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r6290012",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.195115,
+    "lon": 55.32224
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r7601363",
+   "name": "Al Mamzar Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 25.305331,
+    "lon": 55.352694
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r7778655",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.295537,
+    "lon": 55.289108
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r7848889",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.197918,
+    "lon": 55.224053
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r7848890",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.198955,
+    "lon": 55.225499
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r7848893",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.197915,
+    "lon": 55.227299
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r9136714",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.112984,
+    "lon": 55.147175
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r9136795",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.109144,
+    "lon": 55.149965
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r9139782",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.105858,
+    "lon": 55.143757
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r9290763",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.127163,
+    "lon": 55.151571
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r9691197",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.226563,
+    "lon": 55.163694
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r9770487",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.198143,
+    "lon": 55.332804
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r9797198",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.31735,
+    "lon": 55.31725
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r9851124",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.324525,
+    "lon": 55.329882
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r9852286",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.236832,
+    "lon": 55.263217
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r9856807",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.314266,
+    "lon": 55.337986
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r9856809",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.317749,
+    "lon": 55.339642
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r9858415",
+   "name": "Al Mamzar",
+   "kind": "beach",
+   "point": {
+    "lat": 25.313678,
+    "lon": 55.341267
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r9859101",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.192404,
+    "lon": 55.161094
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r9917298",
+   "name": "Arabian Ranches II Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.034381,
+    "lon": 55.272899
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r10487083",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.167186,
+    "lon": 55.27831
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r10490903",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.170693,
+    "lon": 55.277801
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r10490904",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.171541,
+    "lon": 55.279928
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r10490905",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.168887,
+    "lon": 55.276781
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r10490906",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.168755,
+    "lon": 55.277303
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r11042330",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.169554,
+    "lon": 55.279635
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r11130622",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.100744,
+    "lon": 55.141168
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r11130634",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.098415,
+    "lon": 55.142122
+   },
+   "district_id": "palm",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r11161963",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.088796,
+    "lon": 55.136986
+   },
+   "district_id": "marina",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r11179549",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.240611,
+    "lon": 55.24981
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r11196431",
+   "name": "Deira Islands Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 25.301208,
+    "lon": 55.301504
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r11227932",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.303542,
+    "lon": 55.318431
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r11227935",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.33171,
+    "lon": 55.321962
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r15670582",
+   "name": "Фонтаны Дубай",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.195305,
+    "lon": 55.275698
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r16842105",
+   "name": "Deira Gold Souk",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.270048,
+    "lon": 55.29808
+   },
+   "district_id": "deira",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r17386345",
+   "name": "Al Qasba",
+   "kind": "park",
+   "point": {
+    "lat": 25.322588,
+    "lon": 55.376388
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r17538134",
+   "name": "Al Majaz Park",
+   "kind": "park",
+   "point": {
+    "lat": 25.326256,
+    "lon": 55.38856
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r17772381",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 25.209754,
+    "lon": 55.149499
+   },
+   "district_id": "jumeirah",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r18195959",
+   "name": "The Dubai Mall",
+   "kind": "attraction",
+   "point": {
+    "lat": 25.197007,
+    "lon": 55.278574
+   },
+   "district_id": "downtown",
+   "tags": [
+    "osm"
+   ]
+  }
+ ]
+}

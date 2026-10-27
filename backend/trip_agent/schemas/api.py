@@ -35,6 +35,17 @@ class TraceStep(Model):
     ms: int = 0
 
 
+class LocationSummary(Model):
+    """Направление в каталоге — для фронта (переключатель города) и проверки сборки."""
+
+    id: str
+    name: str
+    country: str
+    abroad: bool
+    hotels: int
+    tagline: str = ""
+
+
 class TurnResponse(Model):
     session_id: str
     version: int
@@ -44,6 +55,7 @@ class TurnResponse(Model):
     requirements: Requirements
     trace: list[TraceStep] = Field(default_factory=list)
     mode: Literal["llm", "rules"] = "rules"
+    location: LocationSummary | None = Field(default=None, description="куда сейчас подбираем (для путевого листа)")
 
 
 class CreateSessionRequest(Model):
@@ -54,6 +66,7 @@ class HealthResponse(Model):
     status: Literal["ok"] = "ok"
     llm_configured: bool
     llm_model: str | None = None
-    location_id: str
-    hotels_loaded: int
+    location_id: str = Field(description="направление по умолчанию")
+    hotels_loaded: int = Field(description="отелей во всех направлениях")
     data_source: str
+    locations: list[LocationSummary] = Field(default_factory=list)

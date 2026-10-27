@@ -76,16 +76,30 @@ export function AssumptionsView({ b, onReply, disabled }: P<AssumptionsBlock>) {
   );
 }
 
+const KIND_LABEL: Record<string, string> = { sea: "море", mountain: "горы", city: "город" };
+
+function hours(min: number): string {
+  const h = Math.floor(min / 60);
+  const m = min % 60;
+  return m ? `${h} ч ${m} мин` : `${h} ч`;
+}
+
 export function DestinationsView({ b, onReply, disabled }: P<DestinationsBlock>) {
   return (
     <div className="grid">
+      {b.title && <div className="muted small dest-title">{b.title}</div>}
       {b.items.map((d) => (
         <div key={d.district_id} className="card dest">
-          <h4>{d.name}</h4>
+          <h4>
+            {d.name}
+            {d.scope === "location" && d.country && <span className="muted small"> · {d.country}</span>}
+          </h4>
           <div className="muted small">
-            {d.kind === "sea" ? "море" : "горы"} · {d.hotels_count} отелей
+            {KIND_LABEL[d.kind] ?? d.kind} · {d.hotels_count} отелей
             {d.transfer_minutes_from_airport != null && ` · ~${d.transfer_minutes_from_airport} мин от аэропорта`}
+            {d.flight_minutes != null && ` · перелёт ~${hours(d.flight_minutes)}`}
           </div>
+          {d.entry_note && <div className="small">Документы: {d.entry_note}</div>}
           {d.climate && (
             <div className="small">
               Климат: днём {d.climate.air_temp_day_c}°, ночью {d.climate.air_temp_night_c}°
@@ -94,6 +108,7 @@ export function DestinationsView({ b, onReply, disabled }: P<DestinationsBlock>)
           )}
           {d.price_from_per_night != null && <div className="price">от {rub(d.price_from_per_night)} / ночь</div>}
           <ul className="plus">{(d.why ?? []).map((w, i) => <li key={i}>{w}</li>)}</ul>
+          {(d.cons ?? []).length > 0 && <ul className="minus">{(d.cons ?? []).map((w, i) => <li key={i}>{w}</li>)}</ul>}
           <button onClick={() => onReply(d.choose)} disabled={disabled}>{d.choose.label}</button>
         </div>
       ))}

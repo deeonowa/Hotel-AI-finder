@@ -3,7 +3,8 @@
 Островок продаёт поездку целиком, поэтому агент умеет добавить к отелю билеты, если известен город
 отправления. Реального API билетов у нас нет (на Q&A перелёты — «неплохое дополнение»), поэтому:
   * расписание и цены генерируются ДЕТЕРМИНИРОВАННО (хэш от маршрута и даты), помечены is_demo;
-  * длительности и наличие прямых рейсов правдоподобны для направлений в Сочи;
+  * маршруты, длительности и доля прямых рейсов — в location.json каждого города (правдоподобные, DEMO);
+  * время местное: вылет — по часам города отправления, прилёт — по часам локации (разница поясов учтена);
   * замена на реальный API = новая реализация с тем же методом pick().
 
 Выбор пары — не «самый дешёвый», а с учётом удобства: время в пути, пересадки, ночной прилёт
@@ -18,23 +19,31 @@ from datetime import date, datetime, time, timedelta
 
 from ..schemas import LocationPack, Requirements, TransportOffer
 
-# город → маршруты: (вид, хаб, длительность прямого, базовая цена/чел, время отправлений, доля прямых)
-ROUTES: dict[str, list[tuple[str, str, int, int, list[str], float]]] = {
-    "Москва": [("plane", "AER", 145, 6500, ["06:10", "08:40", "11:20", "14:05", "17:30", "21:45"], 0.65),
-               ("train", "rail_adler", 1440, 5200, ["12:30", "20:10"], 1.0)],
-    "Санкт-Петербург": [("plane", "AER", 200, 8000, ["07:05", "13:40", "19:55"], 0.6)],
-    "Екатеринбург": [("plane", "AER", 220, 9000, ["06:50", "15:20"], 0.5)],
-    "Казань": [("plane", "AER", 165, 7500, ["09:15", "18:40"], 0.5)],
-    "Новосибирск": [("plane", "AER", 290, 12500, ["05:40", "13:10"], 0.35)],
-    "Ростов-на-Дону": [("plane", "AER", 80, 5000, ["10:30", "19:10"], 0.8),
-                       ("train", "rail_sochi", 540, 2200, ["07:20", "22:50"], 1.0)],
-    "Краснодар": [("train", "rail_sochi", 270, 1300, ["06:40", "10:15", "15:30", "18:45"], 1.0)],
-    "Самара": [("plane", "AER", 175, 8000, ["08:00", "20:30"], 0.4)],
-    "Нижний Новгород": [("plane", "AER", 165, 7800, ["07:30"], 0.4)],
-    "Минск": [("plane", "AER", 190, 9500, ["11:45"], 0.5)],
-}  # fmt: skip
-STOP_CITY = {"plane": ["Москва", "Ростов-на-Дону", "Минеральные Воды", "Краснодар"]}
+# Маршруты «город отправления → хаб» лежат в location.json (routes, stop_cities) — у каждого города свои.
 CARRIERS = {"plane": ["Демо-Авиа", "ДемоЛёт", "Южный Демо"], "train": ["Демо-РЖД"]}
+# Смещение от UTC. Во всех этих поясах нет перехода на летнее время, поэтому хватает константы
+# (и не нужна база tzdata в Docker-образе). Время в билетах — местное в точке вылета и прилёта.
+UTC_OFFSET_H = {
+    "Europe/Moscow": 3, "Europe/Minsk": 3, "Europe/Istanbul": 3, "Europe/Samara": 4, "Asia/Dubai": 4,
+    "Asia/Tbilisi": 4, "Asia/Yekaterinburg": 5, "Asia/Bangkok": 7, "Asia/Novosibirsk": 7,
+}  # fmt: skip
+ORIGIN_TZ = {
+    "Москва": "Europe/Moscow", "Санкт-Петербург": "Europe/Moscow", "Казань": "Europe/Moscow",
+    "Нижний Новгород": "Europe/Moscow", "Ростов-на-Дону": "Europe/Moscow", "Краснодар": "Europe/Moscow",
+    "Минск": "Europe/Minsk", "Самара": "Europe/Samara", "Екатеринбург": "Asia/Yekaterinburg",
+    "Новосибирск": "Asia/Novosibirsk",
+}  # fmt: skip
+
+FROM_CITY = {
+    "Москва": "Москвы", "Санкт-Петербург": "Петербурга", "Казань": "Казани", "Нижний Новгород": "Нижнего Новгорода",
+    "Ростов-на-Дону": "Ростова-на-Дону", "Краснодар": "Краснодара", "Минск": "Минска", "Самара": "Самары",
+    "Екатеринбург": "Екатеринбурга", "Новосибирск": "Новосибирска",
+}  # fmt: skip
+
+
+def from_city(city: str) -> str:
+    """«из Москвы»: родительный падеж для известных городов, иначе «из г. X»."""
+    return f"из {FROM_CITY[city]}" if city in FROM_CITY else f"из г. {city}"
 
 
 def _u(*parts: object) -> float:
@@ -62,7 +71,18 @@ class DemoSchedule:
         self.seed = seed
 
     def known_city(self, city: str | None) -> bool:
-        return bool(city) and city in ROUTES
+        return bool(city) and city in self.location.routes
+
+    def direct_minutes(self, city: str | None) -> int | None:
+        """Длительность прямого рейса из города (для карточек направлений)."""
+        routes = self.location.routes.get(city or "", [])
+        planes = [r.minutes for r in routes if r.mode == "plane"] or [r.minutes for r in routes]
+        return min(planes) if planes else None
+
+    def _tz_shift(self, city: str) -> int:
+        """На сколько часов местное время локации впереди времени города отправления."""
+        dest = UTC_OFFSET_H.get(self.location.timezone, 3)
+        return dest - UTC_OFFSET_H.get(ORIGIN_TZ.get(city, "Europe/Moscow"), 3)
 
     def _hub_name(self, hub_id: str) -> str:
         h = self.location.hub(hub_id)
@@ -70,9 +90,14 @@ class DemoSchedule:
 
     def offers(self, city: str, day: date, direction: str, mode: str | None, req: Requirements) -> list[TransportOffer]:
         out: list[TransportOffer] = []
-        season = self.location.seasonality.get("coast", [1.0] * 12)[day.month - 1] ** 0.7
+        zones = self.location.seasonality
+        season = (zones.get("coast") or next(iter(zones.values()), None) or [1.0] * 12)[day.month - 1] ** 0.7
         pax_factor = (req.guests.adults or 2) + sum(0.75 if a >= 2 else 0.1 for a in req.guests.children_ages)
-        for kind, hub, base_min, base_price, times, p_direct in ROUTES.get(city, []):
+        # туда: вылет по времени города, прилёт по местному времени локации; обратно — наоборот
+        shift = timedelta(hours=self._tz_shift(city) * (1 if direction == "outbound" else -1))
+        stops_pool = self.location.stop_cities or ["Москва"]
+        for r in self.location.routes.get(city, []):
+            kind, hub, base_min, base_price, times, p_direct = r.mode, r.hub, r.minutes, r.price, r.times, r.p_direct
             if mode and mode != kind:
                 continue
             for i, hhmm in enumerate(times):
@@ -82,15 +107,17 @@ class DemoSchedule:
                 dur = base_min if direct else base_min + 90 + int(150 * _u(*key, "layover"))
                 h, m = map(int, hhmm.split(":"))
                 dep = datetime.combine(day, time(h, m)) + timedelta(minutes=int(20 * _u(*key, "shift")))
-                arr = dep + timedelta(minutes=dur)
+                arr = dep + timedelta(minutes=dur) + shift
                 tod = 1.1 if 7 <= h <= 11 else 0.85 if h >= 21 or h < 6 else 1.0
-                price = base_price * season * tod * (1.25 if direct and kind == "plane" else 1.0) * (0.85 + 0.4 * _u(*key, "p"))
+                # на коротких рейсах за «прямой» доплачивают; на дальних прямой у нас не дороже стыковки
+                premium = 1.25 if direct and kind == "plane" and base_min < 300 else 1.0
+                price = base_price * season * tod * premium * (0.85 + 0.4 * _u(*key, "p"))
                 price = int(round(price, -1))
                 carrier = CARRIERS[kind][int(_u(*key, "c") * len(CARRIERS[kind]))]
                 num = f"{'DA' if kind == 'plane' else '№'}{100 + int(_u(*key, 'n') * 899)}"
-                stop_city = None if direct else STOP_CITY["plane"][int(_u(*key, "sc") * 4)] if kind == "plane" else None
-                if stop_city == city:
-                    stop_city = "Краснодар"
+                stop_city = None if direct or kind != "plane" else stops_pool[int(_u(*key, "sc") * len(stops_pool))]
+                if stop_city == city:  # пересадка не в городе вылета
+                    stop_city = stops_pool[-1] if stops_pool[-1] != city else stops_pool[0]
                 hub_name = self._hub_name(hub)
                 out.append(
                     TransportOffer(
@@ -139,7 +166,7 @@ class DemoSchedule:
             if o.depart_at.hour < 6:
                 p += 2000
             if o.arrive_at.date() > check_in and o.mode == "plane":
-                p += 10_000
+                p += 20_000  # прилёт на следующий день: первая оплаченная ночь пропадает
             return p
 
         def pen_in(o: TransportOffer) -> float:

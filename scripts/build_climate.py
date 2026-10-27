@@ -58,14 +58,14 @@ def _merged(url: str, params: dict, key: str, start: str, end: str) -> dict[str,
     return merged
 
 
-def air_normals(lat: float, lon: float, start: str, end: str) -> dict[int, dict]:
+def air_normals(lat: float, lon: float, start: str, end: str, tz: str = "Europe/Moscow") -> dict[int, dict]:
     data = _merged(
         ARCHIVE,
         {
             "latitude": lat,
             "longitude": lon,
             "daily": "temperature_2m_max,temperature_2m_min,precipitation_sum",
-            "timezone": "Europe/Moscow",
+            "timezone": tz,
         },
         "daily",
         start,
@@ -128,7 +128,7 @@ def main() -> None:
             print(f"[climate] {zone}: уже есть, пропускаю (--force чтобы пересобрать)")
             continue
         print(f"[climate] {zone}: air {pt['air']}")
-        air = air_normals(pt["air"]["lat"], pt["air"]["lon"], args.start, args.end)
+        air = air_normals(pt["air"]["lat"], pt["air"]["lon"], args.start, args.end, loc.get("timezone", "Europe/Moscow"))
         sea = {}
         if pt.get("sea"):
             print(f"[climate] {zone}: sea {pt['sea']}")

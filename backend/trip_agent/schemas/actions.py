@@ -66,10 +66,10 @@ class PostPurchaseAction(Model):
 
 
 class ConfirmAssumptionsAction(Model):
-    """Пользователь подтвердил то, что агент предположил (даты, состав). Без этого заказ не оформляется."""
+    """Пользователь подтвердил то, что агент предположил (направление, даты, состав). Без этого заказ не оформляется."""
 
     type: Literal["confirm_assumptions"] = "confirm_assumptions"
-    paths: list[Literal["dates", "guests"]] = Field(default_factory=lambda: ["dates", "guests"])
+    paths: list[Literal["dates", "guests", "location"]] = Field(default_factory=lambda: ["dates", "guests"])
     then_checkout: bool = True
 
 

@@ -31,7 +31,6 @@ sys.path.insert(0, str(ROOT / "backend"))
 from trip_agent.config import Settings  # noqa: E402
 from trip_agent.container import build  # noqa: E402
 from trip_agent.schemas import TurnRequest  # noqa: E402
-from trip_agent.validation.rules import pending_confirmations  # noqa: E402
 
 TODAY = date(2026, 10, 26)
 
@@ -42,8 +41,6 @@ def _blocks(r, t):
 
 def run_scenario(app, sc: dict) -> dict:
     agent = app.agent
-    hotels = {h.id: h for h in app.catalog.list_hotels("sochi")}
-    loc = app.catalog.get_location("sochi")
     r = agent.new_session()
     sid = r.session_id
     res = {
@@ -72,7 +69,7 @@ def run_scenario(app, sc: dict) -> dict:
                     "select": {"type": "select_variant", "variant_id": target},
                     "cart": {"type": "add_to_cart", "variant_id": target},
                     "checkout": {"type": "checkout", "guest_name": "Тест"},
-                    "confirm": {"type": "confirm_assumptions", "paths": ["dates", "guests"], "then_checkout": True},
+                    "confirm": {"type": "confirm_assumptions", "paths": ["location", "dates", "guests"], "then_checkout": True},
                     "second": {"type": "add_to_cart", "variant_id": st.variants[1].id if len(st.variants) > 1 else target},
                     "fix": _fix_action(r),
                     "keep": _keep_action(r),
@@ -97,7 +94,7 @@ def run_scenario(app, sc: dict) -> dict:
                     1 for x in cb.cart.issues if x.severity.value == "blocker" and x.code != "unconfirmed_assumptions"
                 )
             for ob in _blocks(r, "order"):
-                if pending_confirmations(agent.get_state(sid).requirements):
+                if agent._pending(agent.get_state(sid)):
                     res["violations"].append(f"заказ {ob.order.number} создан с неподтверждёнными предположениями")
             res["trace"] += [f"{t.name}:{t.detail}" for t in r.trace]
     except Exception as e:  # noqa: BLE001
@@ -105,6 +102,11 @@ def run_scenario(app, sc: dict) -> dict:
 
     st = agent.get_state(sid)
     checks = sc.get("checks", {})
+    # проверки — по отелям того города, куда в итоге едем (сценарии бывают и не про Сочи)
+    loc = app.catalog.get_location(st.requirements.location_id)
+    hotels = {h.id: h for h in app.catalog.list_hotels(loc.id)}
+    if (want := sc.get("expect_location")) and loc.id != want:
+        res["violations"].append(f"направление {loc.id}, ожидалось {want}")
     # жёсткие требования проверяем на ИТОГОВОЙ выдаче (после всех пересборок)
     for v in last_variants:
         res["violations"] += _check(v, checks, hotels, loc)

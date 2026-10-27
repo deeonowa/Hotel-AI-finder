@@ -31,10 +31,12 @@ class District(Model):
     kind: DistrictKind
     center: GeoPoint
     radius_km: float = 3.0
-    climate_zone: Literal["coast", "mountain"] = "coast"
+    climate_zone: Literal["coast", "mountain", "city"] = "coast"
     vibe_tags: list[VibeTag] = Field(default_factory=list)
     description: str = ""
     highlights: list[str] = Field(default_factory=list)
+    nlu_patterns: list[str] = Field(default_factory=list, description="регулярки (по нормализованному тексту) для NLU на правилах")
+    price_factor: float = Field(default=1.0, gt=0, description="для генерации DEMO-цен: район дороже/дешевле среднего")
 
 
 class TransportHub(Model):
@@ -58,11 +60,39 @@ class DataSource(Model):
     used_for: str
 
 
+class EntryRules(Model):
+    """Что нужно знать до покупки, если направление за границей. Тексты проверены по датированным источникам."""
+
+    passport: str
+    visa: str
+    insurance: str | None = None
+    money: str | None = None
+    visa_free_days: int | None = Field(default=None, description="сколько дней можно без визы за поездку; None — не ограничено")
+    sources: list[str] = Field(default_factory=list)
+    checked_at: date
+
+
+class Route(Model):
+    """DEMO-маршрут «город отправления → хаб локации» для расписания билетов (transfer/schedule.py)."""
+
+    mode: Literal["plane", "train"]
+    hub: str
+    minutes: int = Field(gt=0, description="длительность прямого рейса/поезда")
+    price: int = Field(gt=0, description="базовая цена за человека в одну сторону, ₽")
+    times: list[str] = Field(description="время отправления, HH:MM по часовому поясу города отправления")
+    p_direct: float = Field(ge=0, le=1, description="доля прямых рейсов")
+
+
 class LocationPack(Model):
     """Всё, что нужно агенту о локации. Новая локация = новый каталог data/locations/<id>/."""
 
     id: str
     name: str
+    name_in: str | None = Field(default=None, description="«в Анталье», «в Дубае» — для текстов")
+    country: str = "Россия"
+    country_code: str = Field(default="RU", pattern=r"^[A-Z]{2}$")
+    nlu_patterns: list[str] = Field(default_factory=list, description="регулярки названия города/страны для NLU на правилах")
+    tagline: str = ""
     timezone: str
     currency: Literal["RUB"] = "RUB"
     bbox: BBox
@@ -76,6 +106,28 @@ class LocationPack(Model):
         default_factory=dict, description="для scripts/build_climate.py: zone → {air, sea}"
     )
     data_sources: list[DataSource] = Field(default_factory=list)
+    entry: EntryRules | None = Field(default=None, description="None — внутренняя поездка, загранпаспорт не нужен")
+    routes: dict[str, list[Route]] = Field(default_factory=dict, description="город отправления → DEMO-маршруты")
+    stop_cities: list[str] = Field(default_factory=list, description="где пересадка у непрямых рейсов (DEMO)")
+    price_index: float = Field(default=1.0, gt=0, description="уровень цен относительно Сочи (для генерации DEMO-цен)")
+    meal_price_index: float = Field(
+        default=1.0, gt=0, description="стоимость питания относительно Сочи (в Турции «всё включено» заметно дешевле)"
+    )
+    flat_terrain: bool = Field(
+        default=False,
+        description="плоский рельеф: «дорогу в гору» не считаем (модель высот включает здания — небоскрёбы дают ложный подъём)",
+    )
+    meal_plans: dict[str, list[MealPlan]] = Field(
+        default_factory=dict, description="тип объекта → типичные планы питания (для генерации), напр. AI в Анталье"
+    )
+
+    @property
+    def is_abroad(self) -> bool:
+        return self.entry is not None
+
+    @property
+    def label_in(self) -> str:
+        return self.name_in or f"в локации «{self.name}»"
 
     def district(self, district_id: str) -> District | None:
         return next((d for d in self.districts if d.id == district_id), None)

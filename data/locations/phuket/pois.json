@@ -1,0 +1,4042 @@
+{
+ "meta": {
+  "source": "osm",
+  "license": "ODbL 1.0 © OpenStreetMap contributors; высоты: Open-Meteo (CC BY 4.0); маршруты: OSRM (данные OSM, ODbL)",
+  "generator": "scripts/build_location.py",
+  "seed": "osm-v1",
+  "built_at": "2026-10-27T11:16:09",
+  "count": 310
+ },
+ "pois": [
+  {
+   "id": "osm-n265689795",
+   "name": "Мыс Промтем",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.758869,
+    "lon": 98.303392
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1036882374",
+   "name": "Водопад Ton Sai",
+   "kind": "attraction",
+   "point": {
+    "lat": 8.028184,
+    "lon": 98.365334
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1284444931",
+   "name": "Ночной рынок Банзан",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.891351,
+    "lon": 98.301498
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1562239992",
+   "name": "Смотровая площадка Карон",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.797252,
+    "lon": 98.302184
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1597528224",
+   "name": "Закаты на смотровой площадке мыса Промтеп",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.761892,
+    "lon": 98.305358
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1957082023",
+   "name": "Обзорная площадка Као Кад",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.834684,
+    "lon": 98.38355
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2421008074",
+   "name": "Gibbon Rehabilitation Project",
+   "kind": "zoo",
+   "point": {
+    "lat": 8.041228,
+    "lon": 98.393096
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2434607516",
+   "name": "Водопад Bang Pae",
+   "kind": "attraction",
+   "point": {
+    "lat": 8.038229,
+    "lon": 98.390411
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2504525674",
+   "name": "Thalang National Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 7.980927,
+    "lon": 98.36694
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2513821648",
+   "name": "Ветряная мельница",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.769654,
+    "lon": 98.306283
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2736491025",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.885978,
+    "lon": 98.391718
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2835558850",
+   "name": "Смотровая площадка Као Ранг",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.892383,
+    "lon": 98.380192
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3014373280",
+   "name": "Tiger Kingdom",
+   "kind": "zoo",
+   "point": {
+    "lat": 7.907074,
+    "lon": 98.330064
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3983421103",
+   "name": "Обзорная площадка пляжа Лаем Синг",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.970056,
+    "lon": 98.279389
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4135940348",
+   "name": "Обзорная площадка Као Кад",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.825094,
+    "lon": 98.381415
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4144223791",
+   "name": "Пляж Майкхао с самолетами",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 8.113648,
+    "lon": 98.302209
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4178887521",
+   "name": "Дом вверх дном",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.93844,
+    "lon": 98.379625
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4200384408",
+   "name": "Режимный объект ПВО",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.874235,
+    "lon": 98.313511
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4205169392",
+   "name": "Wat Chalong Temple",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.846383,
+    "lon": 98.336127
+   },
+   "district_id": "karon",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4205170191",
+   "name": "Nok's house",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.910995,
+    "lon": 98.336138
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4219176696",
+   "name": "Phuket Marathon",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.998367,
+    "lon": 98.298279
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4223066592",
+   "name": "Bouddha couché",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.880401,
+    "lon": 98.425838
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4242560231",
+   "name": "Camp Chang Kalim",
+   "kind": "zoo",
+   "point": {
+    "lat": 7.923233,
+    "lon": 98.280423
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4255737089",
+   "name": "Phuket Trickeye Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 7.883384,
+    "lon": 98.392607
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4283530491",
+   "name": "Смотровая площадка Као То Саэ",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.896472,
+    "lon": 98.395087
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4395955589",
+   "name": "Старый город Пхукета",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.884777,
+    "lon": 98.389221
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4402075392",
+   "name": "Вид на Патонг",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.885028,
+    "lon": 98.307083
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4511496091",
+   "name": "Пхукет кобра центр",
+   "kind": "zoo",
+   "point": {
+    "lat": 7.908046,
+    "lon": 98.328192
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4541305690",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.849456,
+    "lon": 98.292783
+   },
+   "district_id": "karon",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4543039808",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.90078,
+    "lon": 98.296817
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4547196689",
+   "name": "Обезьяны",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.885819,
+    "lon": 98.420842
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4628471097",
+   "name": "Ночной рынок Карон",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.848016,
+    "lon": 98.297806
+   },
+   "district_id": "karon",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4685447739",
+   "name": "Surfing",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.81666,
+    "lon": 98.29967
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4753376627",
+   "name": "Обзорная площадка",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.833723,
+    "lon": 98.390229
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4764269638",
+   "name": "Khok Chang Kata Safari",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.802857,
+    "lon": 98.306249
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4779401621",
+   "name": "Водопад",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.823594,
+    "lon": 98.389993
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4961120521",
+   "name": "Memorial boat",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.85219,
+    "lon": 98.292577
+   },
+   "district_id": "karon",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5028957225",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.775296,
+    "lon": 98.319624
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5028979722",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.775242,
+    "lon": 98.319596
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5060965586",
+   "name": "Chartered Bank Intersection",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.883601,
+    "lon": 98.39085
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5259193421",
+   "name": "Водный лес Чулан",
+   "kind": "attraction",
+   "point": {
+    "lat": 8.021014,
+    "lon": 98.410146
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5267632684",
+   "name": "Мангровый лес тропа",
+   "kind": "park",
+   "point": {
+    "lat": 8.192251,
+    "lon": 98.290041
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5346494922",
+   "name": "Sabai Spa",
+   "kind": "water_park",
+   "point": {
+    "lat": 7.870005,
+    "lon": 98.375957
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5511343724",
+   "name": "Tiger Park Big Buddha",
+   "kind": "zoo",
+   "point": {
+    "lat": 7.832304,
+    "lon": 98.326561
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5553825421",
+   "name": "Lemonade Club",
+   "kind": "playground",
+   "point": {
+    "lat": 7.99159,
+    "lon": 98.306632
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5591471970",
+   "name": "Monkey feed point",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.901461,
+    "lon": 98.416344
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5610797629",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.950609,
+    "lon": 98.369324
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5686540922",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 8.002053,
+    "lon": 98.296228
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5938175426",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.848505,
+    "lon": 98.293106
+   },
+   "district_id": "karon",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5945513052",
+   "name": "Phuket Elephant Sanctuary office",
+   "kind": "zoo",
+   "point": {
+    "lat": 8.026009,
+    "lon": 98.401535
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6078342487",
+   "name": "Kalim view point",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.926746,
+    "lon": 98.300395
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6178364385",
+   "name": "Green elephant sanctuary park",
+   "kind": "park",
+   "point": {
+    "lat": 7.978746,
+    "lon": 98.310295
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6253270085",
+   "name": "Baan Chinpracha",
+   "kind": "museum",
+   "point": {
+    "lat": 7.885778,
+    "lon": 98.38394
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6265010759",
+   "name": "Black rock viewpoint",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.782986,
+    "lon": 98.297581
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6306012112",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.951706,
+    "lon": 98.282496
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6307537085",
+   "name": "Elephant riding",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.822708,
+    "lon": 98.332037
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6851460282",
+   "name": "Rock View Point",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.891144,
+    "lon": 98.264458
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n7048181786",
+   "name": "Romchyk viewpoint",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.938671,
+    "lon": 98.318292
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n7103521086",
+   "name": "Деревня слонов",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.793095,
+    "lon": 98.305025
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n7158063593",
+   "name": "Сиринат пляж национальный парк",
+   "kind": "park",
+   "point": {
+    "lat": 8.102356,
+    "lon": 98.300154
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n7158071775",
+   "name": "Национальный парк Сиринат",
+   "kind": "park",
+   "point": {
+    "lat": 8.092452,
+    "lon": 98.298878
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n7770489785",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.857163,
+    "lon": 98.341553
+   },
+   "district_id": "karon",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n9660233217",
+   "name": "Cashew store",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.86065,
+    "lon": 98.35439
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n9701566317",
+   "name": "Elephant swim",
+   "kind": "zoo",
+   "point": {
+    "lat": 7.888334,
+    "lon": 98.271168
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10291585468",
+   "name": "Reef snorkelling",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.758823,
+    "lon": 98.313977
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10291585469",
+   "name": "Reef snorkelling",
+   "kind": "attraction",
+   "point": {
+    "lat": 8.051955,
+    "lon": 98.275576
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10291636988",
+   "name": "Reef snorkelling",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.766513,
+    "lon": 98.305433
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10298212709",
+   "name": "Porto de Phuket",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.991587,
+    "lon": 98.305381
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10300088659",
+   "name": "Amazing villa",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.838362,
+    "lon": 98.326586
+   },
+   "district_id": "karon",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10301670257",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.822833,
+    "lon": 98.400738
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10949176080",
+   "name": "Layan Beach viewpoint",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 8.031659,
+    "lon": 98.28421
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10951079463",
+   "name": "Rawai beach and pier view",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.775544,
+    "lon": 98.332105
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10958521382",
+   "name": "Patong Beach",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.893891,
+    "lon": 98.294961
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10973826441",
+   "name": "Elephant bathing",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.832144,
+    "lon": 98.321949
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10996650744",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.872518,
+    "lon": 98.393724
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11007987481",
+   "name": "Cлон",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.79379,
+    "lon": 98.3073
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11009533996",
+   "name": "Nai Harn and Windmill viewpoint within yellow flowers",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.765109,
+    "lon": 98.305717
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11015906192",
+   "name": "Elephant. Feed and interact 800.",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.91087,
+    "lon": 98.433947
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11015931056",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.882076,
+    "lon": 98.4373
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11021489081",
+   "name": "Elephant",
+   "kind": "zoo",
+   "point": {
+    "lat": 7.831747,
+    "lon": 98.334038
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11027278472",
+   "name": "Reef snorkeling",
+   "kind": "attraction",
+   "point": {
+    "lat": 8.044017,
+    "lon": 98.276129
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11029692867",
+   "name": "Father of the Royal Thai Navy",
+   "kind": "museum",
+   "point": {
+    "lat": 7.865968,
+    "lon": 98.397788
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11029709540",
+   "name": "Crane Swing",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.865109,
+    "lon": 98.399807
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11031718523",
+   "name": "Elephant Feeding",
+   "kind": "zoo",
+   "point": {
+    "lat": 7.831045,
+    "lon": 98.317598
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11035582217",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.834424,
+    "lon": 98.339209
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11037598105",
+   "name": "Слоновая ферма",
+   "kind": "zoo",
+   "point": {
+    "lat": 7.834942,
+    "lon": 98.31491
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11040097148",
+   "name": "Surin Beach Viewpoint",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.979625,
+    "lon": 98.277017
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11041935068",
+   "name": "Кормление обезьян",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.893805,
+    "lon": 98.379509
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11041974701",
+   "name": "Sunset viewpoint",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 8.092292,
+    "lon": 98.298301
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11084380058",
+   "name": "Carnival Magic",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.958202,
+    "lon": 98.286982
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11118203326",
+   "name": "Cape Panwa Viewpoint",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.805506,
+    "lon": 98.405467
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11148509801",
+   "name": "Lake in water lilies",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 8.018797,
+    "lon": 98.314952
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11152095457",
+   "name": "Wooden House",
+   "kind": "attraction",
+   "point": {
+    "lat": 8.028614,
+    "lon": 98.328767
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11173408926",
+   "name": "Crocodile Farm",
+   "kind": "zoo",
+   "point": {
+    "lat": 7.858105,
+    "lon": 98.341703
+   },
+   "district_id": "karon",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11218053617",
+   "name": "Phuket Crocodile Show",
+   "kind": "zoo",
+   "point": {
+    "lat": 7.842986,
+    "lon": 98.356559
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11220427998",
+   "name": "Village adventure",
+   "kind": "playground",
+   "point": {
+    "lat": 7.988026,
+    "lon": 98.319312
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11234200721",
+   "name": "Lake View",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.88405,
+    "lon": 98.358837
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11254609223",
+   "name": "Monkey Show",
+   "kind": "zoo",
+   "point": {
+    "lat": 7.908193,
+    "lon": 98.328212
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11254609225",
+   "name": "Nopparat Elephant Sanctury",
+   "kind": "zoo",
+   "point": {
+    "lat": 7.908436,
+    "lon": 98.328146
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11286547228",
+   "name": "Sunset",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 8.06321,
+    "lon": 98.294834
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11364421490",
+   "name": "Reef snorkeling",
+   "kind": "attraction",
+   "point": {
+    "lat": 8.041389,
+    "lon": 98.275145
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11405055138",
+   "name": "Grader",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.86497,
+    "lon": 98.399973
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11463181600",
+   "name": "Phuket Elephant Care",
+   "kind": "zoo",
+   "point": {
+    "lat": 7.94062,
+    "lon": 98.356886
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11483237782",
+   "name": "Sai Kaew Beach",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 8.189457,
+    "lon": 98.287631
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11715785908",
+   "name": "Fire show in a Tann restaurant after sunset, view from the beach",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.83023,
+    "lon": 98.294449
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11777757998",
+   "name": "Phuket FantaSea",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.956696,
+    "lon": 98.286103
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11794956978",
+   "name": "Phuket Big Buddha",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.827679,
+    "lon": 98.313243
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11799194871",
+   "name": "Naithon beach wooden bridge",
+   "kind": "attraction",
+   "point": {
+    "lat": 8.054512,
+    "lon": 98.278224
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11951904782",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.882273,
+    "lon": 98.272279
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12396108401",
+   "name": "Baan Ar-jor",
+   "kind": "museum",
+   "point": {
+    "lat": 8.156605,
+    "lon": 98.305164
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12491858102",
+   "name": "Lion Land",
+   "kind": "zoo",
+   "point": {
+    "lat": 7.842155,
+    "lon": 98.355505
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12491897972",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.876658,
+    "lon": 98.376222
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12512286102",
+   "name": "Laem Donso viewpoint",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 7.83433,
+    "lon": 98.378088
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12525805802",
+   "name": "KoFun",
+   "kind": "playground",
+   "point": {
+    "lat": 7.788641,
+    "lon": 98.329316
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12535592601",
+   "name": "Mai Khao Marine Turtle Foundation",
+   "kind": "zoo",
+   "point": {
+    "lat": 8.166286,
+    "lon": 98.295344
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12543414801",
+   "name": "Lion Land Phuket",
+   "kind": "zoo",
+   "point": {
+    "lat": 7.842261,
+    "lon": 98.355149
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12912364301",
+   "name": "Достопримечательность",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.864385,
+    "lon": 98.320415
+   },
+   "district_id": "karon",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13028467001",
+   "name": "Pang Chang Kamala Phuket Thailand",
+   "kind": "zoo",
+   "point": {
+    "lat": 7.934871,
+    "lon": 98.28459
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13238837609",
+   "name": "Street Wall Arts Kathu",
+   "kind": "park",
+   "point": {
+    "lat": 7.920286,
+    "lon": 98.336465
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13272380878",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.976684,
+    "lon": 98.32629
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13722441600",
+   "name": "Thavorn Phuket Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 7.882919,
+    "lon": 98.390248
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13760608401",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 8.033387,
+    "lon": 98.34429
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13909525592",
+   "name": "Thavorn Palm Beach",
+   "kind": "zoo",
+   "point": {
+    "lat": 7.836661,
+    "lon": 98.295315
+   },
+   "district_id": "karon",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13964500175",
+   "name": "The Pawket",
+   "kind": "park",
+   "point": {
+    "lat": 7.892375,
+    "lon": 98.361216
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n14260307329",
+   "name": "Phuket Elephant Sanctuary",
+   "kind": "zoo",
+   "point": {
+    "lat": 8.022161,
+    "lon": 98.388007
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w30760367",
+   "name": "Bangla Road",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.893664,
+    "lon": 98.296578
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w53166566",
+   "name": "Пляж Най Тон",
+   "kind": "beach",
+   "point": {
+    "lat": 8.057984,
+    "lon": 98.277325
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w95786301",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.886805,
+    "lon": 98.283123
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w134394729",
+   "name": "Пляж Карон",
+   "kind": "beach",
+   "point": {
+    "lat": 7.843986,
+    "lon": 98.291782
+   },
+   "district_id": "karon",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w135015785",
+   "name": "Пляж Парадайз (Вход 200 батт)",
+   "kind": "beach",
+   "point": {
+    "lat": 7.891026,
+    "lon": 98.265387
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w135966212",
+   "name": "Philatelic museum",
+   "kind": "museum",
+   "point": {
+    "lat": 7.884031,
+    "lon": 98.392545
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150178100",
+   "name": "Йае Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.925476,
+    "lon": 98.266978
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150178102",
+   "name": "Пляж отеля Бич / Камала Рок Бич / Другой пляж Камалы / Райи Бич",
+   "kind": "beach",
+   "point": {
+    "lat": 7.947745,
+    "lon": 98.270506
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150178573",
+   "name": "пляж Карон Ной",
+   "kind": "beach",
+   "point": {
+    "lat": 7.864738,
+    "lon": 98.282352
+   },
+   "district_id": "karon",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150195610",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.809711,
+    "lon": 98.39977
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150195611",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.807927,
+    "lon": 98.400319
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150195612",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.806346,
+    "lon": 98.403554
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150195613",
+   "name": "Пляж Као Кад",
+   "kind": "beach",
+   "point": {
+    "lat": 7.81638,
+    "lon": 98.384492
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150200006",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.809148,
+    "lon": 98.408908
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150200008",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.810032,
+    "lon": 98.403962
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150200012",
+   "name": "Пляж Панва",
+   "kind": "beach",
+   "point": {
+    "lat": 7.806111,
+    "lon": 98.410326
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150200806",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.874531,
+    "lon": 98.423063
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150200809",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.869533,
+    "lon": 98.431531
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150203032",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.877027,
+    "lon": 98.430739
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150203033",
+   "name": "Пляж Ко-Сирей",
+   "kind": "beach",
+   "point": {
+    "lat": 7.88957,
+    "lon": 98.440292
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150203035",
+   "name": "Laem Nga Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 7.910408,
+    "lon": 98.441215
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150203040",
+   "name": "Sunrise beach",
+   "kind": "beach",
+   "point": {
+    "lat": 7.880656,
+    "lon": 98.438011
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150298518",
+   "name": "Пляж Банг Тао",
+   "kind": "beach",
+   "point": {
+    "lat": 8.008312,
+    "lon": 98.288558
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150299342",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.985008,
+    "lon": 98.282744
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w150299345",
+   "name": "Пляж Лаян",
+   "kind": "beach",
+   "point": {
+    "lat": 8.034565,
+    "lon": 98.284102
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w188637338",
+   "name": "Пляж Три Транг",
+   "kind": "beach",
+   "point": {
+    "lat": 7.88642,
+    "lon": 98.274949
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w188637418",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.890748,
+    "lon": 98.266989
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w188637523",
+   "name": "Пляж Калим",
+   "kind": "beach",
+   "point": {
+    "lat": 7.910481,
+    "lon": 98.295358
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w195407248",
+   "name": "Park Garden",
+   "kind": "park",
+   "point": {
+    "lat": 7.978069,
+    "lon": 98.278863
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w203970558",
+   "name": "Krathing Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 7.777886,
+    "lon": 98.29513
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w229050483",
+   "name": "Пляж Чалонг",
+   "kind": "beach",
+   "point": {
+    "lat": 7.813472,
+    "lon": 98.341896
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w232288841",
+   "name": "Ночной рынок Пхукет Таун",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.880452,
+    "lon": 98.366272
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w235838574",
+   "name": "Thalang Road",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.884767,
+    "lon": 98.389139
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w242586897",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.747402,
+    "lon": 98.302532
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w242587386",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.758806,
+    "lon": 98.33389
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w242673270",
+   "name": "Большой Будда Пхукета",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.82773,
+    "lon": 98.312811
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w242673271",
+   "name": "Храм Чалонг",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.846252,
+    "lon": 98.337097
+   },
+   "district_id": "karon",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w243013089",
+   "name": "Splash Jungle Water Park",
+   "kind": "water_park",
+   "point": {
+    "lat": 8.117313,
+    "lon": 98.306476
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w246974508",
+   "name": "Пляж Сирай-Бей",
+   "kind": "beach",
+   "point": {
+    "lat": 7.87251,
+    "lon": 98.428325
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w260281255",
+   "name": "Пляж Мерлин",
+   "kind": "beach",
+   "point": {
+    "lat": 7.882403,
+    "lon": 98.271552
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w260282418",
+   "name": "Пляж Фридом",
+   "kind": "beach",
+   "point": {
+    "lat": 7.87491,
+    "lon": 98.275042
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w268298982",
+   "name": "Her Majesty the Queen's 72nd Anniversary Park",
+   "kind": "park",
+   "point": {
+    "lat": 7.885364,
+    "lon": 98.391679
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w307053043",
+   "name": "Phuket Snake Show",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.862363,
+    "lon": 98.345171
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w307053272",
+   "name": "Phuthai Souvenir Market",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.861977,
+    "lon": 98.345655
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w316833417",
+   "name": "Zorbing Rollerball",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.9164,
+    "lon": 98.297033
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w322830416",
+   "name": "Patong Boyz Town",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.895707,
+    "lon": 98.299678
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w388939012",
+   "name": "Картинг",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.823108,
+    "lon": 98.333783
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w390560380",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 8.126319,
+    "lon": 98.443099
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w393467787",
+   "name": "Surin Roundabout",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.880414,
+    "lon": 98.392186
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w411014132",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.879609,
+    "lon": 98.365385
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w443432308",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 8.005499,
+    "lon": 98.350192
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w443432309",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 8.004725,
+    "lon": 98.349816
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w448589164",
+   "name": "San Set View",
+   "kind": "beach",
+   "point": {
+    "lat": 7.76267,
+    "lon": 98.334529
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w448589245",
+   "name": "Нудистский пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.753175,
+    "lon": 98.330762
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w448589467",
+   "name": "Лем ка нудистский пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.776875,
+    "lon": 98.336112
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w473550729",
+   "name": "Kata Beach Community Park",
+   "kind": "park",
+   "point": {
+    "lat": 7.817196,
+    "lon": 98.299844
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w474798185",
+   "name": "Музей морских ракушек",
+   "kind": "museum",
+   "point": {
+    "lat": 7.782906,
+    "lon": 98.328513
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w478856704",
+   "name": "Phuket Botanic Garden",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.847765,
+    "lon": 98.345762
+   },
+   "district_id": "karon",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w479662723",
+   "name": "Пляж Банана",
+   "kind": "beach",
+   "point": {
+    "lat": 8.041968,
+    "lon": 98.276275
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w487935982",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.890449,
+    "lon": 98.402776
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w488226202",
+   "name": "Старый маяк",
+   "kind": "museum",
+   "point": {
+    "lat": 7.761978,
+    "lon": 98.305633
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w507767694",
+   "name": "Amphoe Kathu Park and Recreation Ground",
+   "kind": "park",
+   "point": {
+    "lat": 7.903848,
+    "lon": 98.351078
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w531494629",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 8.199451,
+    "lon": 98.295877
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w534910481",
+   "name": "Пляж Трисара",
+   "kind": "beach",
+   "point": {
+    "lat": 8.03562,
+    "lon": 98.275451
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w553699623",
+   "name": "Chaloem Phrakiat Park",
+   "kind": "park",
+   "point": {
+    "lat": 7.875352,
+    "lon": 98.374658
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w553700377",
+   "name": "Sapan Hin Park",
+   "kind": "park",
+   "point": {
+    "lat": 7.864985,
+    "lon": 98.399621
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w553700945",
+   "name": "Ban Kian Playground",
+   "kind": "playground",
+   "point": {
+    "lat": 8.02642,
+    "lon": 98.329264
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w553774836",
+   "name": "Парк Лаян",
+   "kind": "park",
+   "point": {
+    "lat": 8.029196,
+    "lon": 98.288886
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w562156361",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.882909,
+    "lon": 98.295062
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w589130835",
+   "name": "Jungle Xtrem Adventure Park",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.852919,
+    "lon": 98.326499
+   },
+   "district_id": "karon",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w611566655",
+   "name": "Angsana Laguna Wedding Chapel",
+   "kind": "attraction",
+   "point": {
+    "lat": 8.00337,
+    "lon": 98.297054
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w651555931",
+   "name": "Ботанический сад Пхукета",
+   "kind": "park",
+   "point": {
+    "lat": 7.84831,
+    "lon": 98.346182
+   },
+   "district_id": "karon",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w701211327",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 8.060017,
+    "lon": 98.449343
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w758869084",
+   "name": "Pirate Ship",
+   "kind": "playground",
+   "point": {
+    "lat": 8.050169,
+    "lon": 98.352871
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w758914921",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 8.04947,
+    "lon": 98.352521
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w758914922",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 8.049805,
+    "lon": 98.352927
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w758914923",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 8.050089,
+    "lon": 98.352436
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w789305965",
+   "name": "Peranakan Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 8.014716,
+    "lon": 98.337981
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w791125533",
+   "name": "Ферма орхидей",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.818704,
+    "lon": 98.334395
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w798810349",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.89044,
+    "lon": 98.26877
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w806425782",
+   "name": "Thalang Victory Memorial Field",
+   "kind": "park",
+   "point": {
+    "lat": 8.026542,
+    "lon": 98.319444
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w813509960",
+   "name": "Haad Pak Phra Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 8.199737,
+    "lon": 98.290011
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w813509962",
+   "name": "Саи Каев",
+   "kind": "beach",
+   "point": {
+    "lat": 8.195024,
+    "lon": 98.285436
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w821995212",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 8.083192,
+    "lon": 98.288628
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w897610595",
+   "name": "Blue Tree",
+   "kind": "water_park",
+   "point": {
+    "lat": 7.989655,
+    "lon": 98.319111
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w973516202",
+   "name": "Ao He Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 7.742796,
+    "lon": 98.372746
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1020477061",
+   "name": "Nai Yang Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 8.090243,
+    "lon": 98.295578
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1020885012",
+   "name": "Phuket Thai Hua School",
+   "kind": "museum",
+   "point": {
+    "lat": 7.885603,
+    "lon": 98.386868
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1020969889",
+   "name": "Nai Thon Noi Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 8.047018,
+    "lon": 98.277501
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1020969890",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 8.049761,
+    "lon": 98.277017
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1021399011",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 8.033397,
+    "lon": 98.285836
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1021399016",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 8.031317,
+    "lon": 98.286991
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1021399020",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 8.03516,
+    "lon": 98.281247
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1021399021",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 8.079169,
+    "lon": 98.276216
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1021399023",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 8.031533,
+    "lon": 98.282988
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1022244414",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 8.185868,
+    "lon": 98.315628
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1022244423",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 8.125258,
+    "lon": 98.350519
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1022244424",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 8.12025,
+    "lon": 98.367213
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1022244425",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.828068,
+    "lon": 98.349438
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1022244426",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.802941,
+    "lon": 98.411127
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1027094371",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.874016,
+    "lon": 98.37677
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1032851977",
+   "name": "Андаманда аквапарк",
+   "kind": "water_park",
+   "point": {
+    "lat": 7.902607,
+    "lon": 98.363461
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1044722332",
+   "name": "Музей горного дела",
+   "kind": "museum",
+   "point": {
+    "lat": 7.933267,
+    "lon": 98.349483
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1051992039",
+   "name": "Elephant Jungle Sanctuary Phuket",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.918799,
+    "lon": 98.330319
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1073653462",
+   "name": "Bukit Elephant Park",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.861535,
+    "lon": 98.321212
+   },
+   "district_id": "karon",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1122080753",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 8.09404,
+    "lon": 98.434577
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1122817336",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 8.041666,
+    "lon": 98.430557
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1125884340",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 8.095137,
+    "lon": 98.424733
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1126422382",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.83117,
+    "lon": 98.354097
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1128034865",
+   "name": "Utopia ride and play",
+   "kind": "playground",
+   "point": {
+    "lat": 7.805705,
+    "lon": 98.335921
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1128256476",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 8.026996,
+    "lon": 98.41123
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1135092741",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 8.082136,
+    "lon": 98.289034
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1139027308",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.94755,
+    "lon": 98.271413
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1172644550",
+   "name": "Baan Bangla Mangrove Forests Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 7.992113,
+    "lon": 98.383398
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1177985478",
+   "name": "Nai Harn beach playground",
+   "kind": "playground",
+   "point": {
+    "lat": 7.776375,
+    "lon": 98.310071
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1178598082",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.993116,
+    "lon": 98.290921
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1178713695",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.786191,
+    "lon": 98.333568
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1178713697",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.78295,
+    "lon": 98.337038
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1184778708",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.771409,
+    "lon": 98.317801
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1187785988",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.872391,
+    "lon": 98.390534
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1188672469",
+   "name": "Skyline adventure",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.792469,
+    "lon": 98.304925
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1189789892",
+   "name": "Полёт Ханумана",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.924714,
+    "lon": 98.322692
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1189931385",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.795963,
+    "lon": 98.336104
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1189985378",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.791167,
+    "lon": 98.334525
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1194106561",
+   "name": "Carnival Magic",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.958015,
+    "lon": 98.286975
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1195543712",
+   "name": "Питомник Собак",
+   "kind": "attraction",
+   "point": {
+    "lat": 8.128292,
+    "lon": 98.313099
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1196094092",
+   "name": "Phuket Nature Elephant Reserve",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.976463,
+    "lon": 98.326179
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1201625808",
+   "name": "Niran Farm Equestrian Center",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.970053,
+    "lon": 98.342256
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1211613358",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.884143,
+    "lon": 98.384866
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1214118024",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 8.057451,
+    "lon": 98.409079
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1214981052",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.816968,
+    "lon": 98.299817
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1214981053",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.81697,
+    "lon": 98.299955
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1215387871",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.839822,
+    "lon": 98.341416
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1226662645",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.991193,
+    "lon": 98.306133
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1233476539",
+   "name": "Peranakan Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 7.883746,
+    "lon": 98.390691
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1233476540",
+   "name": "Музей Истории Пхукета",
+   "kind": "museum",
+   "point": {
+    "lat": 7.883481,
+    "lon": 98.39075
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1268307618",
+   "name": "Шоу Фантазия",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.956524,
+    "lon": 98.286191
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1270900833",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.998718,
+    "lon": 98.33609
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1275242640",
+   "name": "Kamala Beach Estate Apartments",
+   "kind": "beach",
+   "point": {
+    "lat": 7.95003,
+    "lon": 98.275558
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1288913254",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.891807,
+    "lon": 98.264657
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1303053957",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.948255,
+    "lon": 98.263939
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1303053958",
+   "name": "Пляж Хуа",
+   "kind": "beach",
+   "point": {
+    "lat": 7.94744,
+    "lon": 98.26519
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1303399929",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.863758,
+    "lon": 98.398184
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1350314758",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.877145,
+    "lon": 98.375553
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1350314759",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 7.877189,
+    "lon": 98.375397
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1354338803",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.8325,
+    "lon": 98.402435
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1354342805",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.799615,
+    "lon": 98.408927
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1354861346",
+   "name": "Lard Yai Sunday Night Market",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.884769,
+    "lon": 98.389115
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1354876927",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.823752,
+    "lon": 98.401059
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1360817593",
+   "name": "Bangla Road",
+   "kind": "attraction",
+   "point": {
+    "lat": 7.893201,
+    "lon": 98.298126
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1365347181",
+   "name": "Siwalee 1 Park",
+   "kind": "park",
+   "point": {
+    "lat": 7.838393,
+    "lon": 98.344466
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1392289283",
+   "name": "Po Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 7.792307,
+    "lon": 98.382466
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1392289285",
+   "name": "Lek Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 7.789914,
+    "lon": 98.383679
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1392289286",
+   "name": "Daeng Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 7.786648,
+    "lon": 98.386855
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1392289287",
+   "name": "Kho Kwang Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 7.782076,
+    "lon": 98.386246
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1392289288",
+   "name": "Mai Phai Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 7.782328,
+    "lon": 98.388728
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1392289289",
+   "name": "Lo Ne Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 7.793775,
+    "lon": 98.369777
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1392289290",
+   "name": "Mai Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 7.785327,
+    "lon": 98.358158
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1431525580",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 8.168003,
+    "lon": 98.296479
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r4143200",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.83425,
+    "lon": 98.422687
+   },
+   "district_id": "phuket_town",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r4235946",
+   "name": "Пляж Ката Нои",
+   "kind": "beach",
+   "point": {
+    "lat": 7.806297,
+    "lon": 98.298676
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r4235947",
+   "name": "Пляж Ката Яй",
+   "kind": "beach",
+   "point": {
+    "lat": 7.819389,
+    "lon": 98.296026
+   },
+   "district_id": "kata",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r5653235",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.964526,
+    "lon": 98.450721
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r5653248",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.956162,
+    "lon": 98.446917
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r5653263",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.943047,
+    "lon": 98.442588
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r5654321",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.955608,
+    "lon": 98.449644
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r5657696",
+   "name": "Пляж Я Нуй",
+   "kind": "beach",
+   "point": {
+    "lat": 7.767579,
+    "lon": 98.306024
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r5660832",
+   "name": "Yao Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 7.745898,
+    "lon": 98.373755
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r5660833",
+   "name": "Kluai Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 7.745103,
+    "lon": 98.382078
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r6162518",
+   "name": "Пляж Най Харн",
+   "kind": "beach",
+   "point": {
+    "lat": 7.775626,
+    "lon": 98.305314
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r6892478",
+   "name": "Пляж Камала",
+   "kind": "beach",
+   "point": {
+    "lat": 7.956404,
+    "lon": 98.280475
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r10632198",
+   "name": "Пляж Ао Сан",
+   "kind": "beach",
+   "point": {
+    "lat": 7.777933,
+    "lon": 98.296737
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r13958459",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.985111,
+    "lon": 98.272678
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r14010438",
+   "name": "Лаем Синг",
+   "kind": "beach",
+   "point": {
+    "lat": 7.968291,
+    "lon": 98.279157
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r14010439",
+   "name": "Пляж Панси",
+   "kind": "beach",
+   "point": {
+    "lat": 7.982099,
+    "lon": 98.276355
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r14010442",
+   "name": "Пляж Сурин",
+   "kind": "beach",
+   "point": {
+    "lat": 7.975588,
+    "lon": 98.278105
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r14018589",
+   "name": "Пляж Патонг",
+   "kind": "beach",
+   "point": {
+    "lat": 7.896401,
+    "lon": 98.292429
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r14031387",
+   "name": "Пляж Накалай",
+   "kind": "beach",
+   "point": {
+    "lat": 7.924738,
+    "lon": 98.273882
+   },
+   "district_id": "kamala",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r14032406",
+   "name": "Rawai beach",
+   "kind": "beach",
+   "point": {
+    "lat": 7.759019,
+    "lon": 98.312762
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r14032409",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.76132,
+    "lon": 98.317026
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r14039216",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 7.886062,
+    "lon": 98.286079
+   },
+   "district_id": "patong",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r16031134",
+   "name": "Пляж Майкхао",
+   "kind": "beach",
+   "point": {
+    "lat": 8.145895,
+    "lon": 98.294639
+   },
+   "district_id": "phuket_north",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r16057231",
+   "name": "Пляж Ао Йон",
+   "kind": "beach",
+   "point": {
+    "lat": 7.811937,
+    "lon": 98.393014
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r17281600",
+   "name": "Пляж Раваи",
+   "kind": "beach",
+   "point": {
+    "lat": 7.770188,
+    "lon": 98.320164
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r17292252",
+   "name": "Пляж Нуи",
+   "kind": "beach",
+   "point": {
+    "lat": 7.78728,
+    "lon": 98.290712
+   },
+   "district_id": "rawai",
+   "tags": [
+    "osm"
+   ]
+  }
+ ]
+}

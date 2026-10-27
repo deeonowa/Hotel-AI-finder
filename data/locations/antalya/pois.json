@@ -1,0 +1,7396 @@
+{
+ "meta": {
+  "source": "osm",
+  "license": "ODbL 1.0 © OpenStreetMap contributors; высоты: Open-Meteo (CC BY 4.0); маршруты: OSRM (данные OSM, ODbL)",
+  "generator": "scripts/build_location.py",
+  "seed": "osm-v1",
+  "built_at": "2026-10-27T11:16:06",
+  "count": 568
+ },
+ "pois": [
+  {
+   "id": "osm-n27597198",
+   "name": "Falez Halk",
+   "kind": "beach",
+   "point": {
+    "lat": 36.846865,
+    "lon": 30.756805
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n27597250",
+   "name": "Водопад реки Дюден",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.850955,
+    "lon": 30.783496
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n367996885",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.857954,
+    "lon": 30.861221
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1081151771",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.841189,
+    "lon": 31.103036
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1374226597",
+   "name": "Смотровая площадка",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 36.882844,
+    "lon": 30.703154
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1469884633",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.865246,
+    "lon": 31.061142
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1473306998",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.866776,
+    "lon": 31.059745
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1474433603",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.863473,
+    "lon": 31.060812
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1475235375",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.860607,
+    "lon": 31.069124
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1696044016",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.854627,
+    "lon": 30.883505
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n1863458014",
+   "name": "PUVI Village",
+   "kind": "playground",
+   "point": {
+    "lat": 36.853524,
+    "lon": 31.042884
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2301423759",
+   "name": "Yılmaz Türkeri Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.674808,
+    "lon": 30.552896
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2313908542",
+   "name": "Gogi Fun Jungle",
+   "kind": "playground",
+   "point": {
+    "lat": 36.841783,
+    "lon": 31.109844
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2336816584",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.856701,
+    "lon": 31.07657
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2405409282",
+   "name": "Folklorik Yörük Parkı Açık Hava Müzesi",
+   "kind": "museum",
+   "point": {
+    "lat": 36.600438,
+    "lon": 30.575966
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2511508246",
+   "name": "Mungo Club",
+   "kind": "playground",
+   "point": {
+    "lat": 36.853513,
+    "lon": 31.045804
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n2880832121",
+   "name": "Antalya Oyuncak Müzesi",
+   "kind": "museum",
+   "point": {
+    "lat": 36.885515,
+    "lon": 30.701898
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3037262691",
+   "name": "ForFun",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.865284,
+    "lon": 30.728053
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3421328393",
+   "name": "Kadriye Turizm ve Gençlik Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.885757,
+    "lon": 31.00886
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3598233864",
+   "name": "Larissa Inn Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 36.554679,
+    "lon": 30.56773
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3598233885",
+   "name": "Kids Park - Hotel Camyuva Beach",
+   "kind": "playground",
+   "point": {
+    "lat": 36.555008,
+    "lon": 30.567222
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n3834170234",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.914619,
+    "lon": 31.100963
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4262575417",
+   "name": "Champion Holiday Village Child Club",
+   "kind": "playground",
+   "point": {
+    "lat": 36.708535,
+    "lon": 30.571078
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4262581999",
+   "name": "Aquapark",
+   "kind": "water_park",
+   "point": {
+    "lat": 36.708343,
+    "lon": 30.570571
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4307771109",
+   "name": "Дюден парк",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 36.852033,
+    "lon": 30.787127
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4446644395",
+   "name": "Музей Суны и Инана Кырач",
+   "kind": "museum",
+   "point": {
+    "lat": 36.884082,
+    "lon": 30.707878
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4570026489",
+   "name": "Güneş Ev",
+   "kind": "park",
+   "point": {
+    "lat": 36.884083,
+    "lon": 30.661752
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4832571521",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.877524,
+    "lon": 30.71459
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4833594921",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.867329,
+    "lon": 30.725512
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4834009323",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.857191,
+    "lon": 30.794997
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n4955512152",
+   "name": "Blauhimmel beach",
+   "kind": "beach",
+   "point": {
+    "lat": 36.556784,
+    "lon": 30.569776
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5015445668",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.862402,
+    "lon": 30.637133
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5015445699",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.862761,
+    "lon": 30.63718
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5017863902",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.8546,
+    "lon": 31.071213
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5017863907",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.857768,
+    "lon": 31.068177
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5041082321",
+   "name": "Аквапарк Dolu Su",
+   "kind": "water_park",
+   "point": {
+    "lat": 36.564375,
+    "lon": 30.573901
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5301847039",
+   "name": "amphitheater",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.572016,
+    "lon": 30.581804
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5301847444",
+   "name": "аквапарк",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.572428,
+    "lon": 30.581423
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5353051626",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.864067,
+    "lon": 31.040845
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5353051627",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.865363,
+    "lon": 31.035034
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5355628321",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.937208,
+    "lon": 30.750096
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5360071953",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.85867,
+    "lon": 30.763071
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5360072019",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.858418,
+    "lon": 30.756136
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5369319898",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.888629,
+    "lon": 30.725592
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5404047441",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.863637,
+    "lon": 30.727452
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5476358752",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.854501,
+    "lon": 30.753402
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5632415800",
+   "name": "Rich Karaoke Bar",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.60476,
+    "lon": 30.5643
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5670516230",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.865343,
+    "lon": 31.062909
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5920760898",
+   "name": "Cliff beach access STP",
+   "kind": "beach",
+   "point": {
+    "lat": 36.875897,
+    "lon": 30.706935
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n5940793887",
+   "name": "Antalya binicilik ve antilspor kulübü",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.872099,
+    "lon": 30.854329
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6074937891",
+   "name": "Koçtaş",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.910342,
+    "lon": 30.677204
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6074938100",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.892517,
+    "lon": 30.681183
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6082975970",
+   "name": "Aksu Belediyesi Halk Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.853384,
+    "lon": 30.886639
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6251874986",
+   "name": "Подземный водопад",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.885853,
+    "lon": 30.698698
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6258864385",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.876291,
+    "lon": 30.660746
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6387500887",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.877632,
+    "lon": 30.655792
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6388088485",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.879399,
+    "lon": 30.65915
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6388088487",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.880497,
+    "lon": 30.660041
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6516595586",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.852406,
+    "lon": 30.786411
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6516595588",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.851593,
+    "lon": 30.782699
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6525086185",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.592839,
+    "lon": 30.564341
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6540841629",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.853895,
+    "lon": 30.80635
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6549280437",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.884521,
+    "lon": 30.713181
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6549424095",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.858006,
+    "lon": 30.747206
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6745773198",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.852362,
+    "lon": 30.772054
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6760372990",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.860236,
+    "lon": 30.790638
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6760373006",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.86201,
+    "lon": 30.787323
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6789351540",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.850167,
+    "lon": 30.802292
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6797160239",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.861721,
+    "lon": 30.728006
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6800561781",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.851896,
+    "lon": 30.784144
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6805395313",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.855522,
+    "lon": 30.793588
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6805395336",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.854394,
+    "lon": 30.7929
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6825190685",
+   "name": "Antalya Deniz Biyolojisi Müzesi",
+   "kind": "museum",
+   "point": {
+    "lat": 36.885451,
+    "lon": 30.702476
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6829934172",
+   "name": "Joi Kids",
+   "kind": "playground",
+   "point": {
+    "lat": 36.852505,
+    "lon": 30.758199
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6840452991",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.847719,
+    "lon": 30.804641
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6853610981",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.861848,
+    "lon": 30.784874
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6874132079",
+   "name": "Russian Museum",
+   "kind": "museum",
+   "point": {
+    "lat": 36.866291,
+    "lon": 30.78537
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n6901875510",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.86139,
+    "lon": 30.794458
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n7006122854",
+   "name": "Cengiz Aytmatov Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.855538,
+    "lon": 30.791097
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n7043161302",
+   "name": "Sunset Viewpoint",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 36.883535,
+    "lon": 30.701863
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n7256083376",
+   "name": "kemer pansiyon",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.600741,
+    "lon": 30.559136
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n7462285951",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.860206,
+    "lon": 30.830535
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n7747197408",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.853045,
+    "lon": 30.782922
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n7773828185",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.924639,
+    "lon": 30.686733
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n7793958843",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.647663,
+    "lon": 30.553939
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n7878602844",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.858265,
+    "lon": 30.777949
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n8073409395",
+   "name": "Yavuz Özcan Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.88537,
+    "lon": 30.69708
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n8078752550",
+   "name": "Mazı Dağı Seyir Terası Cafe",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 36.93222,
+    "lon": 30.684444
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n8253911113",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.904276,
+    "lon": 30.691911
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n8318461557",
+   "name": "Çocuk Parki",
+   "kind": "playground",
+   "point": {
+    "lat": 36.575319,
+    "lon": 30.530931
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n8358477417",
+   "name": "Каньон Капуз",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 36.936199,
+    "lon": 30.574085
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n8591246269",
+   "name": "Demircikara Waterfall",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.873064,
+    "lon": 30.715531
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n8622361125",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.878653,
+    "lon": 30.705938
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n8778877715",
+   "name": "Aquapark",
+   "kind": "water_park",
+   "point": {
+    "lat": 36.855248,
+    "lon": 30.895287
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n8778882188",
+   "name": "Kids game",
+   "kind": "playground",
+   "point": {
+    "lat": 36.854407,
+    "lon": 30.896014
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n9243728918",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.862801,
+    "lon": 30.632504
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n9243728919",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.865883,
+    "lon": 30.637965
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n9516227844",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.859323,
+    "lon": 30.883372
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n9630928929",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.880316,
+    "lon": 30.704671
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n9630928931",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.898286,
+    "lon": 30.697538
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n9904735511",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.860667,
+    "lon": 30.741547
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n9978802317",
+   "name": "Antalya Mevlevihane Müzesi",
+   "kind": "museum",
+   "point": {
+    "lat": 36.886937,
+    "lon": 30.704299
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10048723551",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.856805,
+    "lon": 30.73582
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10048730404",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.852137,
+    "lon": 30.750617
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10057737417",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.601424,
+    "lon": 30.565276
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10057737517",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.603593,
+    "lon": 30.564853
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10058274417",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.598079,
+    "lon": 30.554903
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10067935117",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.601564,
+    "lon": 30.566349
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10139124534",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.682151,
+    "lon": 30.527779
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10219528179",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.884701,
+    "lon": 30.70354
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10223585148",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.856868,
+    "lon": 30.630966
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10223585179",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.85457,
+    "lon": 30.628062
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10226268183",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.926834,
+    "lon": 30.738182
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10228935328",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.925237,
+    "lon": 30.737127
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10230647918",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.868585,
+    "lon": 30.62594
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10230647928",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.868762,
+    "lon": 30.625943
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10232768983",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.877969,
+    "lon": 30.625598
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10232970352",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.879605,
+    "lon": 30.629167
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10232970377",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.87854,
+    "lon": 30.628893
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10238263326",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.928394,
+    "lon": 30.737922
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10238263327",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.929635,
+    "lon": 30.741613
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10240915091",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.928314,
+    "lon": 30.730609
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10289113847",
+   "name": "Beldibi Rock shelter",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.744596,
+    "lon": 30.56908
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n10673298565",
+   "name": "Aksu Delfinarium",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.856702,
+    "lon": 30.865753
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11018128221",
+   "name": "Ağvalı Mehmet Taşkın Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.570069,
+    "lon": 30.557037
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11099599282",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.888196,
+    "lon": 30.626606
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11159202105",
+   "name": "Kargıcak 2",
+   "kind": "water_park",
+   "point": {
+    "lat": 36.76007,
+    "lon": 30.570706
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11165068164",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.600169,
+    "lon": 30.56837
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11165111943",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.605937,
+    "lon": 30.563779
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11185314772",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.859473,
+    "lon": 30.779285
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11185314773",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.85719,
+    "lon": 30.781389
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11196460305",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.859224,
+    "lon": 30.632998
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11228671989",
+   "name": "Paid Istanbul Hotel's Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 36.557243,
+    "lon": 30.570142
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11228671990",
+   "name": "Paid Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 36.55717,
+    "lon": 30.570078
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11228671992",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.669729,
+    "lon": 30.548213
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11251508618",
+   "name": "Çocul oyun alanı",
+   "kind": "playground",
+   "point": {
+    "lat": 36.892345,
+    "lon": 30.630405
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11261905187",
+   "name": "Boğaçayı manzara terası",
+   "kind": "beach",
+   "point": {
+    "lat": 36.852089,
+    "lon": 30.624875
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11303794958",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.881501,
+    "lon": 30.64978
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11343217832",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.793726,
+    "lon": 30.574154
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11343857691",
+   "name": "Вид на Тахталы",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 36.592146,
+    "lon": 30.554614
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11343857692",
+   "name": "Вид на море",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 36.59006,
+    "lon": 30.55464
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11349366005",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.861088,
+    "lon": 30.72887
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11420728986",
+   "name": "Вид на Чалыш",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 36.586505,
+    "lon": 30.558823
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11505337779",
+   "name": "GREEN HOMES GAYRİMENKUL",
+   "kind": "park",
+   "point": {
+    "lat": 36.874927,
+    "lon": 30.640952
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11508623970",
+   "name": "Lahit",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.807931,
+    "lon": 30.54622
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11508624070",
+   "name": "Саркофаг",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.812668,
+    "lon": 30.573808
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11508624071",
+   "name": "Саркофаг",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.812632,
+    "lon": 30.572931
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11556988594",
+   "name": "Вид на море",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 36.588335,
+    "lon": 30.554508
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11697518983",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.568633,
+    "lon": 30.561231
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n11704147980",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.557673,
+    "lon": 30.569443
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12197322009",
+   "name": "Kemer Belediye Kültür Evi",
+   "kind": "museum",
+   "point": {
+    "lat": 36.599648,
+    "lon": 30.562088
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12254930745",
+   "name": "Selfie Park",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.848764,
+    "lon": 30.760963
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12306912233",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.568691,
+    "lon": 30.55741
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12309246577",
+   "name": "Giant Tree In The Middle Of The Road",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.848422,
+    "lon": 30.822243
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12388199172",
+   "name": "Upsidedown house",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.877071,
+    "lon": 30.655977
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12520590340",
+   "name": "Birtds start singing very early and noisy",
+   "kind": "zoo",
+   "point": {
+    "lat": 36.682107,
+    "lon": 30.533736
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12542744420",
+   "name": "Lara",
+   "kind": "beach",
+   "point": {
+    "lat": 36.849105,
+    "lon": 30.832076
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12607610965",
+   "name": "Перевёрнутый дом",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.605479,
+    "lon": 30.563291
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12802755306",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.862943,
+    "lon": 30.8411
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12842343602",
+   "name": "Поляна пирамидок",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.674313,
+    "lon": 30.514109
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n12909053727",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.879354,
+    "lon": 30.706271
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13246205780",
+   "name": "Dog Park",
+   "kind": "park",
+   "point": {
+    "lat": 36.880236,
+    "lon": 30.704733
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13328587763",
+   "name": "Водопад реки Дюден",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.850888,
+    "lon": 30.78314
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13668748521",
+   "name": "Adnan Menderes Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.561245,
+    "lon": 30.559663
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13947569133",
+   "name": "Cat House",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.65707,
+    "lon": 30.555583
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13952281401",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.858936,
+    "lon": 30.871932
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13955923548",
+   "name": "Amara Comfort Resort",
+   "kind": "beach",
+   "point": {
+    "lat": 36.657362,
+    "lon": 30.558329
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13955923549",
+   "name": "Eldar resort beach",
+   "kind": "beach",
+   "point": {
+    "lat": 36.65699,
+    "lon": 30.558381
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n13971127602",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.900106,
+    "lon": 30.676545
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n14019740062",
+   "name": "Sarısu Kadınlar Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.82188,
+    "lon": 30.594976
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n14019748630",
+   "name": "Kemer Belediyesi Göynük Halk Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.66465,
+    "lon": 30.563128
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n14019753674",
+   "name": "Kargıcak Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.753099,
+    "lon": 30.568091
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n14019763883",
+   "name": "Kemer Halk Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.625272,
+    "lon": 30.556834
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-n14019775907",
+   "name": "Göynük Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.678446,
+    "lon": 30.570878
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w24213964",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.847695,
+    "lon": 31.062935
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w24214236",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.857994,
+    "lon": 31.001097
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w24214324",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.858118,
+    "lon": 30.993749
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w26938317",
+   "name": "Karaalioğlu Parkı Millet Bahçesi",
+   "kind": "park",
+   "point": {
+    "lat": 36.878533,
+    "lon": 30.708063
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w28230901",
+   "name": "Kundu Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.85296,
+    "lon": 30.876296
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w28318117",
+   "name": "Kundu Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.852698,
+    "lon": 30.873135
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w32915145",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.858057,
+    "lon": 30.984017
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w32915522",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.857157,
+    "lon": 31.009606
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w43317765",
+   "name": "Mungo Club",
+   "kind": "playground",
+   "point": {
+    "lat": 36.853274,
+    "lon": 31.0458
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w43317766",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.853288,
+    "lon": 31.045601
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w53800131",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.658031,
+    "lon": 30.56018
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w53800213",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.670962,
+    "lon": 30.567583
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w54277900",
+   "name": "Beach park",
+   "kind": "park",
+   "point": {
+    "lat": 36.665032,
+    "lon": 30.56208
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w73346056",
+   "name": "Pool",
+   "kind": "water_park",
+   "point": {
+    "lat": 36.85269,
+    "lon": 31.050929
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w73346094",
+   "name": "archery club",
+   "kind": "park",
+   "point": {
+    "lat": 36.853811,
+    "lon": 31.052678
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w80215375",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.840636,
+    "lon": 31.094823
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w110321827",
+   "name": "Karaalioğlu Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.87966,
+    "lon": 30.706083
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w115539431",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.694129,
+    "lon": 30.57191
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w115551112",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.685604,
+    "lon": 30.570609
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w115858658",
+   "name": "Aqualand Dolphinland",
+   "kind": "water_park",
+   "point": {
+    "lat": 36.879712,
+    "lon": 30.663188
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w118749193",
+   "name": "Büyük Çaltıcak",
+   "kind": "beach",
+   "point": {
+    "lat": 36.785114,
+    "lon": 30.573232
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w120444426",
+   "name": "Lara Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.85192,
+    "lon": 30.86113
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w120444428",
+   "name": "Kundu Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.852449,
+    "lon": 30.868726
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w120444429",
+   "name": "Lara Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.849319,
+    "lon": 30.831464
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w120444430",
+   "name": "Kundu Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.852517,
+    "lon": 30.870987
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w123150755",
+   "name": "Парк",
+   "kind": "park",
+   "point": {
+    "lat": 36.8829,
+    "lon": 30.703482
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w123389290",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.730346,
+    "lon": 30.560761
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w125085664",
+   "name": "9 Mart 1926 Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.914653,
+    "lon": 31.100463
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w134372348",
+   "name": "Voyage Belek Golf & Spa",
+   "kind": "park",
+   "point": {
+    "lat": 36.847658,
+    "lon": 31.072713
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w153261341",
+   "name": "Kids World",
+   "kind": "playground",
+   "point": {
+    "lat": 36.854018,
+    "lon": 30.855939
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w157383634",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.854639,
+    "lon": 30.883505
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w158998669",
+   "name": "Akide Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.885575,
+    "lon": 30.693819
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w158998670",
+   "name": "Recep Bilgin Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.885839,
+    "lon": 30.700504
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w159082483",
+   "name": "Atatürk Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.884309,
+    "lon": 30.686192
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w159082501",
+   "name": "Antalya Eczacı Odası Tıbbi Bitkiler Bahçesi",
+   "kind": "park",
+   "point": {
+    "lat": 36.884987,
+    "lon": 30.696658
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w163358489",
+   "name": "Angel Beach (Заброшенный)",
+   "kind": "beach",
+   "point": {
+    "lat": 36.850985,
+    "lon": 30.848785
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w163358508",
+   "name": "Omi Plaj",
+   "kind": "beach",
+   "point": {
+    "lat": 36.84734,
+    "lon": 30.803995
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w169072317",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.842366,
+    "lon": 31.147701
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w174541590",
+   "name": "Luna Park",
+   "kind": "park",
+   "point": {
+    "lat": 36.85306,
+    "lon": 30.871569
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w174541617",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.852564,
+    "lon": 30.870798
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w176919554",
+   "name": "Folklorik Yörük Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.600413,
+    "lon": 30.576276
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w176923510",
+   "name": "Olbia",
+   "kind": "park",
+   "point": {
+    "lat": 36.600592,
+    "lon": 30.568654
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w177042328",
+   "name": "Schwabach",
+   "kind": "park",
+   "point": {
+    "lat": 36.597,
+    "lon": 30.570366
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w177230705",
+   "name": "Osman Ünlü",
+   "kind": "park",
+   "point": {
+    "lat": 36.603365,
+    "lon": 30.564276
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w177230706",
+   "name": "Osman Ünlü",
+   "kind": "park",
+   "point": {
+    "lat": 36.603667,
+    "lon": 30.565046
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w177230800",
+   "name": "Şehit Çavuş Selçuk Gürdal",
+   "kind": "park",
+   "point": {
+    "lat": 36.601532,
+    "lon": 30.565759
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w196124895",
+   "name": "Falez Parkı 1",
+   "kind": "park",
+   "point": {
+    "lat": 36.851546,
+    "lon": 30.774587
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w204830772",
+   "name": "Daima",
+   "kind": "beach",
+   "point": {
+    "lat": 36.563966,
+    "lon": 30.57639
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w220938561",
+   "name": "Beşşehitler Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.894214,
+    "lon": 30.694134
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w221318109",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.837649,
+    "lon": 31.111938
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w221373466",
+   "name": "Парк Топхане",
+   "kind": "park",
+   "point": {
+    "lat": 36.886213,
+    "lon": 30.701964
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w240478852",
+   "name": "Carreta Kids",
+   "kind": "playground",
+   "point": {
+    "lat": 36.854861,
+    "lon": 31.039493
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w244008044",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.856177,
+    "lon": 31.023317
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w244849154",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.601293,
+    "lon": 30.562541
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w244849574",
+   "name": "El sanatları",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.602317,
+    "lon": 30.560131
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w245832679",
+   "name": "Calista children's playground & pool",
+   "kind": "park",
+   "point": {
+    "lat": 36.856912,
+    "lon": 31.030242
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w247444617",
+   "name": "Falez Parkı 3",
+   "kind": "park",
+   "point": {
+    "lat": 36.849466,
+    "lon": 30.752032
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w247445998",
+   "name": "Fener Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.846393,
+    "lon": 30.758624
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w252537772",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.857507,
+    "lon": 30.970708
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w258866102",
+   "name": "Antalya Hayvanat Bahçesi",
+   "kind": "zoo",
+   "point": {
+    "lat": 36.948348,
+    "lon": 30.634769
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w288879120",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.854452,
+    "lon": 31.033466
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w288879155",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.854783,
+    "lon": 31.030799
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w288905667",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.855204,
+    "lon": 31.026985
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w288905668",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.856048,
+    "lon": 31.018213
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w288905669",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.855638,
+    "lon": 31.022937
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w288906363",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.860661,
+    "lon": 31.030609
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w297544806",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.565142,
+    "lon": 30.57501
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w297589994",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.858829,
+    "lon": 30.981033
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w299684032",
+   "name": "Gezi Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.863895,
+    "lon": 30.727734
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w299684037",
+   "name": "Muratpaşa Belediyesi Özgürlük Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.865,
+    "lon": 30.728617
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w299684056",
+   "name": "Yalım Park",
+   "kind": "park",
+   "point": {
+    "lat": 36.870042,
+    "lon": 30.718629
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w301752301",
+   "name": "Garden Resort Bergamot",
+   "kind": "park",
+   "point": {
+    "lat": 36.621871,
+    "lon": 30.555412
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w303035906",
+   "name": "Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.895964,
+    "lon": 30.672651
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w303574713",
+   "name": "Park",
+   "kind": "park",
+   "point": {
+    "lat": 36.926015,
+    "lon": 30.745481
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w303574723",
+   "name": "Park",
+   "kind": "park",
+   "point": {
+    "lat": 36.937301,
+    "lon": 30.727251
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w303574742",
+   "name": "23 Nisan Ulusal Egemenlik Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.891706,
+    "lon": 30.630726
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w307703703",
+   "name": "Dr. Burhanettin Onat Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.886446,
+    "lon": 30.718768
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w311823763",
+   "name": "Plaj",
+   "kind": "beach",
+   "point": {
+    "lat": 36.846654,
+    "lon": 30.800642
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w321800488",
+   "name": "Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.906915,
+    "lon": 30.643527
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w335231967",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.838036,
+    "lon": 31.107549
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w350785729",
+   "name": "Demokrasi Şehitleri Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.874671,
+    "lon": 30.717556
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w351250707",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.550129,
+    "lon": 30.563911
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w351622895",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.557201,
+    "lon": 30.570101
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w351622896",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.572057,
+    "lon": 30.582529
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w358272574",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.70339,
+    "lon": 30.574119
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w358272575",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.701417,
+    "lon": 30.574045
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w358272576",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.69912,
+    "lon": 30.573034
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w368067322",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.707459,
+    "lon": 30.572532
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w368067323",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.708156,
+    "lon": 30.572127
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w368071362",
+   "name": "Детский мини-клуб",
+   "kind": "playground",
+   "point": {
+    "lat": 36.707715,
+    "lon": 30.56965
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w368147004",
+   "name": "Park Alanı",
+   "kind": "park",
+   "point": {
+    "lat": 36.909408,
+    "lon": 30.69457
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w368281005",
+   "name": "Meltem Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.892832,
+    "lon": 30.674588
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w368449786",
+   "name": "Mehmet Akif Ersoy Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.871445,
+    "lon": 30.624765
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w368650213",
+   "name": "Лунапарк",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.885764,
+    "lon": 30.65857
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w369164335",
+   "name": "Mehmet Emin Minta Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.589216,
+    "lon": 30.528932
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w370039495",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.717521,
+    "lon": 30.565247
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w370597351",
+   "name": "Kemer Belediyesi Ahmet Toygar Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.591225,
+    "lon": 30.538135
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w376051593",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.807341,
+    "lon": 30.58409
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w380074909",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.839709,
+    "lon": 31.100164
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w380074910",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.838873,
+    "lon": 31.103655
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w380074911",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.837227,
+    "lon": 31.119465
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w380301961",
+   "name": "Мермерли",
+   "kind": "beach",
+   "point": {
+    "lat": 36.883215,
+    "lon": 30.702805
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w381272459",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.85477,
+    "lon": 30.737803
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w406928501",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.850245,
+    "lon": 31.070355
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w426559561",
+   "name": "Kıbrıs Türk Şehitleri Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.910544,
+    "lon": 30.698731
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w427007584",
+   "name": "Champion Holiday Village",
+   "kind": "beach",
+   "point": {
+    "lat": 36.708934,
+    "lon": 30.571784
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w427795190",
+   "name": "COP31 Etkinlik Alanı",
+   "kind": "park",
+   "point": {
+    "lat": 36.947856,
+    "lon": 30.886042
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w428388149",
+   "name": "3 Fidan Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.857499,
+    "lon": 30.750892
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w428388150",
+   "name": "Falez Caddesi Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.856505,
+    "lon": 30.755407
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w428388156",
+   "name": "Engelliler Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.858323,
+    "lon": 30.763098
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w428388179",
+   "name": "Pir Sultan Abdal Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.858123,
+    "lon": 30.75611
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w428388192",
+   "name": "Kemal Sunal Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.892101,
+    "lon": 30.633271
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w428388193",
+   "name": "Şehit Komiser Muammer Turgut Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.893621,
+    "lon": 30.636851
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w428392893",
+   "name": "Çoşkunlar Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.860419,
+    "lon": 30.60658
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w428506699",
+   "name": "-16 Adults Only Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 36.833093,
+    "lon": 31.143546
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w431519180",
+   "name": "Kesik Minare",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.882711,
+    "lon": 30.705728
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w431519181",
+   "name": "Korkut Camii",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.882567,
+    "lon": 30.706063
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w431882177",
+   "name": "Mısır Çarışısı",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.914278,
+    "lon": 30.716382
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w432126270",
+   "name": "Antalya Araba Muzesi Haritası",
+   "kind": "museum",
+   "point": {
+    "lat": 36.913471,
+    "lon": 30.674639
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w432156876",
+   "name": "Дом-музей Мустафы Кемаля Ататюрка",
+   "kind": "museum",
+   "point": {
+    "lat": 36.880694,
+    "lon": 30.70813
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w435948613",
+   "name": "Археологический музей Антальи",
+   "kind": "museum",
+   "point": {
+    "lat": 36.885769,
+    "lon": 30.679515
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w438172598",
+   "name": "Özgür Köpek Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.856954,
+    "lon": 30.763118
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w438172610",
+   "name": "Cumhuriyet Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.852374,
+    "lon": 30.761722
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w441769566",
+   "name": "Trafik Parki",
+   "kind": "park",
+   "point": {
+    "lat": 36.851632,
+    "lon": 30.750744
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w442412202",
+   "name": "Cengiz Aytmatov Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.855426,
+    "lon": 30.790853
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w442414114",
+   "name": "Belediye Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.853519,
+    "lon": 30.763884
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w442781851",
+   "name": "Gülen Alkan Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.858829,
+    "lon": 30.746129
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w442906574",
+   "name": "Nazlı Sitesi Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.85317,
+    "lon": 30.74879
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w444501346",
+   "name": "Парк дружбы народов",
+   "kind": "park",
+   "point": {
+    "lat": 36.850913,
+    "lon": 30.616546
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w444501422",
+   "name": "Ülkü Erülkümen Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.849348,
+    "lon": 30.61768
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w444506566",
+   "name": "Gazeteci N. Sevgi Taner Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.851702,
+    "lon": 30.614232
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w462105510",
+   "name": "Osman Gazi Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.941594,
+    "lon": 30.715256
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w465171712",
+   "name": "Başpehlivan Cengiz Elbeye Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.873138,
+    "lon": 30.631001
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w467570110",
+   "name": "Taburlar Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.885637,
+    "lon": 30.649235
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w476076001",
+   "name": "Şehit Öğretmen Sadettin Küçük Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.909033,
+    "lon": 30.68497
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w488210797",
+   "name": "Kent Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.901299,
+    "lon": 30.639315
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w501466905",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.681836,
+    "lon": 30.570437
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w501562993",
+   "name": "Park Aqua",
+   "kind": "water_park",
+   "point": {
+    "lat": 36.855921,
+    "lon": 30.886971
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w510095547",
+   "name": "Nayla Atay Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.922349,
+    "lon": 30.715567
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w511497925",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.675694,
+    "lon": 30.5699
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w514524290",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.862558,
+    "lon": 30.636416
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w516619332",
+   "name": "Динопарк",
+   "kind": "park",
+   "point": {
+    "lat": 36.674394,
+    "lon": 30.55818
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w527525038",
+   "name": "Kundu Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.85284,
+    "lon": 30.874946
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w528059819",
+   "name": "DoluSu Park",
+   "kind": "water_park",
+   "point": {
+    "lat": 36.564458,
+    "lon": 30.574423
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w528059820",
+   "name": "DoluSu Park - Dolphinarium",
+   "kind": "water_park",
+   "point": {
+    "lat": 36.564044,
+    "lon": 30.574984
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w528059821",
+   "name": "DoluSu Park",
+   "kind": "water_park",
+   "point": {
+    "lat": 36.564854,
+    "lon": 30.57395
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w529999202",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.8423,
+    "lon": 31.082685
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w552293751",
+   "name": "Naim Süleymanoğlu Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.858529,
+    "lon": 30.613211
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w552293753",
+   "name": "Ali rıza altın parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.856404,
+    "lon": 30.610701
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w552293754",
+   "name": "Hurma parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.856629,
+    "lon": 30.608494
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w552293757",
+   "name": "Kınacı Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.850482,
+    "lon": 30.608636
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w552293758",
+   "name": "Yaşar Sobutay Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.856805,
+    "lon": 30.613344
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w552293759",
+   "name": "Mursi parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.852033,
+    "lon": 30.618655
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w553178316",
+   "name": "Ömer Halisdemir Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.850254,
+    "lon": 30.604792
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w553517888",
+   "name": "Cengiz toytunç parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.852912,
+    "lon": 30.609713
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w554552021",
+   "name": "Gürsu Park",
+   "kind": "park",
+   "point": {
+    "lat": 36.863745,
+    "lon": 30.627235
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w555906843",
+   "name": "Hayat Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.875178,
+    "lon": 30.632379
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w555906874",
+   "name": "Mevlana Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.881594,
+    "lon": 30.648569
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w557510772",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.854809,
+    "lon": 30.933355
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w557546614",
+   "name": "Kıldıranlar Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.861265,
+    "lon": 30.604315
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w560506947",
+   "name": "Murat Otuzaltı Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.857049,
+    "lon": 30.602357
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w560509666",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.856378,
+    "lon": 30.60878
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w560509668",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.856364,
+    "lon": 30.610681
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w560766082",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.856757,
+    "lon": 30.613324
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w560766091",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.858117,
+    "lon": 30.605233
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w560766107",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.860683,
+    "lon": 30.606804
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w560766114",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.860973,
+    "lon": 30.60415
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w564535730",
+   "name": "Turkcell Tower",
+   "kind": "viewpoint",
+   "point": {
+    "lat": 36.948642,
+    "lon": 30.888803
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w568341521",
+   "name": "Teneffüs Park",
+   "kind": "playground",
+   "point": {
+    "lat": 36.883861,
+    "lon": 30.720871
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w568341523",
+   "name": "Şükrü Solmaz Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.884577,
+    "lon": 30.713299
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w568691066",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.858763,
+    "lon": 30.891189
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w577806160",
+   "name": "Aquapark",
+   "kind": "water_park",
+   "point": {
+    "lat": 36.60665,
+    "lon": 30.55997
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w577806165",
+   "name": "Kuğulu Park",
+   "kind": "park",
+   "point": {
+    "lat": 36.606319,
+    "lon": 30.563513
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w583087550",
+   "name": "The Land of Legends Theme Park",
+   "kind": "water_park",
+   "point": {
+    "lat": 36.876898,
+    "lon": 31.002692
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w589846352",
+   "name": "Game Garden Moonlight",
+   "kind": "playground",
+   "point": {
+    "lat": 36.597262,
+    "lon": 30.574669
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w599126153",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.85833,
+    "lon": 30.61318
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w599548938",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.851732,
+    "lon": 30.614214
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w600047390",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.882475,
+    "lon": 30.672732
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w623815589",
+   "name": "Aylan Bebek Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.864787,
+    "lon": 30.799105
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w624085853",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.552767,
+    "lon": 30.565917
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w629640376",
+   "name": "Nasreddin Hoca Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.874438,
+    "lon": 30.72874
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w630744064",
+   "name": "Engelliler Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.928698,
+    "lon": 30.708731
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w630751178",
+   "name": "Şehit J. Uzman Onbaşı Durali Dönmez Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.89991,
+    "lon": 30.697669
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w631857932",
+   "name": "Hacı Osman Koç Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.935125,
+    "lon": 30.720662
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w632285929",
+   "name": "Çakmaklar Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.877173,
+    "lon": 30.623117
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w633983541",
+   "name": "Ayşe Kartal Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.896385,
+    "lon": 30.632602
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w633983544",
+   "name": "Şehit Akil Demiral Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.893912,
+    "lon": 30.630783
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w633983565",
+   "name": "Ahmet Kartal Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.89864,
+    "lon": 30.632591
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w634121894",
+   "name": "Konyaaltı Expo 2016 Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.885715,
+    "lon": 30.640933
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w634398431",
+   "name": "Beldibi gizli koyu",
+   "kind": "beach",
+   "point": {
+    "lat": 36.745789,
+    "lon": 30.569896
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w634614824",
+   "name": "Uluç Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.873522,
+    "lon": 30.623297
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w635163507",
+   "name": "Askeri sivil Memur Şehit Filiz Koçak Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.874693,
+    "lon": 30.725384
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w635163519",
+   "name": "Gezi Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.878483,
+    "lon": 30.729278
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w635163531",
+   "name": "Yaşar Kemal Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.899066,
+    "lon": 30.720576
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w637279898",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.734853,
+    "lon": 30.564169
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w639303881",
+   "name": "Ali Çoban Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.854917,
+    "lon": 30.597458
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w639309064",
+   "name": "Песчаный город",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.848378,
+    "lon": 30.814233
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w640913817",
+   "name": "Türk Ocakları Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.90154,
+    "lon": 30.659396
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w641618480",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.874645,
+    "lon": 30.725586
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w641618487",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.874105,
+    "lon": 30.729381
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w641618522",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.878547,
+    "lon": 30.728799
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w641681912",
+   "name": "5 Haziran Dünya Günü Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.876707,
+    "lon": 30.728555
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w641681920",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.876659,
+    "lon": 30.728591
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w642915401",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.855154,
+    "lon": 30.75631
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w642915402",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.855991,
+    "lon": 30.757691
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w644903901",
+   "name": "Park",
+   "kind": "park",
+   "point": {
+    "lat": 36.930075,
+    "lon": 30.666496
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w647457098",
+   "name": "Şehit Diplomatlar Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.906386,
+    "lon": 30.684266
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w648247956",
+   "name": "Uğur Mumcu parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.871768,
+    "lon": 30.722506
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w648264559",
+   "name": "Altın Park",
+   "kind": "park",
+   "point": {
+    "lat": 36.869,
+    "lon": 30.724845
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w651590514",
+   "name": "Gazeteci Ahmet Duran Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.917926,
+    "lon": 30.696716
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w651597234",
+   "name": "Şht. Er Mustafa Topuz Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.916007,
+    "lon": 30.698364
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w653109437",
+   "name": "Gazeteci Yazar Hakan Yunusoğlu Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.91021,
+    "lon": 30.655
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w653361301",
+   "name": "Yazır Kent Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.913458,
+    "lon": 30.710433
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w655301147",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.881468,
+    "lon": 30.67042
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w657609767",
+   "name": "EFS Park",
+   "kind": "park",
+   "point": {
+    "lat": 36.876823,
+    "lon": 30.712805
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w657609784",
+   "name": "Sucu Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.877408,
+    "lon": 30.714626
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w658177543",
+   "name": "Pirsultan Abdal Kültür Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.886727,
+    "lon": 30.712039
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w661742215",
+   "name": "Turgut Özal Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.913117,
+    "lon": 30.68319
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w662595661",
+   "name": "Ünsal Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.929688,
+    "lon": 30.630418
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w664088933",
+   "name": "Akdeniz Kent Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.878253,
+    "lon": 30.659137
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w668191145",
+   "name": "Mevlana Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.920344,
+    "lon": 30.68742
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w669135442",
+   "name": "BLMBEACH",
+   "kind": "water_park",
+   "point": {
+    "lat": 36.85496,
+    "lon": 30.744023
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w669986003",
+   "name": "Boğaçayı Batı Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.853842,
+    "lon": 30.622105
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w669986016",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.854463,
+    "lon": 30.62134
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w669986028",
+   "name": "Boğaçayı Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.855603,
+    "lon": 30.624389
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w678998054",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.585191,
+    "lon": 30.585438
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w682158969",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.592607,
+    "lon": 30.533345
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w695817891",
+   "name": "Muhtar Hatice Karakaşlı (Mavili Hatça) Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.600344,
+    "lon": 30.552581
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w696342748",
+   "name": "Lunapark",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.845965,
+    "lon": 31.073569
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w696346393",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.849879,
+    "lon": 30.807093
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w696528635",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.851451,
+    "lon": 30.803433
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w696528797",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.853399,
+    "lon": 30.801103
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w696625798",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.845546,
+    "lon": 31.071921
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w696664415",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.850124,
+    "lon": 30.806648
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w696664435",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.848295,
+    "lon": 30.808931
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w696664443",
+   "name": "Платный пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.847302,
+    "lon": 30.80953
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w696988637",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.575133,
+    "lon": 30.581681
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w704168488",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.723281,
+    "lon": 30.5635
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w712692186",
+   "name": "Örnekköy Park",
+   "kind": "park",
+   "point": {
+    "lat": 36.850195,
+    "lon": 30.802466
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w721201638",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.665871,
+    "lon": 30.562503
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w724390896",
+   "name": "Детский аквапарк",
+   "kind": "water_park",
+   "point": {
+    "lat": 36.665597,
+    "lon": 30.560275
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w724390901",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.665568,
+    "lon": 30.560387
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w724760484",
+   "name": "İnciraltı Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.859828,
+    "lon": 30.729001
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w724760487",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.861619,
+    "lon": 30.727438
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w731988399",
+   "name": "Get Enjoy Hotel beach",
+   "kind": "beach",
+   "point": {
+    "lat": 36.724223,
+    "lon": 30.563455
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w737216015",
+   "name": "Пляж Пират",
+   "kind": "water_park",
+   "point": {
+    "lat": 36.853533,
+    "lon": 30.745713
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w738265389",
+   "name": "Zip Zip Park",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.919061,
+    "lon": 30.665414
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w760953812",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.85371,
+    "lon": 30.882548
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w834889460",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.64865,
+    "lon": 30.554695
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w844866881",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.85445,
+    "lon": 30.918851
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w878608599",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.853004,
+    "lon": 30.766894
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w894920412",
+   "name": "Park",
+   "kind": "playground",
+   "point": {
+    "lat": 36.575421,
+    "lon": 30.530797
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w942451958",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.737544,
+    "lon": 30.564654
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w955406649",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.862122,
+    "lon": 30.639029
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w958397517",
+   "name": "Remel Plaza",
+   "kind": "park",
+   "point": {
+    "lat": 36.89803,
+    "lon": 30.708653
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w979712416",
+   "name": "Roots Farm",
+   "kind": "zoo",
+   "point": {
+    "lat": 36.883771,
+    "lon": 30.77476
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w989911637",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.856852,
+    "lon": 31.070346
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w990980675",
+   "name": "Akdeniz Üniversitesi Botanik Bahçesi",
+   "kind": "park",
+   "point": {
+    "lat": 36.888193,
+    "lon": 30.660213
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w991720058",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.595742,
+    "lon": 30.581615
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w992322923",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.745035,
+    "lon": 30.570088
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1000246483",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.846206,
+    "lon": 31.086178
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1000246486",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.841332,
+    "lon": 31.086286
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1000246567",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.841784,
+    "lon": 31.085351
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1000246568",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.845568,
+    "lon": 31.085824
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1003960155",
+   "name": "Аквапарк Trendy Lara (взрослый)",
+   "kind": "water_park",
+   "point": {
+    "lat": 36.859457,
+    "lon": 30.921961
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1003971950",
+   "name": "Аквапарк Trendy Lara (детский)",
+   "kind": "water_park",
+   "point": {
+    "lat": 36.859708,
+    "lon": 30.921893
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1031549721",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.857705,
+    "lon": 30.887531
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1032691805",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.858057,
+    "lon": 30.879805
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1033131286",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.88458,
+    "lon": 30.688359
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1051793611",
+   "name": "Demirci İsmail Özdemir Parkı",
+   "kind": "playground",
+   "point": {
+    "lat": 36.583111,
+    "lon": 30.523202
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1070686074",
+   "name": "Kent Meydanı",
+   "kind": "park",
+   "point": {
+    "lat": 36.925985,
+    "lon": 30.70491
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1070686075",
+   "name": "Kent Meydanı 2",
+   "kind": "park",
+   "point": {
+    "lat": 36.925918,
+    "lon": 30.709655
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1070686076",
+   "name": "Kent Meydanı 3",
+   "kind": "park",
+   "point": {
+    "lat": 36.925983,
+    "lon": 30.71216
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1080642456",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.856936,
+    "lon": 30.748605
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1080642458",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.864668,
+    "lon": 30.740055
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1089640060",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.849834,
+    "lon": 30.604901
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1089640100",
+   "name": "Taner Cihantimur Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.847234,
+    "lon": 30.606069
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1089640106",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.847189,
+    "lon": 30.606059
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1089674334",
+   "name": "Uzundirekler Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.85426,
+    "lon": 30.607125
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1089674335",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.854237,
+    "lon": 30.607113
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1090876254",
+   "name": "Millet Bahçesi",
+   "kind": "park",
+   "point": {
+    "lat": 36.888941,
+    "lon": 30.675774
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1097448141",
+   "name": "Engelsiz park",
+   "kind": "park",
+   "point": {
+    "lat": 36.856782,
+    "lon": 30.735666
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1098038532",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.893843,
+    "lon": 30.630621
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1098038536",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.895379,
+    "lon": 30.629324
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1100466459",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.934905,
+    "lon": 30.636609
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1100466460",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.934162,
+    "lon": 30.636124
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1112321299",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.853775,
+    "lon": 30.595094
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1113571737",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.854799,
+    "lon": 30.597421
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1115734853",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.85844,
+    "lon": 30.598063
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1117204322",
+   "name": "Докума парк",
+   "kind": "park",
+   "point": {
+    "lat": 36.911923,
+    "lon": 30.674861
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1117210531",
+   "name": "Турция с первого взгляда, музей под открытым небом",
+   "kind": "museum",
+   "point": {
+    "lat": 36.912009,
+    "lon": 30.676158
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1117585687",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.853981,
+    "lon": 30.601105
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1117807248",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.855078,
+    "lon": 30.625069
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1117809192",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.928622,
+    "lon": 30.741209
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1117859398",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.927877,
+    "lon": 30.739889
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1118379135",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.855783,
+    "lon": 30.600521
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1118707939",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.857066,
+    "lon": 30.60249
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1119166012",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.850572,
+    "lon": 30.621548
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1119687465",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.926967,
+    "lon": 30.731578
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1123368343",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.851006,
+    "lon": 30.597388
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1128444111",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.871995,
+    "lon": 30.645812
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1132964210",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.868636,
+    "lon": 30.71875
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1150555829",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.86777,
+    "lon": 30.632114
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1155316038",
+   "name": "Trendy Lara Beach",
+   "kind": "beach",
+   "point": {
+    "lat": 36.85396,
+    "lon": 30.923538
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1160650801",
+   "name": "Kemer Belediyesi Serin Parkı",
+   "kind": "playground",
+   "point": {
+    "lat": 36.598092,
+    "lon": 30.561144
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1162545967",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.84454,
+    "lon": 30.595419
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1178179695",
+   "name": "Advanture Land",
+   "kind": "attraction",
+   "point": {
+    "lat": 36.877486,
+    "lon": 31.001088
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1178199610",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.874938,
+    "lon": 31.000513
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1181476895",
+   "name": "Atatürk Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.858363,
+    "lon": 31.067142
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1184243640",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.885309,
+    "lon": 30.622873
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1184869291",
+   "name": "Emek Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.861205,
+    "lon": 30.626419
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1215635037",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.886187,
+    "lon": 30.698857
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1272549319",
+   "name": "Çocuk ve spor parkı",
+   "kind": "playground",
+   "point": {
+    "lat": 36.925965,
+    "lon": 30.702188
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1273939807",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.851507,
+    "lon": 30.782802
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1283565673",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.925959,
+    "lon": 30.68318
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1308615902",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.935164,
+    "lon": 30.639256
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1308615903",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.935142,
+    "lon": 30.63964
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1308615918",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.93423,
+    "lon": 30.638807
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1308615919",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.934273,
+    "lon": 30.639233
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1308615932",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.936023,
+    "lon": 30.641405
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1308615937",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.935168,
+    "lon": 30.641957
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1308615938",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.935052,
+    "lon": 30.641573
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1308615945",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.93591,
+    "lon": 30.641002
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1308619337",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.93647,
+    "lon": 30.644543
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1308619338",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.936692,
+    "lon": 30.64505
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1308619339",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.936765,
+    "lon": 30.645232
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1308619340",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.937207,
+    "lon": 30.643981
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1308619341",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.937487,
+    "lon": 30.644582
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1308620878",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.936899,
+    "lon": 30.643147
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1312624199",
+   "name": "Kidspark",
+   "kind": "playground",
+   "point": {
+    "lat": 36.854396,
+    "lon": 30.894965
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1321457374",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.854148,
+    "lon": 30.891912
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1321468026",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.859826,
+    "lon": 30.894849
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1321468028",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.860485,
+    "lon": 30.8953
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1327959458",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.872209,
+    "lon": 30.730917
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1333919160",
+   "name": "Sakarya Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.918935,
+    "lon": 30.710218
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1333919183",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.91905,
+    "lon": 30.709391
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1333919188",
+   "name": "100. Yıl Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.918323,
+    "lon": 30.713475
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1334154822",
+   "name": "Şehitler Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.920251,
+    "lon": 30.70754
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1334154858",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.92087,
+    "lon": 30.707505
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1334322460",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.920004,
+    "lon": 30.702622
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1334487769",
+   "name": "Şehit Komando Onbaşı Ahmet Aktaş Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.921914,
+    "lon": 30.70428
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1334487777",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.921771,
+    "lon": 30.704162
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1346595662",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.90741,
+    "lon": 30.671711
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1351757807",
+   "name": "Rixy Kids Clup",
+   "kind": "playground",
+   "point": {
+    "lat": 36.846732,
+    "lon": 31.080748
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1351757808",
+   "name": "Rixy Kids Clup",
+   "kind": "playground",
+   "point": {
+    "lat": 36.847015,
+    "lon": 31.080744
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1382300307",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.888441,
+    "lon": 30.676502
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1382300308",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.888308,
+    "lon": 30.676557
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1392134595",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.85648,
+    "lon": 30.953601
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1395154251",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.880211,
+    "lon": 30.705767
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1420245982",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.863651,
+    "lon": 30.62717
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1420245985",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.863991,
+    "lon": 30.628832
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1425280917",
+   "name": "Şehit Uzman Çavuş Ali Daniyan Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.924653,
+    "lon": 30.68656
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1450963833",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.930156,
+    "lon": 30.666657
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1452372826",
+   "name": "Antalya Nekropol Müzesi",
+   "kind": "museum",
+   "point": {
+    "lat": 36.887184,
+    "lon": 30.713305
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1452438262",
+   "name": "Анталийский этнографический музей",
+   "kind": "museum",
+   "point": {
+    "lat": 36.883311,
+    "lon": 30.703905
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1452804587",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.85444,
+    "lon": 30.902068
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1457195961",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.886062,
+    "lon": 30.672491
+   },
+   "district_id": "kaleici",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1519291509",
+   "name": "Pulpo Kids Club",
+   "kind": "playground",
+   "point": {
+    "lat": 36.574779,
+    "lon": 30.583557
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1525704860",
+   "name": "Voyage Kundu",
+   "kind": "park",
+   "point": {
+    "lat": 36.856201,
+    "lon": 30.911205
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1546385422",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.858989,
+    "lon": 30.633792
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1547732231",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.871096,
+    "lon": 30.653139
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-w1547940170",
+   "name": "Детская площадка",
+   "kind": "playground",
+   "point": {
+    "lat": 36.872428,
+    "lon": 30.655257
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r1295903",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.832725,
+    "lon": 31.14773
+   },
+   "district_id": "belek",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r1690602",
+   "name": "Beldibi plajları",
+   "kind": "beach",
+   "point": {
+    "lat": 36.734011,
+    "lon": 30.565369
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r1690603",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.742948,
+    "lon": 30.568846
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r2454424",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.725567,
+    "lon": 30.563879
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r3157957",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.641328,
+    "lon": 30.558913
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r3165310",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.643229,
+    "lon": 30.559759
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r7445778",
+   "name": "Konyaaltı Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.863227,
+    "lon": 30.637863
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r7447994",
+   "name": "Konyaaltı Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.862485,
+    "lon": 30.64636
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r7480657",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.821724,
+    "lon": 30.594822
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r7480660",
+   "name": "Sarısu Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.825716,
+    "lon": 30.59929
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r8398636",
+   "name": "Atatürk Kültür Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.871691,
+    "lon": 30.655102
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r13283253",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.852821,
+    "lon": 30.789032
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r13310786",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.5959,
+    "lon": 30.580003
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r13310788",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.595925,
+    "lon": 30.583962
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r13310791",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.596271,
+    "lon": 30.577063
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r13325054",
+   "name": "Balıkçı Barınağı Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.799386,
+    "lon": 30.576925
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r13325072",
+   "name": "Küçük Çaltıcak",
+   "kind": "beach",
+   "point": {
+    "lat": 36.795261,
+    "lon": 30.57467
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r15551127",
+   "name": "Ersen Ünal Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.86779,
+    "lon": 30.632186
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r15723676",
+   "name": "seyit onbaşı parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.844335,
+    "lon": 30.595316
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r16450909",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.789853,
+    "lon": 30.574146
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r16450910",
+   "name": "Akyarlar Plaji",
+   "kind": "beach",
+   "point": {
+    "lat": 36.780109,
+    "lon": 30.574296
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r16454763",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.615282,
+    "lon": 30.563303
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r16454765",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.635874,
+    "lon": 30.556975
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r16454766",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.631198,
+    "lon": 30.557052
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r16454800",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.582764,
+    "lon": 30.585844
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r16454801",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.581202,
+    "lon": 30.586476
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r16460715",
+   "name": "Atatürk Parkı",
+   "kind": "park",
+   "point": {
+    "lat": 36.733028,
+    "lon": 30.564096
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r16629618",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.753023,
+    "lon": 30.56846
+   },
+   "district_id": null,
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r16747621",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.780874,
+    "lon": 30.574668
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r18157790",
+   "name": "Konyaaltı Sahili",
+   "kind": "beach",
+   "point": {
+    "lat": 36.862485,
+    "lon": 30.64636
+   },
+   "district_id": "konyaalti",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r18165232",
+   "name": "Пляж",
+   "kind": "beach",
+   "point": {
+    "lat": 36.598338,
+    "lon": 30.575398
+   },
+   "district_id": "kemer",
+   "tags": [
+    "osm"
+   ]
+  },
+  {
+   "id": "osm-r20364426",
+   "name": "Kundu Plajı",
+   "kind": "beach",
+   "point": {
+    "lat": 36.853474,
+    "lon": 30.898692
+   },
+   "district_id": "lara",
+   "tags": [
+    "osm"
+   ]
+  }
+ ]
+}

@@ -8,6 +8,8 @@
   eval/nlu_dev.jsonl      — рабочий: на нём улучшаем правила и промпт;
   eval/nlu_holdout.jsonl  — ОТЛОЖЕННЫЙ: написан до правок NLU, на нём не тюним. Показывает качество
                             на формулировках, которых система «не видела».
+  Кейсы d50+ в рабочем наборе — направления в других странах (город, страна, район, «из» ≠ «куда»,
+  города не из каталога); написаны вместе с правилами, поэтому это рабочий, а не отложенный набор.
 
 Проверяется смысл, а не форма: патч применяется к требованиям, и сравниваются ИТОГОВЫЕ значения
 полей (а не конкретные операции). Для «изменений» (plan: true) сначала строится реальное состояние
@@ -95,6 +97,18 @@ def run_case(app, case: dict, base_state) -> dict:
         slots_ok += k not in keys
         if k in keys:
             out["errors"].append(f"{k} должно быть убрано")
+    if "unknown" in case:  # город не из каталога: не подменяем, а честно называем
+        slots_total += 1
+        ok = res.unknown_destination == case["unknown"] and not any(o.path == "location_id" for o in res.patch)
+        slots_ok += ok
+        if not ok:
+            out["errors"].append(f"unknown_destination: {res.unknown_destination!r} ≠ {case['unknown']!r}")
+    if "candidates" in case:  # «Сочи или Анталья?» — сравнить именно названные
+        slots_total += 1
+        ok = sorted(res.candidate_location_ids) == sorted(case["candidates"])
+        slots_ok += ok
+        if not ok:
+            out["errors"].append(f"candidates: {res.candidate_location_ids} ≠ {case['candidates']}")
     if case.get("no_patch"):
         slots_total += 1
         ok = not res.patch

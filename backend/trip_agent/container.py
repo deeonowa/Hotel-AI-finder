@@ -1,6 +1,7 @@
 """Composition root: ЕДИНСТВЕННОЕ место, где выбираются реализации портов.
 
-Хотите заменить демо-цены на реальный API поставщика, правила NLU на LLM, Postgres на другое хранилище —
+Хотите заменить демо-цены на реальный API поставщика, правила NLU на LLM, Postgres на другое хранилище,
+добавить город (папка data/locations/<id>/) —
 меняете одну строку здесь. Агент, API и фронт не трогаются. Это и есть «строительный блок».
 """
 
@@ -19,11 +20,11 @@ from .agent.orchestrator import Agent
 from .booking.service import BookingService
 from .catalog.json_catalog import JsonCatalog
 from .config import Settings
+from .locations import LocationRegistry
 from .pricing.demo_pricing import DemoPricing
 from .ranking.baseline import BaselineRanker
 from .storage import open_store
 from .transfer.matrix import MatrixTransfer
-from .transfer.schedule import DemoSchedule
 from .validation.rules import RulesValidator
 
 if TYPE_CHECKING:
@@ -40,43 +41,55 @@ class App:
     catalog: JsonCatalog
     store: PostgresStore | MemoryStore
     mode: str
+    locations: LocationRegistry
 
 
 def build(settings: Settings, *, today: Callable[[], date] = date.today, database_url: str | None = None) -> App:
     catalog = JsonCatalog(settings.data_dir)
-    location = catalog.get_location(settings.location_id)
-    pricing = DemoPricing(location)
     transfer = MatrixTransfer(settings.data_dir)  # реальные дороги (OSRM), откат — по прямой
-    validator = RulesValidator(today=today)
-    ranker = BaselineRanker(location, pricing, transfer, schedule=DemoSchedule(location))
+    # Все города из data/locations/ (или только перечисленные в LOCATION_IDS): цены, расписание и ранжирование — свои у каждого.
+    locations = LocationRegistry(
+        catalog,
+        transfer,
+        default_id=settings.location_id,
+        ids=settings.location_ids or None,
+        pricing_factory=DemoPricing,
+        ranker_factory=lambda loc, pricing, tr, schedule: BaselineRanker(loc, pricing, tr, schedule=schedule),
+    )
+    packs = locations.packs()
+    validator = RulesValidator(today=today, location_of=catalog.get_location, multi_location=len(packs) > 1)
     store = open_store(database_url or settings.database_url)
     booking = BookingService(store, validator)
 
-    nlu, nlg, mode = RuleNlu(), TemplateNlg(), "rules"
+    nlu, nlg, mode = RuleNlu(packs), TemplateNlg(), "rules"
+    default = locations.get(settings.location_id).pack
     if settings.llm_enabled:
         from .llm.client import OpenAICompatibleClient
 
         llm = OpenAICompatibleClient(
             settings.llm_base_url or None, settings.llm_api_key or None, settings.llm_model or "", timeout_s=settings.llm_timeout_s
         )
-        nlu = LlmNlu(llm, location.name, {d.id: d.name for d in location.districts})
+        nlu = LlmNlu(llm, default.name, {d.id: d.name for d in default.districts}, RuleNlu(packs), locations=packs)
         if settings.llm_for_nlg:
             nlg = LlmNlg(llm)
         mode = "llm"
-    log.info("agent mode=%s model=%s hotels=%d", mode, settings.llm_model, len(catalog.list_hotels(location.id)))
+    log.info(
+        "agent mode=%s model=%s locations=%s",
+        mode,
+        settings.llm_model,
+        ", ".join(f"{lp.id}:{len(catalog.list_hotels(lp.id))}" for lp in packs),
+    )
 
     agent = Agent(
         catalog=catalog,
-        pricing=pricing,
         transfer=transfer,
-        ranker=ranker,
+        locations=locations,
         validator=validator,
         nlu=nlu,
         nlg=nlg,
         store=store,
         booking=booking,
-        location_id=location.id,
         mode=mode,
         today=today,
     )
-    return App(settings=settings, agent=agent, catalog=catalog, store=store, mode=mode)
+    return App(settings=settings, agent=agent, catalog=catalog, store=store, mode=mode, locations=locations)

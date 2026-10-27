@@ -1,7 +1,7 @@
 """Трансфер по реальной матрице «хаб → отель» (OSRM, собрана scripts/build_location.py). Владелец: ML2.
 
 OSRM считает время без пробок, поэтому умножаем на коэффициент загруженности дорог
-(побережье Сочи — заметные пробки, горная дорога — почти нет) и добавляем время на подачу.
+(побережье — заметные пробки, горная дорога — почти нет, центр города — больше всего) и добавляем время на подачу.
 Нет записи в матрице → откат на оценку по прямой (HaversineTransfer).
 """
 
@@ -13,7 +13,7 @@ from pathlib import Path
 from ..schemas import Hotel, LocationPack, TransferQuote
 from .estimator import TAXI_BASE, TAXI_PER_KM, HaversineTransfer
 
-TRAFFIC_FACTOR = {"sea": 1.35, "mountain": 1.1}
+TRAFFIC_FACTOR = {"sea": 1.35, "mountain": 1.1, "city": 1.45}
 PICKUP_MIN = 8
 
 
@@ -45,7 +45,7 @@ class MatrixTransfer:
             direction=direction,
             minutes=minutes,
             distance_km=round(km, 1),
-            price=int(round(TAXI_BASE + TAXI_PER_KM * km, -1)),
+            price=int(round((TAXI_BASE + TAXI_PER_KM * km) * location.price_index, -1)),
             mode="taxi",
             is_estimate=True,
         )

@@ -50,16 +50,24 @@ class TemplateNlg:
 
     def answer_question(self, question: str, state: TripState, context: dict) -> str:
         """Шаблонные ответы на частые вопросы по фактам отеля; остальное — честно «не знаю»."""
+        q = question.lower()
+        loc = context.get("location") or {}
+        if re.search(r"виз[аеуы]|паспорт|страховк|въезд|границ", q) and loc:
+            e = context.get("entry")
+            if not e:
+                return f"{loc['name']} — поездка по России: загранпаспорт и виза не нужны."
+            return " ".join(x for x in (e.get("passport"), e.get("visa"), e.get("insurance")) if x)
+        if re.search(r"карт[аыуо]|налич|деньг|валют|оплат\w* на месте", q) and context.get("entry"):
+            return context["entry"].get("money") or "Точных данных об оплате на месте нет."
         h = context.get("hotel")
         if not h:
             return "Сначала подберу варианты — тогда смогу ответить по конкретному отелю."
-        q = question.lower()
         am = set(h.get("amenities", []))
         if "бассейн" in q:
             return f"В {_q(h['name'])} " + ("есть бассейн." if am & {"pool", "heated_pool", "indoor_pool"} else "бассейна нет.")
         if re.search(r"мор|пляж", q):
             d = h.get("distance_to_sea_m")
-            return f"До моря от {_q(h['name'])} около {d} м." if d is not None else "Это горный район, моря рядом нет."
+            return f"До моря от {_q(h['name'])} около {d} м." if d is not None else "Моря рядом нет."
         if re.search(r"собак|живот|кош|пит", q):
             p = h.get("pets_allowed")
             return {
@@ -104,8 +112,8 @@ class LlmNlg(TemplateNlg):
 
     def answer_question(self, question: str, state: TripState, context: dict) -> str:
         base = super().answer_question(question, state, context)
-        if not context.get("hotel"):
-            return base
+        if not context.get("hotel") or re.search(r"виз[аеуы]|паспорт|страховк|въезд", question.lower()):
+            return base  # правила въезда — только дословно из проверенных данных, без пересказа моделью
         try:
             out = self.llm.complete_text(
                 "Ответь на вопрос путешественника строго по JSON-фактам. Если ответа в фактах нет — так и скажи. "

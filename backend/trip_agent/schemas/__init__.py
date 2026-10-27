@@ -16,7 +16,7 @@ from .actions import (
     ResetAction,
     SelectVariantAction,
 )
-from .api import CreateSessionRequest, HealthResponse, TraceStep, TurnRequest, TurnResponse
+from .api import CreateSessionRequest, HealthResponse, LocationSummary, TraceStep, TurnRequest, TurnResponse
 from .booking import Cart, CartItem, Order, PostPurchaseRequest
 from .catalog import (
     POI,
@@ -24,6 +24,7 @@ from .catalog import (
     ClimateMonth,
     DataSource,
     District,
+    EntryRules,
     Hotel,
     LocationPack,
     Offer,
@@ -31,6 +32,7 @@ from .catalog import (
     PetPolicy,
     Provenance,
     RoomType,
+    Route,
     TransportHub,
 )
 from .common import BBox, GeoPoint

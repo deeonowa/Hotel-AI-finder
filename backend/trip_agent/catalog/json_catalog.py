@@ -46,6 +46,11 @@ class JsonCatalog:
         return {h.id: h for hs in self._hotels.values() for h in hs}
 
     # --- порт CatalogProvider ----------------------------------------------
+    def location_ids(self) -> list[str]:
+        """Все локации с данными: папки data/locations/<id>/ с location.json и hotels.json."""
+        root = self.data_dir / "locations"
+        return sorted(d.name for d in root.iterdir() if d.is_dir() and (d / "location.json").exists() and (d / "hotels.json").exists())
+
     def get_location(self, location_id: str) -> LocationPack:
         self._load(location_id)
         return self._locations[location_id]

@@ -3,6 +3,10 @@
     python scripts/build_location.py --location sochi              # полный прогон (запись в data/)
     python scripts/build_location.py --location sochi --dry-run    # только статистика
     python scripts/build_location.py --location sochi --refresh    # игнорировать кэш сети
+    python scripts/build_location.py --location dubai --max-hotels 900   # крупный город: самые информативные объекты
+
+Новая локация: data/locations/<id>/location.json (районы, хабы, сезонность, маршруты, правила въезда) →
+этот скрипт → scripts/build_climate.py --location <id>. Код агента не меняется.
 
 Запускается у разработчика (ML2), результат коммитится. Во время работы агента сеть НЕ нужна.
 Сырые ответы API кэшируются в scripts/.cache/<location>/ (в git не идёт) — повторный прогон
@@ -208,8 +212,23 @@ def _norm_name(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
+READABLE = re.compile(r"[A-Za-zА-Яа-яЁё]")
+
+
+def display_name(tags: dict) -> str | None:
+    """Название для русскоязычного гостя: name:ru → name → name:en (берём первое на латинице/кириллице).
+
+    За границей name часто на тайском, арабском или грузинском — такое пользователь не прочтёт и не найдёт.
+    """
+    for key in ("name:ru", "name", "name:en"):
+        v = (tags.get(key) or "").strip()
+        if v and READABLE.search(v):
+            return v
+    return None
+
+
 def _kind(tags: dict) -> str:
-    name = (tags.get("name:ru") or tags.get("name") or "").lower()
+    name = (display_name(tags) or "").lower()
     if "санатор" in name or tags.get("healthcare") == "sanatorium" or "пансионат" in name:
         return "sanatorium"
     if tags.get("leisure") == "resort" or "курорт" in name or "resort" in name:
@@ -309,10 +328,22 @@ class Coastline:
         return int(best * 1000) if best != float("inf") else None
 
 
+def _sea_distance(coast: Coastline, pt: tuple[float, float], district_kind: str) -> int | None:
+    """До моря считаем у приморских районов всегда, у городских — если берег в пределах 6 км (иначе «моря нет»)."""
+    if district_kind == "mountain":
+        return None
+    dist = coast.distance_m(*pt)
+    if district_kind == "city" and (dist is None or dist > 6000):
+        return None
+    return dist
+
+
 def nearest_district(lat: float, lon: float, districts: list[dict], max_km: float = 12.0) -> dict | None:
     best = min(districts, key=lambda d: haversine_m(lat, lon, d["center"]["lat"], d["center"]["lon"]))
     km = haversine_m(lat, lon, best["center"]["lat"], best["center"]["lon"]) / 1000
-    return best if km <= max(max_km, best["radius_km"] * 2.5) else None
+    # городской район — компактный: не приписываем ему спальные окраины в 10 км от центра
+    limit = max(3.0, best["radius_km"] * 2.5) if best["kind"] == "city" else max(max_km, best["radius_km"] * 2.5)
+    return best if km <= limit else None
 
 
 # ----------------------------------------------------------------------------- сборка
@@ -324,6 +355,7 @@ def main() -> None:
     ap.add_argument("--refresh", action="store_true", help="перезапросить сеть, игнорируя кэш")
     ap.add_argument("--skip-osrm", action="store_true")
     ap.add_argument("--skip-elevation", action="store_true")
+    ap.add_argument("--max-hotels", type=int, default=0, help="ограничить число отелей (0 — все)")
     args = ap.parse_args()
 
     loc_dir = ROOT / "data" / "locations" / args.location
@@ -347,7 +379,7 @@ def main() -> None:
         if not pt:
             continue
         kind = _poi_kind(tags)
-        name = tags.get("name:ru") or tags.get("name")
+        name = display_name(tags)
         if kind not in ("beach", "playground", "ski_lift") and not name:
             continue
         d = nearest_district(pt[0], pt[1], loc["districts"])
@@ -369,7 +401,7 @@ def main() -> None:
     seen: list[tuple[str, float, float]] = []
     for el in sorted(raw["elements"], key=lambda e: ({"way": 0, "relation": 1, "node": 2}[e["type"]], e["id"])):
         tags = el.get("tags", {})
-        name = tags.get("name:ru") or tags.get("name")
+        name = display_name(tags)
         pt = _center(el)
         if not name or not pt:
             skipped["no_name_or_point"] += 1
@@ -398,13 +430,29 @@ def main() -> None:
                 "address": addr,
                 "stars": _stars(tags),
                 "amenities_known": _known_amenities(tags),
-                "distance_to_sea_m": coast.distance_m(*pt) if d["kind"] == "sea" else None,
+                "distance_to_sea_m": _sea_distance(coast, pt, d["kind"]),
                 "distance_to_center_m": int(haversine_m(pt[0], pt[1], loc["center"]["lat"], loc["center"]["lon"])),
                 "website": tags.get("website") or tags.get("contact:website"),
                 "_pets": _pets(tags),
                 "provenance": {"source": "osm", "source_id": f"{el['type']}/{el['id']}"},
             }
         )
+
+    if args.max_hotels and len(bases) > args.max_hotels:
+        # Оставляем объекты, о которых OSM знает больше (звёзды, сайт, удобства), и равномерно по районам.
+        def info(b: dict) -> tuple:
+            return (-(b["stars"] is not None) - (b["website"] is not None) - len(b["amenities_known"]), b["id"])
+
+        per_d: dict[str, list[dict]] = defaultdict(list)
+        for b0 in sorted(bases, key=info):
+            per_d[b0["district_id"]].append(b0)
+        kept: list[dict] = []
+        while len(kept) < args.max_hotels and any(per_d.values()):
+            for did in sorted(per_d):
+                if per_d[did] and len(kept) < args.max_hotels:
+                    kept.append(per_d[did].pop(0))
+        skipped["over_limit"] = len(bases) - len(kept)
+        bases = sorted(kept, key=lambda b0: b0["id"])
 
     # ---- ближайшие POI (реальные расстояния) ----
     by_kind: dict[str, list[dict]] = defaultdict(list)
@@ -425,6 +473,10 @@ def main() -> None:
                 if key == "beach":
                     h["_beach_point"] = best[1]["point"]
         h["nearest_m"] = near
+        if h["distance_to_sea_m"] is not None and districts[h["district_id"]]["kind"] == "city":
+            # городской район: береговая линия OSM заходит в заливы и каналы (Дубай-Крик), а гостю важен ПЛЯЖ
+            beach_m = near.get("beach")
+            h["distance_to_sea_m"] = beach_m if beach_m is not None and beach_m <= 6000 else None
 
     # ---- высоты → «дорога в гору» (реально) ----
     if not args.skip_elevation:
@@ -438,7 +490,8 @@ def main() -> None:
             if "_beach_point" in h:
                 eb = next(be)
                 if e is not None and eb is not None and h["distance_to_sea_m"] is not None:
-                    climb = max(0, e - max(eb, 0))
+                    # Copernicus DEM — модель поверхности (с крышами): на плоском берегу «подъём» = высота здания
+                    climb = 0 if loc.get("flat_terrain") else max(0, e - max(eb, 0))
                     h["climb_to_hotel_m"] = int(round(climb))
                     h["hilly_walk"] = climb >= HILLY_CLIMB_M
                     walk = min(h["distance_to_sea_m"], h["nearest_m"].get("beach", 10**9))
@@ -450,7 +503,9 @@ def main() -> None:
         d = districts[base["district_id"]]
         real_pets = base.pop("_pets")
         base.pop("_beach_point", None)
-        h = enrich(base, d, seed=args.seed)
+        if loc.get("flat_terrain") and base.get("distance_to_sea_m") is not None:
+            base.setdefault("hilly_walk", False)  # плоский берег: не выдумываем «дорогу в гору»
+        h = enrich(base, d, seed=args.seed, location=loc)
         if real_pets:
             h["pets"] = real_pets
             h["provenance"]["synthetic_fields"] = [f for f in h["provenance"]["synthetic_fields"] if f != "pets"]

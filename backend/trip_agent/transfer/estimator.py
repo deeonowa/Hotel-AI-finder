@@ -10,8 +10,8 @@ from __future__ import annotations
 from ..geo import haversine_m
 from ..schemas import Hotel, LocationPack, TransferQuote
 
-ROAD_FACTOR = {"sea": 1.35, "mountain": 1.55}
-SPEED_KMH = {"sea": 32.0, "mountain": 48.0}  # прибрежная трасса с пробками vs. горная дорога без светофоров
+ROAD_FACTOR = {"sea": 1.35, "mountain": 1.55, "city": 1.3}
+SPEED_KMH = {"sea": 32.0, "mountain": 48.0, "city": 25.0}  # прибрежная трасса с пробками vs. горная дорога без светофоров
 TAXI_BASE, TAXI_PER_KM = 350, 32
 
 
@@ -24,7 +24,7 @@ class HaversineTransfer:
         kind = district.kind.value if district else "sea"
         km = haversine_m(hub.point, hotel.point) / 1000 * ROAD_FACTOR[kind]
         minutes = int(round(km / SPEED_KMH[kind] * 60 + 8))  # +8 мин на посадку/подъезд
-        price = int(round(TAXI_BASE + TAXI_PER_KM * km, -1))
+        price = int(round((TAXI_BASE + TAXI_PER_KM * km) * location.price_index, -1))  # такси в Дубае дороже, в Тбилиси дешевле
         return TransferQuote(
             hub_id=hub.id,
             hub_name=hub.name,

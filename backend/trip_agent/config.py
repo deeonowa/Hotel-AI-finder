@@ -22,7 +22,8 @@ class Settings(BaseSettings):
     llm_for_nlg: bool = True  # «очеловечивать» тексты через LLM (с проверкой заземления)
 
     data_dir: Path = ROOT / "data"
-    location_id: str = "sochi"
+    location_id: str = "sochi"  # направление по умолчанию, если пользователь не назвал город
+    location_ids: list[str] = []  # пусто = все города из data/locations/; LOCATION_IDS='["sochi","dubai"]' — только эти
     # postgresql://user:pass@host:5432/db | memory:// (без БД — для eval/экспорта схемы/chat)
     database_url: str = "postgresql://trip:trip@localhost:5432/trip_agent"
     web_dist_dir: Path = ROOT / "web" / "dist"

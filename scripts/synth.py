@@ -268,9 +268,13 @@ def _vibes(kind: str, stars: int, district: dict, amenities: list[str], adults_o
     return sorted(v)
 
 
-def enrich(base: dict[str, Any], district: dict, seed: str = "v1") -> dict[str, Any]:
+def enrich(base: dict[str, Any], district: dict, seed: str = "v1", location: dict | None = None) -> dict[str, Any]:
     """base: id, name, kind, location_id, district_id, point, [stars], [amenities_known], [distance_to_sea_m],
-    [address], provenance{source, source_id}. Возвращает полный dict под схему Hotel."""
+    [address], provenance{source, source_id}. Возвращает полный dict под схему Hotel.
+
+    location (location.json) задаёт уровень цен страны (price_index) и типичное питание (meal_plans),
+    district — коэффициент цены района (price_factor)."""
+    location = location or {}
     rng = random.Random(f"{seed}:{base['id']}")
     kind = base["kind"]
     synthetic: list[str] = []
@@ -296,10 +300,10 @@ def enrich(base: dict[str, Any], district: dict, seed: str = "v1") -> dict[str, 
     price = rng.randint(lo, hi)
     if dist_sea is not None:  # близость к морю дороже
         price = int(price * (1.25 if dist_sea < 200 else 1.1 if dist_sea < 600 else 1.0 if dist_sea < 1500 else 0.88))
-    if district["id"] == "central":
-        price = int(price * 1.1)
-    if district["id"] == "lazarevskoe":
-        price = int(price * 0.85)
+    if district.get("price_factor", 1.0) != 1.0:  # центр дороже, окраины дешевле (location.json)
+        price = int(price * district["price_factor"])
+    if location.get("price_index", 1.0) != 1.0:  # уровень цен страны относительно Сочи
+        price = int(price * location["price_index"])
     base_price = int(round(price, -2))
     synthetic.append("base_price_per_night")
 
@@ -355,7 +359,7 @@ def enrich(base: dict[str, Any], district: dict, seed: str = "v1") -> dict[str, 
         "beach_walk_minutes": beach_walk,
         "hilly_walk": hilly,
         "distance_to_center_m": base.get("distance_to_center_m"),
-        "meal_plans": MEALS.get(kind, ["RO", "BB"]),
+        "meal_plans": (location.get("meal_plans") or {}).get(kind) or MEALS.get(kind, ["RO", "BB"]),
         "room_types": _rooms(kind, rng, near_sea, mountain),
         "base_price_per_night": base_price,
         "description": base.get("description"),

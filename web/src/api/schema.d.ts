@@ -21,6 +21,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/locations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Locations */
+        get: operations["list_locations_api_v1_locations_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/sessions": {
         parameters: {
             query?: never;
@@ -412,7 +429,7 @@ export interface components {
         };
         /**
          * ConfirmAssumptionsAction
-         * @description Пользователь подтвердил то, что агент предположил (даты, состав). Без этого заказ не оформляется.
+         * @description Пользователь подтвердил то, что агент предположил (направление, даты, состав). Без этого заказ не оформляется.
          */
         ConfirmAssumptionsAction: {
             /**
@@ -421,7 +438,7 @@ export interface components {
              */
             type: "confirm_assumptions";
             /** Paths */
-            paths?: ("dates" | "guests")[];
+            paths?: ("dates" | "guests" | "location")[];
             /**
              * Then Checkout
              * @default true
@@ -468,15 +485,36 @@ export interface components {
              */
             flexibility_days: number;
         };
-        /** DestinationCard */
+        /**
+         * DestinationCard
+         * @description Карточка направления: район внутри города или (scope="location") целый город/страна.
+         */
         DestinationCard: {
-            /** District Id */
+            /**
+             * District Id
+             * @description id района; для scope=location — id локации
+             */
             district_id: string;
+            /**
+             * Scope
+             * @default district
+             * @enum {string}
+             */
+            scope: "district" | "location";
+            /** Location Id */
+            location_id?: string | null;
+            /** Country */
+            country?: string | null;
             /** Name */
             name: string;
             kind: components["schemas"]["DistrictKind"];
             /** Why */
             why?: string[];
+            /**
+             * Cons
+             * @description что против: холодное море, жара, сезон дождей, дороже бюджета
+             */
+            cons?: string[];
             /** Price From Per Night */
             price_from_per_night?: number | null;
             /**
@@ -486,6 +524,16 @@ export interface components {
             hotels_count: number;
             /** Transfer Minutes From Airport */
             transfer_minutes_from_airport?: number | null;
+            /**
+             * Flight Minutes
+             * @description прямой рейс из города отправления (DEMO-расписание)
+             */
+            flight_minutes?: number | null;
+            /**
+             * Entry Note
+             * @description паспорт/виза — для зарубежных направлений
+             */
+            entry_note?: string | null;
             climate?: components["schemas"]["ClimateMonth"] | null;
             choose: components["schemas"]["QuickReply"];
         };
@@ -577,7 +625,7 @@ export interface components {
              * @default coast
              * @enum {string}
              */
-            climate_zone: "coast" | "mountain";
+            climate_zone: "coast" | "mountain" | "city";
             /** Vibe Tags */
             vibe_tags?: components["schemas"]["VibeTag"][];
             /**
@@ -587,12 +635,49 @@ export interface components {
             description: string;
             /** Highlights */
             highlights?: string[];
+            /**
+             * Nlu Patterns
+             * @description регулярки (по нормализованному тексту) для NLU на правилах
+             */
+            nlu_patterns?: string[];
+            /**
+             * Price Factor
+             * @description для генерации DEMO-цен: район дороже/дешевле среднего
+             * @default 1
+             */
+            price_factor: number;
         };
         /**
          * DistrictKind
          * @enum {string}
          */
-        DistrictKind: "sea" | "mountain";
+        DistrictKind: "sea" | "mountain" | "city";
+        /**
+         * EntryRules
+         * @description Что нужно знать до покупки, если направление за границей. Тексты проверены по датированным источникам.
+         */
+        EntryRules: {
+            /** Passport */
+            passport: string;
+            /** Visa */
+            visa: string;
+            /** Insurance */
+            insurance?: string | null;
+            /** Money */
+            money?: string | null;
+            /**
+             * Visa Free Days
+             * @description сколько дней можно без визы за поездку; None — не ограничено
+             */
+            visa_free_days?: number | null;
+            /** Sources */
+            sources?: string[];
+            /**
+             * Checked At
+             * Format: date
+             */
+            checked_at: string;
+        };
         /** GeoPoint */
         GeoPoint: {
             /** Lat */
@@ -628,12 +713,20 @@ export interface components {
             llm_configured: boolean;
             /** Llm Model */
             llm_model?: string | null;
-            /** Location Id */
+            /**
+             * Location Id
+             * @description направление по умолчанию
+             */
             location_id: string;
-            /** Hotels Loaded */
+            /**
+             * Hotels Loaded
+             * @description отелей во всех направлениях
+             */
             hotels_loaded: number;
             /** Data Source */
             data_source: string;
+            /** Locations */
+            locations?: components["schemas"]["LocationSummary"][];
         };
         /** Hotel */
         Hotel: {
@@ -815,6 +908,31 @@ export interface components {
             id: string;
             /** Name */
             name: string;
+            /**
+             * Name In
+             * @description «в Анталье», «в Дубае» — для текстов
+             */
+            name_in?: string | null;
+            /**
+             * Country
+             * @default Россия
+             */
+            country: string;
+            /**
+             * Country Code
+             * @default RU
+             */
+            country_code: string;
+            /**
+             * Nlu Patterns
+             * @description регулярки названия города/страны для NLU на правилах
+             */
+            nlu_patterns?: string[];
+            /**
+             * Tagline
+             * @default
+             */
+            tagline: string;
             /** Timezone */
             timezone: string;
             /**
@@ -856,6 +974,66 @@ export interface components {
             };
             /** Data Sources */
             data_sources?: components["schemas"]["DataSource"][];
+            /** @description None — внутренняя поездка, загранпаспорт не нужен */
+            entry?: components["schemas"]["EntryRules"] | null;
+            /**
+             * Routes
+             * @description город отправления → DEMO-маршруты
+             */
+            routes?: {
+                [key: string]: components["schemas"]["Route"][];
+            };
+            /**
+             * Stop Cities
+             * @description где пересадка у непрямых рейсов (DEMO)
+             */
+            stop_cities?: string[];
+            /**
+             * Price Index
+             * @description уровень цен относительно Сочи (для генерации DEMO-цен)
+             * @default 1
+             */
+            price_index: number;
+            /**
+             * Meal Price Index
+             * @description стоимость питания относительно Сочи (в Турции «всё включено» заметно дешевле)
+             * @default 1
+             */
+            meal_price_index: number;
+            /**
+             * Flat Terrain
+             * @description плоский рельеф: «дорогу в гору» не считаем (модель высот включает здания — небоскрёбы дают ложный подъём)
+             * @default false
+             */
+            flat_terrain: boolean;
+            /**
+             * Meal Plans
+             * @description тип объекта → типичные планы питания (для генерации), напр. AI в Анталье
+             */
+            meal_plans?: {
+                [key: string]: components["schemas"]["MealPlan"][];
+            };
+        };
+        /**
+         * LocationSummary
+         * @description Направление в каталоге — для фронта (переключатель города) и проверки сборки.
+         */
+        LocationSummary: {
+            /** Id */
+            id: string;
+            /** Name */
+            name: string;
+            /** Country */
+            country: string;
+            /** Abroad */
+            abroad: boolean;
+            /** Hotels */
+            hotels: number;
+            /**
+             * Tagline
+             * @default
+             */
+            tagline: string;
         };
         /**
          * MealPlan
@@ -1001,7 +1179,7 @@ export interface components {
              * Path
              * @enum {string}
              */
-            path: "district_ids" | "dates" | "dates.check_in" | "dates.check_out" | "dates.month" | "dates.year" | "dates.nights" | "dates.flexibility_days" | "guests.adults" | "guests.children_ages" | "guests.pets" | "guests.rooms" | "budget.amount" | "budget.scope" | "budget.flex_pct" | "preferences" | "transport.origin_city" | "transport.arrival_mode" | "transport.arrival_hub_id" | "transport.arrival_time" | "transport.departure_time" | "transport.max_stops" | "notes";
+            path: "location_id" | "district_ids" | "dates" | "dates.check_in" | "dates.check_out" | "dates.month" | "dates.year" | "dates.nights" | "dates.flexibility_days" | "guests.adults" | "guests.children_ages" | "guests.pets" | "guests.rooms" | "budget.amount" | "budget.scope" | "budget.flex_pct" | "preferences" | "transport.origin_city" | "transport.arrival_mode" | "transport.arrival_hub_id" | "transport.arrival_time" | "transport.departure_time" | "transport.max_stops" | "notes";
             /** Value */
             value?: unknown;
         };
@@ -1179,6 +1357,7 @@ export interface components {
         Requirements: {
             /**
              * Location Id
+             * @description куда едем (data/locations/<id>); не названо — локация по умолчанию
              * @default sochi
              */
             location_id: string;
@@ -1243,6 +1422,39 @@ export interface components {
              * @default 1
              */
             price_factor: number;
+        };
+        /**
+         * Route
+         * @description DEMO-маршрут «город отправления → хаб локации» для расписания билетов (transfer/schedule.py).
+         */
+        Route: {
+            /**
+             * Mode
+             * @enum {string}
+             */
+            mode: "plane" | "train";
+            /** Hub */
+            hub: string;
+            /**
+             * Minutes
+             * @description длительность прямого рейса/поезда
+             */
+            minutes: number;
+            /**
+             * Price
+             * @description базовая цена за человека в одну сторону, ₽
+             */
+            price: number;
+            /**
+             * Times
+             * @description время отправления, HH:MM по часовому поясу города отправления
+             */
+            times: string[];
+            /**
+             * P Direct
+             * @description доля прямых рейсов
+             */
+            p_direct: number;
         };
         /**
          * ScoreComponent
@@ -1579,6 +1791,8 @@ export interface components {
              * @enum {string}
              */
             mode: "llm" | "rules";
+            /** @description куда сейчас подбираем (для путевого листа) */
+            location?: components["schemas"]["LocationSummary"] | null;
         };
         /** ValidationError */
         ValidationError: {
@@ -1680,6 +1894,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HealthResponse"];
+                };
+            };
+        };
+    };
+    list_locations_api_v1_locations_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LocationSummary"][];
                 };
             };
         };

@@ -140,6 +140,7 @@ class ArrivalMode(StrEnum):
 class DistrictKind(StrEnum):
     sea = "sea"
     mountain = "mountain"
+    city = "city"  # городской район без своего пляжа (Тбилиси, Даунтаун Дубая)
 
 
 class Archetype(StrEnum):

@@ -48,7 +48,9 @@ def test_assumed_dates_and_guests_must_be_confirmed_before_order(agent):
     q = _block(r, "question")
     assert "предположил" in q.text and "дети" in q.text
 
-    r = _act(agent, sid, type="confirm_assumptions", paths=["dates", "guests"], then_checkout=True)
+    # город пользователь тоже не называл (направлений несколько) — его подтверждают вместе с датами и составом
+    assert "направление" in q.text
+    r = _act(agent, sid, type="confirm_assumptions", paths=["location", "dates", "guests"], then_checkout=True)
     assert _block(r, "order").order.number.startswith("OST-")
 
 

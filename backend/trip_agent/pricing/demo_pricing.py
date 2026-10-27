@@ -92,7 +92,9 @@ class DemoPricing:
             pet_fee = (hotel.pets.fee_per_night or 0) * nights if req.guests.pets and hotel.pets.allowed else 0
             for meal in hotel.meal_plans:
                 persons = adults + CHILD_MEAL_FACTOR * sum(1 for a in kids if a >= 3)
-                meal_total = int(MEAL_PER_PERSON[meal] * persons * nights * (1 + 0.15 * max((hotel.stars or 3) - 3, 0)))
+                meal_total = int(
+                    MEAL_PER_PERSON[meal] * self.location.meal_price_index * persons * nights * (1 + 0.15 * max((hotel.stars or 3) - 3, 0))
+                )
                 for refundable in (False, True):
                     total = int((room_total + meal_total) * (REFUNDABLE_MARKUP if refundable else 1.0)) + pet_fee
                     total = int(round(total, -2))

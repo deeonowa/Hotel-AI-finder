@@ -23,6 +23,7 @@ from ..schemas import (
     HealthResponse,
     Hotel,
     LocationPack,
+    LocationSummary,
     Order,
     TripState,
     TurnRequest,
@@ -43,15 +44,34 @@ def create_app(settings: Settings | None = None, app_ctx: App | None = None) -> 
     )
     api.add_middleware(CORSMiddleware, allow_origins=settings.cors_origins, allow_methods=["*"], allow_headers=["*"])
 
+    def _summaries() -> list[LocationSummary]:
+        return [
+            LocationSummary(
+                id=lp.id,
+                name=lp.name,
+                country=lp.country,
+                abroad=lp.is_abroad,
+                hotels=len(ctx.catalog.list_hotels(lp.id)),
+                tagline=lp.tagline,
+            )
+            for lp in ctx.locations.packs()
+        ]
+
     @api.get("/api/v1/health", response_model=HealthResponse, tags=["system"])
     def health() -> HealthResponse:
+        locs = _summaries()
         return HealthResponse(
             llm_configured=ctx.mode == "llm",
             llm_model=settings.llm_model if ctx.mode == "llm" else None,
             location_id=settings.location_id,
-            hotels_loaded=len(ctx.catalog.list_hotels(settings.location_id)),
+            hotels_loaded=sum(x.hotels for x in locs),
             data_source=ctx.catalog.data_source(settings.location_id),
+            locations=locs,
         )
+
+    @api.get("/api/v1/locations", response_model=list[LocationSummary], tags=["catalog"])
+    def list_locations() -> list[LocationSummary]:
+        return _summaries()
 
     @api.post("/api/v1/sessions", response_model=TurnResponse, tags=["agent"])
     def create_session(body: CreateSessionRequest | None = None) -> TurnResponse:

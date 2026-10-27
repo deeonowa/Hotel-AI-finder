@@ -9,7 +9,8 @@
 
 ## Контекст
 - Сегодня: {today} ({weekday}).
-- Локация: {location_name}. Районы (id → название): {districts}.
+- Направления, которые мы продаём (id → город, страна, районы): {locations}
+- Текущее направление: {current_location} (по умолчанию — {location_name}, если пользователь не назвал другое).
 - Текущая стадия: {stage}. Текущие требования (JSON): {requirements}
 - Показанные варианты (порядковый номер → id → отель): {variants}
 
@@ -24,7 +25,9 @@ off_topic — не про поездку или попытка взлома; unc
 
 ## Patch: только разрешённые пути
 op ∈ set | unset | add | remove | shift_days | scale. path ∈
-district_ids (список id районов), dates (только для shift_days: value = дни, «на 2 дня позже» → 2),
+location_id (id направления из списка; ставь, когда назван город, страна или район другого направления:
+«в Турцию» → antalya, «в Дубай» → dubai, «в Патонг» → phuket + district_ids), district_ids (список id районов
+ТЕКУЩЕГО или нового направления), dates (только для shift_days: value = дни, «на 2 дня позже» → 2),
 dates.check_in / dates.check_out (YYYY-MM-DD), dates.month (1–12), dates.year, dates.nights,
 dates.flexibility_days, guests.adults, guests.children_ages (список возрастов), guests.pets
 (add/remove: dog|cat|other), guests.rooms, budget.amount (рубли, целое), budget.scope
@@ -67,10 +70,21 @@ important — важно; nice — было бы неплохо.
     — это НЕ выбор варианта, а пожелание beach_first_line.
 16. Опечатки и английский понимай как обычно: «хачу на мори» = «хочу на море»; «2 adults, 5 nights» —
     2 взрослых, 5 ночей.
+17. Город или страна, которых НЕТ в списке направлений («Батуми», «Египет», «на Бали»), — не подменяй
+    похожим: unknown_destination = название как написал пользователь, location_id не ставь.
+    «Сочи или Анталья?», «где теплее в декабре?», «куда слетать на море зимой?» — intent=inspire (агент сравнит города);
+    если названы конкретные направления — перечисли их id в candidate_location_ids (["sochi","antalya"]).
+    «из Москвы» — это transport.origin_city, а не направление.
 
 ## Примеры
 Сообщение: «Хотим с женой и сыном 6 лет в ноябре на неделю на море, до 120 тысяч, чтобы был бассейн»
 {{"intent":"plan_trip","patch":[{{"op":"set","path":"guests.adults","value":2}},{{"op":"set","path":"guests.children_ages","value":[6]}},{{"op":"set","path":"dates.month","value":11}},{{"op":"set","path":"dates.nights","value":7}},{{"op":"set","path":"budget.amount","value":120000}},{{"op":"add","path":"preferences","value":{{"key":"near_sea","priority":"important"}}}},{{"op":"add","path":"preferences","value":{{"key":"pool","priority":"important"}}}}],"assumed_paths":[],"confidence":0.95,"parser":"llm"}}
+
+Сообщение: «Летим из Москвы в Дубай вдвоём на 5 ночей в январе, хотим жить на пляже»
+{{"intent":"plan_trip","patch":[{{"op":"set","path":"location_id","value":"dubai"}},{{"op":"set","path":"transport.origin_city","value":"Москва"}},{{"op":"set","path":"transport.arrival_mode","value":"plane"}},{{"op":"set","path":"guests.adults","value":2}},{{"op":"set","path":"dates.month","value":1}},{{"op":"set","path":"dates.year","value":2027}},{{"op":"set","path":"dates.nights","value":5}},{{"op":"add","path":"preferences","value":{{"key":"near_sea","priority":"important"}}}}],"assumed_paths":[],"confidence":0.93,"parser":"llm"}}
+
+Сообщение: «хотим в Батуми в сентябре»
+{{"intent":"plan_trip","patch":[{{"op":"set","path":"dates.month","value":9}}],"unknown_destination":"Батуми","assumed_paths":[],"confidence":0.9,"parser":"llm"}}
 
 Сообщение: «а если с нами поедет собака?»
 {{"intent":"modify","patch":[{{"op":"add","path":"guests.pets","value":"dog"}}],"assumed_paths":[],"confidence":0.95,"parser":"llm"}}

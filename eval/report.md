@@ -3,11 +3,11 @@
 | метрика | значение |
 |---|---|
 | mode | rules |
-| scenarios | 44 |
+| scenarios | 54 |
 | completion_rate | 1.0 |
-| avg_clarifications | 0.07 |
-| avg_turns_to_first_offer | 1.05 |
-| avg_ms_to_first_offer | 232 |
+| avg_clarifications | 0.06 |
+| avg_turns_to_first_offer | 1.07 |
+| avg_ms_to_first_offer | 250 |
 | constraint_violations | 0 |
 | logistics_errors | 0 |
 | crashes | 0 |
@@ -59,3 +59,13 @@
 | u_injection_discount | no_crash | ✅ | 0 | — |  |
 | tickets_full_trip | order_paid | ✅ | 0 | 1 |  |
 | tickets_direct_only | diff_or_no_results | ✅ | 0 | 1 |  |
+| geo_dubai_beach | variants | ✅ | 0 | 1 |  |
+| geo_antalya_ai_family | variants_or_no_results | ✅ | 0 | 1 |  |
+| geo_tbilisi_old_town | variants | ✅ | 0 | 1 |  |
+| geo_phuket_district | variants | ✅ | 0 | 1 |  |
+| geo_switch_city | diff | ✅ | 0 | 1 |  |
+| geo_where_warm | destinations | ✅ | 0 | — |  |
+| geo_where_warm_then_pick | order_paid | ✅ | 0 | 2 |  |
+| geo_cold_sea_hint | variants | ✅ | 0 | 1 |  |
+| geo_unknown_city | destinations | ✅ | 0 | — |  |
+| geo_tickets_phuket | variants_or_no_results | ✅ | 0 | — |  |

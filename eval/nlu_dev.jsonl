@@ -47,3 +47,15 @@
 {"id": "d47", "plan": true, "text": "ладно, можно и с пересадкой", "intent": "modify", "expect": {"transport.max_stops": null}}
 {"id": "d48", "text": "летим из Казани вдвоём 5-12 декабря, только прямой рейс", "intent": "plan_trip", "expect": {"transport.origin_city": "Казань", "transport.max_stops": 0, "guests.adults": 2}}
 {"id": "d49", "text": "нас 6 человек, 3 номера, неделя в ноябре", "intent": "plan_trip", "expect": {"guests.adults": 6, "guests.rooms": 3, "dates.nights": 7}}
+{"id": "d50", "text": "хотим в Турцию на море в сентябре, вдвоём", "intent": "plan_trip", "expect": {"location_id": "antalya", "dates.month": 9, "guests.adults": 2}, "prefs": ["near_sea"]}
+{"id": "d51", "text": "летим из Москвы в Дубай на неделю в январе", "intent": "plan_trip", "expect": {"location_id": "dubai", "transport.origin_city": "Москва", "dates.month": 1, "dates.nights": 7}}
+{"id": "d52", "text": "Пхукет, две недели в феврале, тихо", "intent": "plan_trip", "expect": {"location_id": "phuket", "dates.month": 2, "dates.nights": 14}, "prefs": ["quiet"]}
+{"id": "d53", "text": "в Патонг на 10 ночей в декабре", "intent": "plan_trip", "expect": {"location_id": "phuket", "district_ids": ["patong"], "dates.nights": 10}}
+{"id": "d54", "text": "в Грузию на выходные вдвоём", "intent": "plan_trip", "expect": {"location_id": "tbilisi", "dates.nights": 2, "guests.adults": 2}}
+{"id": "d55", "text": "летим из Тбилиси в Сочи в ноябре", "intent": "plan_trip", "expect": {"location_id": "sochi", "transport.origin_city": "Тбилиси", "dates.month": 11}}
+{"id": "d56", "text": "Сочи или Анталья в октябре?", "intent": "inspire", "candidates": ["sochi", "antalya"]}
+{"id": "d57", "text": "где сейчас тепло, чтобы покупаться в декабре?", "intent": "inspire", "expect": {"dates.month": 12}, "prefs": ["near_sea"]}
+{"id": "d58", "text": "хотим в Батуми в сентябре", "intent": "plan_trip", "unknown": "Батуми", "expect": {"dates.month": 9}}
+{"id": "d59", "text": "на Мальдивы в медовый месяц", "intent": "plan_trip", "unknown": "Мальдивы", "prefs": ["romantic"]}
+{"id": "d60", "plan": true, "text": "а давай лучше в Дубай", "intent": "modify", "expect": {"location_id": "dubai", "district_ids": []}}
+{"id": "d61", "plan": true, "text": "лучше в Белек", "intent": "modify", "expect": {"location_id": "antalya", "district_ids": ["belek"]}}

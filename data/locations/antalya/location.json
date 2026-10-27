@@ -1,0 +1,474 @@
+{
+  "id": "antalya",
+  "name": "Анталья",
+  "name_in": "в Анталье",
+  "country": "Турция",
+  "country_code": "TR",
+  "nlu_patterns": [
+    "анталь|анталия|анталии|анталию|\\bтурци|турецк"
+  ],
+  "tagline": "Тёплое море до конца октября, «всё включено» и прямые рейсы ~4 ч",
+  "timezone": "Europe/Istanbul",
+  "currency": "RUB",
+  "bbox": {
+    "south": 36.55,
+    "west": 30.5,
+    "north": 36.95,
+    "east": 31.15
+  },
+  "center": {
+    "lat": 36.8841,
+    "lon": 30.7056
+  },
+  "districts": [
+    {
+      "id": "kaleici",
+      "name": "Калеичи (старый город)",
+      "kind": "city",
+      "center": {
+        "lat": 36.8848,
+        "lon": 30.705
+      },
+      "radius_km": 1.5,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "romantic",
+        "party"
+      ],
+      "description": "Исторический центр Антальи на скалах над гаванью: узкие улочки, бутик-отели в старых домах, рестораны и бары. До пляжа — спуск или пара остановок.",
+      "highlights": [
+        "Старый город и гавань",
+        "Бутик-отели",
+        "Рестораны и бары"
+      ],
+      "nlu_patterns": [
+        "калеичи|стар\\w* город"
+      ],
+      "price_factor": 1.0
+    },
+    {
+      "id": "konyaalti",
+      "name": "Коньяалты",
+      "kind": "sea",
+      "center": {
+        "lat": 36.8655,
+        "lon": 30.638
+      },
+      "radius_km": 4.0,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "family",
+        "budget"
+      ],
+      "description": "Длинный галечный пляж с набережной и видом на горы на западе города. Городские отели без «всё включено», недалеко от центра.",
+      "highlights": [
+        "Пляж 7 км с набережной",
+        "Вид на горы",
+        "Аквариум рядом"
+      ],
+      "nlu_patterns": [
+        "коньяалт|конъяалт|коньялт"
+      ],
+      "price_factor": 0.9
+    },
+    {
+      "id": "lara",
+      "name": "Лара",
+      "kind": "sea",
+      "center": {
+        "lat": 36.855,
+        "lon": 30.83
+      },
+      "radius_km": 5.0,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "family",
+        "luxury"
+      ],
+      "description": "Песчаные пляжи и большие отели «всё включено» на востоке Антальи, 15–20 минут от аэропорта.",
+      "highlights": [
+        "Песчаный пляж",
+        "Большие отели «всё включено»",
+        "Близко к аэропорту"
+      ],
+      "nlu_patterns": [
+        "\\bлар[аеуы]\\b"
+      ],
+      "price_factor": 1.15
+    },
+    {
+      "id": "belek",
+      "name": "Белек",
+      "kind": "sea",
+      "center": {
+        "lat": 36.859,
+        "lon": 31.056
+      },
+      "radius_km": 6.0,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "luxury",
+        "family",
+        "sport"
+      ],
+      "description": "Курорт премиальных отелей среди сосен: широкие песчаные пляжи, гольф-поля, аквапарки при отелях.",
+      "highlights": [
+        "Премиальные отели",
+        "Песчаные пляжи и сосны",
+        "Гольф"
+      ],
+      "nlu_patterns": [
+        "белек"
+      ],
+      "price_factor": 1.3
+    },
+    {
+      "id": "kemer",
+      "name": "Кемер",
+      "kind": "sea",
+      "center": {
+        "lat": 36.598,
+        "lon": 30.559
+      },
+      "radius_km": 7.0,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "nature",
+        "party",
+        "family"
+      ],
+      "description": "Курортный городок у подножия Таврских гор: галечные пляжи, сосновые леса, канатная дорога на Тахталы, вечерняя жизнь. От аэропорта около часа.",
+      "highlights": [
+        "Горы и сосны у моря",
+        "Канатная дорога Тахталы",
+        "Далеко от аэропорта"
+      ],
+      "nlu_patterns": [
+        "кемер|бельдиби|гейнюк|текиров|чамьюва"
+      ],
+      "price_factor": 0.9
+    }
+  ],
+  "hubs": [
+    {
+      "id": "AYT",
+      "name": "Аэропорт Анталья",
+      "kind": "airport",
+      "point": {
+        "lat": 36.8987,
+        "lon": 30.8005
+      }
+    }
+  ],
+  "seasonality": {
+    "coast": [
+      0.6,
+      0.6,
+      0.7,
+      0.85,
+      1.0,
+      1.25,
+      1.45,
+      1.5,
+      1.25,
+      1.0,
+      0.7,
+      0.65
+    ]
+  },
+  "peak_periods": [
+    {
+      "start_mmdd": "12-29",
+      "end_mmdd": "01-07",
+      "factor": 1.3,
+      "label": "Новогодние праздники"
+    },
+    {
+      "start_mmdd": "05-01",
+      "end_mmdd": "05-10",
+      "factor": 1.25,
+      "label": "Майские праздники"
+    }
+  ],
+  "climate": {
+    "coast": [
+      {
+        "month": 1,
+        "air_temp_day_c": 15.1,
+        "air_temp_night_c": 6.8,
+        "precip_days": 10.6,
+        "sea_temp_c": 19.5,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 2,
+        "air_temp_day_c": 15.8,
+        "air_temp_night_c": 6.1,
+        "precip_days": 7.9,
+        "sea_temp_c": 18.4,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 3,
+        "air_temp_day_c": 18.4,
+        "air_temp_night_c": 7.9,
+        "precip_days": 7.1,
+        "sea_temp_c": 18.1,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 4,
+        "air_temp_day_c": 22.2,
+        "air_temp_night_c": 11.2,
+        "precip_days": 6.7,
+        "sea_temp_c": 19.0,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 5,
+        "air_temp_day_c": 27.4,
+        "air_temp_night_c": 15.5,
+        "precip_days": 5.9,
+        "sea_temp_c": 21.8,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 6,
+        "air_temp_day_c": 32.4,
+        "air_temp_night_c": 20.2,
+        "precip_days": 4.1,
+        "sea_temp_c": 26.0,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 7,
+        "air_temp_day_c": 37.2,
+        "air_temp_night_c": 24.5,
+        "precip_days": 1.4,
+        "sea_temp_c": 28.9,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 8,
+        "air_temp_day_c": 35.9,
+        "air_temp_night_c": 24.5,
+        "precip_days": 1.9,
+        "sea_temp_c": 30.5,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 9,
+        "air_temp_day_c": 33.0,
+        "air_temp_night_c": 21.1,
+        "precip_days": 2.7,
+        "sea_temp_c": 29.0,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 10,
+        "air_temp_day_c": 28.0,
+        "air_temp_night_c": 16.5,
+        "precip_days": 4.9,
+        "sea_temp_c": 26.2,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 11,
+        "air_temp_day_c": 22.3,
+        "air_temp_night_c": 11.9,
+        "precip_days": 8.0,
+        "sea_temp_c": 23.5,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 12,
+        "air_temp_day_c": 17.2,
+        "air_temp_night_c": 8.5,
+        "precip_days": 12.0,
+        "sea_temp_c": 21.0,
+        "source": "open-meteo 2019–2025 mean"
+      }
+    ]
+  },
+  "climate_points": {
+    "coast": {
+      "air": {
+        "lat": 36.885,
+        "lon": 30.705
+      },
+      "sea": {
+        "lat": 36.83,
+        "lon": 30.68
+      }
+    }
+  },
+  "entry": {
+    "passport": "Нужен загранпаспорт, действующий не менее 120 дней с даты въезда (МИД Турции рекомендует 6 месяцев).",
+    "visa": "Без визы до 60 дней за поездку, но не более 90 дней в любые 180.",
+    "insurance": "Медицинская страховка для въезда не обязательна, но на границе могут спросить — лучше оформить.",
+    "money": "Карты российских банков там, как правило, не работают — возьмите наличные (доллары или евро).",
+    "visa_free_days": 60,
+    "sources": [
+      "https://travelto.ru/blog/nuzhna-li-viza-v-turtsiyu-rossiyanam/"
+    ],
+    "checked_at": "2026-10-27"
+  },
+  "routes": {
+    "Москва": [
+      {
+        "mode": "plane",
+        "hub": "AYT",
+        "minutes": 240,
+        "price": 14000,
+        "times": [
+          "02:30",
+          "07:15",
+          "10:40",
+          "14:20",
+          "19:50",
+          "23:30"
+        ],
+        "p_direct": 0.9
+      }
+    ],
+    "Санкт-Петербург": [
+      {
+        "mode": "plane",
+        "hub": "AYT",
+        "minutes": 270,
+        "price": 15500,
+        "times": [
+          "06:40",
+          "13:15",
+          "21:30"
+        ],
+        "p_direct": 0.8
+      }
+    ],
+    "Екатеринбург": [
+      {
+        "mode": "plane",
+        "hub": "AYT",
+        "minutes": 300,
+        "price": 17000,
+        "times": [
+          "04:50",
+          "12:30"
+        ],
+        "p_direct": 0.7
+      }
+    ],
+    "Казань": [
+      {
+        "mode": "plane",
+        "hub": "AYT",
+        "minutes": 250,
+        "price": 15000,
+        "times": [
+          "08:20",
+          "17:45"
+        ],
+        "p_direct": 0.7
+      }
+    ],
+    "Новосибирск": [
+      {
+        "mode": "plane",
+        "hub": "AYT",
+        "minutes": 400,
+        "price": 21000,
+        "times": [
+          "05:10"
+        ],
+        "p_direct": 0.5
+      }
+    ],
+    "Самара": [
+      {
+        "mode": "plane",
+        "hub": "AYT",
+        "minutes": 270,
+        "price": 16000,
+        "times": [
+          "09:40"
+        ],
+        "p_direct": 0.6
+      }
+    ],
+    "Нижний Новгород": [
+      {
+        "mode": "plane",
+        "hub": "AYT",
+        "minutes": 255,
+        "price": 15500,
+        "times": [
+          "07:55"
+        ],
+        "p_direct": 0.5
+      }
+    ],
+    "Минск": [
+      {
+        "mode": "plane",
+        "hub": "AYT",
+        "minutes": 210,
+        "price": 14500,
+        "times": [
+          "10:20"
+        ],
+        "p_direct": 0.6
+      }
+    ]
+  },
+  "stop_cities": [
+    "Стамбул",
+    "Москва",
+    "Сочи"
+  ],
+  "price_index": 0.85,
+  "meal_price_index": 0.45,
+  "meal_plans": {
+    "hotel": [
+      "RO",
+      "BB",
+      "HB",
+      "AI"
+    ],
+    "resort": [
+      "HB",
+      "AI"
+    ]
+  },
+  "data_sources": [
+    {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/copyright",
+      "license": "ODbL 1.0",
+      "used_for": "отели (название, тип, координаты, звёзды, часть удобств), пляжи и POI"
+    },
+    {
+      "name": "Open-Meteo",
+      "url": "https://open-meteo.com/",
+      "license": "CC BY 4.0",
+      "used_for": "климатические нормы по месяцам, высоты отелей и пляжей"
+    },
+    {
+      "name": "OSRM",
+      "url": "https://project-osrm.org/",
+      "license": "данные OSM, ODbL",
+      "used_for": "время и расстояние по дорогам «аэропорт → отель»"
+    },
+    {
+      "name": "Правила въезда",
+      "url": "https://travelto.ru/blog/nuzhna-li-viza-v-turtsiyu-rossiyanam/",
+      "license": null,
+      "used_for": "паспорт/виза/страховка, проверено 2026-10-27"
+    },
+    {
+      "name": "Синтетика (seed)",
+      "url": null,
+      "license": null,
+      "used_for": "DEMO: цены, наличие, типы номеров, рейтинги, условия отмены, правила для животных, расписание рейсов"
+    }
+  ]
+}

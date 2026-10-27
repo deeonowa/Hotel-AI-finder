@@ -46,13 +46,21 @@ class QuestionBlock(Model):
 
 
 class DestinationCard(Model):
-    district_id: str
+    """Карточка направления: район внутри города или (scope="location") целый город/страна."""
+
+    district_id: str = Field(description="id района; для scope=location — id локации")
+    scope: Literal["district", "location"] = "district"
+    location_id: str | None = None
+    country: str | None = None
     name: str
     kind: DistrictKind
     why: list[str] = Field(default_factory=list)
+    cons: list[str] = Field(default_factory=list, description="что против: холодное море, жара, сезон дождей, дороже бюджета")
     price_from_per_night: int | None = None
     hotels_count: int = 0
     transfer_minutes_from_airport: int | None = None
+    flight_minutes: int | None = Field(default=None, description="прямой рейс из города отправления (DEMO-расписание)")
+    entry_note: str | None = Field(default=None, description="паспорт/виза — для зарубежных направлений")
     climate: ClimateMonth | None = None
     choose: QuickReply
 

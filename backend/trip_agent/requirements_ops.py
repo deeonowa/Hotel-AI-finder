@@ -12,6 +12,7 @@ from typing import Any
 from .schemas import DateWindow, PatchOp, Preference, PrefKey, Priority, Requirements, Source
 
 PATH_LABELS = {
+    "location_id": "Направление",
     "district_ids": "Район",
     "dates": "Даты",
     "dates.check_in": "Заезд",
@@ -40,6 +41,12 @@ PATH_LABELS = {
 
 class PatchError(ValueError):
     pass
+
+
+LOCATION_LABELS: dict[str, str] = {}
+"""id локации → название для списка изменений («Направление: Сочи → Дубай»). Заполняет LocationRegistry."""
+DISTRICT_LABELS: dict[str, str] = {}
+"""id района → название («Район: — → Патонг», а не patong). Заполняет LocationRegistry."""
 
 
 def _get(obj: Any, dotted: str) -> Any:
@@ -99,6 +106,22 @@ def apply_patch(
                     changes.append(f"− {PREF_LABELS.get(PrefKey(key), key)}")
             else:
                 raise PatchError(f"op {op.op} не поддерживается для preferences")
+            continue
+
+        if path == "location_id":
+            if op.op != "set" or not isinstance(op.value, str) or not op.value:
+                raise PatchError("направление можно только задать")
+            if op.value != data["location_id"]:
+                changes.append(f"{label}: {_fmt(data['location_id'], path)} → {_fmt(op.value, path)}")
+                # районы и хаб прибытия принадлежат прежнему городу; если их задали этим же патчем — оставим
+                if not any(o.path == "district_ids" for o in ops) and data["district_ids"]:
+                    data["district_ids"] = []
+                    changes.append("Район: любой")
+                    provenance.pop("district_ids", None)
+                if not any(o.path == "transport.arrival_hub_id" for o in ops):
+                    data["transport"]["arrival_hub_id"] = None
+            data["location_id"] = op.value
+            provenance[path] = source
             continue
 
         current = _get(req, path)
@@ -176,6 +199,10 @@ def _fmt(v: Any, path: str = "") -> str:
         return "да" if v else "нет"
     if path in MONEY_PATHS and isinstance(v, int | float):
         return fmt_rub(int(v))
+    if path == "location_id":
+        return LOCATION_LABELS.get(str(v), str(v))
+    if path == "district_ids" and isinstance(v, list):
+        return ", ".join(DISTRICT_LABELS.get(str(x), str(x)) for x in v) if v else "—"
     if path == "transport.max_stops":
         return "только прямые" if v == 0 else f"не больше {v}"
     if path == "transport.arrival_mode":

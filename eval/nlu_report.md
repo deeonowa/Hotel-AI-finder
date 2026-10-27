@@ -6,7 +6,7 @@
 
 | метрика | значение |
 |---|---|
-| cases | 49 |
+| cases | 61 |
 | intent_accuracy | 1.0 |
 | slot_accuracy | 1.0 |
 | case_accuracy | 1.0 |

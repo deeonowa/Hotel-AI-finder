@@ -27,6 +27,31 @@
     }
    }
   },
+  "/api/v1/locations": {
+   "get": {
+    "tags": [
+     "catalog"
+    ],
+    "summary": "List Locations",
+    "operationId": "list_locations_api_v1_locations_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/LocationSummary"
+         },
+         "type": "array",
+         "title": "Response List Locations Api V1 Locations Get"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
   "/api/v1/sessions": {
    "post": {
     "tags": [
@@ -966,7 +991,8 @@
        "type": "string",
        "enum": [
         "dates",
-        "guests"
+        "guests",
+        "location"
        ]
       },
       "type": "array",
@@ -981,7 +1007,7 @@
     "additionalProperties": false,
     "type": "object",
     "title": "ConfirmAssumptionsAction",
-    "description": "Пользователь подтвердил то, что агент предположил (даты, состав). Без этого заказ не оформляется."
+    "description": "Пользователь подтвердил то, что агент предположил (направление, даты, состав). Без этого заказ не оформляется."
    },
    "CreateSessionRequest": {
     "properties": {
@@ -1123,7 +1149,39 @@
     "properties": {
      "district_id": {
       "type": "string",
-      "title": "District Id"
+      "title": "District Id",
+      "description": "id района; для scope=location — id локации"
+     },
+     "scope": {
+      "type": "string",
+      "enum": [
+       "district",
+       "location"
+      ],
+      "title": "Scope",
+      "default": "district"
+     },
+     "location_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Location Id"
+     },
+     "country": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Country"
      },
      "name": {
       "type": "string",
@@ -1138,6 +1196,14 @@
       },
       "type": "array",
       "title": "Why"
+     },
+     "cons": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Cons",
+      "description": "что против: холодное море, жара, сезон дождей, дороже бюджета"
      },
      "price_from_per_night": {
       "anyOf": [
@@ -1166,6 +1232,30 @@
       ],
       "title": "Transfer Minutes From Airport"
      },
+     "flight_minutes": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Flight Minutes",
+      "description": "прямой рейс из города отправления (DEMO-расписание)"
+     },
+     "entry_note": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Entry Note",
+      "description": "паспорт/виза — для зарубежных направлений"
+     },
      "climate": {
       "anyOf": [
        {
@@ -1188,7 +1278,8 @@
      "kind",
      "choose"
     ],
-    "title": "DestinationCard"
+    "title": "DestinationCard",
+    "description": "Карточка направления: район внутри города или (scope=\"location\") целый город/страна."
    },
    "DestinationsBlock": {
     "properties": {
@@ -1359,7 +1450,8 @@
       "type": "string",
       "enum": [
        "coast",
-       "mountain"
+       "mountain",
+       "city"
       ],
       "title": "Climate Zone",
       "default": "coast"
@@ -1382,6 +1474,21 @@
       },
       "type": "array",
       "title": "Highlights"
+     },
+     "nlu_patterns": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Nlu Patterns",
+      "description": "регулярки (по нормализованному тексту) для NLU на правилах"
+     },
+     "price_factor": {
+      "type": "number",
+      "exclusiveMinimum": 0.0,
+      "title": "Price Factor",
+      "description": "для генерации DEMO-цен: район дороже/дешевле среднего",
+      "default": 1.0
      }
     },
     "additionalProperties": false,
@@ -1398,9 +1505,77 @@
     "type": "string",
     "enum": [
      "sea",
-     "mountain"
+     "mountain",
+     "city"
     ],
     "title": "DistrictKind"
+   },
+   "EntryRules": {
+    "properties": {
+     "passport": {
+      "type": "string",
+      "title": "Passport"
+     },
+     "visa": {
+      "type": "string",
+      "title": "Visa"
+     },
+     "insurance": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Insurance"
+     },
+     "money": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Money"
+     },
+     "visa_free_days": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Visa Free Days",
+      "description": "сколько дней можно без визы за поездку; None — не ограничено"
+     },
+     "sources": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Sources"
+     },
+     "checked_at": {
+      "type": "string",
+      "format": "date",
+      "title": "Checked At"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "passport",
+     "visa",
+     "checked_at"
+    ],
+    "title": "EntryRules",
+    "description": "Что нужно знать до покупки, если направление за границей. Тексты проверены по датированным источникам."
    },
    "GeoPoint": {
     "properties": {
@@ -1510,15 +1685,24 @@
      },
      "location_id": {
       "type": "string",
-      "title": "Location Id"
+      "title": "Location Id",
+      "description": "направление по умолчанию"
      },
      "hotels_loaded": {
       "type": "integer",
-      "title": "Hotels Loaded"
+      "title": "Hotels Loaded",
+      "description": "отелей во всех направлениях"
      },
      "data_source": {
       "type": "string",
       "title": "Data Source"
+     },
+     "locations": {
+      "items": {
+       "$ref": "#/components/schemas/LocationSummary"
+      },
+      "type": "array",
+      "title": "Locations"
      }
     },
     "additionalProperties": false,
@@ -2015,6 +2199,42 @@
       "type": "string",
       "title": "Name"
      },
+     "name_in": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Name In",
+      "description": "«в Анталье», «в Дубае» — для текстов"
+     },
+     "country": {
+      "type": "string",
+      "title": "Country",
+      "default": "Россия"
+     },
+     "country_code": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$",
+      "title": "Country Code",
+      "default": "RU"
+     },
+     "nlu_patterns": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Nlu Patterns",
+      "description": "регулярки названия города/страны для NLU на правилах"
+     },
+     "tagline": {
+      "type": "string",
+      "title": "Tagline",
+      "default": ""
+     },
      "timezone": {
       "type": "string",
       "title": "Timezone"
@@ -2091,6 +2311,67 @@
       },
       "type": "array",
       "title": "Data Sources"
+     },
+     "entry": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/EntryRules"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "None — внутренняя поездка, загранпаспорт не нужен"
+     },
+     "routes": {
+      "additionalProperties": {
+       "items": {
+        "$ref": "#/components/schemas/Route"
+       },
+       "type": "array"
+      },
+      "type": "object",
+      "title": "Routes",
+      "description": "город отправления → DEMO-маршруты"
+     },
+     "stop_cities": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Stop Cities",
+      "description": "где пересадка у непрямых рейсов (DEMO)"
+     },
+     "price_index": {
+      "type": "number",
+      "exclusiveMinimum": 0.0,
+      "title": "Price Index",
+      "description": "уровень цен относительно Сочи (для генерации DEMO-цен)",
+      "default": 1.0
+     },
+     "meal_price_index": {
+      "type": "number",
+      "exclusiveMinimum": 0.0,
+      "title": "Meal Price Index",
+      "description": "стоимость питания относительно Сочи (в Турции «всё включено» заметно дешевле)",
+      "default": 1.0
+     },
+     "flat_terrain": {
+      "type": "boolean",
+      "title": "Flat Terrain",
+      "description": "плоский рельеф: «дорогу в гору» не считаем (модель высот включает здания — небоскрёбы дают ложный подъём)",
+      "default": false
+     },
+     "meal_plans": {
+      "additionalProperties": {
+       "items": {
+        "$ref": "#/components/schemas/MealPlan"
+       },
+       "type": "array"
+      },
+      "type": "object",
+      "title": "Meal Plans",
+      "description": "тип объекта → типичные планы питания (для генерации), напр. AI в Анталье"
      }
     },
     "additionalProperties": false,
@@ -2107,6 +2388,46 @@
     ],
     "title": "LocationPack",
     "description": "Всё, что нужно агенту о локации. Новая локация = новый каталог data/locations/<id>/."
+   },
+   "LocationSummary": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "country": {
+      "type": "string",
+      "title": "Country"
+     },
+     "abroad": {
+      "type": "boolean",
+      "title": "Abroad"
+     },
+     "hotels": {
+      "type": "integer",
+      "title": "Hotels"
+     },
+     "tagline": {
+      "type": "string",
+      "title": "Tagline",
+      "default": ""
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "id",
+     "name",
+     "country",
+     "abroad",
+     "hotels"
+    ],
+    "title": "LocationSummary",
+    "description": "Направление в каталоге — для фронта (переключатель города) и проверки сборки."
    },
    "MealPlan": {
     "type": "string",
@@ -2392,6 +2713,7 @@
      "path": {
       "type": "string",
       "enum": [
+       "location_id",
        "district_ids",
        "dates",
        "dates.check_in",
@@ -2912,6 +3234,7 @@
      "location_id": {
       "type": "string",
       "title": "Location Id",
+      "description": "куда едем (data/locations/<id>); не названо — локация по умолчанию",
       "default": "sochi"
      },
      "district_ids": {
@@ -3041,6 +3364,61 @@
      "max_occupancy"
     ],
     "title": "RoomType"
+   },
+   "Route": {
+    "properties": {
+     "mode": {
+      "type": "string",
+      "enum": [
+       "plane",
+       "train"
+      ],
+      "title": "Mode"
+     },
+     "hub": {
+      "type": "string",
+      "title": "Hub"
+     },
+     "minutes": {
+      "type": "integer",
+      "exclusiveMinimum": 0.0,
+      "title": "Minutes",
+      "description": "длительность прямого рейса/поезда"
+     },
+     "price": {
+      "type": "integer",
+      "exclusiveMinimum": 0.0,
+      "title": "Price",
+      "description": "базовая цена за человека в одну сторону, ₽"
+     },
+     "times": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Times",
+      "description": "время отправления, HH:MM по часовому поясу города отправления"
+     },
+     "p_direct": {
+      "type": "number",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "P Direct",
+      "description": "доля прямых рейсов"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "mode",
+     "hub",
+     "minutes",
+     "price",
+     "times",
+     "p_direct"
+    ],
+    "title": "Route",
+    "description": "DEMO-маршрут «город отправления → хаб локации» для расписания билетов (transfer/schedule.py)."
    },
    "ScoreComponent": {
     "properties": {
@@ -3812,6 +4190,17 @@
       ],
       "title": "Mode",
       "default": "rules"
+     },
+     "location": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/LocationSummary"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "куда сейчас подбираем (для путевого листа)"
      }
     },
     "additionalProperties": false,

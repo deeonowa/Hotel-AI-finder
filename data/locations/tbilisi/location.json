@@ -1,0 +1,482 @@
+{
+  "id": "tbilisi",
+  "name": "Тбилиси",
+  "name_in": "в Тбилиси",
+  "country": "Грузия",
+  "country_code": "GE",
+  "nlu_patterns": [
+    "тбилис|\\bгрузи[яюие]\\b"
+  ],
+  "tagline": "Город для гастрономии и прогулок; моря нет, лето жаркое",
+  "timezone": "Asia/Tbilisi",
+  "currency": "RUB",
+  "bbox": {
+    "south": 41.65,
+    "west": 44.7,
+    "north": 41.8,
+    "east": 44.9
+  },
+  "center": {
+    "lat": 41.6934,
+    "lon": 44.8015
+  },
+  "districts": [
+    {
+      "id": "old_tbilisi",
+      "name": "Старый город (Абанотубани, Сололаки)",
+      "kind": "city",
+      "center": {
+        "lat": 41.689,
+        "lon": 44.807
+      },
+      "radius_km": 1.2,
+      "climate_zone": "city",
+      "vibe_tags": [
+        "romantic",
+        "party"
+      ],
+      "description": "Исторический центр: серные бани, крепость Нарикала, балконы Сололаки, винные бары. Крутые улицы и брусчатка.",
+      "highlights": [
+        "Серные бани и Нарикала",
+        "Винные бары",
+        "Крутые улочки"
+      ],
+      "nlu_patterns": [
+        "стар\\w* город|стар\\w* тбилис|абанотубан|сололак|серн\\w* бан|\\bметехи"
+      ],
+      "price_factor": 1.15
+    },
+    {
+      "id": "mtatsminda",
+      "name": "Мтацминда и Руставели",
+      "kind": "city",
+      "center": {
+        "lat": 41.698,
+        "lon": 44.795
+      },
+      "radius_km": 1.3,
+      "climate_zone": "city",
+      "vibe_tags": [
+        "luxury"
+      ],
+      "description": "Проспект Руставели, площадь Свободы, фуникулёр на Мтацминду — центр с театрами и большими отелями.",
+      "highlights": [
+        "Проспект Руставели",
+        "Фуникулёр",
+        "Большие отели"
+      ],
+      "nlu_patterns": [
+        "мтацминд|руставел|площад\\w* свобод"
+      ],
+      "price_factor": 1.1
+    },
+    {
+      "id": "vake",
+      "name": "Ваке",
+      "kind": "city",
+      "center": {
+        "lat": 41.709,
+        "lon": 44.765
+      },
+      "radius_km": 2.0,
+      "climate_zone": "city",
+      "vibe_tags": [
+        "quiet",
+        "luxury",
+        "family"
+      ],
+      "description": "Зелёный престижный район с парком Ваке, кафе и тихими улицами. До старого города 10–15 минут на такси.",
+      "highlights": [
+        "Парк Ваке",
+        "Тихо и зелено",
+        "Кафе"
+      ],
+      "nlu_patterns": [
+        "\\bваке\\b"
+      ],
+      "price_factor": 1.1
+    },
+    {
+      "id": "saburtalo",
+      "name": "Сабуртало",
+      "kind": "city",
+      "center": {
+        "lat": 41.729,
+        "lon": 44.755
+      },
+      "radius_km": 2.5,
+      "climate_zone": "city",
+      "vibe_tags": [
+        "budget",
+        "business"
+      ],
+      "description": "Современный жилой район с метро и торговыми центрами: недорогие отели и апартаменты, далеко от туристического центра.",
+      "highlights": [
+        "Недорого",
+        "Метро",
+        "Далеко от центра"
+      ],
+      "nlu_patterns": [
+        "сабуртал"
+      ],
+      "price_factor": 0.85
+    },
+    {
+      "id": "avlabari",
+      "name": "Авлабари",
+      "kind": "city",
+      "center": {
+        "lat": 41.6925,
+        "lon": 44.814
+      },
+      "radius_km": 1.2,
+      "climate_zone": "city",
+      "vibe_tags": [
+        "budget",
+        "romantic"
+      ],
+      "description": "Левый берег Куры напротив старого города: собор Цминда Самеба, гестхаусы с видом на центр, недорого.",
+      "highlights": [
+        "Вид на старый город",
+        "Собор Самеба",
+        "Гестхаусы"
+      ],
+      "nlu_patterns": [
+        "авлабар"
+      ],
+      "price_factor": 0.9
+    },
+    {
+      "id": "chugureti",
+      "name": "Чугурети и Марджанишвили",
+      "kind": "city",
+      "center": {
+        "lat": 41.71,
+        "lon": 44.798
+      },
+      "radius_km": 1.8,
+      "climate_zone": "city",
+      "vibe_tags": [
+        "budget",
+        "party"
+      ],
+      "description": "Район вокруг «Фабрики» и улицы Агмашенебели: хостелы, бары, отреставрированные дома XIX века.",
+      "highlights": [
+        "«Фабрика» и бары",
+        "Хостелы",
+        "Метро"
+      ],
+      "nlu_patterns": [
+        "чугурет|марджанишвил|\\bfabrika\\b|фабрик\\w* (?:в )?тбилис"
+      ],
+      "price_factor": 0.85
+    }
+  ],
+  "hubs": [
+    {
+      "id": "TBS",
+      "name": "Аэропорт Тбилиси",
+      "kind": "airport",
+      "point": {
+        "lat": 41.6692,
+        "lon": 44.9547
+      }
+    },
+    {
+      "id": "rail_tbilisi",
+      "name": "Центральный вокзал Тбилиси",
+      "kind": "rail",
+      "point": {
+        "lat": 41.7213,
+        "lon": 44.7997
+      }
+    }
+  ],
+  "seasonality": {
+    "city": [
+      0.75,
+      0.75,
+      0.85,
+      0.95,
+      1.1,
+      1.15,
+      1.15,
+      1.15,
+      1.15,
+      1.1,
+      0.85,
+      0.9
+    ]
+  },
+  "peak_periods": [
+    {
+      "start_mmdd": "12-29",
+      "end_mmdd": "01-08",
+      "factor": 1.3,
+      "label": "Новогодние праздники"
+    },
+    {
+      "start_mmdd": "05-01",
+      "end_mmdd": "05-10",
+      "factor": 1.2,
+      "label": "Майские праздники"
+    }
+  ],
+  "climate": {
+    "city": [
+      {
+        "month": 1,
+        "air_temp_day_c": 8.0,
+        "air_temp_night_c": -0.1,
+        "precip_days": 4.3,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 2,
+        "air_temp_day_c": 8.8,
+        "air_temp_night_c": 0.7,
+        "precip_days": 5.3,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 3,
+        "air_temp_day_c": 12.7,
+        "air_temp_night_c": 3.7,
+        "precip_days": 10.9,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 4,
+        "air_temp_day_c": 18.6,
+        "air_temp_night_c": 8.4,
+        "precip_days": 11.6,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 5,
+        "air_temp_day_c": 22.7,
+        "air_temp_night_c": 12.6,
+        "precip_days": 12.6,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 6,
+        "air_temp_day_c": 29.2,
+        "air_temp_night_c": 18.0,
+        "precip_days": 8.9,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 7,
+        "air_temp_day_c": 31.0,
+        "air_temp_night_c": 20.2,
+        "precip_days": 6.6,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 8,
+        "air_temp_day_c": 31.9,
+        "air_temp_night_c": 20.8,
+        "precip_days": 4.4,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 9,
+        "air_temp_day_c": 25.3,
+        "air_temp_night_c": 16.3,
+        "precip_days": 8.6,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 10,
+        "air_temp_day_c": 19.5,
+        "air_temp_night_c": 11.1,
+        "precip_days": 8.4,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 11,
+        "air_temp_day_c": 13.8,
+        "air_temp_night_c": 5.7,
+        "precip_days": 5.0,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 12,
+        "air_temp_day_c": 8.7,
+        "air_temp_night_c": 1.6,
+        "precip_days": 6.4,
+        "sea_temp_c": null,
+        "source": "open-meteo 2019–2025 mean"
+      }
+    ]
+  },
+  "climate_points": {
+    "city": {
+      "air": {
+        "lat": 41.7,
+        "lon": 44.8
+      }
+    }
+  },
+  "entry": {
+    "passport": "Нужен загранпаспорт, действующий на весь срок поездки, с двумя чистыми страницами.",
+    "visa": "Без визы до 365 дней.",
+    "insurance": "С 1 января 2026 года медицинская страховка обязательна для всех туристов — без полиса могут не пустить на рейс или во въезде.",
+    "money": "Карты российских банков там, как правило, не работают — возьмите наличные (доллары или евро).",
+    "visa_free_days": 365,
+    "sources": [
+      "https://polis812.ru/blog/nuzhna-li-viza-v-gruziyu-i-skolko-mozhno-nahoditsya-turistam"
+    ],
+    "checked_at": "2026-10-27"
+  },
+  "routes": {
+    "Москва": [
+      {
+        "mode": "plane",
+        "hub": "TBS",
+        "minutes": 185,
+        "price": 12000,
+        "times": [
+          "06:30",
+          "13:50",
+          "21:20"
+        ],
+        "p_direct": 0.85
+      }
+    ],
+    "Санкт-Петербург": [
+      {
+        "mode": "plane",
+        "hub": "TBS",
+        "minutes": 215,
+        "price": 14000,
+        "times": [
+          "10:15"
+        ],
+        "p_direct": 0.6
+      }
+    ],
+    "Екатеринбург": [
+      {
+        "mode": "plane",
+        "hub": "TBS",
+        "minutes": 230,
+        "price": 15000,
+        "times": [
+          "07:40"
+        ],
+        "p_direct": 0.4
+      }
+    ],
+    "Казань": [
+      {
+        "mode": "plane",
+        "hub": "TBS",
+        "minutes": 200,
+        "price": 13500,
+        "times": [
+          "16:05"
+        ],
+        "p_direct": 0.4
+      }
+    ],
+    "Новосибирск": [
+      {
+        "mode": "plane",
+        "hub": "TBS",
+        "minutes": 360,
+        "price": 20000,
+        "times": [
+          "09:20"
+        ],
+        "p_direct": 0.2
+      }
+    ],
+    "Самара": [
+      {
+        "mode": "plane",
+        "hub": "TBS",
+        "minutes": 200,
+        "price": 14000,
+        "times": [
+          "11:30"
+        ],
+        "p_direct": 0.4
+      }
+    ],
+    "Минск": [
+      {
+        "mode": "plane",
+        "hub": "TBS",
+        "minutes": 220,
+        "price": 14500,
+        "times": [
+          "12:45"
+        ],
+        "p_direct": 0.4
+      }
+    ]
+  },
+  "stop_cities": [
+    "Ереван",
+    "Стамбул",
+    "Баку",
+    "Минеральные Воды"
+  ],
+  "price_index": 0.7,
+  "meal_price_index": 0.6,
+  "meal_plans": {
+    "hotel": [
+      "RO",
+      "BB"
+    ],
+    "guest_house": [
+      "RO",
+      "BB"
+    ]
+  },
+  "data_sources": [
+    {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/copyright",
+      "license": "ODbL 1.0",
+      "used_for": "отели (название, тип, координаты, звёзды, часть удобств), пляжи и POI"
+    },
+    {
+      "name": "Open-Meteo",
+      "url": "https://open-meteo.com/",
+      "license": "CC BY 4.0",
+      "used_for": "климатические нормы по месяцам, высоты отелей и пляжей"
+    },
+    {
+      "name": "OSRM",
+      "url": "https://project-osrm.org/",
+      "license": "данные OSM, ODbL",
+      "used_for": "время и расстояние по дорогам «аэропорт → отель»"
+    },
+    {
+      "name": "Правила въезда",
+      "url": "https://polis812.ru/blog/nuzhna-li-viza-v-gruziyu-i-skolko-mozhno-nahoditsya-turistam",
+      "license": null,
+      "used_for": "паспорт/виза/страховка, проверено 2026-10-27"
+    },
+    {
+      "name": "Синтетика (seed)",
+      "url": null,
+      "license": null,
+      "used_for": "DEMO: цены, наличие, типы номеров, рейтинги, условия отмены, правила для животных, расписание рейсов"
+    }
+  ]
+}

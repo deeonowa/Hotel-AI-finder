@@ -78,3 +78,25 @@ def test_patch_from_llm_is_whitelisted():
     with pytest.raises(ValidationError):
         NluResult.model_validate({"intent": "modify", "patch": [{"op": "set", "path": "offer.price_total", "value": 1}]})
     assert PatchOp(op="set", path="guests.adults", value=2)
+
+
+def test_llm_nlu_cities_only_from_catalog(app):
+    """Модель не может отправить в выдуманный город; район другой страны переключает направление."""
+    packs = app.locations.packs()
+    fake = FakeLLM(
+        json_result={
+            "intent": "plan_trip",
+            "patch": [
+                {"op": "set", "path": "location_id", "value": "batumi"},  # нет в каталоге → выкинуть
+                {"op": "set", "path": "district_ids", "value": ["patong"]},  # район Пхукета → и город тоже
+            ],
+            "candidate_location_ids": ["sochi", "atlantis"],
+            "parser": "llm",
+        }
+    )
+    nlu = LlmNlu(fake, "Большой Сочи", {}, locations=packs)
+    res = nlu.parse("в Патонг", _state(), TODAY)
+    paths = {o.path: o.value for o in res.patch}
+    assert paths["location_id"] == "phuket" and paths["district_ids"] == ["patong"]
+    assert res.candidate_location_ids == ["sochi"]
+    assert '"dubai"' in fake.prompts[0] and "Дубай" in fake.prompts[0], "в промпте весь каталог направлений"

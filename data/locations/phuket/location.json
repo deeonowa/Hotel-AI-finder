@@ -1,0 +1,507 @@
+{
+  "id": "phuket",
+  "name": "Пхукет",
+  "name_in": "на Пхукете",
+  "country": "Таиланд",
+  "country_code": "TH",
+  "nlu_patterns": [
+    "пхукет|таиланд|тайланд|\\b(?:в|на) тай\\b"
+  ],
+  "tagline": "Тропическое море круглый год; сухой сезон — с ноября по апрель",
+  "timezone": "Asia/Bangkok",
+  "currency": "RUB",
+  "bbox": {
+    "south": 7.74,
+    "west": 98.25,
+    "north": 8.2,
+    "east": 98.45
+  },
+  "center": {
+    "lat": 7.884,
+    "lon": 98.391
+  },
+  "districts": [
+    {
+      "id": "patong",
+      "name": "Патонг",
+      "kind": "sea",
+      "center": {
+        "lat": 7.8961,
+        "lon": 98.2966
+      },
+      "radius_km": 2.5,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "party",
+        "budget"
+      ],
+      "description": "Самый оживлённый пляж острова: улица Бангла-роуд, клубы, рынки, много недорогих отелей. Шумно.",
+      "highlights": [
+        "Ночная жизнь",
+        "Много недорогих отелей",
+        "Шумно"
+      ],
+      "nlu_patterns": [
+        "патонг"
+      ],
+      "price_factor": 1.0
+    },
+    {
+      "id": "karon",
+      "name": "Карон",
+      "kind": "sea",
+      "center": {
+        "lat": 7.846,
+        "lon": 98.2945
+      },
+      "radius_km": 2.0,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "family"
+      ],
+      "description": "Длинный широкий пляж южнее Патонга: спокойнее, удобно с детьми, есть рынок и кафе.",
+      "highlights": [
+        "Широкий пляж",
+        "Спокойнее Патонга",
+        "Удобно с детьми"
+      ],
+      "nlu_patterns": [
+        "карон"
+      ],
+      "price_factor": 1.0
+    },
+    {
+      "id": "kata",
+      "name": "Ката",
+      "kind": "sea",
+      "center": {
+        "lat": 7.82,
+        "lon": 98.299
+      },
+      "radius_km": 2.0,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "family",
+        "romantic"
+      ],
+      "description": "Уютные пляжи Ката и Ката-Ной: хорошее море, сёрфинг в сезон дождей, кафе у воды.",
+      "highlights": [
+        "Красивые пляжи",
+        "Сёрфинг летом",
+        "Кафе у воды"
+      ],
+      "nlu_patterns": [
+        "\\bкат[аеуы]\\b|ката-? ?ной"
+      ],
+      "price_factor": 1.05
+    },
+    {
+      "id": "kamala",
+      "name": "Камала",
+      "kind": "sea",
+      "center": {
+        "lat": 7.956,
+        "lon": 98.283
+      },
+      "radius_km": 2.5,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "quiet",
+        "family"
+      ],
+      "description": "Тихая бухта между Патонгом и северными пляжами, виллы и отели на склонах.",
+      "highlights": [
+        "Тихо",
+        "Виллы на склонах",
+        "До Патонга 15 минут"
+      ],
+      "nlu_patterns": [
+        "камал[аеуы]"
+      ],
+      "price_factor": 1.1
+    },
+    {
+      "id": "phuket_north",
+      "name": "Север: Банг Тао, Най Янг, Май Кхао",
+      "kind": "sea",
+      "center": {
+        "lat": 8.04,
+        "lon": 98.29
+      },
+      "radius_km": 7.0,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "quiet",
+        "luxury",
+        "nature"
+      ],
+      "description": "Длинные малолюдные пляжи, курортный комплекс Лагуна, национальный парк у аэропорта. Тихо, рядом с аэропортом.",
+      "highlights": [
+        "Малолюдные пляжи",
+        "Рядом с аэропортом",
+        "Курорты и национальный парк"
+      ],
+      "nlu_patterns": [
+        "банг ?тао|бангтао|най ?янг|май ?кхао|лагун\\w* пхукет|сурин"
+      ],
+      "price_factor": 1.25
+    },
+    {
+      "id": "phuket_town",
+      "name": "Пхукет-Таун",
+      "kind": "city",
+      "center": {
+        "lat": 7.884,
+        "lon": 98.391
+      },
+      "radius_km": 3.0,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "budget"
+      ],
+      "description": "Старый город с сино-португальскими домами, рынками и уличной едой. До пляжей 20–30 минут.",
+      "highlights": [
+        "Старый город и уличная еда",
+        "Дёшево",
+        "До пляжа 20–30 минут"
+      ],
+      "nlu_patterns": [
+        "пхукет-? ?таун|\\bв городе пхукет|стар\\w* город"
+      ],
+      "price_factor": 0.7
+    },
+    {
+      "id": "rawai",
+      "name": "Раваи и Най Харн",
+      "kind": "sea",
+      "center": {
+        "lat": 7.778,
+        "lon": 98.315
+      },
+      "radius_km": 3.0,
+      "climate_zone": "coast",
+      "vibe_tags": [
+        "quiet",
+        "nature"
+      ],
+      "description": "Юг острова: спокойный пляж Най Харн, смотровая Промтеп, рыбный рынок в Раваи. Много живут долго.",
+      "highlights": [
+        "Пляж Най Харн",
+        "Смотровая Промтеп",
+        "Спокойно"
+      ],
+      "nlu_patterns": [
+        "раваи|най ?харн|чалонг"
+      ],
+      "price_factor": 0.95
+    }
+  ],
+  "hubs": [
+    {
+      "id": "HKT",
+      "name": "Аэропорт Пхукет",
+      "kind": "airport",
+      "point": {
+        "lat": 8.1132,
+        "lon": 98.3169
+      }
+    }
+  ],
+  "seasonality": {
+    "coast": [
+      1.4,
+      1.35,
+      1.25,
+      1.05,
+      0.8,
+      0.7,
+      0.75,
+      0.75,
+      0.65,
+      0.75,
+      1.0,
+      1.4
+    ]
+  },
+  "peak_periods": [
+    {
+      "start_mmdd": "12-20",
+      "end_mmdd": "01-10",
+      "factor": 1.5,
+      "label": "Рождество и Новый год"
+    }
+  ],
+  "climate": {
+    "coast": [
+      {
+        "month": 1,
+        "air_temp_day_c": 30.4,
+        "air_temp_night_c": 24.2,
+        "precip_days": 10.7,
+        "sea_temp_c": 28.9,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 2,
+        "air_temp_day_c": 31.7,
+        "air_temp_night_c": 24.6,
+        "precip_days": 9.1,
+        "sea_temp_c": 29.3,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 3,
+        "air_temp_day_c": 32.2,
+        "air_temp_night_c": 25.1,
+        "precip_days": 15.3,
+        "sea_temp_c": 29.9,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 4,
+        "air_temp_day_c": 31.3,
+        "air_temp_night_c": 25.4,
+        "precip_days": 23.7,
+        "sea_temp_c": 30.6,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 5,
+        "air_temp_day_c": 30.2,
+        "air_temp_night_c": 25.5,
+        "precip_days": 26.9,
+        "sea_temp_c": 31.0,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 6,
+        "air_temp_day_c": 29.6,
+        "air_temp_night_c": 25.5,
+        "precip_days": 23.4,
+        "sea_temp_c": 30.1,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 7,
+        "air_temp_day_c": 29.4,
+        "air_temp_night_c": 25.4,
+        "precip_days": 22.3,
+        "sea_temp_c": 29.8,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 8,
+        "air_temp_day_c": 29.2,
+        "air_temp_night_c": 25.1,
+        "precip_days": 23.7,
+        "sea_temp_c": 29.9,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 9,
+        "air_temp_day_c": 28.8,
+        "air_temp_night_c": 24.7,
+        "precip_days": 24.1,
+        "sea_temp_c": 29.1,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 10,
+        "air_temp_day_c": 28.8,
+        "air_temp_night_c": 24.2,
+        "precip_days": 28.9,
+        "sea_temp_c": 29.4,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 11,
+        "air_temp_day_c": 28.9,
+        "air_temp_night_c": 24.1,
+        "precip_days": 26.6,
+        "sea_temp_c": 29.6,
+        "source": "open-meteo 2019–2025 mean"
+      },
+      {
+        "month": 12,
+        "air_temp_day_c": 29.5,
+        "air_temp_night_c": 24.1,
+        "precip_days": 16.1,
+        "sea_temp_c": 29.1,
+        "source": "open-meteo 2019–2025 mean"
+      }
+    ]
+  },
+  "climate_points": {
+    "coast": {
+      "air": {
+        "lat": 7.89,
+        "lon": 98.3
+      },
+      "sea": {
+        "lat": 7.88,
+        "lon": 98.25
+      }
+    }
+  },
+  "entry": {
+    "passport": "Нужен загранпаспорт, действующий не менее 6 месяцев с даты въезда.",
+    "visa": "С 15 сентября 2026 года без визы до 30 дней; продлить ещё на 30 дней можно в иммиграционном офисе (сбор 1 900 батов).",
+    "insurance": "Медицинскую страховку лучше оформить заранее: лечение оплачивается на месте.",
+    "money": "Карты российских банков там, как правило, не работают — возьмите наличные (доллары или евро).",
+    "visa_free_days": 30,
+    "sources": [
+      "https://www.pnp.ru/in-world/vstupilo-v-silu-sokrashhenie-sroka-bezviza-v-tailande-do-30-dney.html"
+    ],
+    "checked_at": "2026-10-27"
+  },
+  "routes": {
+    "Москва": [
+      {
+        "mode": "plane",
+        "hub": "HKT",
+        "minutes": 540,
+        "price": 38000,
+        "times": [
+          "00:20",
+          "11:45",
+          "20:30"
+        ],
+        "p_direct": 0.8
+      }
+    ],
+    "Санкт-Петербург": [
+      {
+        "mode": "plane",
+        "hub": "HKT",
+        "minutes": 580,
+        "price": 41000,
+        "times": [
+          "21:10"
+        ],
+        "p_direct": 0.4
+      }
+    ],
+    "Екатеринбург": [
+      {
+        "mode": "plane",
+        "hub": "HKT",
+        "minutes": 510,
+        "price": 39000,
+        "times": [
+          "22:35"
+        ],
+        "p_direct": 0.5
+      }
+    ],
+    "Казань": [
+      {
+        "mode": "plane",
+        "hub": "HKT",
+        "minutes": 540,
+        "price": 40000,
+        "times": [
+          "19:40"
+        ],
+        "p_direct": 0.3
+      }
+    ],
+    "Новосибирск": [
+      {
+        "mode": "plane",
+        "hub": "HKT",
+        "minutes": 480,
+        "price": 36000,
+        "times": [
+          "23:15"
+        ],
+        "p_direct": 0.6
+      }
+    ],
+    "Самара": [
+      {
+        "mode": "plane",
+        "hub": "HKT",
+        "minutes": 540,
+        "price": 40000,
+        "times": [
+          "18:05"
+        ],
+        "p_direct": 0.2
+      }
+    ],
+    "Нижний Новгород": [
+      {
+        "mode": "plane",
+        "hub": "HKT",
+        "minutes": 560,
+        "price": 40500,
+        "times": [
+          "16:30"
+        ],
+        "p_direct": 0.2
+      }
+    ],
+    "Минск": [
+      {
+        "mode": "plane",
+        "hub": "HKT",
+        "minutes": 600,
+        "price": 43000,
+        "times": [
+          "15:10"
+        ],
+        "p_direct": 0.1
+      }
+    ]
+  },
+  "stop_cities": [
+    "Дубай",
+    "Бангкок",
+    "Абу-Даби",
+    "Москва"
+  ],
+  "price_index": 0.85,
+  "meal_price_index": 0.7,
+  "meal_plans": {
+    "hotel": [
+      "RO",
+      "BB"
+    ],
+    "resort": [
+      "BB",
+      "HB"
+    ]
+  },
+  "data_sources": [
+    {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/copyright",
+      "license": "ODbL 1.0",
+      "used_for": "отели (название, тип, координаты, звёзды, часть удобств), пляжи и POI"
+    },
+    {
+      "name": "Open-Meteo",
+      "url": "https://open-meteo.com/",
+      "license": "CC BY 4.0",
+      "used_for": "климатические нормы по месяцам, высоты отелей и пляжей"
+    },
+    {
+      "name": "OSRM",
+      "url": "https://project-osrm.org/",
+      "license": "данные OSM, ODbL",
+      "used_for": "время и расстояние по дорогам «аэропорт → отель»"
+    },
+    {
+      "name": "Правила въезда",
+      "url": "https://www.pnp.ru/in-world/vstupilo-v-silu-sokrashhenie-sroka-bezviza-v-tailande-do-30-dney.html",
+      "license": null,
+      "used_for": "паспорт/виза/страховка, проверено 2026-10-27"
+    },
+    {
+      "name": "Синтетика (seed)",
+      "url": null,
+      "license": null,
+      "used_for": "DEMO: цены, наличие, типы номеров, рейтинги, условия отмены, правила для животных, расписание рейсов"
+    }
+  ]
+}

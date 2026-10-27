@@ -69,6 +69,12 @@ export function TripBoard({ response, state, cart, order }: Props) {
       </ol>
 
       <section className="trip-facts" aria-label="Параметры поездки">
+        {response?.location && (
+          <div>
+            <span>Куда</span>
+            <strong>{response.location.abroad ? `${response.location.name}, ${response.location.country}` : response.location.name}</strong>
+          </div>
+        )}
         <div><span>Даты</span><strong>{req ? tripDates(req) : "Собираем запрос"}</strong></div>
         <div><span>Кто едет</span><strong>{req ? guests(req) : "—"}</strong></div>
         <div><span>Бюджет</span><strong>{req?.budget?.amount ? rub(req.budget.amount) : "Пока не задан"}</strong></div>

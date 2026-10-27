@@ -34,14 +34,17 @@ RAIL_BUFFER_MIN = 30
 MONTHS_GEN = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"]
 
 
-def pending_confirmations(req: Requirements) -> list[tuple[str, str]]:
+def pending_confirmations(req: Requirements, location_name: str | None = None) -> list[tuple[str, str]]:
     """Что агент ПРЕДПОЛОЖИЛ из ключевого для заказа и пользователь ещё не подтвердил.
 
-    Возвращает [(группа, человекочитаемое значение)], группы: "dates", "guests".
+    Возвращает [(группа, человекочитаемое значение)], группы: "location", "dates", "guests".
     Для подбора вариантов предположения допустимы; для оформления заказа — нет.
+    location_name передаётся, когда направлений несколько: город, который пользователь не называл, тоже догадка.
     """
     out: list[tuple[str, str]] = []
     prov = req.provenance
+    if location_name and prov.get("location_id") != Source.user:
+        out.append(("location", f"направление: {location_name} (вы его не называли)"))
     d = req.dates
     if d.check_in and d.check_out and prov.get("dates.check_in") != Source.user:
         out.append(
@@ -101,8 +104,31 @@ def arrival_quick_replies() -> list[QuickReply]:
 
 
 class RulesValidator:
-    def __init__(self, today: Callable[[], date] = date.today):
+    def __init__(
+        self,
+        today: Callable[[], date] = date.today,
+        location_of: Callable[[str], LocationPack] | None = None,
+        multi_location: bool = False,
+    ):
+        """location_of — откуда взять локацию по id (паспорт/виза, если её не передали явно);
+        multi_location — направлений несколько, значит не названный пользователем город надо подтвердить."""
         self._today = today
+        self._location_of = location_of
+        self.multi_location = multi_location
+
+    def _location(self, req: Requirements, location: LocationPack | None) -> LocationPack | None:
+        if location is not None:
+            return location
+        if self._location_of is None:
+            return None
+        try:
+            return self._location_of(req.location_id)
+        except KeyError:
+            return None
+
+    def pending(self, req: Requirements) -> list[tuple[str, str]]:
+        loc = self._location(req, None) if self.multi_location else None
+        return pending_confirmations(req, loc.name if loc else None)
 
     @property
     def today(self) -> date:
@@ -111,6 +137,18 @@ class RulesValidator:
     def validate_variant(self, v: Variant, req: Requirements, location: LocationPack | None = None) -> list[Issue]:
         issues: list[Issue] = []
         o = v.offer
+        loc = self._location(req, location)
+        if loc is not None and loc.entry is not None:
+            e = loc.entry
+            if e.visa_free_days and o.nights + 1 > e.visa_free_days:
+                issues.append(
+                    Issue(
+                        code="visa_stay_limit",
+                        severity=Severity.warning,
+                        message=f"Поездка {o.nights + 1} дн., а без визы {loc.label_in} можно до {e.visa_free_days} дн. — "
+                        "сократите поездку или заранее разберитесь с продлением/визой.",
+                    )
+                )
         if o.check_in < self.today:
             issues.append(Issue(code="dates_in_past", severity=Severity.blocker, message="Дата заезда уже прошла."))
         if o.adults != (req.guests.adults or o.adults) or len(o.children_ages) != len(req.guests.children_ages):
@@ -215,7 +253,7 @@ class RulesValidator:
             issues.append(Issue(code="cart_no_stay", severity=Severity.blocker, message="В корзине должно быть проживание."))
         if sum(i.price for i in cart.items) != cart.total:
             issues.append(Issue(code="cart_total_mismatch", severity=Severity.blocker, message="Сумма корзины не сходится."))
-        pending = pending_confirmations(req)
+        pending = self.pending(req)
         if pending:
             issues.append(
                 Issue(
@@ -228,6 +266,14 @@ class RulesValidator:
                     ),
                 )
             )
+        loc = self._location(req, None)
+        if loc is not None and loc.entry is not None:
+            # перед покупкой — полный список документов (в карточках вариантов его нет, чтобы не повторять трижды)
+            e = loc.entry
+            msg = f"{loc.name}, {loc.country}: {e.passport} {e.visa}" + (f" {e.insurance}" if e.insurance else "")
+            issues.append(Issue(code="abroad_documents", severity=Severity.info, message=msg))
+            if e.money:
+                issues.append(Issue(code="abroad_money", severity=Severity.info, message=e.money))
         if variant is not None:
             for x in self.validate_variant(variant, req):
                 if x.code == "early_arrival" and any(i.kind == CartItemKind.early_check_in for i in cart.items):

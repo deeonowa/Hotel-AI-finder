@@ -19,7 +19,8 @@ from contextlib import contextmanager
 from datetime import UTC, date, datetime
 
 from ..booking.service import BookingError, BookingService
-from ..ports import CatalogProvider, Nlg, Nlu, PricingProvider, Ranker, SessionStore, TransferProvider, Validator
+from ..locations import LocationRegistry, LocationServices
+from ..ports import CatalogProvider, Nlg, Nlu, SessionStore, TransferProvider, Validator
 from ..ranking.baseline import reject_label
 from ..requirements_ops import PREF_LABELS, PatchError, apply_patch, fmt_rub
 from ..schemas import (
@@ -27,6 +28,7 @@ from ..schemas import (
     AddExtraAction,
     AddToCartAction,
     ApplyPatchAction,
+    AssumptionChip,
     AssumptionsBlock,
     CartBlock,
     CartItemKind,
@@ -40,6 +42,8 @@ from ..schemas import (
     DiffItem,
     DismissFixAction,
     Intent,
+    LocationPack,
+    LocationSummary,
     NluResult,
     NoResultsBlock,
     OrderBlock,
@@ -48,6 +52,7 @@ from ..schemas import (
     PayAction,
     PostPurchaseAction,
     PostPurchaseKind,
+    PrefKey,
     QuestionBlock,
     QuickReply,
     RemoveCartItemAction,
@@ -68,7 +73,7 @@ from ..schemas import (
 from ..transfer.schedule import wants_tickets
 from ..validation.rules import arrival_quick_replies, pending_confirmations
 from .autofix import Fix, find_fix
-from .inspiration import suggest_districts
+from .inspiration import MONTHS_PREP, WARM_SEA_C, beach_climate, suggest_districts, suggest_locations, wants_beach
 from .policy import (
     MAX_QUESTIONS,
     assume_rooms,
@@ -122,25 +127,49 @@ class Agent:
         self,
         *,
         catalog: CatalogProvider,
-        pricing: PricingProvider,
         transfer: TransferProvider,
-        ranker: Ranker,
+        locations: LocationRegistry,
         validator: Validator,
         nlu: Nlu,
         nlg: Nlg,
         store: SessionStore,
         booking: BookingService,
-        location_id: str,
         mode: str = "rules",
         today: Callable[[], date] = date.today,
     ):
-        self.catalog, self.pricing, self.transfer = catalog, pricing, transfer
-        self.ranker, self.validator, self.nlu, self.nlg = ranker, validator, nlu, nlg
+        self.catalog, self.transfer, self.locations = catalog, transfer, locations
+        self.validator, self.nlu, self.nlg = validator, nlu, nlg
         self.store, self.booking = store, booking
-        self.location_id = location_id
-        self.location = catalog.get_location(location_id)
+        self.location_id = locations.default_id  # куда едем, если пользователь не назвал город
         self.mode = mode
         self.today = today
+
+    # локация по умолчанию — для обратной совместимости (тесты, скрипты)
+    @property
+    def location(self) -> LocationPack:
+        return self.locations.get(self.location_id).pack
+
+    @property
+    def pricing(self):  # noqa: ANN201
+        return self.locations.get(self.location_id).pricing
+
+    @property
+    def ranker(self):  # noqa: ANN201
+        return self.locations.get(self.location_id).ranker
+
+    def _svc(self, st: TripState) -> LocationServices:
+        return self.locations.get(st.requirements.location_id)
+
+    def _loc(self, st: TripState) -> LocationPack:
+        return self._svc(st).pack
+
+    @property
+    def multi_location(self) -> bool:
+        return len(self.locations.ids) > 1
+
+    def _pending(self, st: TripState) -> list[tuple[str, str]]:
+        name = self._loc(st).name if self.multi_location else None
+        return pending_confirmations(st.requirements, name)
 
     # ============================================================ публичное API
     def new_session(self, user_id: str | None = None) -> TurnResponse:
@@ -193,14 +222,17 @@ class Agent:
         if i in (Intent.plan_trip, Intent.modify, Intent.inspire):
             if st.order_ids and i == Intent.modify and nlu.patch:
                 return self._post_purchase(st, PostPurchaseKind.change_dates, {"patch": [o.model_dump(mode="json") for o in nlu.patch]})
-            if not nlu.patch and i != Intent.inspire:
+            if not nlu.patch and i != Intent.inspire and not nlu.unknown_destination:
                 return self._ask_for_details()
             changes = self._apply(st, nlu.patch, nlu.assumed_paths, tr)
             if changes is None:
                 return [TextBlock(markdown="Не смог применить изменение — переформулируйте, пожалуйста.")], []
+            if nlu.unknown_destination:
+                return self._unknown_destination(st, nlu.unknown_destination, tr)
             if self._logistics_only(st, nlu.patch):
                 return self._recheck(st, tr)
-            return self._plan(st, tr, changes, inspire=(i == Intent.inspire))
+            only = {x for x in nlu.candidate_location_ids if x in self.locations} or None
+            return self._plan(st, tr, changes, inspire=(i == Intent.inspire), only=only)
         if i == Intent.select_variant:
             v = self._resolve_variant(st, nlu.target_variant_ids, nlu.variant_ordinal)
             return self._select(st, v, tr) if v else ([TextBlock(markdown="Какой вариант выбрать? Нажмите «Выбрать» на карточке.")], [])
@@ -265,6 +297,10 @@ class Agent:
     # ============================================================ требования
     def _apply(self, st: TripState, ops: list[PatchOp], assumed: list[str], tr: Tracer) -> list[str] | None:
         with tr.step("apply_patch") as s:
+            if any(o.path == "location_id" and o.value not in self.locations for o in ops):
+                s["detail"] = "ошибка: неизвестное направление"
+                return None
+            before = st.requirements.location_id
             try:
                 new_req, changes = apply_patch(st.requirements, ops, source=Source.user, today=self.today())
             except PatchError as e:
@@ -273,11 +309,38 @@ class Agent:
             for p in assumed:
                 new_req.provenance[p] = Source.assumed
             st.requirements = new_req
+            if new_req.location_id != before:
+                self._on_location_change(st, changes)
             s["detail"] = "; ".join(changes) or "без изменений"
         return changes
 
+    def _on_location_change(self, st: TripState, changes: list[str]) -> None:
+        """Другой город: отели прежнего города не закрепляем, собранную под них корзину не оформляем."""
+        if st.cart_id and st.stage == TripStage.in_cart:
+            changes.append("корзину с отелем прежнего направления очистил")
+        st.cart_id = None
+        st.selected_variant_id = None
+        st.dismissed_fixes = []
+        if st.stage in (TripStage.selected, TripStage.in_cart):
+            st.stage = TripStage.proposing
+
+    def _unknown_destination(self, st: TripState, name: str, tr: Tracer) -> Out:
+        """Город не из каталога: не подменяем молча — говорим честно и сравниваем то, что есть."""
+        req = st.requirements
+        ops, _ = resolve_dates(req, self.today()) if (req.dates.check_in or req.dates.month) else ([], [])
+        if ops:
+            st.requirements, _ = apply_patch(req, ops, source=Source.assumed)
+        ci, co = st.requirements.dates.check_in, st.requirements.dates.check_out
+        with tr.step("compare_locations") as s:
+            cards = suggest_locations(st.requirements, self.locations, self.catalog, ci, co)
+            s["detail"] = f"«{name}» нет в каталоге → сравнил: " + ", ".join(c.name for c in cards)
+        st.stage = TripStage.collecting
+        names = ", ".join(lp.name for lp in self.locations.packs())
+        text = f"«{name}» пока нет в каталоге — сейчас могу подобрать поездку: {names}. Сравнил их под ваш запрос:"
+        return [TextBlock(markdown=text), DestinationsBlock(title="Куда могу предложить", items=cards)], []
+
     # ============================================================ планирование
-    def _plan(self, st: TripState, tr: Tracer, changes: list[str], *, inspire: bool) -> Out:
+    def _plan(self, st: TripState, tr: Tracer, changes: list[str], *, inspire: bool, only: set[str] | None = None) -> Out:
         req = st.requirements
         today = self.today()
 
@@ -317,12 +380,26 @@ class Agent:
         assert ci and co
         chips = AssumptionsBlock(items=assumption_chips(req))
 
-        if inspire and not req.district_ids:
-            with tr.step("inspire") as s:
-                cards = suggest_districts(req, self.location, self.catalog, self.pricing, self.transfer, ci, co)
+        svc = self._svc(st)
+        loc = svc.pack
+        if self.multi_location:
+            chips.items.insert(0, self._location_chip(st))
+        if inspire and self.multi_location and req.provenance.get("location_id") != Source.user:
+            # «куда поехать?» без города → сравниваем ГОРОДА и страны, а не районы одного города
+            with tr.step("compare_locations") as s:
+                exclude = {x for x in self.locations.ids if only and x not in only}
+                cards = suggest_locations(req, self.locations, self.catalog, ci, co, exclude=exclude)
                 s["detail"] = ", ".join(c.name for c in cards)
             st.stage = TripStage.collecting
-            text = "Вот районы Большого Сочи, которые подходят под ваш запрос. Выберите — или покажу лучшие отели по всем сразу."
+            text = f"Сравнил направления на {dates_label(req)}: климат, цены на эти даты, перелёт и документы. Выберите — подберу отели."
+            chips.items = [c for c in chips.items if c.path != "location_id"]  # город как раз и выбираем
+            return [TextBlock(markdown=text), chips, DestinationsBlock(title="Куда поехать", items=cards)], [c.choose for c in cards[:3]]
+        if inspire and not req.district_ids:
+            with tr.step("inspire") as s:
+                cards = suggest_districts(req, loc, self.catalog, svc.pricing, self.transfer, ci, co)
+                s["detail"] = ", ".join(c.name for c in cards)
+            st.stage = TripStage.collecting
+            text = f"Вот районы ({loc.name}), которые подходят под ваш запрос. Выберите — или покажу лучшие отели по всем сразу."
             return [TextBlock(markdown=text), chips, DestinationsBlock(items=cards)], [
                 QuickReply(label="Показать лучшие везде", action=ApplyPatchAction(ops=[PatchOp(op="unset", path="district_ids")]))
             ]
@@ -333,17 +410,17 @@ class Agent:
             chosen = None
         prev_rec = chosen or (st.variant(st.recommended_variant_id) if st.recommended_variant_id else None)
         prev_stage = st.stage
-        hotels = self.catalog.list_hotels(self.location_id)
+        hotels = self.catalog.list_hotels(loc.id)
         with tr.step("search_rank") as s:
-            rr = self.ranker.rank(req, hotels, ci, co, previous=previous, pinned_hotel_id=chosen.hotel.id if chosen else None)
+            rr = svc.ranker.rank(req, hotels, ci, co, previous=previous, pinned_hotel_id=chosen.hotel.id if chosen else None)
             st_ = rr.stats
             s["detail"] = (
-                f"{st_.hotels_total} отелей → после фильтров {st_.after_hard_filters} → "
+                f"{loc.name}: {st_.hotels_total} отелей → после фильтров {st_.after_hard_filters} → "
                 f"с ценами в бюджете {st_.with_offers} → показано {len(rr.variants)}"
             )
         with tr.step("validate") as s:
             for v in rr.variants:
-                v.issues = self.validator.validate_variant(v, req, self.location)
+                v.issues = self.validator.validate_variant(v, req, loc)
             s["detail"] = f"замечаний: {sum(len(v.issues) for v in rr.variants)}"
         st.last_stats = rr.stats
 
@@ -412,8 +489,59 @@ class Agent:
                 "guests": guests_label(req),
             }
             blocks.append(TextBlock(markdown=self.nlg.summarize_turn(st, facts)))
+        if loc.entry and (prev_rec is None or prev_rec.hotel.id not in {h.id for h in hotels}):
+            # впервые показываем варианты за границей — одной строкой про документы (подробно — в корзине и по вопросу)
+            blocks.append(TextBlock(markdown=f"**{loc.name}, {loc.country}:** {loc.entry.visa} {loc.entry.passport}"))
         blocks += [chips, VariantsBlock(items=rr.variants, recommended_id=rr.recommended_id, stats=rr.stats)]
+        if prev_rec is None or any(c.startswith(("Даты", "Заезд", "Выезд", "Месяц")) for c in changes):
+            blocks += self._warmer_elsewhere(st, tr)  # подсказка про тёплое море — один раз, а не на каждую правку
         return blocks, self._proposal_suggestions(st)
+
+    def _location_chip(self, st: TripState) -> AssumptionChip:
+        req = st.requirements
+        loc = self._loc(st)
+        others = [lp for lp in self.locations.packs() if lp.id != loc.id][:4]
+        return AssumptionChip(
+            path="location_id",
+            label="Направление",
+            value_label=loc.name if not loc.is_abroad else f"{loc.name}, {loc.country}",
+            source=req.provenance.get("location_id", Source.default),
+            options=[
+                QuickReply(label=lp.name, action=ApplyPatchAction(ops=[PatchOp(op="set", path="location_id", value=lp.id)], label=lp.name))
+                for lp in others
+            ],
+        )
+
+    def _warmer_elsewhere(self, st: TripState, tr: Tracer) -> list[UIBlock]:
+        """Хотят купаться, город мы предположили сами, а море холодное → покажем, где в эти даты тепло."""
+        req = st.requirements
+        if not self.multi_location or req.provenance.get("location_id") == Source.user:
+            return []
+        if not any(
+            p.source == Source.user and p.key in (PrefKey.near_sea, PrefKey.beach_first_line, PrefKey.sea_view) for p in req.preferences
+        ):
+            return []
+        ci, co = req.dates.check_in, req.dates.check_out
+        if not ci or not wants_beach(req):
+            return []
+        loc = self._loc(st)
+        c = beach_climate(loc, self.catalog, ci.month)
+        if c is None or c.sea_temp_c is None or c.sea_temp_c >= WARM_SEA_C:
+            return []
+        with tr.step("compare_locations") as s:
+            cards = [
+                x
+                for x in suggest_locations(req, self.locations, self.catalog, ci, co, exclude={loc.id}, limit=3)
+                if x.climate and x.climate.sea_temp_c is not None and x.climate.sea_temp_c >= WARM_SEA_C
+            ]
+            s["detail"] = f"море {loc.label_in} ~{c.sea_temp_c:.0f}° → теплее: " + (", ".join(x.name for x in cards) or "нет")
+        if not cards:
+            return []
+        text = (
+            f"Учтите: море {loc.label_in} в {MONTHS_PREP[ci.month - 1]} около {c.sea_temp_c:.0f}° — прохладно для купания. "
+            "Если хочется именно купаться, вот где в эти даты тепло:"
+        )
+        return [TextBlock(markdown=text), DestinationsBlock(title="Где море теплее", items=cards)]
 
     @staticmethod
     def _logistics_only(st: TripState, ops: list[PatchOp]) -> bool:
@@ -431,7 +559,7 @@ class Agent:
         if v is None:
             return self._ask_for_details()
         with tr.step("validate") as s:
-            v.issues = self.validator.validate_variant(v, st.requirements, self.location)
+            v.issues = self.validator.validate_variant(v, st.requirements, self._loc(st))
             s["detail"] = "перепроверил состыковки выбранного варианта"
         if st.stage == TripStage.in_cart and (cart := self.booking.repo.get_cart(st.cart_id or "")):
             cart.issues = self.validator.validate_cart(cart, v, st.requirements)
@@ -461,7 +589,7 @@ class Agent:
     def _select(self, st: TripState, v: Variant, tr: Tracer | None = None) -> Out:
         st.selected_variant_id = v.id
         st.stage = TripStage.selected
-        v.issues = self.validator.validate_variant(v, st.requirements, self.location)
+        v.issues = self.validator.validate_variant(v, st.requirements, self._loc(st))
         blocks: list[UIBlock] = [
             TextBlock(markdown=self.nlg.summarize_turn(st, {"kind": "selected", "hotel": v.hotel.name})),
             VariantsBlock(items=[v], recommended_id=v.id),
@@ -473,7 +601,7 @@ class Agent:
         if any(i.code == "arrival_unknown" for i in v.issues):
             blocks.append(
                 QuestionBlock(
-                    text="Во сколько вы будете в Сочи? Проверю заселение и подскажу про ранний заезд.",
+                    text=f"Во сколько вы будете {self._loc(st).label_in}? Проверю заселение и подскажу про ранний заезд.",
                     paths=["transport.arrival_time"],
                     quick_replies=arrival_quick_replies(),
                 )
@@ -532,7 +660,7 @@ class Agent:
     # ============================================================ корзина/заказ
     def _add_to_cart(self, st: TripState, v: Variant, with_transfer: bool, tr: Tracer | None = None) -> Out:
         st.selected_variant_id = v.id
-        v.issues = self.validator.validate_variant(v, st.requirements, self.location)
+        v.issues = self.validator.validate_variant(v, st.requirements, self._loc(st))
         cart = self.booking.put_variant(st.session_id, st.cart_id, v, st.requirements, with_transfer)
         st.cart_id = cart.id
         st.stage = TripStage.in_cart
@@ -547,7 +675,11 @@ class Agent:
         blocks: list[UIBlock] = [TextBlock(markdown="Собрал поездку в корзину и проверил состыковки."), CartBlock(cart=cart)]
         if any(i.code == "arrival_unknown" for i in cart.issues):
             blocks.append(
-                QuestionBlock(text="Во сколько вы будете в Сочи?", paths=["transport.arrival_time"], quick_replies=arrival_quick_replies())
+                QuestionBlock(
+                    text=f"Во сколько вы будете {self._loc(st).label_in}?",
+                    paths=["transport.arrival_time"],
+                    quick_replies=arrival_quick_replies(),
+                )
             )
         return blocks, sugg
 
@@ -576,7 +708,7 @@ class Agent:
                 return [TextBlock(markdown=f"Заказ **{previous.number}** уже создан и ждёт оплаты."), OrderBlock(order=previous)], [
                     QuickReply(label=f"Оплатить {fmt_rub(previous.total)}", action=PayAction(order_id=previous.id))
                 ]
-        pending = pending_confirmations(st.requirements)
+        pending = self._pending(st)
         if pending:
             # Предположения допустимы для подбора, но не для покупки: подтверждаем явно.
             lines = "\n".join(f"• {v}" for _, v in pending)
@@ -632,6 +764,8 @@ class Agent:
 
     def _confirm(self, st: TripState, a: ConfirmAssumptionsAction, tr: Tracer) -> Out:
         req = st.requirements
+        if "location" in a.paths:
+            req.provenance["location_id"] = Source.user
         if "dates" in a.paths:
             for p in ("dates.check_in", "dates.check_out", "dates.nights"):
                 req.provenance[p] = Source.user
@@ -653,10 +787,10 @@ class Agent:
             fix = find_fix(
                 v,
                 st.requirements,
-                ranker=self.ranker,
+                ranker=self._svc(st).ranker,
                 validator=self.validator,
-                location=self.location,
-                hotels=list(self.catalog.list_hotels(self.location_id)),
+                location=self._loc(st),
+                hotels=list(self.catalog.list_hotels(self._loc(st).id)),
                 dismissed=set(st.dismissed_fixes),
             )
             s["detail"] = (
@@ -709,7 +843,10 @@ class Agent:
     # ============================================================ вопросы
     def _answer(self, st: TripState, question: str) -> Out:
         v = self._current_variant(st)
-        ctx: dict = {}
+        loc = self._loc(st)
+        ctx: dict = {"location": {"name": loc.name, "country": loc.country, "abroad": loc.is_abroad}}
+        if loc.entry:
+            ctx["entry"] = loc.entry.model_dump(mode="json", exclude={"sources", "checked_at"})
         if v:
             h = self.catalog.get_hotel(v.hotel.id)
             ctx["hotel"] = {
@@ -718,9 +855,9 @@ class Agent:
                 "meal_plan": v.offer.meal_plan.value,
                 "total_price": v.total_price,
             }
-            d = self.location.district(v.hotel.district_id)
+            d = loc.district(v.hotel.district_id)
             month = (st.requirements.dates.check_in or self.today()).month
-            if d and (c := self.catalog.climate(self.location_id, d.climate_zone, month)):
+            if d and (c := self.catalog.climate(loc.id, d.climate_zone, month)):
                 ctx["climate"] = c.model_dump(mode="json")
         return [TextBlock(markdown=self.nlg.answer_question(question, st, ctx))], self._proposal_suggestions(st)
 
@@ -808,15 +945,23 @@ class Agent:
             else [PatchOp(op="add", path="preferences", value={"key": "budget_value", "priority": "important"})]
         )
         out.append(QuickReply(label="Дешевле", action=ApplyPatchAction(ops=cheaper, label="Дешевле")))
-        out.append(
-            QuickReply(
+        if any(d.kind.value == "sea" for d in self._loc(st).districts):
+            near = QuickReply(
                 label="Ближе к морю",
                 action=ApplyPatchAction(
                     ops=[PatchOp(op="add", path="preferences", value={"key": "near_sea", "priority": "must", "value": 400})],
                     label="Ближе к морю",
                 ),
             )
-        )
+        else:  # в Тбилиси моря нет — предлагаем центр
+            near = QuickReply(
+                label="Ближе к центру",
+                action=ApplyPatchAction(
+                    ops=[PatchOp(op="add", path="preferences", value={"key": "city_center", "priority": "important"})],
+                    label="Ближе к центру",
+                ),
+            )
+        out.append(near)
         if req.dates.is_exact:
             out.append(
                 QuickReply(label="+2 дня", action=ApplyPatchAction(ops=[PatchOp(op="shift_days", path="dates", value=2)], label="+2 дня"))
@@ -836,6 +981,18 @@ class Agent:
     def _greeting(self) -> Out:
         text = "Расскажите, куда и когда хотите поехать. Остальное уточню по ходу."
         return [TextBlock(markdown=text)], []
+
+    @staticmethod
+    def _examples() -> list[QuickReply]:
+        """Подсказки, когда запрос пустой или не про поездку (приветствие намеренно без них — см. _greeting)."""
+        return [
+            QuickReply(
+                label="Семья, ноябрь, море", text="Хотим с женой и сыном 6 лет в ноябре на неделю к морю, до 120 тысяч, нужен бассейн"
+            ),
+            QuickReply(label="Где тепло в декабре?", text="Куда поехать на море в декабре, чтобы купаться? Летим из Москвы вдвоём"),
+            QuickReply(label="Вдвоём в горы на НГ", text="Вдвоём на новогодние в горы, хочется романтично и чтобы был спа"),
+            QuickReply(label="Тбилиси на выходные", text="В Тбилиси на выходные вдвоём, поесть и погулять по старому городу"),
+        ]
 
     def _ask_for_details(self) -> Out:
         return [TextBlock(markdown="Расскажите, когда хотите поехать, кто едет и что важно — подберу варианты.")], self._examples()
@@ -860,6 +1017,21 @@ class Agent:
             requirements=st.requirements,
             trace=trace,
             mode="llm" if mode == "llm" else "rules",
+            # пока город выбираем (сравнение направлений), в путевом листе его не показываем
+            location=None
+            if st.stage == TripStage.collecting and st.requirements.provenance.get("location_id") != Source.user
+            else self._summary(st),
+        )
+
+    def _summary(self, st: TripState) -> LocationSummary:
+        loc = self._loc(st)
+        return LocationSummary(
+            id=loc.id,
+            name=loc.name,
+            country=loc.country,
+            abroad=loc.is_abroad,
+            hotels=len(self.catalog.list_hotels(loc.id)),
+            tagline=loc.tagline,
         )
 
 

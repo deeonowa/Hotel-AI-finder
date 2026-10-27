@@ -14,9 +14,10 @@
 from __future__ import annotations
 
 import re
+from collections.abc import Sequence
 from datetime import date, timedelta
 
-from ..schemas import Intent, NluResult, PatchOp, PostPurchaseKind, TripStage, TripState
+from ..schemas import Intent, LocationPack, NluResult, PatchOp, PostPurchaseKind, TripStage, TripState
 
 MONTHS = {
     "январ": 1, "феврал": 2, "март": 3, "апрел": 4, "мая": 5, "май": 5, "мае": 5, "июн": 6, "июл": 7,
@@ -35,6 +36,8 @@ EN_MONTHS = ["january", "february", "march", "april", "may", "june", "july", "au
 GROUP_WORDS = {"вдвоем": 2, "втроем": 3, "вчетвером": 4, "впятером": 5, "вшестером": 6}
 ORDINALS = {"перв": 1, "втор": 2, "трет": 3, "четв": 4, "1": 1, "2": 2, "3": 3}
 
+# Районы Сочи — запасной словарь, если RuleNlu создан без локаций (тесты). В работе словари городов и
+# районов берутся из location.json (nlu_patterns): новый город не требует правок этого файла.
 DISTRICTS = [
     (r"лазаревск", "lazarevskoe"),
     (r"дагомыс", "dagomys"),
@@ -48,7 +51,12 @@ DISTRICTS = [
 PREFS: list[tuple[str, str, str]] = [
     (r"перв\w* лини", "beach_first_line", "important"),
     (r"вид\w* на море", "sea_view", "important"),
-    (r"\bмор[еяюи]\b|у моря|к морю|пляж|покупаться|ближе к морю|\bsea\b|\bbeach", "near_sea", "important"),
+    (
+        r"\bмор[еяюи]\b|у моря|к морю|пляж|покупаться|купаться|ближе к морю|\bsea\b|\bbeach"
+        r"|погреться|позагорать|где (?:сейчас )?тепл|теплее",
+        "near_sea",
+        "important",
+    ),
     (r"лыж|сноуборд|горнолыж|склон|ski", "ski_access", "important"),
     (r"\bгор[ыауе]?\b|в горах|горн\w* воздух", "mountains", "important"),
     (r"\bтих|тиш|спокойн|уединен|без шума|от шума|не шумн|перезагруз|quiet", "quiet", "important"),
@@ -73,7 +81,7 @@ PREFS: list[tuple[str, str, str]] = [
     (r"хорош\w* отзыв|высок\w* рейтинг", "high_rating", "important"),
     (r"люкс|премиум|роскош|дорог\w* отел|шикарн", "luxury", "important"),
     (r"удаленк|поработать|ноутбук|рабоч\w* мест", "work_friendly", "nice"),
-    (r"природ|\bлес|водопад|треккинг|поход|троп|гулять|прогулк", "nature", "nice"),
+    (r"природ|\bлес|водопад|треккинг|поход|троп|на природ", "nature", "nice"),
     (r"санатор|лечени|подлечит|оздоров|процедур", "wellness", "important"),
     (r"подешевле|дешевле|бюджетн\w* вариант|недорог|эконом", "budget_value", "important"),
 ]
@@ -92,7 +100,18 @@ MODIFY_MARKERS = re.compile(
     r"\bесли\b|\bдавай\b|хочу|покажи|найди|подбери|сдвин|перенес|лучше|подешевле|дешевле|поближе|ближе|бюджет|"
     r"поменя|измени|добав|убер|плюс|еще|присоедин|поедет|возьмем|решили"
 )
-TRAVEL_WORDS = re.compile(r"отел|поездк|отдох|путешеств|сочи|мор|гор|отпуск|съездить|поехать|номер")
+TRAVEL_WORDS = re.compile(r"отел|поездк|отдох|путешеств|сочи|мор|гор|отпуск|съездить|поехать|номер|курорт|за границ|заграниц")
+
+# Популярные направления, которых НЕТ в каталоге: честно говорим и предлагаем то, что есть.
+UNSUPPORTED_DESTINATIONS = [
+    (r"батуми", "Батуми"), (r"стамбул", "Стамбул"), (r"\bереван|армени", "Ереван"), (r"\bбаку\b|азербайджан", "Баку"),
+    (r"хургад|шарм|египет", "Египет"), (r"вьетнам|нячанг|фукуок", "Вьетнам"), (r"\bбали\b", "Бали"),
+    (r"мальдив", "Мальдивы"), (r"кипр", "Кипр"), (r"абхази|гагр|пицунд|сухум", "Абхазия"),
+    (r"\bкрым|ялт|севастопол|евпатори|алушт|феодоси", "Крым"), (r"калининград", "Калининград"),
+    (r"шри-? ?ланк", "Шри-Ланка"), (r"\bгоа\b|инди[яюи]\b", "Индия"), (r"анап[аеуы]|геленджик", "Анапа/Геленджик"),
+    (r"\bв (?:питер|санкт-петербург)\b|\bв москву\b", "Москва/Петербург"),
+]  # fmt: skip
+ORIGIN_SPAN = re.compile(r"\bиз\s+[\w\-]+")
 
 
 def _num(token: str | None) -> int | None:
@@ -131,6 +150,16 @@ def is_injection(text: str) -> bool:
 
 
 class RuleNlu:
+    """locations — паки локаций (LocationPack): их nlu_patterns распознают город/страну и районы."""
+
+    def __init__(self, locations: Sequence[LocationPack] | None = None):
+        if locations:
+            self.loc_rx = [(re.compile(p), lp.id) for lp in locations for p in lp.nlu_patterns]
+            self.district_rx = [(re.compile(p), d.id, lp.id) for lp in locations for d in lp.districts for p in d.nlu_patterns]
+        else:
+            self.loc_rx = [(re.compile(r"\bсочи\b"), "sochi")]
+            self.district_rx = [(re.compile(rx), did, "sochi") for rx, did in DISTRICTS]
+
     def parse(self, text: str, state: TripState, today: date) -> NluResult:
         t = _norm(text)
         req = state.requirements
@@ -161,6 +190,9 @@ class RuleNlu:
             return NluResult(intent=Intent.book, parser="rules")
 
         ops, assumed = self._extract(t, text, state, today)
+        places = self._destinations(t)[0]
+        many_places = len(places) > 1
+        unknown = None if any(o.path == "location_id" for o in ops) else self._unknown_destination(t)
 
         if has_plan and state.variants and ("?" in t or QUESTION_ABOUT_OPTION.search(t)):
             about_option = QUESTION_ABOUT_OPTION.search(t)
@@ -168,8 +200,26 @@ class RuleNlu:
                 return NluResult(intent=Intent.ask_info, info_question=text.strip(), parser="rules")
             if not ops:
                 return NluResult(intent=Intent.ask_info, info_question=text.strip(), parser="rules")
-        if re.search(r"не знаю куда|куда поехать|куда лучше|посоветуй\w* (?:район|куда)|предложи\w* (?:район|куда)|где лучше", t):
-            return NluResult(intent=Intent.inspire, patch=ops, assumed_paths=assumed, parser="rules")
+        if unknown:
+            return NluResult(
+                intent=Intent.modify if has_plan else Intent.plan_trip,
+                patch=ops,
+                assumed_paths=assumed,
+                unknown_destination=unknown,
+                parser="rules",
+            )
+        if many_places or re.search(
+            r"не знаю куда|куда поехать|куда лучше|куда (?:можно )?(?:слетать|съездить)|посоветуй\w* (?:район|куда|страну|направлен)"
+            r"|предложи\w* (?:район|куда|страну|направлен)|где лучше|где (?:сейчас )?(?:теплее|тепло)|куда (?:сейчас )?(?:теплее|тепло)",
+            t,
+        ):
+            return NluResult(
+                intent=Intent.inspire,
+                patch=ops,
+                assumed_paths=assumed,
+                candidate_location_ids=sorted(places) if many_places else [],
+                parser="rules",
+            )
         if ops:
             return NluResult(intent=Intent.modify if has_plan else Intent.plan_trip, patch=ops, assumed_paths=assumed, parser="rules")
         if re.search(r"привет|здравств|добр\w* (?:день|вечер|утро)|что ты (?:умеешь|можешь)|кто ты|спасибо|благодар", t):
@@ -188,11 +238,35 @@ class RuleNlu:
         self._guests(t, state, ops, assumed)
         self._budget(t, state, ops)
         self._transport(t, raw, ops, assumed)
-        districts = sorted({did for rx, did in DISTRICTS if re.search(rx, t)})
+        locs, districts = self._destinations(t)
+        current = state.requirements.location_id
+        if len(locs) == 1:
+            (loc,) = locs
+            ops.append(PatchOp(op="set", path="location_id", value=loc))
+            districts = {d: lid for d, lid in districts.items() if lid == loc}
+        elif len(locs) > 1:
+            districts = {}  # «Сочи или Анталья?» — сравним города, районы не выбираем
+        else:
+            districts = {d: lid for d, lid in districts.items() if lid == current}
         if districts:
-            ops.append(PatchOp(op="set", path="district_ids", value=districts))
+            ops.append(PatchOp(op="set", path="district_ids", value=sorted(districts)))
         self._prefs(t, ops)
         return ops, assumed
+
+    def _destinations(self, t: str) -> tuple[set[str], dict[str, str]]:
+        """Какие города/страны и районы названы. «Из Москвы» — откуда, это не направление."""
+        dest = ORIGIN_SPAN.sub(" ", t)
+        districts = {did: lid for rx, did, lid in self.district_rx if rx.search(dest)}
+        locs = {lid for rx, lid in self.loc_rx if rx.search(dest)}
+        owners = set(districts.values())
+        if not locs and len(owners) == 1:
+            locs = owners  # «в Патонг» → Пхукет; «старый город» есть у нескольких городов — это не выбор города
+        return locs, districts
+
+    @staticmethod
+    def _unknown_destination(t: str) -> str | None:
+        dest = ORIGIN_SPAN.sub(" ", t)
+        return next((name for rx, name in UNSUPPORTED_DESTINATIONS if re.search(rx, dest)), None)
 
     # ---------------------------------------------------------------- даты
     def _dates(self, t: str, state: TripState, today: date, ops: list[PatchOp], assumed: list[str]) -> None:
@@ -333,6 +407,10 @@ class RuleNlu:
             return {"две": 14, "2": 14, "пару": 14, "три": 21, "3": 21}[m.group(1) or m.group(2)]
         if re.search(r"\bнедел(?:ю|ька|ьку|я)\b|на недел", t) and not re.search(r"через недел|на этой недел|на следующ\w* недел", t):
             return 7
+        if re.search(r"\b(?:два|2|пару)\s+месяц|на пару месяц", t):
+            return 60  # дольше 60 ночей не бронируем — это уже аренда
+        if re.search(r"полтор\w* месяц", t):
+            return 45
         if re.search(r"\bмесяц\b|на месяц", t) and not re.search(r"медов\w* месяц|в этом месяце|в следующем месяце", t):
             return 30
         return None
@@ -557,7 +635,9 @@ class RuleNlu:
 
 
 CITY_FORMS = {
-    "москвы": "Москва", "питера": "Санкт-Петербург", "санкт-петербурга": "Санкт-Петербург", "спб": "Санкт-Петербург",
+    "москвы": "Москва", "питера": "Санкт-Петербург", "петербурга": "Санкт-Петербург", "сочи": "Сочи", "тбилиси": "Тбилиси",
+    "дубая": "Дубай", "антальи": "Анталья", "анталии": "Анталья", "баку": "Баку", "еревана": "Ереван", "стамбула": "Стамбул",
+    "санкт-петербурга": "Санкт-Петербург", "спб": "Санкт-Петербург",
     "екатеринбурга": "Екатеринбург", "казани": "Казань", "новосибирска": "Новосибирск", "краснодара": "Краснодар",
     "ростова": "Ростов-на-Дону", "ростова-на-дону": "Ростов-на-Дону", "самары": "Самара", "перми": "Пермь",
     "воронежа": "Воронеж", "уфы": "Уфа", "нижнего новгорода": "Нижний Новгород", "минска": "Минск",
