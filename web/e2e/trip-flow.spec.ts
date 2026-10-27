@@ -36,5 +36,7 @@ test("выбранный вариант нельзя выбрать повтор
   await page.getByRole("button", { name: "Отправить" }).click();
   await expect(page.getByRole("button", { name: "Выбрано" })).toBeDisabled();
   await expect(page.getByRole("button", { name: /В корзину/ })).toBeEnabled();
-  await expect(page.getByLabel("Прозрачность работы агента").getByText("Проверил условия и логистику")).toBeVisible();
+  const status = page.getByLabel("Прозрачность работы агента");
+  await expect(status.getByRole("heading", { name: "Что с поездкой" })).toBeVisible();
+  await expect(status.getByText("Проверил условия и логистику")).toBeVisible();
 });
