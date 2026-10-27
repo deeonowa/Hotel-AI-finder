@@ -25,8 +25,14 @@ def test_full_journey(app):
     r = c.post(f"/api/v1/sessions/{sid}/turns", json={"text": "Хотим с женой и сыном 6 лет к морю, до 120 тысяч"}).json()
     assert "question" in _types(r) and "variants" not in _types(r)
 
-    # 2. ответ → варианты с объяснениями
+    # 2. ответ → сначала выбор направления, затем варианты с объяснениями
     r = c.post(f"/api/v1/sessions/{sid}/turns", json={"text": "в ноябре на неделю", "expected_version": r["version"]}).json()
+    assert "destinations" in _types(r) and "variants" not in _types(r)
+    destination = next(b for b in r["blocks"] if b["type"] == "destinations")["items"][0]
+    r = c.post(
+        f"/api/v1/sessions/{sid}/turns",
+        json={"action": destination["choose"]["action"], "expected_version": r["version"]},
+    ).json()
     assert "variants" in _types(r) and "assumptions" in _types(r)
     variants = next(b for b in r["blocks"] if b["type"] == "variants")["items"]
     assert 1 <= len(variants) <= 3 and all(v["why"] for v in variants)

@@ -13,7 +13,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1 PIP_DISABLE_
 WORKDIR /app
 COPY pyproject.toml README.md ./
 COPY backend ./backend
-RUN pip install .
+# Первый запуск может идти через медленное соединение; не падаем на одном timeout PyPI.
+RUN pip install --retries 5 --timeout 120 .
 COPY data ./data
 COPY --from=web /web/dist ./web/dist
 ENV DATA_DIR=/app/data WEB_DIST_DIR=/app/web/dist

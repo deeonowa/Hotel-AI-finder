@@ -384,16 +384,22 @@ class Agent:
         loc = svc.pack
         if self.multi_location:
             chips.items.insert(0, self._location_chip(st))
-        if inspire and self.multi_location and req.provenance.get("location_id") != Source.user:
-            # «куда поехать?» без города → сравниваем ГОРОДА и страны, а не районы одного города
+        choose_location = self.multi_location and req.provenance.get("location_id") != Source.user and (inspire or not st.variants)
+        if choose_location:
+            # Если города нет, не выдаём молча дефолтный Сочи: сначала даём выбрать направление.
             with tr.step("compare_locations") as s:
                 exclude = {x for x in self.locations.ids if only and x not in only}
                 cards = suggest_locations(req, self.locations, self.catalog, ci, co, exclude=exclude)
                 s["detail"] = ", ".join(c.name for c in cards)
             st.stage = TripStage.collecting
-            text = f"Сравнил направления на {dates_label(req)}: климат, цены на эти даты, перелёт и документы. Выберите — подберу отели."
+            text = (
+                f"Сравнил направления на {dates_label(req)}: климат, цены на эти даты, перелёт и документы. Выберите — подберу отели."
+                if inspire
+                else "Подобрал направления под ваш запрос. Выберите город — затем сравню конкретные отели."
+            )
             chips.items = [c for c in chips.items if c.path != "location_id"]  # город как раз и выбираем
-            return [TextBlock(markdown=text), chips, DestinationsBlock(title="Куда поехать", items=cards)], [c.choose for c in cards[:3]]
+            title = "Куда поехать" if inspire else "Выберите направление"
+            return [TextBlock(markdown=text), chips, DestinationsBlock(title=title, items=cards)], [c.choose for c in cards[:3]]
         if inspire and not req.district_ids:
             with tr.step("inspire") as s:
                 cards = suggest_districts(req, loc, self.catalog, svc.pricing, self.transfer, ci, co)
@@ -587,12 +593,18 @@ class Agent:
         return st.variant(st.selected_variant_id or "") or st.variant(st.recommended_variant_id or "")
 
     def _select(self, st: TripState, v: Variant, tr: Tracer | None = None) -> Out:
+        if st.stage == TripStage.selected and st.selected_variant_id == v.id:
+            # Старую карточку можно нажать повторно из истории диалога. Это не новый выбор.
+            return [TextBlock(markdown="Этот вариант уже выбран. Можно добавить его в корзину или изменить условия поездки.")], [
+                QuickReply(label="В корзину", action=AddToCartAction(variant_id=v.id)),
+                QuickReply(label="Сравнить все", action=CompareAction()),
+            ]
         st.selected_variant_id = v.id
         st.stage = TripStage.selected
         v.issues = self.validator.validate_variant(v, st.requirements, self._loc(st))
         blocks: list[UIBlock] = [
             TextBlock(markdown=self.nlg.summarize_turn(st, {"kind": "selected", "hotel": v.hotel.name})),
-            VariantsBlock(items=[v], recommended_id=v.id),
+            VariantsBlock(items=[v], recommended_id=v.id, selected_id=v.id),
         ]
         fix = self._autofix(st, v, tr or Tracer())
         if fix is not None:

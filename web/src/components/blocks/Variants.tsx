@@ -15,18 +15,32 @@ export function VariantsView({ b, onReply, disabled }: { b: VariantsBlock; onRep
   return (
     <div className="grid variants">
       {b.items.map((v) => (
-        <VariantCard key={v.id} v={v} recommended={v.id === b.recommended_id} onReply={onReply} disabled={disabled} />
+        <VariantCard
+          key={v.id}
+          v={v}
+          recommended={v.id === b.recommended_id}
+          selected={v.id === b.selected_id}
+          onReply={onReply}
+          disabled={disabled}
+        />
       ))}
     </div>
   );
 }
 
-function VariantCard({ v, recommended, onReply, disabled }: { v: Variant; recommended: boolean; onReply: ReplyFn; disabled: boolean }) {
+function VariantCard({ v, recommended, selected, onReply, disabled }: {
+  v: Variant;
+  recommended: boolean;
+  selected: boolean;
+  onReply: ReplyFn;
+  disabled: boolean;
+}) {
   const h = v.hotel;
   const o = v.offer;
-  const risks = [...(v.fit_warnings ?? []), ...(v.issues ?? [])];
+  // Время прилёта выясняем после выбора конкретного отеля; на трёх карточках это только отвлекает.
+  const risks = [...(v.fit_warnings ?? []), ...(v.issues ?? [])].filter((risk) => risk.code !== "arrival_unknown");
   return (
-    <article className={`card variant ${recommended ? "recommended" : ""}`}>
+    <article className={`card variant ${recommended ? "recommended" : ""} ${selected ? "selected" : ""}`}>
       <div className={`arch ${ARCH_CLASS[v.archetype] ?? ""}`}>{v.title}{recommended && " · рекомендую"}</div>
       <h4>{h.name}</h4>
       <div className="muted small">
@@ -76,8 +90,8 @@ function VariantCard({ v, recommended, onReply, disabled }: { v: Variant; recomm
         </ul>
       )}
       <div className="actions">
-        <button onClick={() => onReply({ label: `Выбираю ${h.name}`, action: { type: "select_variant", variant_id: v.id } })} disabled={disabled}>
-          Выбрать
+        <button onClick={() => onReply({ label: `Выбираю ${h.name}`, action: { type: "select_variant", variant_id: v.id } })} disabled={disabled || selected}>
+          {selected ? "Выбрано" : "Выбрать"}
         </button>
         <button className="primary" disabled={disabled}
           onClick={() => onReply({ label: `В корзину: ${h.name}`, action: { type: "add_to_cart", variant_id: v.id, with_transfer: true } })}>

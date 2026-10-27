@@ -75,6 +75,7 @@ class VariantsBlock(Model):
     type: Literal["variants"] = "variants"
     items: list[Variant]
     recommended_id: str | None = None
+    selected_id: str | None = Field(default=None, description="вариант, который пользователь уже выбрал; его нельзя выбрать повторно")
     stats: SearchStats | None = None
 
 

@@ -37,7 +37,7 @@ def _say(agent, sid, text):
 # ------------------------------------------------------------------ P0: подтверждение
 def test_assumed_dates_and_guests_must_be_confirmed_before_order(agent):
     sid = agent.new_session().session_id
-    _say(agent, sid, "к морю с ребёнком в ноябре на неделю")  # даты и состав — предположены
+    _say(agent, sid, "в Сочи к морю с ребёнком в ноябре на неделю")  # даты и состав — предположены
     st = agent.get_state(sid)
     groups = {g for g, _ in pending_confirmations(st.requirements)}
     assert groups == {"dates", "guests"}
@@ -48,16 +48,14 @@ def test_assumed_dates_and_guests_must_be_confirmed_before_order(agent):
     q = _block(r, "question")
     assert "предположил" in q.text and "дети" in q.text
 
-    # город пользователь тоже не называл (направлений несколько) — его подтверждают вместе с датами и составом
-    assert "направление" in q.text
-    r = _act(agent, sid, type="confirm_assumptions", paths=["location", "dates", "guests"], then_checkout=True)
+    r = _act(agent, sid, type="confirm_assumptions", paths=["dates", "guests"], then_checkout=True)
     assert _block(r, "order").order.number.startswith("OST-")
 
 
 def test_booking_service_itself_refuses_unconfirmed(agent):
     """Защита не только в диалоге: сервис бронирования перепроверяет корзину сам."""
     sid = agent.new_session().session_id
-    _say(agent, sid, "к морю с ребёнком в ноябре на неделю")
+    _say(agent, sid, "в Сочи к морю с ребёнком в ноябре на неделю")
     st = agent.get_state(sid)
     _act(agent, sid, type="add_to_cart", variant_id=st.recommended_variant_id)
     st = agent.get_state(sid)
@@ -68,14 +66,14 @@ def test_booking_service_itself_refuses_unconfirmed(agent):
 
 def test_explicit_dates_and_guests_need_no_confirmation(agent):
     sid = agent.new_session().session_id
-    _say(agent, sid, "вдвоём с 10 по 17 ноября у моря")
+    _say(agent, sid, "в Сочи вдвоём с 10 по 17 ноября у моря")
     assert pending_confirmations(agent.get_state(sid).requirements) == []
 
 
 # ------------------------------------------------------------------ P1: пересборка
 def test_replan_keeps_chosen_hotel_and_updates_cart(agent):
     sid = agent.new_session().session_id
-    _say(agent, sid, "вдвоём с 10 по 17 ноября у моря")
+    _say(agent, sid, "в Сочи вдвоём с 10 по 17 ноября у моря")
     st = agent.get_state(sid)
     chosen = st.variants[1]  # пользователь выбрал НЕ рекомендованный
     _act(agent, sid, type="add_to_cart", variant_id=chosen.id)
@@ -91,7 +89,7 @@ def test_replan_keeps_chosen_hotel_and_updates_cart(agent):
 
 def test_replan_explains_why_chosen_hotel_was_replaced(agent, hotels):
     sid = agent.new_session().session_id
-    _say(agent, sid, "вдвоём с 10 по 17 ноября у моря")
+    _say(agent, sid, "в Сочи вдвоём с 10 по 17 ноября у моря")
     st = agent.get_state(sid)
     by_id = {h.id: h for h in hotels}
     no_pets = next((v for v in st.variants if by_id[v.hotel.id].pets.allowed is not True), None)
@@ -101,6 +99,32 @@ def test_replan_explains_why_chosen_hotel_was_replaced(agent, hotels):
     r = _say(agent, sid, "с нами поедет собака")
     assert "пришлось заменить" in _block(r, "diff").summary
     assert agent.get_state(sid).cart_id is None, "корзина под старый отель очищена"
+
+
+def test_reselecting_the_same_hotel_is_idempotent_and_keeps_next_step(agent):
+    """Старая карточка не должна снова запускать выбор и плодить одинаковые ответы."""
+    sid = agent.new_session().session_id
+    _say(agent, sid, "в Сочи вдвоём с 10 по 17 ноября у моря")
+    chosen = agent.get_state(sid).recommended_variant_id
+    _act(agent, sid, type="select_variant", variant_id=chosen)
+
+    r = _act(agent, sid, type="select_variant", variant_id=chosen)
+    assert _types(r) == ["text"]
+    assert "уже выбран" in _text(r)
+    assert any(s.label == "В корзину" for s in r.suggestions)
+    assert agent.get_state(sid).selected_variant_id == chosen
+
+
+def test_question_after_selection_does_not_restart_selection(agent):
+    """Вопрос между шагами — нормальная часть диалога, а не повторный выбор отеля."""
+    sid = agent.new_session().session_id
+    _say(agent, sid, "в Сочи вдвоём с 10 по 17 ноября у моря")
+    chosen = agent.get_state(sid).recommended_variant_id
+    _act(agent, sid, type="select_variant", variant_id=chosen)
+
+    r = _say(agent, sid, "есть там бассейн?")
+    assert "variants" not in _types(r)
+    assert agent.get_state(sid).selected_variant_id == chosen
 
 
 # ------------------------------------------------------------------ P1: автоисправление
@@ -160,7 +184,7 @@ def test_children_parsing(text, ages):
 # ------------------------------------------------------------------ P2: билеты
 def test_tickets_included_when_origin_known(agent):
     sid = agent.new_session().session_id
-    r = _say(agent, sid, "летим вдвоём из Москвы, с 10 по 17 ноября, у моря")
+    r = _say(agent, sid, "летим вдвоём из Москвы в Сочи, с 10 по 17 ноября, у моря")
     v = _block(r, "variants").items[0]
     assert v.outbound and v.inbound and v.outbound.is_demo
     assert v.outbound.arrive_at.date().isoformat() == "2026-11-10"
@@ -173,7 +197,7 @@ def test_tickets_included_when_origin_known(agent):
 
 def test_direct_only_finds_nearest_date_with_direct_flights(agent):
     sid = agent.new_session().session_id
-    _say(agent, sid, "летим вдвоём из Екатеринбурга, с 10 по 17 ноября, у моря")
+    _say(agent, sid, "летим вдвоём из Екатеринбурга в Сочи, с 10 по 17 ноября, у моря")
     st = agent.get_state(sid)
     _act(agent, sid, type="add_to_cart", variant_id=st.recommended_variant_id)
     r = _say(agent, sid, "хочу перелёт без пересадок")
@@ -191,6 +215,6 @@ def test_direct_only_finds_nearest_date_with_direct_flights(agent):
 
 def test_own_arrival_time_means_no_tickets(agent):
     sid = agent.new_session().session_id
-    r = _say(agent, sid, "из Москвы, прилетаем в 9:30, вдвоём 10-17 ноября")
+    r = _say(agent, sid, "из Москвы в Сочи, прилетаем в 9:30, вдвоём 10-17 ноября")
     v = _block(r, "variants").items[0]
     assert v.outbound is None, "пользователь назвал свой рейс — билеты не навязываем"
