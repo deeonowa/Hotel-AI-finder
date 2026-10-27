@@ -37,10 +37,10 @@ test.describe("полный путь через Docker API", () => {
     const pay = page.getByRole("button", { name: /Оплатить/ });
     await expect(pay).toBeVisible();
     await pay.click();
-    await expect(page.getByText(/Статус:.*оплачен/)).toBeVisible();
+    await expect(page.getByLabel("Поездка оформлена")).toContainText("ПОЕЗДКА ОФОРМЛЕНА");
 
     await page.reload();
-    await expect(page.getByText(/Статус:.*оплачен/)).toBeVisible();
+    await expect(page.getByLabel("Поездка оформлена")).toBeVisible();
     await expect(page.getByLabel("Ваша поездка")).toContainText("ЗАКАЗ");
   });
 
