@@ -1,47 +1,91 @@
-# О!дин запрос — AI-агент поездок
+# Путёво — AI-агент для путешествий
 
-**Ostrovok Hackathon 2026** · трек «О!дин запрос» · команда **bisolid**
+Прототип для хакатона Островка, трек «О!дин запрос», команда **bisolid**.
 
-Прототип AI-агента для Островка (трек «О!дин запрос»): путешественник пишет **одно сообщение своими
-словами**, агент уточняет только необходимое, подбирает и сравнивает отели, объясняет выбор, проверяет
-состыковки (прибытие → заселение → трансфер), пересобирает план при изменении условий и доводит до
-оформленного (имитированного) заказа.
+Пользователь описывает будущую поездку обычными словами. Агент понимает требования, уточняет только
+необходимое, предлагает и сравнивает варианты, проверяет логистику, пересобирает маршрут после изменений
+и доводит до имитированного заказа.
 
-Локация MVP — **Большой Сочи** (7 районов: море и горы). Архитектура расширяется на любые локации и
-реальных поставщиков без изменения агента.
+> В демо используются реальные геоданные и отели OpenStreetMap для Большого Сочи. Цены, доступность,
+> билеты и оплата синтетические — это явно отмечено в интерфейсе.
 
-> 1378 реальных отелей Сочи (OpenStreetMap), климат и рельеф (Open-Meteo), дороги (OSRM).
-> **Цены, наличие, билеты и оплата — демонстрационные** и помечены в интерфейсе.
+## Быстрый запуск
 
-## Быстрый старт
+Нужен только [Docker Desktop](https://www.docker.com/products/docker-desktop/) с Docker Compose.
+Ключи, аккаунты и отдельная установка базы данных не нужны.
 
 ```bash
-git clone <repo> && cd OstrovokHotel
-docker compose up --build
-# → http://localhost:8000      (API: http://localhost:8000/docs)
+git clone https://github.com/ostrovok-hackathon-2026/bisolid.git
+cd bisolid
+docker compose up --build -d
 ```
 
-Поднимаются два контейнера: `app` и `postgres` (сессии, корзины и заказы хранятся в Postgres,
-схема создаётся миграциями при старте). Строка подключения — `DATABASE_URL`.
+После запуска откройте:
 
-Работает **без ключей** — в режиме правил. Чтобы включить LLM, скопируйте `.env.example` в `.env`,
-укажите `LLM_BASE_URL` / `LLM_API_KEY` / `LLM_MODEL` (OpenRouter, Ollama или любой OpenAI-совместимый
-endpoint) и перезапустите. Локальная модель: `docker compose --profile local up --build`.
+- приложение: [http://localhost:8000](http://localhost:8000);
+- Swagger API: [http://localhost:8000/docs](http://localhost:8000/docs).
 
-### Разработка
+Дальше достаточно `docker compose up -d`. Логи приложения: `docker compose logs -f app`.
+
+Если `8000` занят:
 
 ```bash
-python -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
+APP_PORT=8080 docker compose up --build -d
+# открыть http://localhost:8080
+```
+
+Остановить сервисы: `docker compose down`. Полностью очистить демонстрационные данные:
+`docker compose down -v`.
+
+### Рекомендуемый демо-маршрут
+
+1. Введите: «К морю с ребёнком в ноябре на неделю, до 120 тысяч».
+2. Выберите один из вариантов; если понадобится, укажите время прибытия вручную.
+3. Напишите «на два дня позже» или «дешевле» — агент пересоберёт текущий план.
+4. Добавьте отель в корзину, при желании ранний заезд, затем оформите и подтвердите заказ.
+
+«Новая поездка» очищает только текущий диалог в браузере. Чтобы начать демо с пустой БД, выполните
+`docker compose down -v` перед запуском.
+
+## Режим агента
+
+По умолчанию агент работает в детерминированном режиме правил — весь путь доступен без API-ключей.
+Чтобы подключить LLM к любому OpenAI-совместимому endpoint для более гибкого NLU и объяснений:
+
+```bash
+cp .env.example .env
+# заполните LLM_BASE_URL, LLM_API_KEY и LLM_MODEL
+docker compose up --build
+```
+
+Локальная LLM через Ollama: `docker compose --profile local up --build`. После первого запуска
+один раз скачайте модель: `docker compose exec ollama ollama pull qwen2.5:7b-instruct`.
+
+## Локальная разработка
+
+Требования: Python 3.11+, Node.js 20+ и Docker.
+
+```bash
+# Открывает Postgres на 127.0.0.1:5432 только для разработки.
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d postgres
+
+python -m venv .venv && source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"
-docker compose up -d postgres        # Postgres на 127.0.0.1:5432 (trip/trip, БД trip_agent)
-python -m trip_agent migrate         # накатить миграции (serve делает это и сам)
-pytest                               # тесты (без TEST_DATABASE_URL — на БД в памяти)
-TEST_DATABASE_URL=postgresql://trip:trip@localhost:5432/trip_agent pytest   # тесты на Postgres
-docker compose --profile test run --rm --build tests                        # тесты в Docker
-python eval/run_eval.py              # сценарии и метрики качества → eval/report.md
-python -m trip_agent chat            # диалог с агентом в терминале
-python -m trip_agent serve           # API на :8000
-cd web && npm install && npm run dev # UI на :5173
+python -m trip_agent migrate
+python -m trip_agent serve                          # API: http://localhost:8000
+
+cd web && npm ci && npm run dev                     # UI: http://localhost:5173
+```
+
+Vite проксирует `/api` на backend `:8000`.
+
+```bash
+pytest
+docker compose --profile test run --rm --build tests
+python eval/run_eval.py
+npm --prefix web run typecheck
+npm --prefix web run build
+npm --prefix web run test:e2e
 ```
 
 ## Что умеет агент

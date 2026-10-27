@@ -10,8 +10,6 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-trip}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-trip}
       POSTGRES_DB: ${POSTGRES_DB:-trip_agent}
-    ports:
-      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
     volumes:
       - pg-data:/var/lib/postgresql/data
     healthcheck:
@@ -24,7 +22,7 @@ services:
   app:
     build: .
     ports:
-      - "8000:8000"
+      - "${APP_PORT:-8000}:8000"
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER:-trip}:${POSTGRES_PASSWORD:-trip}@postgres:5432/${POSTGRES_DB:-trip_agent}
       LLM_BASE_URL: ${LLM_BASE_URL:-}
@@ -35,6 +33,12 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
     restart: unless-stopped
 
   tests:
