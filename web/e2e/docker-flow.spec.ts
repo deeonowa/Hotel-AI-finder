@@ -43,4 +43,23 @@ test.describe("полный путь через Docker API", () => {
     await expect(page.getByText(/Статус:.*оплачен/)).toBeVisible();
     await expect(page.getByLabel("Ваша поездка")).toContainText("ЗАКАЗ");
   });
+
+  test.describe("mobile", () => {
+    test.use({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+
+    test("не имеет горизонтального overflow и проходит первые шаги с клавиатуры", async ({ page }) => {
+      const request = page.getByLabel("Куда хочется?");
+      await expect(request).toBeEnabled();
+      await expect(page.evaluate(() => window.innerWidth)).resolves.toBe(390);
+      await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+
+      await request.fill("Вдвоём к морю с 10 по 17 ноября");
+      await request.focus();
+      await page.keyboard.press("Tab");
+      await expect(page.getByRole("button", { name: "Отправить" })).toBeFocused();
+      await page.getByRole("button", { name: "Отправить" }).click();
+      await expect(page.getByText("Выберите направление")).toBeVisible();
+      await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+    });
+  });
 });
