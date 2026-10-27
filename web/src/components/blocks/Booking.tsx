@@ -52,6 +52,30 @@ export function OrderView({ b, onReply, disabled }: P<OrderBlock>) {
     change_requested: "запрошено изменение",
     cancelled: "отменён",
   };
+  const stay = o.items.find((item) => item.kind === "hotel_stay");
+  const extras = o.items.filter((item) => item.kind !== "hotel_stay");
+
+  if (o.status === "paid") {
+    return (
+      <section className="card order order-confirmed" aria-label="Поездка оформлена">
+        <div className="order-kicker">ПОЕЗДКА ОФОРМЛЕНА</div>
+        <h4>{stay?.title ?? "Ваш маршрут"}</h4>
+        {stay && <p className="order-stay">{stay.details}</p>}
+        <div className="order-confirmation">
+          <div><span>НОМЕР ЗАКАЗА</span><b>{o.number}</b></div>
+          <div><span>ОПЛАЧЕНО</span><b>{rub(o.total)}</b></div>
+        </div>
+        {extras.length > 0 && (
+          <ul className="order-extras">
+            {extras.map((item) => <li key={item.id}>{item.title}<span>{item.details}</span></li>)}
+          </ul>
+        )}
+        <p className="order-next">Детали поездки сохранены в путевом листе. Если планы изменятся — напишите агенту здесь.</p>
+        {o.payment_ref && <div className="demo">платёж {o.payment_ref} · оплата и бронирование имитируются</div>}
+      </section>
+    );
+  }
+
   return (
     <div className={`card order st-${o.status}`}>
       <h4>Заказ {o.number}</h4>
