@@ -17,7 +17,9 @@ class Settings(BaseSettings):
     llm_base_url: str | None = None  # https://openrouter.ai/api/v1 | http://ollama:11434/v1 | ...
     llm_api_key: str | None = None
     llm_model: str | None = None
-    llm_timeout_s: float = 30.0
+    llm_timeout_s: float = 20.0
+    llm_cooldown_s: float = 60.0  # после сбоя провайдера столько секунд работаем только на правилах
+    llm_min_confidence: float = 0.5  # ниже — ответ модели не применяем, берём правила
     agent_mode: Literal["auto", "llm", "rules"] = "auto"  # auto = llm, если задан LLM_MODEL
     llm_for_nlg: bool = True  # «очеловечивать» тексты через LLM (с проверкой заземления)
 

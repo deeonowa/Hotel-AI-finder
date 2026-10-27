@@ -28,6 +28,7 @@ from .transfer.matrix import MatrixTransfer
 from .validation.rules import RulesValidator
 
 if TYPE_CHECKING:
+    from .ports import LLMClient
     from .storage.memory import MemoryStore
     from .storage.postgres import PostgresStore
 
@@ -44,7 +45,14 @@ class App:
     locations: LocationRegistry
 
 
-def build(settings: Settings, *, today: Callable[[], date] = date.today, database_url: str | None = None) -> App:
+def build(
+    settings: Settings,
+    *,
+    today: Callable[[], date] = date.today,
+    database_url: str | None = None,
+    llm: LLMClient | None = None,
+) -> App:
+    """llm — готовый клиент (тесты подставляют поддельную модель); иначе создаётся по LLM_* из настроек."""
     catalog = JsonCatalog(settings.data_dir)
     transfer = MatrixTransfer(settings.data_dir)  # реальные дороги (OSRM), откат — по прямой
     # Все города из data/locations/ (или только перечисленные в LOCATION_IDS): цены, расписание и ранжирование — свои у каждого.
@@ -63,13 +71,25 @@ def build(settings: Settings, *, today: Callable[[], date] = date.today, databas
 
     nlu, nlg, mode = RuleNlu(packs), TemplateNlg(), "rules"
     default = locations.get(settings.location_id).pack
-    if settings.llm_enabled:
+    if llm is None and settings.llm_enabled:
         from .llm.client import OpenAICompatibleClient
 
         llm = OpenAICompatibleClient(
-            settings.llm_base_url or None, settings.llm_api_key or None, settings.llm_model or "", timeout_s=settings.llm_timeout_s
+            settings.llm_base_url or None,
+            settings.llm_api_key or None,
+            settings.llm_model or "",
+            timeout_s=settings.llm_timeout_s,
+            cooldown_s=settings.llm_cooldown_s,
         )
-        nlu = LlmNlu(llm, default.name, {d.id: d.name for d in default.districts}, RuleNlu(packs), locations=packs)
+    if llm is not None:
+        nlu = LlmNlu(
+            llm,
+            default.name,
+            {d.id: d.name for d in default.districts},
+            RuleNlu(packs),
+            locations=packs,
+            min_confidence=settings.llm_min_confidence,
+        )
         if settings.llm_for_nlg:
             nlg = LlmNlg(llm)
         mode = "llm"
