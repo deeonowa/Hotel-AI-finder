@@ -19,6 +19,8 @@ test("выбор сохраняется в путевом листе после 
   await page.getByRole("button", { name: /В корзину/ }).click();
   await expect(page.getByLabel("Ваша поездка")).toContainText("Отель «Олива»");
   await expect(page.getByLabel("Статус бронирования")).toContainText("46 060");
+  await expect(page.getByLabel("Предыдущая подборка отелей")).toContainText("Подборка отелей");
+  await expect(page.getByLabel("Предыдущая подборка отелей")).not.toHaveAttribute("open", "");
   await expect(page.getByText("Во сколько вы прибываете?")).not.toBeVisible();
 });
 

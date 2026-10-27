@@ -10,6 +10,7 @@ type SavedConversation = { sessionId: string; version: number; msgs: Msg[] };
 type ErrorNotice = { title: string; message: string; retry?: () => void };
 
 const STORAGE_KEY = "odin-zapros-conversation";
+const BLOCKS_WITH_ACTIONS = new Set(["assumptions", "question", "destinations", "variants", "no_results", "cart", "order"]);
 
 function loadSavedConversation(): SavedConversation | null {
   try {
@@ -54,6 +55,7 @@ export default function App() {
 
   const responses = msgs.filter((m): m is Extract<Msg, { role: "agent" }> => m.role === "agent").map((m) => m.resp);
   const last: TurnResponse | undefined = responses.length ? responses[responses.length - 1] : undefined;
+  const composerSuggestions = last?.blocks.some((block) => BLOCKS_WITH_ACTIONS.has(block.type)) ? [] : (last?.suggestions ?? []);
   const blocks = responses.flatMap((response) => response.blocks);
   const cart = [...blocks].reverse().find((block): block is CartBlock => block.type === "cart")?.cart;
   const order = [...blocks].reverse().find((block): block is OrderBlock => block.type === "order")?.order;
@@ -211,7 +213,13 @@ export default function App() {
             ) : (
               <div key={i} className="agent-turn" ref={i === msgs.length - 1 ? latestAgentTurn : null}>
                 {m.resp.blocks.map((b, j) => (
-                  <BlockView key={j} block={b} onReply={onReply} disabled={busy || i !== msgs.length - 1} />
+                  <BlockView
+                    key={j}
+                    block={b}
+                    onReply={onReply}
+                    disabled={busy || i !== msgs.length - 1}
+                    compact={i < msgs.length - 1}
+                  />
                 ))}
               </div>
             ),
@@ -232,9 +240,9 @@ export default function App() {
           </details>
 
           <footer className="composer">
-            {last && (last.suggestions ?? []).length > 0 && (
+            {composerSuggestions.length > 0 && (
               <div className="chips">
-                {(last.suggestions ?? []).map((q, i) => (
+                {composerSuggestions.map((q, i) => (
                   <button key={i} className="chip" onClick={() => onReply(q)} disabled={busy}>{q.label}</button>
                 ))}
               </div>
