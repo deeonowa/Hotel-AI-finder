@@ -46,13 +46,24 @@ def _clean(text: str) -> str:
 
 
 class OpenAICompatibleClient:
-    def __init__(self, base_url: str | None, api_key: str | None, model: str, *, timeout_s: float = 20.0, cooldown_s: float = 60.0):
+    def __init__(
+        self,
+        base_url: str | None,
+        api_key: str | None,
+        model: str,
+        *,
+        timeout_s: float = 20.0,
+        cooldown_s: float = 60.0,
+        extra_body: dict | None = None,
+    ):
+        """extra_body — параметры конкретного сервера, напр. {"chat_template_kwargs": {"enable_thinking": false}}."""
         from openai import OpenAI  # импорт здесь: без LLM пакет не обязателен для тестов
 
         self.model = model
         self._client = OpenAI(base_url=base_url, api_key=api_key or "not-needed", timeout=timeout_s, max_retries=1)
         self._json_schema_ok: bool | None = None  # определяем на первом вызове
         self.last_latency_ms = 0
+        self.extra_body = extra_body or None
         self.cooldown_s = cooldown_s
         self._down_until = 0.0
 
@@ -74,6 +85,8 @@ class OpenAICompatibleClient:
         kw = {"model": self.model, "messages": messages, "temperature": temperature, "max_tokens": max_tokens}
         if response_format:
             kw["response_format"] = response_format
+        if self.extra_body:
+            kw["extra_body"] = self.extra_body
         resp = self._client.chat.completions.create(**kw)
         self.last_latency_ms = int((time.perf_counter() - t0) * 1000)
         return resp.choices[0].message.content or ""

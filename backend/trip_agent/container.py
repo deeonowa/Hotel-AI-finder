@@ -80,6 +80,7 @@ def build(
             settings.llm_model or "",
             timeout_s=settings.llm_timeout_s,
             cooldown_s=settings.llm_cooldown_s,
+            extra_body=settings.llm_extra_body,
         )
     if llm is not None:
         nlu = LlmNlu(

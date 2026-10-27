@@ -20,6 +20,9 @@ class Settings(BaseSettings):
     llm_timeout_s: float = 20.0
     llm_cooldown_s: float = 60.0  # после сбоя провайдера столько секунд работаем только на правилах
     llm_min_confidence: float = 0.5  # ниже — ответ модели не применяем, берём правила
+    # доп. параметры запроса конкретного сервера; локальный Qwen3 без «размышлений» в разы быстрее:
+    # LLM_EXTRA_BODY='{"chat_template_kwargs": {"enable_thinking": false}}'
+    llm_extra_body: dict = {}
     agent_mode: Literal["auto", "llm", "rules"] = "auto"  # auto = llm, если задан LLM_MODEL
     llm_for_nlg: bool = True  # «очеловечивать» тексты через LLM (с проверкой заземления)
 
