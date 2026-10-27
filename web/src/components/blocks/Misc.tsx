@@ -84,7 +84,19 @@ function hours(min: number): string {
   return m ? `${h} ч ${m} мин` : `${h} ч`;
 }
 
-export function DestinationsView({ b, onReply, disabled }: P<DestinationsBlock>) {
+export function DestinationsView({ b, onReply, disabled, compact = false }: P<DestinationsBlock> & { compact?: boolean }) {
+  if (compact) {
+    return (
+      <details className="past-options" aria-label="Предыдущая подборка направлений">
+        <summary>
+          <span>{b.title ?? "Подборка направлений"}</span>
+          <b>{b.items.length} {b.items.length === 1 ? "направление" : "направления"}</b>
+          <em>{b.items.map((item) => item.name).join(" · ")}</em>
+        </summary>
+        <div className="past-options-content"><DestinationsView b={b} onReply={onReply} disabled compact={false} /></div>
+      </details>
+    );
+  }
   return (
     <div className="grid">
       {b.title && <div className="muted small dest-title">{b.title}</div>}

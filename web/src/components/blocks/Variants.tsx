@@ -11,7 +11,25 @@ const ARCH_CLASS: Record<string, string> = {
   alternative: "a-alt",
 };
 
-export function VariantsView({ b, onReply, disabled }: { b: VariantsBlock; onReply: ReplyFn; disabled: boolean }) {
+export function VariantsView({ b, onReply, disabled, compact = false }: {
+  b: VariantsBlock;
+  onReply: ReplyFn;
+  disabled: boolean;
+  compact?: boolean;
+}) {
+  if (compact) {
+    const recommended = b.items.find((variant) => variant.id === b.recommended_id);
+    return (
+      <details className="past-options" aria-label="Предыдущая подборка отелей">
+        <summary>
+          <span>Подборка отелей</span>
+          <b>{b.items.length} {b.items.length === 1 ? "вариант" : "варианта"}</b>
+          {recommended && <em>Рекомендовали: {recommended.hotel.name}</em>}
+        </summary>
+        <div className="past-options-content"><VariantsView b={b} onReply={onReply} disabled compact={false} /></div>
+      </details>
+    );
+  }
   return (
     <div className="grid variants">
       {b.items.map((v) => (

@@ -14,7 +14,12 @@ import { VariantsView } from "./blocks/Variants";
 export type ReplyFn = (q: QuickReply) => void;
 
 /** Единая точка: тип блока → компонент. Новый тип блока в схеме → TS подсветит здесь пропуск. */
-export function BlockView({ block, onReply, disabled }: { block: UIBlock; onReply: ReplyFn; disabled: boolean }) {
+export function BlockView({ block, onReply, disabled, compact = false }: {
+  block: UIBlock;
+  onReply: ReplyFn;
+  disabled: boolean;
+  compact?: boolean;
+}) {
   switch (block.type) {
     case "text":
       return <TextView b={block} />;
@@ -23,9 +28,9 @@ export function BlockView({ block, onReply, disabled }: { block: UIBlock; onRepl
     case "assumptions":
       return <AssumptionsView b={block} onReply={onReply} disabled={disabled} />;
     case "destinations":
-      return <DestinationsView b={block} onReply={onReply} disabled={disabled} />;
+      return <DestinationsView b={block} onReply={onReply} disabled={disabled} compact={compact} />;
     case "variants":
-      return <VariantsView b={block} onReply={onReply} disabled={disabled} />;
+      return <VariantsView b={block} onReply={onReply} disabled={disabled} compact={compact} />;
     case "comparison":
       return <ComparisonView b={block} />;
     case "diff":
