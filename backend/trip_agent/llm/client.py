@@ -72,8 +72,11 @@ class OpenAICompatibleClient:
         return time.monotonic() >= self._down_until
 
     def _trip(self, e: Exception) -> LLMError:
-        self._down_until = time.monotonic() + self.cooldown_s
-        log.warning("LLM unavailable, rules-only for %.0fs: %s", self.cooldown_s, e)
+        # исчерпан дневной лимит (у OpenRouter без пополнения — 50 бесплатных запросов в сутки): до сброса
+        # стучаться бессмысленно — час работаем на правилах, а не дёргаем провайдера каждую минуту
+        cooldown = 3600.0 if "per-day" in str(e) else self.cooldown_s
+        self._down_until = time.monotonic() + cooldown
+        log.warning("LLM unavailable, rules-only for %.0fs: %s", cooldown, e)
         return LLMError(str(e))
 
     def _guard(self) -> None:

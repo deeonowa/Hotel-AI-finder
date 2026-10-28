@@ -1,5 +1,6 @@
 # Eval report (rules)
 
+
 | метрика | значение |
 |---|---|
 | mode | rules |
@@ -8,10 +9,11 @@
 | avg_clarifications | 0.06 |
 | avg_city_choices | 0.52 |
 | avg_turns_to_first_offer | 1.68 |
-| avg_ms_to_first_offer | 211 |
+| avg_ms_to_first_offer | 212 |
 | constraint_violations | 0 |
 | logistics_errors | 0 |
 | crashes | 0 |
+| llm_share_text_turns | 0.0 |
 | interpretation_errors | 0 |
 
 | сценарий | цель | ок | вопросов | ход до вариантов | замечания |

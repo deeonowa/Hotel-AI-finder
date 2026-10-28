@@ -30,6 +30,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
 
+from llm_pace import pace, quota_note  # noqa: E402
 from trip_agent.config import Settings  # noqa: E402
 from trip_agent.container import build  # noqa: E402
 from trip_agent.requirements_ops import PatchError, apply_patch  # noqa: E402
@@ -136,6 +137,8 @@ def evaluate(app, cases: list[dict]) -> tuple[dict, list[dict]]:
         "case_accuracy": round(sum(r["ok"] for r in results) / n, 3),
         "safety": f"{sum(safety)}/{len(safety)}" if safety else "—",
         "parser": ", ".join(sorted({r["parser"] for r in results})),
+        # доля кейсов, которые разобрала модель (остальные — правила: сбой, 429, низкая уверенность)
+        "llm_share": round(sum(r["parser"] == "llm" for r in results) / n, 3),
     }
     return metrics, results
 
@@ -145,10 +148,12 @@ def main() -> None:
     ap.add_argument("--mode", choices=["rules", "llm", "auto"], default="rules")
     ap.add_argument("--set", choices=["dev", "holdout", "holdout2", "all"], default="all")
     ap.add_argument("-v", "--verbose", action="store_true")
+    ap.add_argument("--rpm", type=float, default=18, help="LLM: не чаще N запросов в минуту (бесплатные модели — 20)")
     ap.add_argument("--out", default=str(ROOT / "eval" / "nlu_report.md"))
     args = ap.parse_args()
 
-    app = build(Settings(agent_mode=args.mode), today=lambda: TODAY, database_url="memory://")
+    app = build(Settings(agent_mode=args.mode, llm_for_nlg=False), today=lambda: TODAY, database_url="memory://")
+    pace(app, args.rpm)
     sets = ["dev", "holdout", "holdout2"] if args.set == "all" else [args.set]
     lines = [f"# NLU eval ({app.mode})", "", f"Сегодня (фиксировано): {TODAY}. База для изменений: «{BASE}».", ""]
     for name in sets:
@@ -166,6 +171,9 @@ def main() -> None:
         if args.verbose:
             for r in bad:
                 print(f"  ✗ {r['id']}: {r['text']}\n      {r['errors']}")
+    if note := quota_note():
+        lines += ["", *note]
+        print("\n".join(note))
     Path(args.out).write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 

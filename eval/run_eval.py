@@ -28,6 +28,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
 
+from llm_pace import pace, quota_note  # noqa: E402
 from trip_agent.config import Settings  # noqa: E402
 from trip_agent.container import build  # noqa: E402
 from trip_agent.schemas import TurnRequest  # noqa: E402
@@ -51,6 +52,9 @@ def _city_card(r, city: str):
 
 def _note(res: dict, r, step: int, t_start: float) -> None:
     res["trace"] += [f"{t.name}:{t.detail}" for t in r.trace]
+    if any(t.name == "nlu" for t in r.trace):  # ход с текстом (не клик): кто его разобрал
+        res["text_turns"] += 1
+        res["llm_turns"] += r.mode == "llm"
     res["offered_locations"] |= {c.location_id for b in _blocks(r, "destinations") for c in b.items if c.scope == "location"}
     for vb in _blocks(r, "variants"):
         if len(vb.items) > 1:
@@ -84,6 +88,8 @@ def run_scenario(app, sc: dict) -> dict:
         "city_choices": 0,
         "offered_locations": set(),
         "offer_sets": [],
+        "text_turns": 0,
+        "llm_turns": 0,
     }
     # Город не назван → агент сначала предлагает направления (карточки), потом отели. Сценарий «выбирает»
     # карточку sc["city"] (по умолчанию Сочи) — как сделал бы пользователь. auto_city: false — выбор вручную.
@@ -249,9 +255,12 @@ def main() -> None:
     ap.add_argument("--mode", choices=["rules", "llm", "auto"], default="rules")
     ap.add_argument("--only", help="тег сценариев")
     ap.add_argument("--out", default=str(ROOT / "eval" / "report.md"))
+    ap.add_argument("--rpm", type=float, default=18, help="LLM: не чаще N запросов в минуту (бесплатные модели — 20)")
+    ap.add_argument("--llm-nlg", action="store_true", help="LLM и для текстов ответа (вдвое больше запросов)")
     args = ap.parse_args()
 
-    app = build(Settings(agent_mode=args.mode), today=lambda: TODAY, database_url="memory://")
+    app = build(Settings(agent_mode=args.mode, llm_for_nlg=args.llm_nlg), today=lambda: TODAY, database_url="memory://")
+    pace(app, args.rpm)
     scenarios = [json.loads(x) for x in (ROOT / "eval" / "scenarios.jsonl").read_text("utf-8").splitlines() if x.strip()]
     if args.only:
         scenarios = [s for s in scenarios if args.only in s.get("tags", [])]
@@ -272,9 +281,10 @@ def main() -> None:
         ),
         "logistics_errors": sum(r["logistics_errors"] for r in results),
         "crashes": sum(1 for r in results if r["crash"]),
+        "llm_share_text_turns": round(sum(r["llm_turns"] for r in results) / max(1, sum(r["text_turns"] for r in results)), 3),
         "interpretation_errors": sum(len([v for v in r["violations"] if v.startswith(("понял не так", "не понял"))]) for r in results),
     }
-    lines = [f"# Eval report ({metrics['mode']})", "", "| метрика | значение |", "|---|---|"]
+    lines = [f"# Eval report ({metrics['mode']})", "", *quota_note(), "", "| метрика | значение |", "|---|---|"]
     lines += [f"| {k} | {v} |" for k, v in metrics.items()]
     lines += ["", "| сценарий | цель | ок | вопросов | ход до вариантов | замечания |", "|---|---|---|---|---|---|"]
     for r in results:

@@ -129,6 +129,8 @@ def apply_patch(
                     provenance.pop("district_ids", None)
                 if not any(o.path == "transport.arrival_hub_id" for o in ops):
                     data["transport"]["arrival_hub_id"] = None
+                # рейсы, выбранные в прежний город, к новому не относятся
+                data["transport"]["outbound_offer_id"] = data["transport"]["inbound_offer_id"] = None
             data["location_id"] = op.value
             provenance[path] = source
             continue
