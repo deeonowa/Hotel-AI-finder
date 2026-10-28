@@ -110,8 +110,30 @@ UNSUPPORTED_DESTINATIONS = [
     (r"\bкрым|ялт|севастопол|евпатори|алушт|феодоси", "Крым"), (r"калининград", "Калининград"),
     (r"шри-? ?ланк", "Шри-Ланка"), (r"\bгоа\b|инди[яюи]\b", "Индия"), (r"анап[аеуы]|геленджик", "Анапа/Геленджик"),
     (r"\bв (?:питер|санкт-петербург)\b|\bв москву\b", "Москва/Петербург"),
+    (r"сибир", "Сибирь"), (r"алта[йюяе]", "Алтай"), (r"байкал", "Байкал"), (r"карели", "Карелия"),
+    (r"камчат", "Камчатка"), (r"мурманск|териберк", "Мурманск"), (r"\bдагестан", "Дагестан"),
+    (r"\bв (?:европ|итали|испани|франци|германи|чехи|прагу|париж|рим\b|барселон)", "Европа"),
+    (r"греци|черногори|сербии|\bсербию|белград", "Балканы/Греция"), (r"кита[йяю]|пекин|шанха|хайнан|санья", "Китай"),
+    (r"япони|токио|\bкоре[юяи]|сеул", "Япония/Корея"), (r"\bкуб[ауе]\b|мексик|доминикан", "Карибы"),
+    (r"абу-? ?даби|шардж|рас-? ?эль", "Абу-Даби/Шарджа"), (r"\bузбекистан|самарканд|ташкент", "Узбекистан"),
+    (r"казахстан|алмат", "Казахстан"), (r"\bминск|беларус|белорус", "Беларусь"),
 ]  # fmt: skip
 ORIGIN_SPAN = re.compile(r"\bиз\s+[\w\-]+")
+# «не в Дубай», «только не Турция», «кроме Пхукета», «не хочу в Анталью» — отказ от направления
+NEG_BEFORE = re.compile(
+    r"(?:\bне|\bкроме|исключая|\bбез)\s+(?:(?:хочу|хотим|надо|нужно|ехать|лететь|поедем|едем|рассматриваем|предлагай)\s+)*"
+    r"(?:(?:в|во|на)\s+)?(?:\w+\s+)?$"
+)
+NEG_AFTER = re.compile(
+    r"^\w*[,\s]*(?:—\s*)?(?:не (?:хочу|хотим|надо|нужно|нужен|нужна|предлагай|рассматриваем|вариант)|отпада|исключ|был[иа]? уже)"
+)
+MORE_OPTIONS = re.compile(
+    r"(?:друг\w*|ин\w*|нов\w*|ещ[её])\s+(?:\w+\s+)?(?:отел|вариант|гостиниц|предложени)|покажи\w* (?:ещ[её]|больше)"
+    r"|не нравя?т?ся|что[- ]?(?:то|нибудь) друго|альтернатив|больше вариант"
+)
+INSPIRE_DISTRICT = re.compile(r"район|в как\w* част|где (?:лучше )?(?:жить|остановиться|поселиться)")
+ABROAD = re.compile(r"за ?границ|заграниц|за рубеж|в другую страну|не в росси|не по росси|вне росси|\babroad\b|в другой стран")
+DOMESTIC = re.compile(r"по росси|в россии\b|внутри страны|без загранпаспорт|без загран")
 
 
 def _num(token: str | None) -> int | None:
@@ -142,6 +164,11 @@ def _safe_date(y: int, m: int, d: int) -> date | None:
 def _norm(text: str) -> str:
     t = text.lower().replace("ё", "е").replace("–", "-").replace("—", "-")
     return " " + re.sub(r"\s+", " ", t) + " "
+
+
+def _negated(text: str, m: re.Match) -> bool:
+    """Название стоит после «не/кроме/без» или перед «не хочу/отпадает» — пользователь от него отказывается."""
+    return bool(NEG_BEFORE.search(text[max(0, m.start() - 40) : m.start()]) or NEG_AFTER.search(text[m.end() : m.end() + 30]))
 
 
 def is_injection(text: str) -> bool:
@@ -190,6 +217,15 @@ class RuleNlu:
             return NluResult(intent=Intent.book, parser="rules")
 
         ops, assumed = self._extract(t, text, state, today)
+        if MORE_OPTIONS.search(t):
+            # «предложи другие отели» — новые варианты при тех же условиях (плюс то, что изменили в этой же фразе)
+            return NluResult(
+                intent=Intent.modify if has_plan else Intent.plan_trip,
+                patch=ops,
+                assumed_paths=assumed,
+                more_options=True,
+                parser="rules",
+            )
         places = self._destinations(t)[0]
         many_places = len(places) > 1
         unknown = None if any(o.path == "location_id" for o in ops) else self._unknown_destination(t)
@@ -218,6 +254,7 @@ class RuleNlu:
                 patch=ops,
                 assumed_paths=assumed,
                 candidate_location_ids=sorted(places) if many_places else [],
+                inspire_level="district" if INSPIRE_DISTRICT.search(t) else "location",
                 parser="rules",
             )
         if ops:
@@ -238,8 +275,14 @@ class RuleNlu:
         self._guests(t, state, ops, assumed)
         self._budget(t, state, ops)
         self._transport(t, raw, ops, assumed)
-        locs, districts = self._destinations(t)
+        locs, districts, excluded = self._destinations(t)
         current = state.requirements.location_id
+        if ABROAD.search(t):
+            ops.append(PatchOp(op="set", path="geo_scope", value="abroad"))
+        elif DOMESTIC.search(t):
+            ops.append(PatchOp(op="set", path="geo_scope", value="domestic"))
+        for lid in sorted(excluded):
+            ops.append(PatchOp(op="add", path="excluded_location_ids", value=lid))
         if len(locs) == 1:
             (loc,) = locs
             ops.append(PatchOp(op="set", path="location_id", value=loc))
@@ -253,20 +296,37 @@ class RuleNlu:
         self._prefs(t, ops)
         return ops, assumed
 
-    def _destinations(self, t: str) -> tuple[set[str], dict[str, str]]:
-        """Какие города/страны и районы названы. «Из Москвы» — откуда, это не направление."""
+    def _destinations(self, t: str) -> tuple[set[str], dict[str, str], set[str]]:
+        """Какие города/страны и районы названы — и от каких отказались («но не в Дубай»).
+
+        «Из Москвы» — откуда, это не направление."""
         dest = ORIGIN_SPAN.sub(" ", t)
-        districts = {did: lid for rx, did, lid in self.district_rx if rx.search(dest)}
-        locs = {lid for rx, lid in self.loc_rx if rx.search(dest)}
+        excluded: set[str] = set()
+        locs: set[str] = set()
+        for rx, lid in self.loc_rx:
+            for m in rx.finditer(dest):
+                (excluded if _negated(dest, m) else locs).add(lid)
+        districts: dict[str, str] = {}
+        for rx, did, lid in self.district_rx:
+            for m in rx.finditer(dest):
+                if _negated(dest, m):
+                    continue
+                districts[did] = lid
+        locs -= excluded
+        districts = {d: lid for d, lid in districts.items() if lid not in excluded}
         owners = set(districts.values())
         if not locs and len(owners) == 1:
             locs = owners  # «в Патонг» → Пхукет; «старый город» есть у нескольких городов — это не выбор города
-        return locs, districts
+        return locs, districts, excluded
 
     @staticmethod
     def _unknown_destination(t: str) -> str | None:
         dest = ORIGIN_SPAN.sub(" ", t)
-        return next((name for rx, name in UNSUPPORTED_DESTINATIONS if re.search(rx, dest)), None)
+        for rx, name in UNSUPPORTED_DESTINATIONS:
+            m = re.search(rx, dest)
+            if m and not _negated(dest, m):  # «только не в Египет» — это отказ, а не запрос
+                return name
+        return None
 
     # ---------------------------------------------------------------- даты
     def _dates(self, t: str, state: TripState, today: date, ops: list[PatchOp], assumed: list[str]) -> None:

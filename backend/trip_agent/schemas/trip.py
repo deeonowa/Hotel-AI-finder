@@ -166,6 +166,9 @@ class TripState(Model):
     clarifications_asked: int = 0
     asked_paths: list[str] = Field(default_factory=list, description="о чём уже спрашивали — не повторяться")
     dismissed_fixes: list[str] = Field(default_factory=list, description="'<hotel_id>:<code>' — от каких исправлений отказались")
+    excluded_hotel_ids: list[str] = Field(
+        default_factory=list, description="отели, которые пользователь попросил заменить («предложи другие») — больше не предлагаем"
+    )
     cart_id: str | None = None
     order_ids: list[str] = Field(default_factory=list)
     turn_count: int = 0

@@ -13,6 +13,8 @@ from .schemas import DateWindow, PatchOp, Preference, PrefKey, Priority, Require
 
 PATH_LABELS = {
     "location_id": "Направление",
+    "geo_scope": "География",
+    "excluded_location_ids": "Не предлагать",
     "district_ids": "Район",
     "dates": "Даты",
     "dates.check_in": "Заезд",
@@ -111,6 +113,8 @@ def apply_patch(
         if path == "location_id":
             if op.op != "set" or not isinstance(op.value, str) or not op.value:
                 raise PatchError("направление можно только задать")
+            # назвал город сам — значит, он больше не «исключён»
+            data["excluded_location_ids"] = [x for x in data["excluded_location_ids"] if x != op.value]
             if op.value != data["location_id"]:
                 changes.append(f"{label}: {_fmt(data['location_id'], path)} → {_fmt(op.value, path)}")
                 # районы и хаб прибытия принадлежат прежнему городу; если их задали этим же патчем — оставим
@@ -139,11 +143,13 @@ def apply_patch(
                 raise PatchError(f"{path} не список")
             lst = list(_get_from_dict(data, path))
             if op.op == "add":
+                if path == "excluded_location_ids" and op.value in lst:
+                    continue  # уже исключено — без дублей
                 lst.append(op.value)
-                changes.append(f"{label}: + {_fmt(op.value)}")
+                changes.append(f"{label}: + {_fmt(op.value, path)}")
             elif op.value in lst:
                 lst.remove(op.value)
-                changes.append(f"{label}: − {_fmt(op.value)}")
+                changes.append(f"{label}: − {_fmt(op.value, path)}")
             _set(data, path, lst)
         elif op.op == "scale":
             if current is None:
@@ -201,6 +207,12 @@ def _fmt(v: Any, path: str = "") -> str:
         return fmt_rub(int(v))
     if path == "location_id":
         return LOCATION_LABELS.get(str(v), str(v))
+    if path == "excluded_location_ids":
+        if isinstance(v, list):
+            return ", ".join(LOCATION_LABELS.get(str(x), str(x)) for x in v) if v else "—"
+        return LOCATION_LABELS.get(str(v), str(v))
+    if path == "geo_scope":
+        return {"domestic": "по России", "abroad": "за границу"}.get(str(v), "—")
     if path == "district_ids" and isinstance(v, list):
         return ", ".join(DISTRICT_LABELS.get(str(x), str(x)) for x in v) if v else "—"
     if path == "transport.max_stops":

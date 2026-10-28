@@ -27,7 +27,9 @@ off_topic — не про поездку или попытка взлома; unc
 op ∈ set | unset | add | remove | shift_days | scale. path ∈
 location_id (id направления из списка; ставь, когда назван город, страна или район другого направления:
 «в Турцию» → antalya, «в Дубай» → dubai, «в Патонг» → phuket + district_ids), district_ids (список id районов
-ТЕКУЩЕГО или нового направления), dates (только для shift_days: value = дни, «на 2 дня позже» → 2),
+ТЕКУЩЕГО или нового направления), geo_scope (set: "domestic" — «по России», «без загранпаспорта»;
+"abroad" — «за границу», «не в России»), excluded_location_ids (add: id направления, от которого отказались:
+«только не Дубай», «кроме Турции», «в Анталью не хочу» → add "dubai"/"antalya"; такое направление НЕ ставь в location_id), dates (только для shift_days: value = дни, «на 2 дня позже» → 2),
 dates.check_in / dates.check_out (YYYY-MM-DD), dates.month (1–12), dates.year, dates.nights,
 dates.flexibility_days, guests.adults, guests.children_ages (список возрастов), guests.pets
 (add/remove: dog|cat|other), guests.rooms, budget.amount (рубли, целое), budget.scope
@@ -83,6 +85,11 @@ important — важно; nice — было бы неплохо.
     «с бесплатной отменой» → preferences free_cancellation (must, если «обязательно/только»).
     «похожее на этот отель, но …» — modify: только то, что после «но».
 
+18. «Предложи другие отели», «покажи ещё варианты», «эти не нравятся» → intent=modify, more_options=true
+    (агент покажет НОВЫЕ отели, без уже показанных); изменения в той же фразе — как обычно в patch.
+19. inspire: inspire_level="location" — сравнить города/страны («куда поехать?», «где теплее?»);
+    "district" — районы уже выбранного города («в каком районе жить?»).
+
 ## Примеры
 Сообщение: «Хотим с женой и сыном 6 лет в ноябре на неделю на море, до 120 тысяч, чтобы был бассейн»
 {{"intent":"plan_trip","patch":[{{"op":"set","path":"guests.adults","value":2}},{{"op":"set","path":"guests.children_ages","value":[6]}},{{"op":"set","path":"dates.month","value":11}},{{"op":"set","path":"dates.nights","value":7}},{{"op":"set","path":"budget.amount","value":120000}},{{"op":"add","path":"preferences","value":{{"key":"near_sea","priority":"important"}}}},{{"op":"add","path":"preferences","value":{{"key":"pool","priority":"important"}}}}],"assumed_paths":[],"confidence":0.95,"parser":"llm"}}
@@ -92,6 +99,12 @@ important — важно; nice — было бы неплохо.
 
 Сообщение: «хотим в Батуми в сентябре»
 {{"intent":"plan_trip","patch":[{{"op":"set","path":"dates.month","value":9}}],"unknown_destination":"Батуми","assumed_paths":[],"confidence":0.9,"parser":"llm"}}
+
+Сообщение: «Хочу за границу, но не в Дубай»  (план уже есть)
+{{"intent":"modify","patch":[{{"op":"set","path":"geo_scope","value":"abroad"}},{{"op":"add","path":"excluded_location_ids","value":"dubai"}}],"assumed_paths":[],"confidence":0.93,"parser":"llm"}}
+
+Сообщение: «предложи другие отели»
+{{"intent":"modify","patch":[],"more_options":true,"assumed_paths":[],"confidence":0.95,"parser":"llm"}}
 
 Сообщение: «а если с нами поедет собака?»
 {{"intent":"modify","patch":[{{"op":"add","path":"guests.pets","value":"dog"}}],"assumed_paths":[],"confidence":0.95,"parser":"llm"}}

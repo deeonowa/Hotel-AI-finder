@@ -155,10 +155,31 @@ class LlmNlu:
                 drop(f"{op.path}={op.value!r} вне допустимых значений")
                 continue
             clean.append(op)
+        if rules is not None:
+            clean = self._with_rules_geo(clean, rules)
+            res.more_options = res.more_options or rules.more_options
+            if res.intent == Intent.inspire and res.inspire_level is None:
+                res.inspire_level = rules.inspire_level
         res.patch = self._applicable(clean, state, today) if state else clean
         if self.locations:
             res.candidate_location_ids = [x for x in res.candidate_location_ids if x in self.locations]
         return res
+
+    def _with_rules_geo(self, ops: list[PatchOp], rules: NluResult) -> list[PatchOp]:
+        """Отказ от направления («только не Дубай») и «за границу/по России» правила ловят надёжно —
+        если модель это пропустила, добавляем. Отвергнутый город не может оказаться в location_id."""
+        out = [o for o in ops if o.path != "excluded_location_ids" or (not self.locations or o.value in self.locations)]
+        have_ex = {o.value for o in out if o.path == "excluded_location_ids"}
+        for o in rules.patch:
+            if o.path == "excluded_location_ids" and o.value not in have_ex:
+                out.append(o)
+                have_ex.add(o.value)
+            if o.path == "geo_scope" and not any(x.path == "geo_scope" for x in out):
+                out.append(o)
+        bad = [o for o in out if o.path == "location_id" and o.value in have_ex]
+        if bad:
+            self.guard_notes.append("направление, от которого пользователь отказался, не применяю")
+        return [o for o in out if not (o.path == "location_id" and o.value in have_ex)]
 
     def _applicable(self, ops: list[PatchOp], state: TripState, today: date | None) -> list[PatchOp]:
         """Пробно применить к текущим требованиям: битые операции выкидываем, остальное оставляем.
@@ -188,8 +209,12 @@ def _value_ok(op: PatchOp, today: date | None) -> bool:
         return op.op == "remove" or v in {p.value for p in PetKind}
     if path == "notes":
         return op.op == "remove" or (isinstance(v, str) and 0 < len(v) <= 200)
+    if path == "excluded_location_ids":
+        return op.op in ("add", "remove") and isinstance(v, str)
     if op.op != "set":
         return True
+    if path == "geo_scope":
+        return v in ("domestic", "abroad", None)
     if path == "budget.amount":
         return isinstance(v, int | float) and 500 <= v <= 10_000_000
     if path == "guests.adults":

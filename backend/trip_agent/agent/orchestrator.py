@@ -157,6 +157,9 @@ class Agent:
     def ranker(self):  # noqa: ANN201
         return self.locations.get(self.location_id).ranker
 
+    def _loc_by_id(self, location_id: str) -> LocationPack:
+        return self.locations.get(location_id).pack
+
     def _svc(self, st: TripState) -> LocationServices:
         return self.locations.get(st.requirements.location_id)
 
@@ -224,8 +227,10 @@ class Agent:
         if i in (Intent.plan_trip, Intent.modify, Intent.inspire):
             if st.order_ids and i == Intent.modify and nlu.patch:
                 return self._post_purchase(st, PostPurchaseKind.change_dates, {"patch": [o.model_dump(mode="json") for o in nlu.patch]})
-            if not nlu.patch and i != Intent.inspire and not nlu.unknown_destination:
+            if not nlu.patch and i != Intent.inspire and not nlu.unknown_destination and not nlu.more_options:
                 return self._ask_for_details()
+            # «память» диалога: что уже знали ДО этой фразы (даты или показанные варианты)
+            had_context = bool(st.variants) or bool(st.requirements.dates.month or st.requirements.dates.check_in)
             changes = self._apply(st, nlu.patch, nlu.assumed_paths, tr)
             if changes is None:
                 return [TextBlock(markdown="Не смог применить изменение — переформулируйте, пожалуйста.")], []
@@ -234,7 +239,18 @@ class Agent:
             if self._logistics_only(st, nlu.patch):
                 return self._recheck(st, tr)
             only = {x for x in nlu.candidate_location_ids if x in self.locations} or None
-            return self._plan(st, tr, changes, inspire=(i == Intent.inspire), only=only)
+            if nlu.more_options:
+                changes = [*changes, *self._exclude_shown(st, tr)]
+            return self._plan(
+                st,
+                tr,
+                changes,
+                inspire=(i == Intent.inspire),
+                only=only,
+                cities=(i == Intent.inspire and nlu.inspire_level != "district" and not any(o.path == "location_id" for o in nlu.patch)),
+                context=had_context,
+                more=nlu.more_options,
+            )
         if i == Intent.select_variant:
             v = self._resolve_variant(st, nlu.target_variant_ids, nlu.variant_ordinal)
             return self._select(st, v, tr) if v else ([TextBlock(markdown="Какой вариант выбрать? Нажмите «Выбрать» на карточке.")], [])
@@ -318,6 +334,51 @@ class Agent:
             s["detail"] = "; ".join(changes) or "без изменений"
         return changes
 
+    def _allowed(self, req: Requirements) -> set[str]:
+        """Направления, которые можно предлагать: без отвергнутых и в нужной географии (по России / за границу)."""
+        out = set()
+        for lp in self.locations.packs():
+            if lp.id in req.excluded_location_ids:
+                continue
+            if req.geo_scope == "abroad" and not lp.is_abroad or req.geo_scope == "domestic" and lp.is_abroad:
+                continue
+            out.add(lp.id)
+        return out
+
+    def _geo_text(self, req: Requirements) -> str:
+        parts = {"abroad": ["за границу"], "domestic": ["по России"]}.get(req.geo_scope or "", [])
+        if req.excluded_location_ids:
+            names = [self.catalog.get_location(x).name for x in req.excluded_location_ids if x in self.locations]
+            parts.append("не " + ", не ".join(names))
+        return ", ".join(parts) or "любое направление"
+
+    def _geo_relax(self, req: Requirements) -> list[QuickReply]:
+        out = []
+        if req.geo_scope:
+            out.append(QuickReply(label="Любая страна", action=ApplyPatchAction(ops=[PatchOp(op="unset", path="geo_scope")])))
+        for x in req.excluded_location_ids[:3]:
+            if x in self.locations:
+                name = self.catalog.get_location(x).name
+                out.append(
+                    QuickReply(
+                        label=f"Вернуть {name}", action=ApplyPatchAction(ops=[PatchOp(op="remove", path="excluded_location_ids", value=x)])
+                    )
+                )
+        return out
+
+    def _exclude_shown(self, st: TripState, tr: Tracer) -> list[str]:
+        """«Предложи другие отели»: показанные сейчас больше не предлагаем (до смены города или «начать заново»)."""
+        ids = [v.hotel.id for v in st.variants if v.hotel.id not in st.excluded_hotel_ids]
+        st.excluded_hotel_ids += ids
+        out = [f"не предлагаю уже показанные отели ({len(st.excluded_hotel_ids)})"] if st.excluded_hotel_ids else []
+        if st.stage in (TripStage.selected, TripStage.in_cart):
+            if st.cart_id:
+                out.append("корзину с прежним отелем очистил")
+            st.cart_id = st.selected_variant_id = None
+            st.stage = TripStage.proposing
+        tr.note("more_options", f"исключил показанные: {len(ids)}, всего {len(st.excluded_hotel_ids)}")
+        return out
+
     def _on_location_change(self, st: TripState, changes: list[str]) -> None:
         """Другой город: отели прежнего города не закрепляем, собранную под них корзину не оформляем."""
         if st.cart_id and st.stage == TripStage.in_cart:
@@ -325,6 +386,7 @@ class Agent:
         st.cart_id = None
         st.selected_variant_id = None
         st.dismissed_fixes = []
+        st.excluded_hotel_ids = []
         if st.stage in (TripStage.selected, TripStage.in_cart):
             st.stage = TripStage.proposing
 
@@ -336,15 +398,32 @@ class Agent:
             st.requirements, _ = apply_patch(req, ops, source=Source.assumed)
         ci, co = st.requirements.dates.check_in, st.requirements.dates.check_out
         with tr.step("compare_locations") as s:
-            cards = suggest_locations(st.requirements, self.locations, self.catalog, ci, co)
+            excl = set(self.locations.ids) - self._allowed(st.requirements)
+            cards = suggest_locations(st.requirements, self.locations, self.catalog, ci, co, exclude=excl)
             s["detail"] = f"«{name}» нет в каталоге → сравнил: " + ", ".join(c.name for c in cards)
         st.stage = TripStage.collecting
         names = ", ".join(lp.name for lp in self.locations.packs())
-        text = f"«{name}» пока нет в каталоге — сейчас могу подобрать поездку: {names}. Сравнил их под ваш запрос:"
+        text = (
+            f"«{name}» пока нет в каталоге — подобрать там отели не могу и молча подменять другим городом не буду. "
+            f"Сейчас доступны: {names}. Сравнил их под ваш запрос:"
+        )
         return [TextBlock(markdown=text), DestinationsBlock(title="Куда могу предложить", items=cards)], []
 
     # ============================================================ планирование
-    def _plan(self, st: TripState, tr: Tracer, changes: list[str], *, inspire: bool, only: set[str] | None = None) -> Out:
+    def _plan(
+        self,
+        st: TripState,
+        tr: Tracer,
+        changes: list[str],
+        *,
+        inspire: bool,
+        only: set[str] | None = None,
+        cities: bool | None = None,
+        context: bool = False,
+        more: bool = False,
+    ) -> Out:
+        """cities — сравнить города (а не районы); context — до этой фразы уже знали даты/варианты («память»
+        диалога); more — «предложи другие отели»: уже показанные не предлагаем."""
         req = st.requirements
         today = self.today()
 
@@ -384,15 +463,44 @@ class Agent:
         assert ci and co
         chips = AssumptionsBlock(items=assumption_chips(req))
 
+        allowed = self._allowed(req)
+        if self.multi_location and not allowed:
+            st.stage = TripStage.collecting
+            text = f"Под эти условия ({self._geo_text(req)}) в каталоге не осталось направлений. Что из этого можно вернуть?"
+            return [TextBlock(markdown=text)], self._geo_relax(req)
+        named = req.provenance.get("location_id") == Source.user and req.location_id in allowed
+        extra: list[UIBlock] = []
+        if self.multi_location and req.location_id not in allowed and context and not inspire:
+            # «хочу за границу, но не в Дубай» посреди диалога: даты и состав уже знаем — сразу подбираем отели
+            # в лучшем подходящем направлении (это догадка, её видно чипсом и подтверждают перед покупкой)
+            with tr.step("compare_locations") as s:
+                cards = suggest_locations(req, self.locations, self.catalog, ci, co, exclude=set(self.locations.ids) - allowed)
+                s["detail"] = f"{self._geo_text(req)} → " + ", ".join(c.name for c in cards)
+            best = cards[0].location_id or cards[0].district_id
+            before = self._loc(st).name
+            st.requirements, _ = apply_patch(req, [PatchOp(op="set", path="location_id", value=best)], source=Source.assumed)
+            req = st.requirements
+            self._on_location_change(st, changes)
+            changes.append(f"Направление: {before} → {self._loc(st).name} (подобрал: {self._geo_text(req)})")
+            chips = AssumptionsBlock(items=assumption_chips(req))
+            if len(cards) > 1:
+                title = "Ещё за границей" if req.geo_scope == "abroad" else "Другие направления"
+                extra.append(DestinationsBlock(title=title, items=cards[1:4]))
         svc = self._svc(st)
         loc = svc.pack
         if self.multi_location:
             chips.items.insert(0, self._location_chip(st))
-        choose_location = self.multi_location and req.provenance.get("location_id") != Source.user and (inspire or not st.variants)
+        if cities is None:
+            cities = inspire
+        choose_location = self.multi_location and (
+            (cities and not req.district_ids)
+            or (not named and not st.variants and req.location_id not in allowed)
+            or (not named and not st.variants and req.provenance.get("location_id") != Source.assumed)
+        )
         if choose_location:
             # Если города нет, не выдаём молча дефолтный Сочи: сначала даём выбрать направление.
             with tr.step("compare_locations") as s:
-                exclude = {x for x in self.locations.ids if only and x not in only}
+                exclude = {x for x in self.locations.ids if (only and x not in only) or x not in allowed}
                 cards = suggest_locations(req, self.locations, self.catalog, ci, co, exclude=exclude)
                 s["detail"] = ", ".join(c.name for c in cards)
             st.stage = TripStage.collecting
@@ -403,7 +511,27 @@ class Agent:
             )
             chips.items = [c for c in chips.items if c.path != "location_id"]  # город как раз и выбираем
             title = "Куда поехать" if inspire else "Выберите направление"
-            return [TextBlock(markdown=text), chips, DestinationsBlock(title=title, items=cards)], [c.choose for c in cards[:3]]
+            blocks_: list[UIBlock] = [TextBlock(markdown=text), chips, DestinationsBlock(title=title, items=cards)]
+            sugg = [c.choose for c in cards[:3]]
+            if req.geo_scope is None and not only and not req.excluded_location_ids:
+                # география не названа — спрашиваем явно, но не блокируем: карточки уже перед глазами
+                blocks_.append(
+                    QuestionBlock(
+                        text="Вам по России или за границу? Отфильтрую направления.",
+                        paths=["geo_scope"],
+                        quick_replies=[
+                            QuickReply(
+                                label="По России",
+                                action=ApplyPatchAction(ops=[PatchOp(op="set", path="geo_scope", value="domestic")], label="По России"),
+                            ),
+                            QuickReply(
+                                label="За границу",
+                                action=ApplyPatchAction(ops=[PatchOp(op="set", path="geo_scope", value="abroad")], label="За границу"),
+                            ),
+                        ],
+                    )
+                )
+            return blocks_, sugg
         if inspire and not req.district_ids:
             with tr.step("inspire") as s:
                 cards = suggest_districts(req, loc, self.catalog, svc.pricing, self.transfer, ci, co)
@@ -420,9 +548,20 @@ class Agent:
             chosen = None
         prev_rec = chosen or (st.variant(st.recommended_variant_id) if st.recommended_variant_id else None)
         prev_stage = st.stage
+        if more:
+            chosen = None  # «другие отели» — значит, и выбранный пользователю не подошёл
         hotels = self.catalog.list_hotels(loc.id)
+        shown = set(st.excluded_hotel_ids)
         with tr.step("search_rank") as s:
-            rr = svc.ranker.rank(req, hotels, ci, co, previous=previous, pinned_hotel_id=chosen.hotel.id if chosen else None)
+            rr = svc.ranker.rank(
+                req,
+                hotels,
+                ci,
+                co,
+                previous=[] if more else previous,
+                pinned_hotel_id=chosen.hotel.id if chosen else None,
+                hotel_filter=(lambda h: "уже показывал — просили другие" if h.id in shown else None) if shown else None,
+            )
             st_ = rr.stats
             s["detail"] = (
                 f"{loc.name}: {st_.hotels_total} отелей → после фильтров {st_.after_hard_filters} → "
@@ -508,6 +647,7 @@ class Agent:
             # впервые показываем варианты за границей — одной строкой про документы (подробно — в корзине и по вопросу)
             blocks.append(TextBlock(markdown=f"**{loc.name}, {loc.country}:** {loc.entry.visa} {loc.entry.passport}"))
         blocks += [chips, VariantsBlock(items=rr.variants, recommended_id=rr.recommended_id, stats=rr.stats)]
+        blocks += extra  # другие подходящие направления, если город подобрали сами
         if prev_rec is None or any(c.startswith(("Даты", "Заезд", "Выезд", "Месяц")) for c in changes):
             blocks += self._warmer_elsewhere(st, tr)  # подсказка про тёплое море — один раз, а не на каждую правку
         return blocks, self._proposal_suggestions(st)
@@ -515,7 +655,8 @@ class Agent:
     def _location_chip(self, st: TripState) -> AssumptionChip:
         req = st.requirements
         loc = self._loc(st)
-        others = [lp for lp in self.locations.packs() if lp.id != loc.id][:4]
+        allowed = self._allowed(req)
+        others = [lp for lp in self.locations.packs() if lp.id != loc.id and lp.id in allowed][:4]
         return AssumptionChip(
             path="location_id",
             label="Направление",
@@ -546,7 +687,9 @@ class Agent:
         with tr.step("compare_locations") as s:
             cards = [
                 x
-                for x in suggest_locations(req, self.locations, self.catalog, ci, co, exclude={loc.id}, limit=3)
+                for x in suggest_locations(
+                    req, self.locations, self.catalog, ci, co, exclude={loc.id} | (set(self.locations.ids) - self._allowed(req)), limit=3
+                )
                 if x.climate and x.climate.sea_temp_c is not None and x.climate.sea_temp_c >= WARM_SEA_C
             ]
             s["detail"] = f"море {loc.label_in} ~{c.sea_temp_c:.0f}° → теплее: " + (", ".join(x.name for x in cards) or "нет")
@@ -958,6 +1101,10 @@ class Agent:
 
     def _understood_text(self, req: Requirements) -> str:
         parts = [guests_label(req)]
+        if self.multi_location and (req.geo_scope or req.excluded_location_ids):
+            parts.insert(0, self._geo_text(req))
+        elif req.provenance.get("location_id") == Source.user:
+            parts.insert(0, self._loc_by_id(req.location_id).name)
         if req.budget.amount:
             parts.append(f"до {fmt_rub(req.budget.amount)}")
         if req.preferences:
@@ -1033,6 +1180,7 @@ class Agent:
         st.recommended_variant_id = st.selected_variant_id = st.cart_id = None
         st.order_ids = []
         st.dismissed_fixes = []
+        st.excluded_hotel_ids = []
         st.stage = TripStage.collecting
         st.clarifications_asked, st.asked_paths = 0, []
         return self._greeting()

@@ -85,6 +85,8 @@ class TransportPlan(Model):
 
 class Requirements(Model):
     location_id: str = Field(default="sochi", description="куда едем (data/locations/<id>); не названо — локация по умолчанию")
+    geo_scope: Literal["domestic", "abroad"] | None = Field(default=None, description="«по России» / «за границу»; None — не сказано")
+    excluded_location_ids: list[str] = Field(default_factory=list, description="«только не Дубай», «не в Турцию» — не предлагать")
     district_ids: list[str] = Field(default_factory=list, description="Пусто = любой район")
     dates: DateWindow = Field(default_factory=DateWindow)
     guests: Guests = Field(default_factory=Guests)
@@ -107,6 +109,8 @@ class Requirements(Model):
 
 PatchPath = Literal[
     "location_id",  # смена города/страны; районы и хаб прибытия прежнего города сбрасываются
+    "geo_scope",  # domestic | abroad
+    "excluded_location_ids",  # add/remove id направления, которое пользователь отверг
     "district_ids",
     "dates",  # только для shift_days: сдвинуть заезд и выезд
     "dates.check_in",
@@ -162,6 +166,10 @@ class NluResult(Model):
     target_variant_ids: list[str] = Field(default_factory=list)
     variant_ordinal: int | None = Field(default=None, description="«второй вариант» → 2")
     info_question: str | None = None
+    more_options: bool = Field(default=False, description="«предложи другие отели» — показать НОВЫЕ, без уже показанных")
+    inspire_level: Literal["location", "district"] | None = Field(
+        default=None, description="inspire: сравнить города (location) или районы выбранного города (district)"
+    )
     candidate_location_ids: list[str] = Field(
         default_factory=list, description="«Сочи или Анталья?» — сравнить только эти направления (id из каталога)"
     )

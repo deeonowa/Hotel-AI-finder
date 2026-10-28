@@ -228,3 +228,81 @@ def test_locations_endpoint(app):
     assert {x["abroad"] for x in locs} == {True, False}
     h = c.get("/api/v1/health").json()
     assert h["hotels_loaded"] == sum(x["hotels"] for x in locs)
+
+
+# ------------------------------------------------------------------ география и отказ от направлений
+@pytest.mark.parametrize(
+    "text,excluded,loc",
+    [
+        ("хочу за границу, но не в Дубай", ["dubai"], None),
+        ("куда угодно, только не Турция", ["antalya"], None),
+        ("в Анталью не хочу, давай Пхукет", ["antalya"], "phuket"),
+        ("кроме Тбилиси", ["tbilisi"], None),
+    ],
+)
+def test_rejected_destination_is_excluded_not_chosen(nlu, text, excluded, loc):
+    res = nlu.parse(text, _state(), TODAY)
+    got = [o.value for o in res.patch if o.path == "excluded_location_ids"]
+    assert got == excluded
+    assert {o.value for o in res.patch if o.path == "location_id"} == ({loc} if loc else set())
+
+
+def test_abroad_without_dates_asks_when(agent):
+    sid = agent.new_session().session_id
+    r = _say(agent, sid, "Хочу заграницу")
+    assert _blocks(r, "question") and not _blocks(r, "variants")
+    assert agent.get_state(sid).requirements.geo_scope == "abroad"
+    assert "за границу" in r.blocks[0].markdown
+
+
+def test_abroad_with_known_context_offers_hotels_outside_russia_and_respects_no(agent):
+    sid = agent.new_session().session_id
+    _say(agent, sid, "в Дубай вдвоём с 5 по 12 декабря")
+    r = _say(agent, sid, "Хочу заграницу, но не в Дубай")
+    st = agent.get_state(sid)
+    assert st.requirements.location_id not in ("dubai", "sochi")
+    assert st.requirements.provenance["location_id"] == "assumed", "город подобран агентом — подтвердят перед покупкой"
+    assert _blocks(r, "variants")
+    others = [c for b in _blocks(r, "destinations") for c in b.items]
+    assert others and not {c.location_id for c in others} & {"dubai", "sochi"}
+    # и дальше Дубай нигде не предлагается
+    r = _say(agent, sid, "куда поехать на море в декабре?")
+    shown = {c.location_id for b in _blocks(r, "destinations") for c in b.items}
+    assert shown and "dubai" not in shown and "sochi" not in shown
+
+
+def test_where_to_go_compares_cities_even_after_city_was_chosen(agent):
+    sid = agent.new_session().session_id
+    _say(agent, sid, "в Дубай вдвоём с 5 по 12 декабря")
+    r = _say(agent, sid, "Куда поехать на море в декабре, чтобы купаться?")
+    (db,) = _blocks(r, "destinations")
+    assert all(c.scope == "location" for c in db.items), "вопрос «куда поехать» — про города, а не районы Дубая"
+
+
+def test_unspecified_geography_is_asked_explicitly(agent):
+    sid = agent.new_session().session_id
+    r = _say(agent, sid, "вдвоём на море с 5 по 12 декабря")
+    q = _blocks(r, "question")
+    assert q and {x.label for x in q[0].quick_replies} == {"По России", "За границу"}
+    r = agent.turn(sid, TurnRequest(action=q[0].quick_replies[0].action))
+    shown = {c.location_id for b in _blocks(r, "destinations") for c in b.items}
+    assert shown == {"sochi"}
+
+
+def test_more_options_shows_new_hotels(agent):
+    sid = agent.new_session().session_id
+    _say(agent, sid, "в Сочи вдвоём с 10 по 17 ноября")
+    first = {v.hotel.id for v in agent.get_state(sid).variants}
+    _say(agent, sid, "Предложи другие отели")
+    second = {v.hotel.id for v in agent.get_state(sid).variants}
+    assert second and not first & second
+    _say(agent, sid, "а давай подешевле")  # обычная пересборка не возвращает отвергнутые
+    third = {v.hotel.id for v in agent.get_state(sid).variants}
+    assert not third & first
+
+
+def test_unknown_region_is_reported(agent):
+    sid = agent.new_session().session_id
+    _say(agent, sid, "в Анталью вдвоём с 5 по 12 декабря")
+    r = _say(agent, sid, "а давай лучше в Сибирь")
+    assert "Сибирь" in r.blocks[0].markdown and "нет в каталоге" in r.blocks[0].markdown
