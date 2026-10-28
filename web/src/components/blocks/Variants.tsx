@@ -79,7 +79,8 @@ function VariantCard({ v, recommended, selected, onReply, disabled }: {
         <div className="small tickets">
           {v.outbound.mode === "plane" ? "✈" : "🚆"} туда {fmtTime(v.outbound.depart_at)}–{fmtTime(v.outbound.arrive_at)}
           {v.outbound.stops === 0 ? " прямой" : " с пересадкой"} · обратно {fmtTime(v.inbound.depart_at)}
-          {v.inbound.stops === 0 ? " прямой" : " с пересадкой"} · билеты {rub(v.outbound.passengers_price + v.inbound.passengers_price)} (демо)
+          {v.inbound.stops === 0 ? " прямой" : " с пересадкой"} · билеты {rub(v.outbound.passengers_price + v.inbound.passengers_price)}
+          {v.outbound.mode === "plane" && (v.outbound.baggage_included ? ", с багажом" : ", ручная кладь")} (демо)
         </div>
       )}
 

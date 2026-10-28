@@ -427,6 +427,54 @@
         ],
         "p_direct": 0.4
       }
+    ],
+    "Уфа": [
+      {
+        "mode": "plane",
+        "hub": "TBS",
+        "minutes": 250,
+        "price": 15500,
+        "times": [
+          "12:15"
+        ],
+        "p_direct": 0.2
+      }
+    ],
+    "Пермь": [
+      {
+        "mode": "plane",
+        "hub": "TBS",
+        "minutes": 270,
+        "price": 16000,
+        "times": [
+          "08:35"
+        ],
+        "p_direct": 0.1
+      }
+    ],
+    "Красноярск": [
+      {
+        "mode": "plane",
+        "hub": "TBS",
+        "minutes": 420,
+        "price": 22000,
+        "times": [
+          "06:10"
+        ],
+        "p_direct": 0.05
+      }
+    ],
+    "Владивосток": [
+      {
+        "mode": "plane",
+        "hub": "TBS",
+        "minutes": 600,
+        "price": 30000,
+        "times": [
+          "07:30"
+        ],
+        "p_direct": 0.05
+      }
     ]
   },
   "stop_cities": [

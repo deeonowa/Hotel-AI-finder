@@ -127,6 +127,22 @@ NEG_BEFORE = re.compile(
 NEG_AFTER = re.compile(
     r"^\w*[,\s]*(?:—\s*)?(?:не (?:хочу|хотим|надо|нужно|нужен|нужна|предлагай|рассматриваем|вариант)|отпада|исключ|был[иа]? уже)"
 )
+DAYPART = r"(утр|дн[её]в|днем|вечер|ноч)"
+RETURN_WINDOW = re.compile(
+    r"обратн\w*\s+(?:рейс\w*\s+|вылет\w*\s+|лететь\s+|полет\w*\s+)?(?:\w+\s+)?" + DAYPART + r"|" + DAYPART + r"\w*\s+обратн\w* рейс"
+)
+DEPART_WINDOW = re.compile(
+    r"(?:вылет\w*|улет\w*|рейс\w*|лететь|полет\w*)\s+(?:туда\s+)?(?:рано\s+|поздно\s+)?(?:\w+\s+)?"
+    + DAYPART
+    + r"|"
+    + DAYPART
+    + r"\w*\s+(?:рейс|вылет)"
+)
+TICKETS_Q = re.compile(r"билет|\bрейс|перел[её]т|авиа|самол[её]т|во сколько вылет|во сколько прил[её]т")
+TICKETS_ASK = re.compile(
+    r"\?|как\w* |сколько|когда|покажи|друг\w* (?:рейс|билет|перел)|варианты? (?:рейс|билет|перел)|есть ли"
+    r"|выбра|поменя|смени|подбер|найди|нужн\w* билет"
+)
 MORE_OPTIONS = re.compile(
     r"(?:друг\w*|ин\w*|нов\w*|ещ[её])\s+(?:\w+\s+)?(?:отел|вариант|гостиниц|предложени)|покажи\w* (?:ещ[её]|больше)"
     r"|не нравя?т?ся|что[- ]?(?:то|нибудь) друго|альтернатив|больше вариант"
@@ -164,6 +180,10 @@ def _safe_date(y: int, m: int, d: int) -> date | None:
 def _norm(text: str) -> str:
     t = text.lower().replace("ё", "е").replace("–", "-").replace("—", "-")
     return " " + re.sub(r"\s+", " ", t) + " "
+
+
+def _window(part: str) -> str:
+    return "morning" if part.startswith("утр") else "day" if part.startswith("дн") else "evening" if part.startswith("веч") else "night"
 
 
 def _negated(text: str, m: re.Match) -> bool:
@@ -217,6 +237,9 @@ class RuleNlu:
             return NluResult(intent=Intent.book, parser="rules")
 
         ops, assumed = self._extract(t, text, state, today)
+        if TICKETS_Q.search(t) and TICKETS_ASK.search(t) and not any(o.path == "location_id" for o in ops) and (has_plan or state.variants):
+            # «какие есть рейсы?», «сколько стоят билеты с багажом?», «покажи вечерние рейсы» — показать рейсы
+            return NluResult(intent=Intent.tickets, patch=ops, assumed_paths=assumed, info_question=text.strip(), parser="rules")
         if MORE_OPTIONS.search(t):
             # «предложи другие отели» — новые варианты при тех же условиях (плюс то, что изменили в этой же фразе)
             return NluResult(
@@ -597,6 +620,16 @@ class RuleNlu:
 
     # ---------------------------------------------------------------- транспорт
     def _transport(self, t: str, raw: str, ops: list[PatchOp], assumed: list[str]) -> None:
+        if re.search(r"без багаж|только ручн|ручн\w* клад\w*(?! и)|без чемодан", t):
+            ops.append(PatchOp(op="set", path="transport.baggage", value=False))
+        elif re.search(r"с багаж|багаж\w* (?:нужен|нужно|обязател)|с чемодан|сдать чемодан|возьм\w* чемодан", t):
+            ops.append(PatchOp(op="set", path="transport.baggage", value=True))
+        rest = t
+        for path, rx in (("transport.return_window", RETURN_WINDOW), ("transport.depart_window", DEPART_WINDOW)):
+            if m := rx.search(rest):
+                part = next(g for g in m.groups() if g)
+                ops.append(PatchOp(op="set", path=path, value=_window(part)))
+                rest = rest[: m.start()] + " " + rest[m.end() :]  # «обратно вечером» — не «вылет туда вечером»
         if re.search(r"без пересад|прям\w* рейс|прямым|только прям|direct", t):
             ops.append(PatchOp(op="set", path="transport.max_stops", value=0))
         elif re.search(r"(?:можно|пусть|ладно)\s+(?:и\s+)?с пересадк|пересадк\w* (?:не страшн|допустим|можно)", t):
@@ -700,6 +733,7 @@ CITY_FORMS = {
     "санкт-петербурга": "Санкт-Петербург", "спб": "Санкт-Петербург",
     "екатеринбурга": "Екатеринбург", "казани": "Казань", "новосибирска": "Новосибирск", "краснодара": "Краснодар",
     "ростова": "Ростов-на-Дону", "ростова-на-дону": "Ростов-на-Дону", "самары": "Самара", "перми": "Пермь",
+    "красноярска": "Красноярск", "владивостока": "Владивосток",
     "воронежа": "Воронеж", "уфы": "Уфа", "нижнего новгорода": "Нижний Новгород", "минска": "Минск",
 }  # fmt: skip
 

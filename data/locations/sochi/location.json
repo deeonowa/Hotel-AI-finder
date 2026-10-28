@@ -692,6 +692,55 @@
         ],
         "p_direct": 0.5
       }
+    ],
+    "Уфа": [
+      {
+        "mode": "plane",
+        "hub": "AER",
+        "minutes": 190,
+        "price": 8500,
+        "times": [
+          "08:25",
+          "19:40"
+        ],
+        "p_direct": 0.5
+      }
+    ],
+    "Пермь": [
+      {
+        "mode": "plane",
+        "hub": "AER",
+        "minutes": 215,
+        "price": 9000,
+        "times": [
+          "10:05"
+        ],
+        "p_direct": 0.4
+      }
+    ],
+    "Красноярск": [
+      {
+        "mode": "plane",
+        "hub": "AER",
+        "minutes": 330,
+        "price": 14000,
+        "times": [
+          "07:15"
+        ],
+        "p_direct": 0.3
+      }
+    ],
+    "Владивосток": [
+      {
+        "mode": "plane",
+        "hub": "AER",
+        "minutes": 540,
+        "price": 22000,
+        "times": [
+          "09:50"
+        ],
+        "p_direct": 0.15
+      }
     ]
   },
   "stop_cities": [

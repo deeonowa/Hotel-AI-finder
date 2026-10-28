@@ -209,6 +209,8 @@ def _value_ok(op: PatchOp, today: date | None) -> bool:
         return op.op == "remove" or v in {p.value for p in PetKind}
     if path == "notes":
         return op.op == "remove" or (isinstance(v, str) and 0 < len(v) <= 200)
+    if path in ("transport.outbound_offer_id", "transport.inbound_offer_id"):
+        return False  # конкретный рейс выбирают кнопкой (id из расписания), модель его не придумывает
     if path == "excluded_location_ids":
         return op.op in ("add", "remove") and isinstance(v, str)
     if op.op != "set":

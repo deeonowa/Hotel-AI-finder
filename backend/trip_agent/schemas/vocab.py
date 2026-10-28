@@ -165,6 +165,7 @@ class Intent(StrEnum):
     select_variant = "select_variant"
     book = "book"  # в корзину / оформить
     post_purchase = "post_purchase"  # ранний заезд, перенос дат, трансфер к заказу
+    tickets = "tickets"  # «какие есть рейсы?», «сколько стоят билеты?», «во сколько вылет?»
     reset = "reset"
     smalltalk = "smalltalk"
     off_topic = "off_topic"

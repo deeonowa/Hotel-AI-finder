@@ -435,6 +435,55 @@
         ],
         "p_direct": 0.4
       }
+    ],
+    "Уфа": [
+      {
+        "mode": "plane",
+        "hub": "DXB",
+        "minutes": 290,
+        "price": 22000,
+        "times": [
+          "03:50",
+          "13:25"
+        ],
+        "p_direct": 0.5
+      }
+    ],
+    "Пермь": [
+      {
+        "mode": "plane",
+        "hub": "DXB",
+        "minutes": 330,
+        "price": 23000,
+        "times": [
+          "11:40"
+        ],
+        "p_direct": 0.3
+      }
+    ],
+    "Красноярск": [
+      {
+        "mode": "plane",
+        "hub": "DXB",
+        "minutes": 420,
+        "price": 26000,
+        "times": [
+          "05:30"
+        ],
+        "p_direct": 0.4
+      }
+    ],
+    "Владивосток": [
+      {
+        "mode": "plane",
+        "hub": "DXB",
+        "minutes": 600,
+        "price": 34000,
+        "times": [
+          "08:10"
+        ],
+        "p_direct": 0.2
+      }
     ]
   },
   "stop_cities": [

@@ -81,6 +81,11 @@ class TransportPlan(Model):
     arrival_time: time | None = None
     departure_time: time | None = None
     max_stops: int | None = Field(default=None, ge=0, le=2, description="0 = только прямые рейсы")
+    baggage: bool | None = Field(default=None, description="нужен багаж 23 кг; None — не сказано (цена без багажа)")
+    depart_window: Literal["morning", "day", "evening", "night"] | None = Field(default=None, description="когда вылетать туда")
+    return_window: Literal["morning", "day", "evening", "night"] | None = Field(default=None, description="когда вылетать обратно")
+    outbound_offer_id: str | None = Field(default=None, description="рейс туда, выбранный пользователем (кнопкой)")
+    inbound_offer_id: str | None = Field(default=None, description="рейс обратно, выбранный пользователем (кнопкой)")
 
 
 class Requirements(Model):
@@ -133,6 +138,11 @@ PatchPath = Literal[
     "transport.arrival_time",
     "transport.departure_time",
     "transport.max_stops",
+    "transport.baggage",
+    "transport.depart_window",
+    "transport.return_window",
+    "transport.outbound_offer_id",
+    "transport.inbound_offer_id",
     "notes",
 ]
 """Белый список путей. NLU не может изменить ничего за его пределами — это и защита от инъекций."""

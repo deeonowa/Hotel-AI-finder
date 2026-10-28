@@ -37,6 +37,11 @@ PATH_LABELS = {
     "transport.arrival_time": "Время прибытия",
     "transport.departure_time": "Время отъезда",
     "transport.max_stops": "Пересадки",
+    "transport.baggage": "Багаж",
+    "transport.depart_window": "Вылет туда",
+    "transport.return_window": "Вылет обратно",
+    "transport.outbound_offer_id": "Рейс туда",
+    "transport.inbound_offer_id": "Рейс обратно",
     "notes": "Заметки",
 }
 
@@ -129,6 +134,11 @@ def apply_patch(
             continue
 
         current = _get(req, path)
+        if path in ("transport.outbound_offer_id", "transport.inbound_offer_id") and op.op == "set":
+            _set(data, path, op.value)
+            changes.append(f"{label}: выбран вами")
+            provenance[path] = source
+            continue
         if op.op == "set":
             _set(data, path, op.value)
             if _fmt(current, path) != _fmt(op.value, path):  # «plane → plane» в списке изменений не показываем
@@ -201,6 +211,8 @@ def fmt_rub(v: int) -> str:
 def _fmt(v: Any, path: str = "") -> str:
     if v is None:
         return "—"
+    if path == "transport.baggage":
+        return "с багажом 23 кг" if v else "только ручная кладь"
     if isinstance(v, bool):
         return "да" if v else "нет"
     if path in MONEY_PATHS and isinstance(v, int | float):
@@ -215,6 +227,10 @@ def _fmt(v: Any, path: str = "") -> str:
         return {"domestic": "по России", "abroad": "за границу"}.get(str(v), "—")
     if path == "district_ids" and isinstance(v, list):
         return ", ".join(DISTRICT_LABELS.get(str(x), str(x)) for x in v) if v else "—"
+    if path in ("transport.depart_window", "transport.return_window"):
+        return {"morning": "утром", "day": "днём", "evening": "вечером", "night": "ночью"}.get(str(v), str(v))
+    if path in ("transport.outbound_offer_id", "transport.inbound_offer_id"):
+        return "выбран вами"
     if path == "transport.max_stops":
         return "только прямые" if v == 0 else f"не больше {v}"
     if path == "transport.arrival_mode":

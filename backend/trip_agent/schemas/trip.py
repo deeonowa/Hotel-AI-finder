@@ -31,7 +31,9 @@ class TransportOffer(Model):
     stops: int = 0
     stop_city: str | None = None
     price_per_person: int
-    passengers_price: int = Field(description="за всех пассажиров")
+    passengers_price: int = Field(description="за всех пассажиров (с багажом, если он выбран)")
+    baggage_included: bool = Field(default=False, description="в цене есть багаж 23 кг (поезд — всегда)")
+    baggage_fee_per_person: int = Field(default=0, description="доплата за багаж 23 кг за человека в одну сторону")
     is_demo: bool = True
 
 

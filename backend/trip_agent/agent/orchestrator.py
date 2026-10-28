@@ -62,6 +62,7 @@ from ..schemas import (
     Source,
     TextBlock,
     TraceStep,
+    TransportOffer,
     TripStage,
     TripState,
     TurnRequest,
@@ -70,7 +71,7 @@ from ..schemas import (
     Variant,
     VariantsBlock,
 )
-from ..transfer.schedule import wants_tickets
+from ..transfer.schedule import FROM_CITY, fmt_leg, from_city, wants_tickets
 from ..validation.rules import arrival_quick_replies, pending_confirmations
 from .autofix import Fix, find_fix
 from .inspiration import MONTHS_PREP, WARM_SEA_C, beach_climate, suggest_districts, suggest_locations, wants_beach
@@ -265,6 +266,8 @@ class Agent:
             return self._add_to_cart(st, v, True, tr) if v else self._ask_for_details()
         if i == Intent.post_purchase:
             return self._post_purchase(st, nlu.post_purchase_kind or PostPurchaseKind.reminder, {})
+        if i == Intent.tickets:
+            return self._tickets(st, nlu, tr)
         if i == Intent.ask_info:
             return self._answer(st, nlu.info_question or "")
         if i == Intent.smalltalk:
@@ -763,13 +766,7 @@ class Agent:
             fb, fs = self._fix_blocks(st, v, fix)
             return blocks + fb, fs
         if any(i.code == "arrival_unknown" for i in v.issues):
-            blocks.append(
-                QuestionBlock(
-                    text=f"Во сколько вы будете {self._loc(st).label_in}? Проверю заселение и подскажу про ранний заезд.",
-                    paths=["transport.arrival_time"],
-                    quick_replies=arrival_quick_replies(),
-                )
-            )
+            blocks.append(self._arrival_question(st, "Проверю заселение и подскажу про ранний заезд."))
         return blocks, [
             QuickReply(label="В корзину", action=AddToCartAction(variant_id=v.id)),
             QuickReply(label="Сравнить все", action=CompareAction()),
@@ -838,14 +835,154 @@ class Agent:
                 sugg.insert(0, i.fix)
         blocks: list[UIBlock] = [TextBlock(markdown="Собрал поездку в корзину и проверил состыковки."), CartBlock(cart=cart)]
         if any(i.code == "arrival_unknown" for i in cart.issues):
-            blocks.append(
-                QuestionBlock(
-                    text=f"Во сколько вы будете {self._loc(st).label_in}?",
-                    paths=["transport.arrival_time"],
-                    quick_replies=arrival_quick_replies(),
+            blocks.append(self._arrival_question(st, ""))
+        return blocks, sugg
+
+    ORIGINS = ("Москва", "Санкт-Петербург", "Екатеринбург", "Казань", "Новосибирск")
+
+    def _origin_replies(self, st: TripState) -> list[QuickReply]:
+        routes = self._loc(st).routes
+        return [
+            QuickReply(
+                label=f"Из {FROM_CITY.get(c, c)}",
+                action=ApplyPatchAction(
+                    ops=[
+                        PatchOp(op="set", path="transport.origin_city", value=c),
+                        PatchOp(
+                            op="set", path="transport.arrival_mode", value="plane" if any(r.mode == "plane" for r in routes[c]) else "train"
+                        ),
+                    ],
+                    label=f"Летим {from_city(c)}",
+                ),
+            )
+            for c in self.ORIGINS
+            if c in routes
+        ][:4]
+
+    def _arrival_question(self, st: TripState, why: str) -> QuestionBlock:
+        """Не знаем, как человек доберётся: предлагаем подобрать билеты (город вылета) или назвать время прибытия."""
+        loc = self._loc(st)
+        if not st.requirements.transport.origin_city and loc.routes:
+            return QuestionBlock(
+                text=f"Откуда летите? Подберу билеты туда-обратно (цены, время вылета и прилёта) и проверю, успеваете ли "
+                f"к заселению. Если билеты уже есть — укажите время прибытия {loc.label_in}.",
+                paths=["transport.origin_city", "transport.arrival_time"],
+                quick_replies=self._origin_replies(st),
+            )
+        return QuestionBlock(
+            text=f"Во сколько вы будете {loc.label_in}? {why}".strip(),
+            paths=["transport.arrival_time"],
+            quick_replies=arrival_quick_replies(),
+        )
+
+    def _tickets(self, st: TripState, nlu: NluResult, tr: Tracer) -> Out:
+        """Билеты в чате: какие есть рейсы туда и обратно, сколько стоят (с багажом и без), когда вылет и прилёт."""
+        if nlu.patch:
+            changes = self._apply(st, nlu.patch, nlu.assumed_paths, tr)
+            if changes is None:
+                return [TextBlock(markdown="Не смог применить изменение — переформулируйте, пожалуйста.")], []
+            ticket_paths = ("transport.baggage", "transport.depart_window", "transport.return_window", "transport.origin_city",
+                            "transport.max_stops")  # fmt: skip
+            if st.variants and any(o.path in ticket_paths for o in nlu.patch) and st.requirements.transport.origin_city:
+                blocks, sugg = self._plan(st, tr, changes, inspire=False)  # пересобрать с новыми условиями по билетам
+                if not any(b.type == "variants" for b in blocks):
+                    return blocks, sugg
+                tb, ts = self._ticket_options(st, tr)
+                return blocks + tb, ts or sugg
+        return self._ticket_options(st, tr)
+
+    def _ticket_options(self, st: TripState, tr: Tracer) -> Out:
+        req = st.requirements
+        loc = self._loc(st)
+        v = self._current_variant(st)
+        if v is None or not (req.dates.check_in and req.dates.check_out):
+            return [TextBlock(markdown="Сначала определимся с датами и отелем — потом подберу рейсы под них.")], self._examples()
+        if not req.transport.origin_city:
+            return [self._arrival_question(st, "")], []
+        svc = self._svc(st)
+        with tr.step("tickets") as s:
+            outs, ins, reason = svc.schedule.options(req, req.dates.check_in, req.dates.check_out)
+            s["detail"] = reason or f"туда {len(outs)}, обратно {len(ins)}"
+        if reason and not (outs and ins):
+            known = ", ".join(sorted(loc.routes)[:8])
+            text = f"Билетов не нашёл: {reason}." + (f" В нашем расписании есть рейсы {loc.label_in} из: {known}." if loc.routes else "")
+            relax = []
+            if req.transport.max_stops == 0:
+                relax.append(
+                    QuickReply(label="Можно с пересадкой", action=ApplyPatchAction(ops=[PatchOp(op="unset", path="transport.max_stops")]))
+                )
+            return [TextBlock(markdown=text)], relax + self._origin_replies(st)
+        pax = guests_label(req)
+        cur_out, cur_in = v.outbound, v.inbound
+        lines = []
+        if cur_out and cur_in:
+            lines.append(f"Сейчас в плане ({pax}): туда — {fmt_leg(cur_out)}; обратно — {fmt_leg(cur_in)}.")
+            lines.append(f"Билеты за всех: **{fmt_rub(cur_out.passengers_price + cur_in.passengers_price)}**.")
+        seats = (req.guests.adults or 2) + sum(1 for a in req.guests.children_ages if a >= 2)
+        planes = [o for o in (*outs[:1], *ins[:1]) if o.mode == "plane"]
+        if planes and not req.transport.baggage:
+            fee = sum(o.baggage_fee_per_person for o in planes) * seats
+            lines.append(f"Цены — тариф с ручной кладью; багаж 23 кг туда и обратно — ещё {fmt_rub(fee)} на всех.")
+        lines.append(f"Время везде местное: вылет — по часам города вылета, прилёт — {loc.label_in}. Расписание и цены — демо.")
+
+        def table(items: list[TransportOffer], title: str) -> ComparisonBlock:
+            def cell_price(o: TransportOffer) -> str:
+                return fmt_rub(o.passengers_price) + (" с багажом" if o.baggage_included and o.mode == "plane" else "")
+
+            def row(label: str, cells: list[str], vals: list[float] | None = None) -> ComparisonRow:
+                best = [i for i, x in enumerate(vals) if x == min(vals)] if vals else []
+                return ComparisonRow(label=label, cells=cells, best_index=best)
+
+            return ComparisonBlock(
+                variant_ids=[o.id for o in items],
+                headers=[
+                    f"{title}: {o.carrier} {o.number}" + (" ✓" if o.id in {getattr(cur_out, "id", ""), getattr(cur_in, "id", "")} else "")
+                    for o in items
+                ],
+                rows=[
+                    row("Вылет", [f"{o.depart_at:%d.%m %H:%M} · {o.from_name}" for o in items]),
+                    row("Прилёт", [f"{o.arrive_at:%d.%m %H:%M} · {o.to_name}" for o in items]),
+                    row(
+                        "В пути",
+                        [f"{o.duration_min // 60} ч {o.duration_min % 60:02d} мин" for o in items],
+                        [o.duration_min for o in items],
+                    ),
+                    row("Пересадки", ["прямой" if o.stops == 0 else f"1 ({o.stop_city or '—'})" for o in items], [o.stops for o in items]),
+                    row("Цена за всех", [cell_price(o) for o in items], [o.passengers_price for o in items]),
+                ],
+            )
+
+        out_top, in_top = outs[:4], ins[:3]
+        sugg: list[QuickReply] = []
+        for o in out_top:
+            if cur_out is None or o.id != cur_out.id:
+                op = PatchOp(op="set", path="transport.outbound_offer_id", value=o.id)
+                sugg.append(
+                    QuickReply(label=f"Туда {o.depart_at:%H:%M}", action=ApplyPatchAction(ops=[op], label=f"Рейс туда {o.depart_at:%H:%M}"))
+                )
+        for o in in_top:
+            if cur_in is None or o.id != cur_in.id:
+                op = PatchOp(op="set", path="transport.inbound_offer_id", value=o.id)
+                sugg.append(
+                    QuickReply(
+                        label=f"Обратно {o.depart_at:%H:%M}", action=ApplyPatchAction(ops=[op], label=f"Рейс обратно {o.depart_at:%H:%M}")
+                    )
+                )
+        if planes:
+            bag = not req.transport.baggage
+            sugg.append(
+                QuickReply(
+                    label="С багажом" if bag else "Без багажа",
+                    action=ApplyPatchAction(
+                        ops=[PatchOp(op="set", path="transport.baggage", value=bag)], label="С багажом" if bag else "Без багажа"
+                    ),
                 )
             )
-        return blocks, sugg
+        if st.stage == TripStage.in_cart:
+            sugg.append(QuickReply(label="Оформить", action=CheckoutAction()))
+        elif cur_out:
+            sugg.append(QuickReply(label="В корзину с билетами", action=AddToCartAction(variant_id=v.id)))
+        return [TextBlock(markdown=" ".join(lines)), table(out_top, "Туда"), table(in_top, "Обратно")], sugg
 
     def _cart_edit(self, st: TripState, a: AddExtraAction | RemoveCartItemAction) -> Out:
         cart = self.booking.repo.get_cart(st.cart_id or "")
@@ -1145,6 +1282,9 @@ class Agent:
             )
         if len(st.variants) >= 2:
             out.append(QuickReply(label="Сравнить", action=CompareAction()))
+        if self._loc(st).routes and req.transport.arrival_mode.value != "car":
+            # билеты — часть поездки: рейсы туда-обратно, цены с багажом и без, время вылета/прилёта
+            out.append(QuickReply(label="Билеты", text="какие есть рейсы?"))
         return out
 
     @staticmethod
