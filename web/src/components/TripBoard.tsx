@@ -51,12 +51,17 @@ export function TripBoard({ response, state, cart, order }: Props) {
   const stageIndex = Math.max(0, STEPS.findIndex(([step]) => step === stage));
   const hasCart = (stage === "in_cart" || stage === "ordered") && cart;
   const hasOrder = stage === "ordered" && order;
+  const agentStatus = response?.mode === "llm"
+    ? { label: "агент онлайн", description: "Агент понимает запрос и собирает маршрут." }
+    : { label: "план проверен", description: "Маршрут собран по проверенным правилам." };
 
   return (
     <aside className="trip-board" aria-label="Ваша поездка">
       <div className="board-head">
         <h2>Путевой лист</h2>
-        <span className="board-state">{response?.mode === "llm" ? "агент онлайн" : "демо-режим"}</span>
+        <span className="board-state" title={agentStatus.description} aria-label={`Статус агента: ${agentStatus.description}`}>
+          {agentStatus.label}
+        </span>
       </div>
 
       <ol className="route-line">
