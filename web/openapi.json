@@ -2714,6 +2714,8 @@
       "type": "string",
       "enum": [
        "location_id",
+       "geo_scope",
+       "excluded_location_ids",
        "district_ids",
        "dates",
        "dates.check_in",
@@ -2736,6 +2738,11 @@
        "transport.arrival_time",
        "transport.departure_time",
        "transport.max_stops",
+       "transport.baggage",
+       "transport.depart_window",
+       "transport.return_window",
+       "transport.outbound_offer_id",
+       "transport.inbound_offer_id",
        "notes"
       ],
       "title": "Path"
@@ -3236,6 +3243,30 @@
       "title": "Location Id",
       "description": "куда едем (data/locations/<id>); не названо — локация по умолчанию",
       "default": "sochi"
+     },
+     "geo_scope": {
+      "anyOf": [
+       {
+        "type": "string",
+        "enum": [
+         "domestic",
+         "abroad"
+        ]
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Geo Scope",
+      "description": "«по России» / «за границу»; None — не сказано"
+     },
+     "excluded_location_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Excluded Location Ids",
+      "description": "«только не Дубай», «не в Турцию» — не предлагать"
      },
      "district_ids": {
       "items": {
@@ -3750,7 +3781,19 @@
      "passengers_price": {
       "type": "integer",
       "title": "Passengers Price",
-      "description": "за всех пассажиров"
+      "description": "за всех пассажиров (с багажом, если он выбран)"
+     },
+     "baggage_included": {
+      "type": "boolean",
+      "title": "Baggage Included",
+      "description": "в цене есть багаж 23 кг (поезд — всегда)",
+      "default": false
+     },
+     "baggage_fee_per_person": {
+      "type": "integer",
+      "title": "Baggage Fee Per Person",
+      "description": "доплата за багаж 23 кг за человека в одну сторону",
+      "default": 0
      },
      "is_demo": {
       "type": "boolean",
@@ -3844,6 +3887,78 @@
       ],
       "title": "Max Stops",
       "description": "0 = только прямые рейсы"
+     },
+     "baggage": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Baggage",
+      "description": "нужен багаж 23 кг; None — не сказано (цена без багажа)"
+     },
+     "depart_window": {
+      "anyOf": [
+       {
+        "type": "string",
+        "enum": [
+         "morning",
+         "day",
+         "evening",
+         "night"
+        ]
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Depart Window",
+      "description": "когда вылетать туда"
+     },
+     "return_window": {
+      "anyOf": [
+       {
+        "type": "string",
+        "enum": [
+         "morning",
+         "day",
+         "evening",
+         "night"
+        ]
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Return Window",
+      "description": "когда вылетать обратно"
+     },
+     "outbound_offer_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Outbound Offer Id",
+      "description": "рейс туда, выбранный пользователем (кнопкой)"
+     },
+     "inbound_offer_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Inbound Offer Id",
+      "description": "рейс обратно, выбранный пользователем (кнопкой)"
      }
     },
     "additionalProperties": false,
@@ -3957,6 +4072,14 @@
       "type": "array",
       "title": "Dismissed Fixes",
       "description": "'<hotel_id>:<code>' — от каких исправлений отказались"
+     },
+     "excluded_hotel_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Excluded Hotel Ids",
+      "description": "отели, которые пользователь попросил заменить («предложи другие») — больше не предлагаем"
      },
      "cart_id": {
       "anyOf": [

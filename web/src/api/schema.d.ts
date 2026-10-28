@@ -1179,7 +1179,7 @@ export interface components {
              * Path
              * @enum {string}
              */
-            path: "location_id" | "district_ids" | "dates" | "dates.check_in" | "dates.check_out" | "dates.month" | "dates.year" | "dates.nights" | "dates.flexibility_days" | "guests.adults" | "guests.children_ages" | "guests.pets" | "guests.rooms" | "budget.amount" | "budget.scope" | "budget.flex_pct" | "preferences" | "transport.origin_city" | "transport.arrival_mode" | "transport.arrival_hub_id" | "transport.arrival_time" | "transport.departure_time" | "transport.max_stops" | "notes";
+            path: "location_id" | "geo_scope" | "excluded_location_ids" | "district_ids" | "dates" | "dates.check_in" | "dates.check_out" | "dates.month" | "dates.year" | "dates.nights" | "dates.flexibility_days" | "guests.adults" | "guests.children_ages" | "guests.pets" | "guests.rooms" | "budget.amount" | "budget.scope" | "budget.flex_pct" | "preferences" | "transport.origin_city" | "transport.arrival_mode" | "transport.arrival_hub_id" | "transport.arrival_time" | "transport.departure_time" | "transport.max_stops" | "transport.baggage" | "transport.depart_window" | "transport.return_window" | "transport.outbound_offer_id" | "transport.inbound_offer_id" | "notes";
             /** Value */
             value?: unknown;
         };
@@ -1361,6 +1361,16 @@ export interface components {
              * @default sochi
              */
             location_id: string;
+            /**
+             * Geo Scope
+             * @description «по России» / «за границу»; None — не сказано
+             */
+            geo_scope?: ("domestic" | "abroad") | null;
+            /**
+             * Excluded Location Ids
+             * @description «только не Дубай», «не в Турцию» — не предлагать
+             */
+            excluded_location_ids?: string[];
             /**
              * District Ids
              * @description Пусто = любой район
@@ -1660,9 +1670,21 @@ export interface components {
             price_per_person: number;
             /**
              * Passengers Price
-             * @description за всех пассажиров
+             * @description за всех пассажиров (с багажом, если он выбран)
              */
             passengers_price: number;
+            /**
+             * Baggage Included
+             * @description в цене есть багаж 23 кг (поезд — всегда)
+             * @default false
+             */
+            baggage_included: boolean;
+            /**
+             * Baggage Fee Per Person
+             * @description доплата за багаж 23 кг за человека в одну сторону
+             * @default 0
+             */
+            baggage_fee_per_person: number;
             /**
              * Is Demo
              * @default true
@@ -1686,6 +1708,31 @@ export interface components {
              * @description 0 = только прямые рейсы
              */
             max_stops?: number | null;
+            /**
+             * Baggage
+             * @description нужен багаж 23 кг; None — не сказано (цена без багажа)
+             */
+            baggage?: boolean | null;
+            /**
+             * Depart Window
+             * @description когда вылетать туда
+             */
+            depart_window?: ("morning" | "day" | "evening" | "night") | null;
+            /**
+             * Return Window
+             * @description когда вылетать обратно
+             */
+            return_window?: ("morning" | "day" | "evening" | "night") | null;
+            /**
+             * Outbound Offer Id
+             * @description рейс туда, выбранный пользователем (кнопкой)
+             */
+            outbound_offer_id?: string | null;
+            /**
+             * Inbound Offer Id
+             * @description рейс обратно, выбранный пользователем (кнопкой)
+             */
+            inbound_offer_id?: string | null;
         };
         /**
          * TripStage
@@ -1736,6 +1783,11 @@ export interface components {
              * @description '<hotel_id>:<code>' — от каких исправлений отказались
              */
             dismissed_fixes?: string[];
+            /**
+             * Excluded Hotel Ids
+             * @description отели, которые пользователь попросил заменить («предложи другие») — больше не предлагаем
+             */
+            excluded_hotel_ids?: string[];
             /** Cart Id */
             cart_id?: string | null;
             /** Order Ids */
