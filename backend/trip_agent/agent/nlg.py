@@ -1,8 +1,9 @@
 """Генерация текста ответа. Владелец: ML1.
 
 TemplateNlg — детерминированные шаблоны (работают всегда, в т.ч. без LLM).
-LlmNlg — «очеловечивает» шаблонный текст, НО с проверкой заземления: каждое число в ответе
-модели должно встречаться в фактах; иначе отдаём шаблон. Так LLM не может выдумать цену.
+LlmNlg — «очеловечивает» шаблонный текст, НО с проверкой заземления: каждое число, название
+в «кавычках», месяц и обещание («гарантируем», «бесплатная отмена», «успеете») в ответе модели
+должны встречаться в фактах; иначе отдаём шаблон. Так LLM не может выдумать цену, отель или дату.
 """
 
 from __future__ import annotations
@@ -17,6 +18,25 @@ from ..schemas import TripState
 
 log = logging.getLogger(__name__)
 _NUM = re.compile(r"\d[\d\s ]*\d|\d")
+_QUOTED = re.compile(r"«([^»]{2,80})»")
+_BOLD_NAME = re.compile(r"\*\*([A-ZА-ЯЁ][^*:]{1,80})\*\*")
+_MONTH_STEMS = ("январ", "феврал", "март", "апрел", r"ма[йяе]\b", "июн", "июл", "август", "сентябр", "октябр", "ноябр", "декабр")
+_MONTHS = tuple(re.compile(r"\b" + m) for m in _MONTH_STEMS)
+# обещания, которые агент даёт только по данным (тариф, правила отеля), но не от себя
+_PROMISES = tuple(
+    re.compile(p)
+    for p in (
+        r"гарантир",
+        r"\bобязательно\b",
+        r"\bточно\b",
+        r"бесплатн",
+        r"без доплат",
+        r"100\s?%",
+        r"\bуспе(?:ете|ем|ть|ваете)\b",
+        r"возврат",
+        r"скидк",
+    )
+)
 
 DEMO_NOTE = "_Цены и наличие — демонстрационные; отели и климат — из открытых данных._"
 
@@ -75,7 +95,7 @@ class TemplateNlg:
                 False: "С животными нельзя.",
                 None: "Правило для животных неизвестно — уточним у отеля.",
             }[p]
-        if re.search(r"заезд|заселен|выезд", q):
+        if re.search(r"заезд|засел|выезд", q):
             return f"Заселение с {h['check_in_time']}, выезд до {h['check_out_time']}."
         if re.search(r"погод|температур|тепло|холодно|вода", q) and context.get("climate"):
             c = context["climate"]
@@ -90,7 +110,8 @@ class TemplateNlg:
 class LlmNlg(TemplateNlg):
     SYSTEM = (
         "Ты — дружелюбный тревел-агент Островка. Перепиши черновик ответа живым русским языком, 2–4 предложения. "
-        "Используй ТОЛЬКО факты из черновика и JSON. Не добавляй новых чисел, цен, названий. Markdown допускается."
+        "Используй ТОЛЬКО факты из черновика и JSON. Не добавляй новых чисел, цен, дат, названий отелей и районов, "
+        "не обещай того, чего нет в фактах (бесплатная отмена, гарантии, «успеете»). Markdown допускается."
     )
 
     def __init__(self, llm: LLMClient):
@@ -98,7 +119,7 @@ class LlmNlg(TemplateNlg):
 
     def summarize_turn(self, state: TripState, facts: dict) -> str:
         draft = super().summarize_turn(state, facts)
-        if facts.get("kind") not in ("proposals", "replanned"):
+        if facts.get("kind") not in ("proposals", "replanned", "no_results"):
             return draft
         try:
             out = self.llm.complete_text(self.SYSTEM, f"Черновик:\n{draft}\n\nФакты:\n{json.dumps(facts, ensure_ascii=False, default=str)}")
@@ -122,7 +143,8 @@ class LlmNlg(TemplateNlg):
             )
         except Exception:
             return base
-        return out if _grounded(out, json.dumps(context, ensure_ascii=False, default=str) + question) else base
+        # числа из вопроса («прилетаем в 7:30») повторять можно, а названия и обещания — только из фактов
+        return out if _grounded(out, json.dumps(context, ensure_ascii=False, default=str) + base, numbers_also_from=question) else base
 
 
 def _lc(s: str) -> str:
@@ -134,10 +156,18 @@ def _q(name: str) -> str:
     return name if "«" in name else f"«{name}»"
 
 
-def _grounded(text: str, source: str) -> bool:
-    src = re.sub(r"[\s ]", "", source)
+def _grounded(text: str, source: str, *, numbers_also_from: str = "") -> bool:
+    """Ответ модели не содержит фактов, которых нет в source: чисел, названий, месяцев, обещаний."""
+    src = re.sub(r"[\s ]", "", source + numbers_also_from)
     for m in _NUM.findall(text):
         n = re.sub(r"[\s ]", "", m)
         if len(n) >= 2 and n not in src:
             return False
-    return True
+    flat = re.sub(r"\s+", " ", source).lower()
+    for name in _QUOTED.findall(text) + _BOLD_NAME.findall(text):
+        if re.sub(r"\s+", " ", name).strip().lower() not in flat:
+            return False  # отель/район, которого нет в фактах
+    low = text.lower()
+    if any(m.search(low) and not m.search(flat) for m in _MONTHS):
+        return False  # дата, которой нет в фактах
+    return not any(p.search(low) and not p.search(flat) for p in _PROMISES)

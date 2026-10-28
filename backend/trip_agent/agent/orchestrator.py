@@ -207,6 +207,8 @@ class Agent:
             mode = nlu.parser
             if getattr(self.nlu, "last_error", None) and nlu.parser == "rules" and self.mode == "llm":
                 tr.note("nlu_fallback", "LLM недоступна → правила")
+            if notes := getattr(self.nlu, "guard_notes", None):
+                tr.note("nlu_guard", "; ".join(notes))
             blocks, sugg = self._on_intent(state, nlu, tr)
         state.version += 1
         state.turn_count += 1
@@ -240,6 +242,8 @@ class Agent:
             return self._compare(st, nlu.target_variant_ids)
         if i == Intent.book:
             if st.cart_id and st.stage == TripStage.in_cart:
+                if nlu.parser == "llm":
+                    return self._confirm_checkout(st)
                 return self._checkout(st, None)
             v = self._resolve_variant(st, nlu.target_variant_ids, nlu.variant_ordinal) or self._current_variant(st)
             return self._add_to_cart(st, v, True, tr) if v else self._ask_for_details()
@@ -495,6 +499,11 @@ class Agent:
                 "guests": guests_label(req),
             }
             blocks.append(TextBlock(markdown=self.nlg.summarize_turn(st, facts)))
+        if any(c.startswith("Время прибытия") for c in changes):
+            # «прилетаем в 7:30, успеем заселиться?» — отвечаем расчётом валидатора, а не догадкой
+            arrival = [i.message for i in new_rec.issues if i.code in ("early_arrival", "late_arrival")]
+            ok = f"Заселение в {q(new_rec.hotel.name)} с {new_rec.hotel.check_in_time} — успеваете."
+            blocks.append(TextBlock(markdown=" ".join(arrival) or ok))
         if loc.entry and (prev_rec is None or prev_rec.hotel.id not in {h.id for h in hotels}):
             # впервые показываем варианты за границей — одной строкой про документы (подробно — в корзине и по вопросу)
             blocks.append(TextBlock(markdown=f"**{loc.name}, {loc.country}:** {loc.entry.visa} {loc.entry.passport}"))
@@ -708,6 +717,15 @@ class Agent:
         except BookingError as e:
             return [TextBlock(markdown=str(e)), CartBlock(cart=cart)], []
         return [CartBlock(cart=cart)], [QuickReply(label="Оформить", action=CheckoutAction())]
+
+    def _confirm_checkout(self, st: TripState) -> Out:
+        """Понимание через LLM не создаёт заказ: только показывает корзину и кнопку подтверждения."""
+        cart = self.booking.repo.get_cart(st.cart_id or "")
+        if cart is None:
+            return [TextBlock(markdown="Сначала добавьте вариант в корзину.")], []
+        return [TextBlock(markdown="Проверьте корзину и подтвердите оформление кнопкой ниже."), CartBlock(cart=cart)], [
+            QuickReply(label="Оформить заказ", action=CheckoutAction())
+        ]
 
     def _checkout(self, st: TripState, guest_name: str | None) -> Out:
         cart = self.booking.repo.get_cart(st.cart_id or "")

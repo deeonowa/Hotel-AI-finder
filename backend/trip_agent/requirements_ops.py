@@ -6,7 +6,7 @@
 
 from __future__ import annotations
 
-from datetime import date, timedelta
+from datetime import date, time, timedelta
 from typing import Any
 
 from .schemas import DateWindow, PatchOp, Preference, PrefKey, Priority, Requirements, Source
@@ -209,6 +209,8 @@ def _fmt(v: Any, path: str = "") -> str:
         return {"plane": "самолёт", "train": "поезд", "car": "машина", "unknown": "не указано"}.get(str(getattr(v, "value", v)), str(v))
     if isinstance(v, date):
         return v.strftime("%d.%m.%Y")
+    if isinstance(v, time):
+        return v.strftime("%H:%M")
     if isinstance(v, list):
         return ", ".join(_fmt(x) for x in v) if v else "—"
     return str(getattr(v, "value", v))

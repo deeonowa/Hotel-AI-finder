@@ -9,6 +9,9 @@
   2) провайдер не умеет → json_object + схема в промпте;
   3) ответ не прошёл Pydantic → 1 повтор с текстом ошибки;
   4) всё равно плохо → LLMError, вызывающий код падает в rules-режим (агент не ломается).
+
+Предохранитель: сеть/таймаут/5xx → модель «отдыхает» cooldown_s секунд, все вызовы сразу LLMError.
+Иначе при упавшем провайдере КАЖДЫЙ ход ждал бы таймаут — на демо это выглядит как зависание.
 """
 
 from __future__ import annotations
@@ -43,19 +46,47 @@ def _clean(text: str) -> str:
 
 
 class OpenAICompatibleClient:
-    def __init__(self, base_url: str | None, api_key: str | None, model: str, *, timeout_s: float = 30.0):
+    def __init__(
+        self,
+        base_url: str | None,
+        api_key: str | None,
+        model: str,
+        *,
+        timeout_s: float = 20.0,
+        cooldown_s: float = 60.0,
+        extra_body: dict | None = None,
+    ):
+        """extra_body — параметры конкретного сервера, напр. {"chat_template_kwargs": {"enable_thinking": false}}."""
         from openai import OpenAI  # импорт здесь: без LLM пакет не обязателен для тестов
 
         self.model = model
         self._client = OpenAI(base_url=base_url, api_key=api_key or "not-needed", timeout=timeout_s, max_retries=1)
         self._json_schema_ok: bool | None = None  # определяем на первом вызове
         self.last_latency_ms = 0
+        self.extra_body = extra_body or None
+        self.cooldown_s = cooldown_s
+        self._down_until = 0.0
+
+    @property
+    def available(self) -> bool:
+        return time.monotonic() >= self._down_until
+
+    def _trip(self, e: Exception) -> LLMError:
+        self._down_until = time.monotonic() + self.cooldown_s
+        log.warning("LLM unavailable, rules-only for %.0fs: %s", self.cooldown_s, e)
+        return LLMError(str(e))
+
+    def _guard(self) -> None:
+        if not self.available:
+            raise LLMError("LLM cooling down after failure")
 
     def _create(self, messages: list[dict], temperature: float, response_format: dict | None, max_tokens: int):
         t0 = time.perf_counter()
         kw = {"model": self.model, "messages": messages, "temperature": temperature, "max_tokens": max_tokens}
         if response_format:
             kw["response_format"] = response_format
+        if self.extra_body:
+            kw["extra_body"] = self.extra_body
         resp = self._client.chat.completions.create(**kw)
         self.last_latency_ms = int((time.perf_counter() - t0) * 1000)
         return resp.choices[0].message.content or ""
@@ -63,6 +94,7 @@ class OpenAICompatibleClient:
     def complete_json(self, system: str, user: str, schema: type[T], *, temperature: float = 0.0) -> T:
         from openai import BadRequestError
 
+        self._guard()
         js = schema.model_json_schema()
         sys = system + "\n\nОтвечай ТОЛЬКО JSON-объектом по схеме:\n" + json.dumps(js, ensure_ascii=False)
         messages = [{"role": "system", "content": sys}, {"role": "user", "content": user}]
@@ -84,7 +116,7 @@ class OpenAICompatibleClient:
                     continue
                 raise LLMError(str(e)) from e
             except Exception as e:  # сеть, таймаут, 5xx
-                raise LLMError(str(e)) from e
+                raise self._trip(e) from e
             text = _clean(raw)
             try:
                 return schema.model_validate_json(text)
@@ -97,8 +129,9 @@ class OpenAICompatibleClient:
         raise LLMError(f"invalid structured output: {last_err}")
 
     def complete_text(self, system: str, user: str, *, temperature: float = 0.3, max_tokens: int = 600) -> str:
+        self._guard()
         try:
             raw = self._create([{"role": "system", "content": system}, {"role": "user", "content": user}], temperature, None, max_tokens)
         except Exception as e:
-            raise LLMError(str(e)) from e
+            raise self._trip(e) from e
         return _THINK.sub("", raw).strip()
