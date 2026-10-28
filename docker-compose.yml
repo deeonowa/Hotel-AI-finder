@@ -28,6 +28,10 @@ services:
       LLM_BASE_URL: ${LLM_BASE_URL:-}
       LLM_API_KEY: ${LLM_API_KEY:-}
       LLM_MODEL: ${LLM_MODEL:-}
+      LLM_EXTRA_BODY: ${LLM_EXTRA_BODY:-}
+      LLM_TIMEOUT_S: ${LLM_TIMEOUT_S:-}
+      LLM_COOLDOWN_S: ${LLM_COOLDOWN_S:-}
+      LLM_MIN_CONFIDENCE: ${LLM_MIN_CONFIDENCE:-}
       AGENT_MODE: ${AGENT_MODE:-auto}
       LOCATION_ID: ${LOCATION_ID:-sochi}
     depends_on:
