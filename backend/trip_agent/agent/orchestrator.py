@@ -664,11 +664,13 @@ class Agent:
         if loc.entry and (prev_rec is None or prev_rec.hotel.id not in {h.id for h in hotels}):
             # впервые показываем варианты за границей — одной строкой про документы (подробно — в корзине и по вопросу)
             blocks.append(TextBlock(markdown=f"**{loc.name}, {loc.country}:** {loc.entry.visa} {loc.entry.passport}"))
+        note, note_sugg = self._ticket_note(st, prev_rec, new_rec)
+        blocks += note
         blocks += [chips, VariantsBlock(items=rr.variants, recommended_id=rr.recommended_id, stats=rr.stats)]
         blocks += extra  # другие подходящие направления, если город подобрали сами
         if prev_rec is None or any(c.startswith(("Даты", "Заезд", "Выезд", "Месяц")) for c in changes):
             blocks += self._warmer_elsewhere(st, tr)  # подсказка про тёплое море — один раз, а не на каждую правку
-        return blocks, self._proposal_suggestions(st)
+        return blocks, (note_sugg + self._proposal_suggestions(st))[:7]
 
     def _location_chip(self, st: TripState) -> AssumptionChip:
         req = st.requirements
@@ -862,6 +864,7 @@ class Agent:
                 label=f"Из {FROM_CITY.get(c, c)}",
                 action=ApplyPatchAction(
                     ops=[
+                        PatchOp(op="set", path="transport.tickets", value=True),
                         PatchOp(op="set", path="transport.origin_city", value=c),
                         PatchOp(
                             op="set", path="transport.arrival_mode", value="plane" if any(r.mode == "plane" for r in routes[c]) else "train"
@@ -893,12 +896,16 @@ class Agent:
     def _tickets(self, st: TripState, nlu: NluResult, tr: Tracer) -> Out:
         """Билеты в чате: какие есть рейсы туда и обратно, сколько стоят (с багажом и без), когда вылет и прилёт."""
         if nlu.patch:
+            wanted = wants_tickets(st.requirements)
             changes = self._apply(st, nlu.patch, nlu.assumed_paths, tr)
             if changes is None:
                 return [TextBlock(markdown="Не смог применить изменение — переформулируйте, пожалуйста.")], []
             ticket_paths = ("transport.baggage", "transport.depart_window", "transport.return_window", "transport.origin_city",
-                            "transport.max_stops")  # fmt: skip
-            if st.variants and any(o.path in ticket_paths for o in nlu.patch) and st.requirements.transport.origin_city:
+                            "transport.max_stops", "transport.tickets")  # fmt: skip
+            # пересобираем, только если условия по билетам реально поменялись (а не просто спросили про рейсы)
+            real = any(o.path in ticket_paths and o.path != "transport.tickets" for o in nlu.patch)
+            real = real or wanted != wants_tickets(st.requirements)
+            if st.variants and real and st.requirements.transport.origin_city:
                 blocks, sugg = self._plan(st, tr, changes, inspire=False)  # пересобрать с новыми условиями по билетам
                 if not any(b.type == "variants" for b in blocks):
                     return blocks, sugg
@@ -1159,11 +1166,53 @@ class Agent:
         st.stage = TripStage.in_cart
         tr.note("cart", "корзина пересчитана под новые условия")
         diff = self._diff(before, after, changes)
+        note, note_sugg = self._ticket_note(st, before, after)
         return [
             TextBlock(markdown=f"{diff.summary} Корзину обновил — оформлять заново ничего не нужно."),
+            *note,
             diff,
             CartBlock(cart=cart),
-        ], [QuickReply(label="Оформить", action=CheckoutAction())]
+        ], [*note_sugg, QuickReply(label="Оформить", action=CheckoutAction())]
+
+    def _ticket_note(self, st: TripState, before: Variant | None, after: Variant) -> Out:
+        """Билеты появились или поменялись — говорим прямо: какие рейсы, во сколько, сколько стоят, что в цене;
+        и спрашиваем, подходят ли, а не молча меняем сумму."""
+        req = st.requirements
+        o, i = after.outbound, after.inbound
+        if o is None or i is None:
+            if before is not None and before.outbound is not None:
+                return [TextBlock(markdown="Билеты из плана убрал — дорогу до отеля планируете сами.")], []
+            return [], []
+        same = (
+            before is not None
+            and before.outbound is not None
+            and before.inbound is not None
+            and (before.outbound.id, before.inbound.id, before.outbound.passengers_price + before.inbound.passengers_price)
+            == (o.id, i.id, o.passengers_price + i.passengers_price)
+        )
+        if same:
+            return [], []
+        seats = (req.guests.adults or 2) + sum(1 for a in req.guests.children_ages if a >= 2)
+        where = "в корзину" if st.stage == TripStage.in_cart else "в план"
+        verb = "Добавил" if before is None or before.outbound is None else "Обновил"
+        lines = [
+            f"{verb} {where} билеты на {seats} чел.: туда — {fmt_leg(o)}; обратно — {fmt_leg(i)}.",
+            f"Билеты туда-обратно: **{fmt_rub(o.passengers_price + i.passengers_price)}** (демо), уже в итоговой сумме.",
+        ]
+        sugg: list[QuickReply] = [QuickReply(label="Другие рейсы", text="покажи другие рейсы")]
+        if o.mode == "plane" and not o.baggage_included:
+            fee = (o.baggage_fee_per_person + i.baggage_fee_per_person) * seats
+            lines.append(f"Тариф с ручной кладью; багаж 23 кг туда и обратно — ещё {fmt_rub(fee)}.")
+            op = PatchOp(op="set", path="transport.baggage", value=True)
+            sugg.append(QuickReply(label=f"С багажом (+{fmt_rub(fee)})", action=ApplyPatchAction(ops=[op], label="С багажом")))
+        want = req.transport.arrival_time if req.provenance.get("transport.arrival_time") == Source.user else None
+        if want is not None:
+            lines.append(f"Вы говорили про прилёт около {want:%H:%M} — ближайший подходящий рейс прилетает в {o.arrive_at:%H:%M}.")
+        lines.append("Подходят эти рейсы?")
+        sugg.append(
+            QuickReply(label="Без билетов", action=ApplyPatchAction(ops=[PatchOp(op="set", path="transport.tickets", value=False)]))
+        )
+        return [TextBlock(markdown=" ".join(lines))], sugg
 
     # ============================================================ вопросы
     def _answer(self, st: TripState, question: str) -> Out:

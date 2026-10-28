@@ -169,6 +169,8 @@ class DemoSchedule:
             return outs, ins, f"нет {what} {'туда' if not outs else 'обратно'} на {day:%d.%m}"
         kids = bool(req.guests.children_ages)
         dw, rw = req.transport.depart_window, req.transport.return_window
+        # «прилетаем в 7:30» и потом «подбери билеты» → рейс с прилётом ближе к названному времени
+        want_at = req.transport.arrival_time if req.provenance.get("transport.arrival_time") == "user" else None
 
         def pen_out(o: TransportOffer) -> float:
             p = o.passengers_price + o.duration_min * 15 + o.stops * 2500
@@ -180,6 +182,9 @@ class DemoSchedule:
                 p += 20_000  # прилёт на следующий день: первая оплаченная ночь пропадает
             if dw and window(o.depart_at.hour) != dw:
                 p += 30_000  # пользователь просил вылет утром/вечером — это почти жёсткое условие
+            if want_at is not None:
+                diff = abs((o.arrive_at.hour * 60 + o.arrive_at.minute) - (want_at.hour * 60 + want_at.minute))
+                p += min(diff, 24 * 60 - diff) * 60
             return p
 
         def pen_in(o: TransportOffer) -> float:
@@ -214,8 +219,10 @@ def window(hour: int) -> str:
 def wants_tickets(req: Requirements) -> bool:
     """Билеты подбираем, если известен город отправления, едут не на машине и свой рейс не назван."""
     t = req.transport
-    if not t.origin_city or t.arrival_mode.value == "car":
+    if not t.origin_city or t.arrival_mode.value == "car" or t.tickets is False:
         return False
+    if t.tickets:  # попросили подобрать билеты явно — даже если раньше назвали время прилёта
+        return True
     return not (t.arrival_time is not None and req.provenance.get("transport.arrival_time") == "user")
 
 

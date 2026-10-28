@@ -81,6 +81,10 @@ class TransportPlan(Model):
     arrival_time: time | None = None
     departure_time: time | None = None
     max_stops: int | None = Field(default=None, ge=0, le=2, description="0 = только прямые рейсы")
+    tickets: bool | None = Field(
+        default=None,
+        description="True — подобрать билеты (попросили явно), False — не нужны; None — если есть город вылета и нет своего рейса",
+    )
     baggage: bool | None = Field(default=None, description="нужен багаж 23 кг; None — не сказано (цена без багажа)")
     depart_window: Literal["morning", "day", "evening", "night"] | None = Field(default=None, description="когда вылетать туда")
     return_window: Literal["morning", "day", "evening", "night"] | None = Field(default=None, description="когда вылетать обратно")
@@ -138,6 +142,7 @@ PatchPath = Literal[
     "transport.arrival_time",
     "transport.departure_time",
     "transport.max_stops",
+    "transport.tickets",
     "transport.baggage",
     "transport.depart_window",
     "transport.return_window",

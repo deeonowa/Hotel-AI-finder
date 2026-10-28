@@ -239,6 +239,8 @@ class RuleNlu:
         ops, assumed = self._extract(t, text, state, today)
         if TICKETS_Q.search(t) and TICKETS_ASK.search(t) and not any(o.path == "location_id" for o in ops) and (has_plan or state.variants):
             # «какие есть рейсы?», «сколько стоят билеты с багажом?», «покажи вечерние рейсы» — показать рейсы
+            if not any(o.path == "transport.tickets" for o in ops):
+                ops.append(PatchOp(op="set", path="transport.tickets", value=True))  # спросили про рейсы — подбираем билеты
             return NluResult(intent=Intent.tickets, patch=ops, assumed_paths=assumed, info_question=text.strip(), parser="rules")
         if MORE_OPTIONS.search(t):
             # «предложи другие отели» — новые варианты при тех же условиях (плюс то, что изменили в этой же фразе)
@@ -620,6 +622,12 @@ class RuleNlu:
 
     # ---------------------------------------------------------------- транспорт
     def _transport(self, t: str, raw: str, ops: list[PatchOp], assumed: list[str]) -> None:
+        if re.search(r"билет\w* (?:не нужн|уже есть|сам\w* куп|куплю сам)|сво\w* билет|без билет|не (?:надо|нужно) билет", t):
+            ops.append(PatchOp(op="set", path="transport.tickets", value=False))
+        elif re.search(
+            r"(?:подбер|найди|купи|добав|оформ|нужн)\w*\s+(?:\w+\s+)?(?:авиа)?билет|(?:подбер|найди|добав)\w* (?:рейс|перел)", t
+        ):
+            ops.append(PatchOp(op="set", path="transport.tickets", value=True))
         if re.search(r"без багаж|только ручн|ручн\w* клад\w*(?! и)|без чемодан", t):
             ops.append(PatchOp(op="set", path="transport.baggage", value=False))
         elif re.search(r"с багаж|багаж\w* (?:нужен|нужно|обязател)|с чемодан|сдать чемодан|возьм\w* чемодан", t):

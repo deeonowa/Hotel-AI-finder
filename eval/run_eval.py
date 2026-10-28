@@ -133,6 +133,7 @@ def run_scenario(app, sc: dict) -> dict:
                     1 for x in cb.cart.issues if x.severity.value == "blocker" and x.code != "unconfirmed_assumptions"
                 )
             for ob in _blocks(r, "order"):
+                res["order_kinds"] = {i.kind.value for i in ob.order.items}
                 if agent._pending(agent.get_state(sid)):
                     res["violations"].append(f"заказ {ob.order.number} создан с неподтверждёнными предположениями")
     except Exception as e:  # noqa: BLE001
@@ -186,6 +187,8 @@ def run_scenario(app, sc: dict) -> dict:
         sets = res["offer_sets"]
         if len(sets) < 2 or any(a & b for i, a in enumerate(sets) for b in sets[i + 1 :]):
             res["violations"].append("«другие отели» повторили уже показанные")
+    if checks.get("order_has_tickets") and "ticket" not in res.get("order_kinds", set()):
+        res["violations"].append("подобранные билеты не попали в заказ")
     if checks.get("no_variants") and "variants" in seen:
         res["violations"].append("variants shown for non-travel/injection input")
     if "max_clarifications" in checks and res["clarifications"] > checks["max_clarifications"]:

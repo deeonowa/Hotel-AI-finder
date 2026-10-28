@@ -37,7 +37,8 @@ dates.flexibility_days, guests.adults, guests.children_ages (список воз
 (total_trip | hotel_total | per_night), budget.flex_pct, preferences (add: {{"key","priority","value"?}},
 remove: "key"), transport.origin_city, transport.arrival_mode (plane|train|car|unknown),
 transport.arrival_hub_id, transport.arrival_time / transport.departure_time ("HH:MM"), transport.max_stops (0 — только
-прямые), transport.baggage (true — «с багажом», false — «только ручная кладь»), transport.depart_window /
+прямые), transport.tickets (true — «подбери/нужны билеты», false — «билеты уже есть», «билеты не нужны»),
+transport.baggage (true — «с багажом», false — «только ручная кладь»), transport.depart_window /
 transport.return_window (morning|day|evening|night — «вылет утром», «обратно вечерним рейсом»), notes (add: строка).
 Конкретный рейс (transport.outbound_offer_id / inbound_offer_id) выбирается только кнопкой — сам не ставь.
 

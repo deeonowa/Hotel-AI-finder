@@ -4,12 +4,12 @@
 | метрика | значение |
 |---|---|
 | mode | rules |
-| scenarios | 62 |
+| scenarios | 63 |
 | completion_rate | 1.0 |
 | avg_clarifications | 0.06 |
-| avg_city_choices | 0.52 |
-| avg_turns_to_first_offer | 1.68 |
-| avg_ms_to_first_offer | 226 |
+| avg_city_choices | 0.51 |
+| avg_turns_to_first_offer | 1.67 |
+| avg_ms_to_first_offer | 220 |
 | constraint_violations | 0 |
 | logistics_errors | 0 |
 | crashes | 0 |
@@ -80,3 +80,4 @@
 | more_hotels | variants | ✅ | 0 | 1 |  |
 | tickets_choose_flight | order_paid | ✅ | 0 | 1 |  |
 | tickets_ask_origin | in_cart | ✅ | 0 | 1 |  |
+| tickets_after_own_arrival | order_paid | ✅ | 0 | 1 |  |

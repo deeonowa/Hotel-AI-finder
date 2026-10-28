@@ -37,6 +37,7 @@ PATH_LABELS = {
     "transport.arrival_time": "Время прибытия",
     "transport.departure_time": "Время отъезда",
     "transport.max_stops": "Пересадки",
+    "transport.tickets": "Билеты",
     "transport.baggage": "Багаж",
     "transport.depart_window": "Вылет туда",
     "transport.return_window": "Вылет обратно",
@@ -215,6 +216,12 @@ def _fmt(v: Any, path: str = "") -> str:
         return "—"
     if path == "transport.baggage":
         return "с багажом 23 кг" if v else "только ручная кладь"
+    if path == "transport.tickets":
+        return "подобрать" if v else "не нужны"
+    if isinstance(v, time):
+        return v.strftime("%H:%M")
+    if path.endswith("_time") and isinstance(v, str) and len(v) >= 5:
+        return v[:5]  # «07:30:00» и «07:30» — одно и то же время
     if isinstance(v, bool):
         return "да" if v else "нет"
     if path in MONEY_PATHS and isinstance(v, int | float):

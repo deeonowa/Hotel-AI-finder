@@ -2738,6 +2738,7 @@
        "transport.arrival_time",
        "transport.departure_time",
        "transport.max_stops",
+       "transport.tickets",
        "transport.baggage",
        "transport.depart_window",
        "transport.return_window",
@@ -3887,6 +3888,18 @@
       ],
       "title": "Max Stops",
       "description": "0 = только прямые рейсы"
+     },
+     "tickets": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Tickets",
+      "description": "True — подобрать билеты (попросили явно), False — не нужны; None — если есть город вылета и нет своего рейса"
      },
      "baggage": {
       "anyOf": [

@@ -76,3 +76,39 @@ def test_evening_departure_is_respected(agent):
 def test_more_origin_cities(app):
     for lid in ("sochi", "antalya", "dubai", "phuket", "tbilisi"):
         assert {"Уфа", "Пермь", "Красноярск", "Владивосток"} <= set(app.catalog.get_location(lid).routes)
+
+
+def test_tickets_requested_after_own_arrival_time_go_into_cart_and_are_explained(agent):
+    """Сценарий из живого теста: назвали время прилёта, собрали корзину, потом «подбери авиабилеты»."""
+    sid = agent.new_session().session_id
+    _say(agent, sid, "в Сочи втроём с собакой с 9 по 16 ноября")
+    _say(agent, sid, "Прилетаем в 7:30, успеем заселиться?")
+    st = agent.get_state(sid)
+    r = _act(agent, sid, {"type": "add_to_cart", "variant_id": st.recommended_variant_id})
+    hotel_only = _blocks(r, "cart")[0].cart.total
+
+    r = _say(agent, sid, "Подбери авиабилеты")
+    (q,) = _blocks(r, "question")
+    moscow = next(x for x in q.quick_replies if "Москв" in x.label)
+    r = _act(agent, sid, moscow.action)
+
+    cart = _blocks(r, "cart")[0].cart
+    tickets = [i for i in cart.items if i.kind.value == "ticket"]
+    assert len(tickets) == 2, "подобранные билеты должны попасть в корзину и к оплате"
+    assert cart.total == hotel_only + sum(i.price for i in tickets)
+    text = " ".join(b.markdown for b in _blocks(r, "text"))
+    assert "билеты" in text and "Подходят" in text and "07:30" in text, "агент объясняет рейсы и спрашивает, подходят ли"
+    labels = {s.label for s in r.suggestions}
+    assert {"Другие рейсы", "Без билетов", "Оформить"} <= labels
+
+    r = _act(agent, sid, next(s.action for s in r.suggestions if s.label == "Без билетов"))
+    cart = _blocks(r, "cart")[0].cart
+    assert not [i for i in cart.items if i.kind.value == "ticket"] and cart.total == hotel_only
+
+
+def test_change_line_formats_time_once(agent):
+    sid = agent.new_session().session_id
+    _say(agent, sid, "в Сочи вдвоём с 10 по 17 ноября")
+    _say(agent, sid, "прилетаем в 7:30")
+    r = _say(agent, sid, "прилетаем в 7:30")
+    assert "07:30:00" not in " ".join(b.markdown for b in _blocks(r, "text"))

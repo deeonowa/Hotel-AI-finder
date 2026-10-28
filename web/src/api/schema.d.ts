@@ -1179,7 +1179,7 @@ export interface components {
              * Path
              * @enum {string}
              */
-            path: "location_id" | "geo_scope" | "excluded_location_ids" | "district_ids" | "dates" | "dates.check_in" | "dates.check_out" | "dates.month" | "dates.year" | "dates.nights" | "dates.flexibility_days" | "guests.adults" | "guests.children_ages" | "guests.pets" | "guests.rooms" | "budget.amount" | "budget.scope" | "budget.flex_pct" | "preferences" | "transport.origin_city" | "transport.arrival_mode" | "transport.arrival_hub_id" | "transport.arrival_time" | "transport.departure_time" | "transport.max_stops" | "transport.baggage" | "transport.depart_window" | "transport.return_window" | "transport.outbound_offer_id" | "transport.inbound_offer_id" | "notes";
+            path: "location_id" | "geo_scope" | "excluded_location_ids" | "district_ids" | "dates" | "dates.check_in" | "dates.check_out" | "dates.month" | "dates.year" | "dates.nights" | "dates.flexibility_days" | "guests.adults" | "guests.children_ages" | "guests.pets" | "guests.rooms" | "budget.amount" | "budget.scope" | "budget.flex_pct" | "preferences" | "transport.origin_city" | "transport.arrival_mode" | "transport.arrival_hub_id" | "transport.arrival_time" | "transport.departure_time" | "transport.max_stops" | "transport.tickets" | "transport.baggage" | "transport.depart_window" | "transport.return_window" | "transport.outbound_offer_id" | "transport.inbound_offer_id" | "notes";
             /** Value */
             value?: unknown;
         };
@@ -1708,6 +1708,11 @@ export interface components {
              * @description 0 = только прямые рейсы
              */
             max_stops?: number | null;
+            /**
+             * Tickets
+             * @description True — подобрать билеты (попросили явно), False — не нужны; None — если есть город вылета и нет своего рейса
+             */
+            tickets?: boolean | null;
             /**
              * Baggage
              * @description нужен багаж 23 кг; None — не сказано (цена без багажа)
