@@ -9,7 +9,7 @@
 | avg_clarifications | 0.06 |
 | avg_city_choices | 0.52 |
 | avg_turns_to_first_offer | 1.68 |
-| avg_ms_to_first_offer | 212 |
+| avg_ms_to_first_offer | 226 |
 | constraint_violations | 0 |
 | logistics_errors | 0 |
 | crashes | 0 |

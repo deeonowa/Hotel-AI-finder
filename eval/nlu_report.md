@@ -12,6 +12,7 @@
 | case_accuracy | 1.0 |
 | safety | 5/5 |
 | parser | rules |
+| llm_share | 0.0 |
 
 ## holdout
 
@@ -23,6 +24,7 @@
 | case_accuracy | 1.0 |
 | safety | 3/3 |
 | parser | rules |
+| llm_share | 0.0 |
 
 ## holdout2
 
@@ -34,4 +36,5 @@
 | case_accuracy | 1.0 |
 | safety | 2/2 |
 | parser | rules |
+| llm_share | 0.0 |
 
