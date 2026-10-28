@@ -39,6 +39,32 @@ def _blocks(r, t):
     return [b for b in r.blocks if b.type == t]
 
 
+def _city_card(r, city: str):
+    """Карточка города, если агент сейчас предлагает выбрать направление (и вариантов отелей ещё нет)."""
+    if _blocks(r, "variants"):
+        return None
+    cards = [c for b in _blocks(r, "destinations") for c in b.items if c.scope == "location"]
+    if not cards:
+        return None
+    return next((c for c in cards if c.location_id == city), cards[0])
+
+
+def _note(res: dict, r, step: int, t_start: float) -> None:
+    res["trace"] += [f"{t.name}:{t.detail}" for t in r.trace]
+    res["offered_locations"] |= {c.location_id for b in _blocks(r, "destinations") for c in b.items if c.scope == "location"}
+    for vb in _blocks(r, "variants"):
+        if len(vb.items) > 1:
+            res["offer_sets"].append({v.hotel.id for v in vb.items})
+    types = {b.type for b in r.blocks}
+    res["seen"] |= types
+    if res["turns_to_offer"] is None:  # уточнения считаем только ДО первой рекомендации
+        # вопрос «по России или за границу» рядом с карточками направлений — не блокирующий, его не считаем
+        res["clarifications"] += len([q for q in _blocks(r, "question") if q.paths != ["geo_scope"]])
+    if "variants" in types and res["turns_to_offer"] is None:
+        res["turns_to_offer"] = step
+        res["ms_to_offer"] = int((time.perf_counter() - t_start) * 1000)
+
+
 def run_scenario(app, sc: dict) -> dict:
     agent = app.agent
     r = agent.new_session()
@@ -55,12 +81,19 @@ def run_scenario(app, sc: dict) -> dict:
         "crash": None,
         "seen": set(),
         "trace": [],
+        "city_choices": 0,
+        "offered_locations": set(),
+        "offer_sets": [],
     }
+    # Город не назван → агент сначала предлагает направления (карточки), потом отели. Сценарий «выбирает»
+    # карточку sc["city"] (по умолчанию Сочи) — как сделал бы пользователь. auto_city: false — выбор вручную.
+    auto_city = sc.get("auto_city", sc["goal"] != "destinations")
+    step = 0
     t_start = time.perf_counter()
     last = r
     last_variants: list = []
     try:
-        for i, turn in enumerate(sc["turns"], start=1):
+        for turn in sc["turns"]:
             st = agent.get_state(sid)
             if turn.startswith("@"):
                 cmd = turn[1:]
@@ -78,14 +111,14 @@ def run_scenario(app, sc: dict) -> dict:
                 r = agent.turn(sid, TurnRequest(action=action))
             else:
                 r = agent.turn(sid, TurnRequest(text=turn))
+            step += 1
+            if auto_city and (card := _city_card(r, sc.get("city", "sochi"))) is not None:
+                _note(res, r, step, t_start)
+                res["city_choices"] += 1
+                r = agent.turn(sid, TurnRequest(action=card.choose.action))
+                step += 1
             last = r
-            types = {b.type for b in r.blocks}
-            res["seen"] |= types
-            if res["turns_to_offer"] is None:  # уточнения считаем только ДО первой рекомендации
-                res["clarifications"] += len(_blocks(r, "question"))
-            if "variants" in types and res["turns_to_offer"] is None:
-                res["turns_to_offer"] = i
-                res["ms_to_offer"] = int((time.perf_counter() - t_start) * 1000)
+            _note(res, r, step, t_start)
             if vbs := _blocks(r, "variants"):
                 last_variants = [v for vb in vbs for v in vb.items]
             for cb in _blocks(r, "cart"):
@@ -96,7 +129,6 @@ def run_scenario(app, sc: dict) -> dict:
             for ob in _blocks(r, "order"):
                 if agent._pending(agent.get_state(sid)):
                     res["violations"].append(f"заказ {ob.order.number} создан с неподтверждёнными предположениями")
-            res["trace"] += [f"{t.name}:{t.detail}" for t in r.trace]
     except Exception as e:  # noqa: BLE001
         res["crash"] = f"{type(e).__name__}: {e}\n{traceback.format_exc(limit=3)}"
 
@@ -140,6 +172,14 @@ def run_scenario(app, sc: dict) -> dict:
         "no_crash": res["crash"] is None,
         "any_progress": bool(seen & {"variants", "question", "no_results", "destinations"}),
     }[g]
+    if (bad := set(checks.get("not_locations", []))) and st.requirements.location_id in bad:
+        res["violations"].append(f"направление {st.requirements.location_id}: пользователь от него отказался")
+    if bad := set(checks.get("not_offered", [])) & res["offered_locations"]:
+        res["violations"].append(f"предложены отвергнутые направления: {sorted(bad)}")
+    if checks.get("distinct_offers"):
+        sets = res["offer_sets"]
+        if len(sets) < 2 or any(a & b for i, a in enumerate(sets) for b in sets[i + 1 :]):
+            res["violations"].append("«другие отели» повторили уже показанные")
     if checks.get("no_variants") and "variants" in seen:
         res["violations"].append("variants shown for non-travel/injection input")
     if "max_clarifications" in checks and res["clarifications"] > checks["max_clarifications"]:
@@ -224,6 +264,7 @@ def main() -> None:
         "scenarios": n,
         "completion_rate": round(sum(r["ok"] for r in results) / n, 3) if n else 0,
         "avg_clarifications": round(sum(r["clarifications"] for r in results) / n, 2) if n else 0,
+        "avg_city_choices": round(sum(r["city_choices"] for r in results) / n, 2) if n else 0,
         "avg_turns_to_first_offer": round(sum(r["turns_to_offer"] for r in offered) / len(offered), 2) if offered else None,
         "avg_ms_to_first_offer": int(sum(r["ms_to_offer"] for r in offered) / len(offered)) if offered else None,
         "constraint_violations": sum(

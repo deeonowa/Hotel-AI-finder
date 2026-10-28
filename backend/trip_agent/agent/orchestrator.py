@@ -87,6 +87,11 @@ from .policy import (
 )
 
 
+def named_ok(req: Requirements, allowed: set[str]) -> bool:
+    """Город назвал пользователь, и он не противоречит его же ограничениям («не туда», «по России»)."""
+    return req.provenance.get("location_id") == Source.user and req.location_id in allowed
+
+
 def q(name: str) -> str:
     """Название в кавычках без двойных «« »»."""
     return name if "«" in name else f"«{name}»"
@@ -471,7 +476,17 @@ class Agent:
             st.stage = TripStage.collecting
             text = f"Под эти условия ({self._geo_text(req)}) в каталоге не осталось направлений. Что из этого можно вернуть?"
             return [TextBlock(markdown=text)], self._geo_relax(req)
-        named = req.provenance.get("location_id") == Source.user and req.location_id in allowed
+        if self.multi_location and len(allowed) == 1 and not named_ok(req, allowed):
+            # «по России» — а в каталоге одно такое направление: выбирать нечего, сразу к отелям
+            (only_one,) = allowed
+            changed = req.location_id != only_one
+            st.requirements, _ = apply_patch(req, [PatchOp(op="set", path="location_id", value=only_one)], source=Source.user)
+            req = st.requirements
+            if changed:
+                self._on_location_change(st, changes)
+            chips = AssumptionsBlock(items=assumption_chips(req))
+            tr.note("compare_locations", f"{self._geo_text(req)} → единственное направление: {self._loc(st).name}")
+        named = named_ok(req, allowed)
         extra: list[UIBlock] = []
         if self.multi_location and req.location_id not in allowed and context and not inspire:
             # «хочу за границу, но не в Дубай» посреди диалога: даты и состав уже знаем — сразу подбираем отели

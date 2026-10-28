@@ -285,8 +285,13 @@ def test_unspecified_geography_is_asked_explicitly(agent):
     q = _blocks(r, "question")
     assert q and {x.label for x in q[0].quick_replies} == {"По России", "За границу"}
     r = agent.turn(sid, TurnRequest(action=q[0].quick_replies[0].action))
+    # по России в каталоге одно направление — выбирать нечего, сразу отели
+    assert _blocks(r, "variants") and agent.get_state(sid).requirements.location_id == "sochi"
+    sid = agent.new_session().session_id
+    q = _blocks(_say(agent, sid, "вдвоём на море с 5 по 12 декабря"), "question")
+    r = agent.turn(sid, TurnRequest(action=q[0].quick_replies[1].action))
     shown = {c.location_id for b in _blocks(r, "destinations") for c in b.items}
-    assert shown == {"sochi"}
+    assert shown and "sochi" not in shown and not _blocks(r, "variants")
 
 
 def test_more_options_shows_new_hotels(agent):

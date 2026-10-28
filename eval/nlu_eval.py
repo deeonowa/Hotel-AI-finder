@@ -36,7 +36,7 @@ from trip_agent.requirements_ops import PatchError, apply_patch  # noqa: E402
 from trip_agent.schemas import Source, TurnRequest  # noqa: E402
 
 TODAY = date(2026, 10, 26)
-BASE = "вдвоём с 10 по 17 ноября у моря, до 100 тысяч, с бассейном"
+BASE = "в Сочи вдвоём с 10 по 17 ноября у моря, до 100 тысяч, с бассейном"
 
 
 def _get(req, path: str):
