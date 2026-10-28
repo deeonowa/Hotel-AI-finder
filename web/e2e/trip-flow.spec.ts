@@ -16,6 +16,7 @@ test("выбор сохраняется в путевом листе после 
   await page.goto("/");
   await page.getByLabel("Куда хочется?").fill("К морю в ноябре");
   await page.getByRole("button", { name: "Отправить" }).click();
+  await expect(page.getByLabel("Статус агента: Маршрут собран по проверенным правилам.")).toHaveText("план проверен");
   await page.getByRole("button", { name: /В корзину/ }).click();
   await expect(page.getByLabel("Ваша поездка")).toContainText("Отель «Олива»");
   await expect(page.getByLabel("Статус бронирования")).toContainText("46 060");
