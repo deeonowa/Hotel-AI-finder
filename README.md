@@ -18,8 +18,8 @@
 Ключи, аккаунты и отдельная установка базы данных не нужны.
 
 ```bash
-git clone https://github.com/ostrovok-hackathon-2026/bisolid.git
-cd bisolid
+git clone https://github.com/deeonowa/Hotel-AI-finder.git
+cd Hotel-AI-finder
 docker compose up --build -d
 ```
 
